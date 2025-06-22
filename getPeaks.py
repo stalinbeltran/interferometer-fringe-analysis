@@ -33,7 +33,7 @@ yp, xp = np.where(img != 0)
 xmax = max(xp)
 xmin = min(xp)
 
-target_slice = (xmax - xmin) / 2 + xmin # get the middle of the fringe blob
+target_slice = (xmax - xmin) / 4 + xmin # get the middle of the fringe blob
 
 sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5) # get the vertical derivative
 
