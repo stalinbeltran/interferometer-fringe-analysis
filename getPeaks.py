@@ -4,6 +4,11 @@ import numpy as np
 import cv2
 from scipy.signal import find_peaks
 from scipy.ndimage.filters import gaussian_filter1d
+import sys
+
+archivoProcesar = sys.argv[1]
+print(archivoProcesar)
+# sys.exit()
 
 fig = plt.figure(tight_layout=True)
 gs = gridspec.GridSpec(2, 2)
@@ -15,7 +20,7 @@ ax1.set_yticks([])
 ax2.set_yticks([])
 ax2.set_xticks([])
 
-img = cv2.imread('michelson.jpg', 0) # read in the image as grayscale
+img = cv2.imread(archivoProcesar, 0) # read in the image as grayscale
 
 ax1.imshow(img, cmap='gray')
 ax1.set_title("Original image (grayscale)")
