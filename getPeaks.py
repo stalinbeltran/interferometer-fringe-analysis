@@ -33,7 +33,7 @@ yp, xp = np.where(img != 0)
 xmax = max(xp)
 xmin = min(xp)
 
-target_slice = (xmax - xmin) / 4 + xmin # get the middle of the fringe blob
+target_slice = (xmax - xmin)*.75 + xmin # get the middle of the fringe blob
 
 sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5) # get the vertical derivative
 
@@ -51,7 +51,17 @@ slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
 
 ax3.plot(slc) 
 peaks = find_peaks(slc)[0] # [0] returns only locations 
+i = 0
+
+print(peaks)
+size = np.size(peaks)
+print(size)
+wavelength = np.empty(size)
+for i in range(1, size):
+    print(peaks[i] - peaks[i-1])
+    wavelength[i-1] = peaks[i] - peaks[i-1]
+print(wavelength)
 
 ax3.plot(peaks, slc[peaks], 'ro')
 ax3.set_title('number of fringes: ' + str(len(peaks)))
-plt.show()
+#plt.show()
