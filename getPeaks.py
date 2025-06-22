@@ -42,6 +42,7 @@ sobely = cv2.blur(sobely,(7,7)) # make the peaks a little smoother
 ax2.imshow(sobely, cmap='gray') #show the derivative (troughs are very visible)
 ax2.plot([target_slice, target_slice], [img.shape[0], 0], 'r-')
 
+wavelengths = np.empty(0)
 for target_slice in range(xmiddle, xmax):
     slc = sobely[:, int(target_slice)]
     slc[slc < 0] = 0
@@ -61,8 +62,14 @@ for target_slice in range(xmiddle, xmax):
     for i in range(1, size):
         #print(peaks[i] - peaks[i-1])
         wavelength[i-1] = peaks[i] - peaks[i-1]
-    print(wavelength)
+    #print(wavelength)
+    np.resize(wavelengths, np.size(wavelength))
+    wavelengths = np.append(wavelengths, wavelength)
 
+print('wavelengths size:', np.size(wavelengths))
+print('mean:', np.mean(wavelengths))
+print('std:', np.std(wavelengths))
+print('var:', np.var(wavelengths))
 ax3.plot(peaks, slc[peaks], 'ro')
 ax3.set_title('number of fringes: ' + str(len(peaks)))
 #plt.show()
