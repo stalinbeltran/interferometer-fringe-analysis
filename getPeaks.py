@@ -32,7 +32,7 @@ yp, xp = np.where(img != 0)
 
 xmax = max(xp)
 xmin = min(xp)
-
+xmiddle = int((xmax - xmin)*.5)
 target_slice = (xmax - xmin)*.75 + xmin # get the middle of the fringe blob
 
 sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5) # get the vertical derivative
@@ -42,25 +42,26 @@ sobely = cv2.blur(sobely,(7,7)) # make the peaks a little smoother
 ax2.imshow(sobely, cmap='gray') #show the derivative (troughs are very visible)
 ax2.plot([target_slice, target_slice], [img.shape[0], 0], 'r-')
 
-slc = sobely[:, int(target_slice)]
-slc[slc < 0] = 0
-ax2.set_title("vertical derivative (red line indicating slice taken from image)")
+for target_slice in range(xmiddle, xmax):
+    slc = sobely[:, int(target_slice)]
+    slc[slc < 0] = 0
+    ax2.set_title("vertical derivative (red line indicating slice taken from image)")
 
-slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
-# again an arbitrary threshold
+    slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
+    # again an arbitrary threshold
 
-ax3.plot(slc) 
-peaks = find_peaks(slc)[0] # [0] returns only locations 
-i = 0
+    ax3.plot(slc) 
+    peaks = find_peaks(slc)[0] # [0] returns only locations 
+    i = 0
 
-print(peaks)
-size = np.size(peaks)
-print(size)
-wavelength = np.empty(size)
-for i in range(1, size):
-    print(peaks[i] - peaks[i-1])
-    wavelength[i-1] = peaks[i] - peaks[i-1]
-print(wavelength)
+    #print(peaks)
+    size = np.size(peaks)
+    #print(size)
+    wavelength = np.empty(size)
+    for i in range(1, size):
+        #print(peaks[i] - peaks[i-1])
+        wavelength[i-1] = peaks[i] - peaks[i-1]
+    print(wavelength)
 
 ax3.plot(peaks, slc[peaks], 'ro')
 ax3.set_title('number of fringes: ' + str(len(peaks)))
