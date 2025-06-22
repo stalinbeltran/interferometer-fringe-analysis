@@ -32,7 +32,6 @@ yp, xp = np.where(img != 0)
 
 xmax = max(xp)
 xmin = min(xp)
-xmiddle = int((xmax - xmin)*.5)
 target_slice = (xmax - xmin)*.75 + xmin # get the middle of the fringe blob
 
 sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5) # get the vertical derivative
@@ -72,8 +71,12 @@ def getWavelength(xmiddle, xmax):
     print('wavelengths size:', np.size(wavelengths))
     print('mean:', np.mean(wavelengths))
     print('std:', np.std(wavelengths))
-    print('var:', np.var(wavelengths))
     
+
+xmiddle = int((xmax - xmin)*.5)
+print('Left image:')
+getWavelength(xmin, xmiddle - 1)
+print('Right image:')
 getWavelength(xmiddle, xmax)
 #ax3.plot(peaks, slc[peaks], 'ro')
 #ax3.set_title('number of fringes: ' + str(len(peaks)))
