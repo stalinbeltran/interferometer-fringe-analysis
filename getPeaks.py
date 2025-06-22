@@ -7,8 +7,7 @@ from scipy.ndimage.filters import gaussian_filter1d
 import sys
 
 archivoProcesar = sys.argv[1]
-print(archivoProcesar)
-# sys.exit()
+print('file:',archivoProcesar)
 
 fig = plt.figure(tight_layout=True)
 gs = gridspec.GridSpec(2, 2)
@@ -57,14 +56,11 @@ def getWavelength(xmiddle, xmax):
         peaks = find_peaks(slc)[0] # [0] returns only locations 
         i = 0
 
-        #print(peaks)
         size = np.size(peaks)
-        #print(size)
         wavelength = np.empty(size)
         for i in range(1, size):
             #print(peaks[i] - peaks[i-1])
             wavelength[i-1] = peaks[i] - peaks[i-1]
-        #print(wavelength)
         np.resize(wavelengths, np.size(wavelength))
         wavelengths = np.append(wavelengths, wavelength)
 
@@ -72,10 +68,11 @@ def getWavelength(xmiddle, xmax):
     print('mean:', np.mean(wavelengths))
     print('std:', np.std(wavelengths))
     
-
+print()
 xmiddle = int((xmax - xmin)*.5)
 print('Left image:')
 getWavelength(xmin, xmiddle - 1)
+print()
 print('Right image:')
 getWavelength(xmiddle, xmax)
 #ax3.plot(peaks, slc[peaks], 'ro')
