@@ -40,7 +40,15 @@ sobely = cv2.blur(sobely,(7,7)) # make the peaks a little smoother
 ax2.imshow(sobely, cmap='gray') #show the derivative (troughs are very visible)
 ax2.plot([target_slice, target_slice], [img.shape[0], 0], 'r-')
 
-
+def findPeaks(slc):
+    peaks = find_peaks(slc)[0] # [0] returns only locations 
+    i = 0
+    size = np.size(peaks)
+    wavelength = np.empty(size)
+    for i in range(1, size):
+        #print(peaks[i] - peaks[i-1])
+        wavelength[i-1] = peaks[i] - peaks[i-1]
+    return wavelength
 
 def getWavelength(xmiddle, xmax):
     wavelengths = np.empty(0)
@@ -53,14 +61,7 @@ def getWavelength(xmiddle, xmax):
         # again an arbitrary threshold
 
         ax3.plot(slc) 
-        peaks = find_peaks(slc)[0] # [0] returns only locations 
-        i = 0
-
-        size = np.size(peaks)
-        wavelength = np.empty(size)
-        for i in range(1, size):
-            #print(peaks[i] - peaks[i-1])
-            wavelength[i-1] = peaks[i] - peaks[i-1]
+        wavelength = findPeaks(slc)
         np.resize(wavelengths, np.size(wavelength))
         wavelengths = np.append(wavelengths, wavelength)
 
