@@ -45,17 +45,39 @@ def findPeaks(slc):
     return peaks
     
 def getWavelengthArray(peaks):
-    i = 0
     size = np.size(peaks)
     wavelength = np.empty(size - 1)
     for i in range(1, size):
         wavelength[i-1] = peaks[i] - peaks[i-1]
-    print(wavelength)
+    #print(wavelength)
     return wavelength
+    
 
-def scanImage(xbegin, xend):
+def getPhaseArray(peaks, wavelength):
+    size = np.size(peaks)
+    phase = np.empty(size)
+    for i in range(0, size-1):
+        phase[i] = peaks[i]/wavelength%1.0
+    print('phase: ', phase)
+    return phase
+
+def processSliceWavelength(slc, wavelengths):
+    peaks = findPeaks(slc)
+    wavelength = getWavelengthArray(peaks)
+    np.resize(wavelengths, np.size(wavelengths) + np.size(wavelength))
+    wavelengths = np.append(wavelengths, wavelength)
+    return wavelengths
+    
+    
+def processSlicePhase(slc, phases, wavelength):
+    peaks = findPeaks(slc)
+    phase = getPhaseArray(peaks, wavelength)
+    np.resize(phases, np.size(phases) + np.size(phase))
+    phases = np.append(phases, phase)
+    return phases
+
+def scanImageWavelengths(xbegin, xend):
     wavelengths = np.empty(0)
-    debugCounter = 0
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
         slc[slc < 0] = 0
@@ -68,29 +90,56 @@ def scanImage(xbegin, xend):
         ax2.plot([target_slice, target_slice], [img.shape[0], 0], 'r-')
         ax3.plot(slc)
         
-        peaks = findPeaks(slc)
-        wavelength = getWavelengthArray(peaks)
-        np.resize(wavelengths, np.size(wavelengths) + np.size(wavelength))
-        wavelengths = np.append(wavelengths, wavelength)
+        wavelengths = processSliceWavelength(slc, wavelengths)
         
         slc *=-1                    #get the negative of the slice to work the minimums
-    #FALTA PROCESAR EL NEGATIVO DE SLICE
-    
-        # debugCounter+=1
-        # if debugCounter==10:
-            # break
+        wavelengths = processSliceWavelength(slc, wavelengths)
+        break
 
-    print('wavelengths size:', np.size(wavelengths))
-    print(wavelengths)
-    print('mean:', np.mean(wavelengths))
-    print('std:', np.std(wavelengths))
+    mean = np.mean(wavelengths)
+    std = np.std(wavelengths)
+    return mean, std, wavelengths
+    
+
+def scanImagePhases(xbegin, xend, wavelength):
+    phases = np.empty(0)
+    for target_slice in range(xbegin, xend):
+        slc = sobely[:, int(target_slice)]
+        slc[slc < 0] = 0
+        ax2.set_title("vertical derivative (red line indicating slice taken from image)")
+
+        slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
+        # again an arbitrary threshold
+        
+        phases = processSlicePhase(slc, phases, wavelength)
+        
+        slc *=-1                    #get the negative of the slice to work the minimums
+        phases = processSlicePhase(slc, phases, wavelength)
+        break
+
+    mean = np.mean(phases)
+    std = np.std(phases)
+    return mean, std, phases
+    
     
 print()
 xmiddle = int((xmax - xmin)*.5)
-# print('Left image:')
-# scanImage(xmin, xmiddle - 1)
+print('Left image:')
+meanWavelength, stdWavelength, wavelengths = scanImageWavelengths(xmin, xmiddle - 1)
+print('wavelengths size:', np.size(wavelengths))
+print(wavelengths)
+print('mean wavelength:', meanWavelength)
+print('std wavelength:', stdWavelength)
+
+
+meanPhase, stdPhase, phases = scanImagePhases(xmin, xmiddle - 1, meanWavelength)
+print('phases size:', np.size(phases))
+print(phases)
+print('mean phase:', meanPhase)
+print('std phase:', stdPhase)
+    
 print()
 print('Right image:')
-scanImage(xmiddle, xmax)
+#scanImageWavelengths(xmiddle, xmax)
 #ax3.set_title('number of fringes: ' + str(len(peaks)))
-plt.show()
+#plt.show()
