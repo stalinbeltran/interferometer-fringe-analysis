@@ -47,8 +47,11 @@ def findPeaks(slc):
 def getWavelengthArray(peaks):
     size = np.size(peaks)
     wavelength = np.empty(size - 1)
+    print('peaks size:', size)
     for i in range(1, size):
+        print(i)
         wavelength[i-1] = peaks[i] - peaks[i-1]
+        print(wavelength[i-1])
     #print(wavelength)
     return wavelength
     
