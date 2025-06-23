@@ -53,6 +53,13 @@ def getWavelengthArray(peaks):
     print(wavelength)
     return wavelength
 
+def processSlice(slc, wavelengths):
+    peaks = findPeaks(slc)
+    wavelength = getWavelengthArray(peaks)
+    np.resize(wavelengths, np.size(wavelengths) + np.size(wavelength))
+    wavelengths = np.append(wavelengths, wavelength)
+    return wavelengths
+
 def scanImage(xbegin, xend):
     wavelengths = np.empty(0)
     for target_slice in range(xbegin, xend):
@@ -67,14 +74,11 @@ def scanImage(xbegin, xend):
         ax2.plot([target_slice, target_slice], [img.shape[0], 0], 'r-')
         ax3.plot(slc)
         
-        peaks = findPeaks(slc)
-        wavelength = getWavelengthArray(peaks)
-        np.resize(wavelengths, np.size(wavelengths) + np.size(wavelength))
-        wavelengths = np.append(wavelengths, wavelength)
+        wavelengths = processSlice(slc, wavelengths)
         
         slc *=-1                    #get the negative of the slice to work the minimums
-    #FALTA PROCESAR EL NEGATIVO DE SLICE
-        break
+        wavelengths = processSlice(slc, wavelengths)
+
 
     print('wavelengths size:', np.size(wavelengths))
     print(wavelengths)
