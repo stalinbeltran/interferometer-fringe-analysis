@@ -43,7 +43,6 @@ ax2.set_title("vertical derivative (red line indicating slice taken from image)"
 
 def findPeaks(slc):
     peaks = find_peaks(slc)[0] # [0] returns only locations
-    ax3.plot(peaks, slc[peaks], 'ro')
     return peaks
     
 def getWavelengthArray(peaks):
@@ -120,7 +119,7 @@ def scanImagePhases(xbegin, xend, wavelength):
 print()
 xmiddle = int((xmax - xmin)*.5)
 print('Left image:')
-meanWavelength, stdWavelength, wavelengths = scanImageWavelengths(xmin, xmiddle - 1)
+meanWavelength, stdWavelength, wavelengths = scanImageWavelengths(xmin, xmiddle - 1, ax3)
 print('wavelengths size:', np.size(wavelengths))
 print(wavelengths)
 print('mean wavelength:', meanWavelength)
@@ -135,7 +134,7 @@ print('std phase:', stdPhase)
     
 print()
 print('Right image:')
-meanWavelength, stdWavelength, wavelengths = scanImageWavelengths(xmiddle, xmax)
+meanWavelength, stdWavelength, wavelengths = scanImageWavelengths(xmiddle, xmax, ax4)
 print('wavelengths size:', np.size(wavelengths))
 print(wavelengths)
 print('mean wavelength:', meanWavelength)
