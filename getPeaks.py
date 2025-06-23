@@ -194,6 +194,7 @@ plt.show()
 '''
 
 #plt.figure(figsize=[8,8])
+corrimg[corrimg < 0] = 0
 ax3.imshow(corrimg, cmap='gray')
 
 plt.show()
