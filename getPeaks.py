@@ -45,7 +45,6 @@ def findPeaks(slc):
     return peaks
     
 def getWavelengthArray(peaks):
-    i = 0
     size = np.size(peaks)
     wavelength = np.empty(size - 1)
     for i in range(1, size):
@@ -55,7 +54,6 @@ def getWavelengthArray(peaks):
     
 
 def getPhaseArray(peaks, wavelength):
-    i = 0
     size = np.size(peaks)
     phase = np.empty(size)
     for i in range(0, size-1):
