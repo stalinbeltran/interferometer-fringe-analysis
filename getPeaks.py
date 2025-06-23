@@ -49,8 +49,9 @@ ax2.set_title("vertical derivative (red line indicating slice taken from image)"
 slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
 # again an arbitrary threshold
 
+ax3.plot(slc)
 slc *=-1
-ax3.plot(slc) 
+ax3.plot(slc)
 peaks = find_peaks(slc)[0] # [0] returns only locations 
 
 ax3.plot(peaks, slc[peaks], 'ro')
