@@ -165,18 +165,21 @@ plt.show()
 xmiddle = int(xmax/2)
 im1 = sobely[:, 0:xmiddle]
 im2 = sobely[:, xmiddle:xmax]
+
+'''
 plt.imshow(im1)
 plt.show()
 
 plt.imshow(im2)
 plt.show()
-
-sys.exit()
+'''
 corrimg = phase_correlation(im1, im2)
 r,c = np.unravel_index(corrimg.argmax(), corrimg.shape)
-
-#plt.plot([c],[r],'ro')
-
+print(r, c)
+'''
+plt.plot([c],[r],'ro')
+plt.show()
+'''
 
 plt.figure(figsize=[8,8])
 plt.imshow(corrimg, cmap='gray')
