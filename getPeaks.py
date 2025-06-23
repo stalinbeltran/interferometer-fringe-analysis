@@ -41,7 +41,10 @@ ax2.imshow(sobely, cmap='gray') #show the derivative (troughs are very visible)
 ax2.plot([target_slice, target_slice], [img.shape[0], 0], 'r-')
 
 def findPeaks(slc):
-    peaks = find_peaks(slc)[0] # [0] returns only locations 
+    peaks = find_peaks(slc)[0] # [0] returns only locations
+    return peaks
+    
+def getWavelengthArray(peaks):
     i = 0
     size = np.size(peaks)
     wavelength = np.empty(size)
@@ -49,8 +52,7 @@ def findPeaks(slc):
         wavelength[i-1] = peaks[i] - peaks[i-1]
     return wavelength
 
-def getWavelength(xmiddle, xmax):
-def getWavelength(xbegin, xend):
+def scanImage(xbegin, xend):
     wavelengths = np.empty(0)
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
@@ -61,11 +63,12 @@ def getWavelength(xbegin, xend):
         # again an arbitrary threshold
 
         ax3.plot(slc) 
-        wavelength = findPeaks(slc)
+        peaks = findPeaks(slc)
+        wavelength = getWavelengthArray(peaks)
         np.resize(wavelengths, np.size(wavelength))
         wavelengths = np.append(wavelengths, wavelength)
         
-        slc *=-1
+        slc *=-1                    #get the negative of the slice to work the minimums
         wavelength = findPeaks(slc)
         np.resize(wavelengths, np.size(wavelength))
         wavelengths = np.append(wavelengths, wavelength)
@@ -77,10 +80,10 @@ def getWavelength(xbegin, xend):
 print()
 xmiddle = int((xmax - xmin)*.5)
 print('Left image:')
-getWavelength(xmin, xmiddle - 1)
+scanImage(xmin, xmiddle - 1)
 print()
 print('Right image:')
-getWavelength(xmiddle, xmax)
+scanImage(xmiddle, xmax)
 #ax3.plot(peaks, slc[peaks], 'ro')
 #ax3.set_title('number of fringes: ' + str(len(peaks)))
 plt.show()
