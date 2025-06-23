@@ -185,6 +185,6 @@ plt.figure(figsize=[8,8])
 plt.imshow(corrimg, cmap='gray')
 
 plt.show()
-
+print(corrimg)
 sys.exit()
     
