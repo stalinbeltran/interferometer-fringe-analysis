@@ -169,8 +169,8 @@ plt.show()
 xmiddle = int(xmax/2)
 im1 = sobely[:, 0:xmiddle]
 im2 = np.zeros_like(im1)
-im2[:100,:100] = im1[200:300, 50:150]
-#im2 = sobely[200:300, xmiddle:xmax]
+#im2[:100,:100] = im1[200:300, 50:150]
+im2[:250, :50] = sobely[50:300, xmiddle:xmiddle+50]
 
 
 plt.imshow(im1)
