@@ -120,31 +120,7 @@ def phase_correlation(a, b):
     return r
     
     
-    
-
-#Get two images with snippet at different locations
-
-xmiddle = int(xmax/2)
-im1 = sobely[0:xmiddle, :]
-im2 = sobely[xmiddle:xmax, :]
-
-corrimg = phase_correlation(im1, im2)
-r,c = np.unravel_index(corrimg.argmax(), corrimg.shape)
-
-plt.imshow(im1)
-plt.plot([c],[r],'ro')
-plt.show()
-
-plt.imshow(im2)
-plt.show()
-
-plt.figure(figsize=[8,8])
-plt.imshow(corrimg, cmap='gray')
-
-plt.show()
-
-sys.exit()
-    
+    '''
 print()
 xmiddle = int((xmax - xmin)*.5)
 print('Left image:')
@@ -181,3 +157,28 @@ ax4.set_title("Right Image (Wavelength: " + ' mean: ' + "{:.1f}".format(meanWave
 
 #ax3.set_title('number of fringes: ' + str(len(peaks)))
 plt.show()
+
+'''
+#Get two images with snippet at different locations
+
+xmiddle = int(xmax/2)
+im1 = sobely[0:xmiddle, :]
+im2 = sobely[xmiddle:xmax, :]
+
+corrimg = phase_correlation(im1, im2)
+r,c = np.unravel_index(corrimg.argmax(), corrimg.shape)
+
+plt.imshow(im1)
+plt.plot([c],[r],'ro')
+plt.show()
+
+plt.imshow(im2)
+plt.show()
+
+plt.figure(figsize=[8,8])
+plt.imshow(corrimg, cmap='gray')
+
+plt.show()
+
+sys.exit()
+    
