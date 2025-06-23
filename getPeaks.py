@@ -35,7 +35,7 @@ xmin = min(xp)
 
 target_slice = (xmax - xmin) * .65 + xmin # get the middle of the fringe blob
 
-sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5) # get the vertical derivative
+sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=11) # get the vertical derivative
 
 sobely = cv2.blur(sobely,(7,7)) # make the peaks a little smoother
 
