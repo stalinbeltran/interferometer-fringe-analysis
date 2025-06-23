@@ -25,7 +25,7 @@ img = cv2.imread(archivoProcesar, 0) # read in the image as grayscale
 ax1.imshow(img, cmap='gray')
 ax1.set_title("Original image (grayscale)")
 
-img[img < 10] = 0 # apply some arbitrary thresholding (there's
+#img[img < 10] = 0 # apply some arbitrary thresholding (there's
 # a bunch of noise in the image
 
 yp, xp = np.where(img != 0)
@@ -33,9 +33,9 @@ yp, xp = np.where(img != 0)
 xmax = max(xp)
 xmin = min(xp)
 
-target_slice = (xmax - xmin) / 4 + xmin # get the middle of the fringe blob
+target_slice = (xmax - xmin) * .65 + xmin # get the middle of the fringe blob
 
-sobely = img #cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5) # get the vertical derivative
+sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5) # get the vertical derivative
 
 sobely = cv2.blur(sobely,(7,7)) # make the peaks a little smoother
 
@@ -51,7 +51,6 @@ slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
 
 ax3.plot(slc)
 #slc *=-1
-#ax3.plot(slc)
 peaks = find_peaks(slc)[0] # [0] returns only locations 
 
 ax3.plot(peaks, slc[peaks], 'ro')
