@@ -186,18 +186,19 @@ ax1.imshow(im1)
 ax2.imshow(im2)
 
 corrimg = phase_correlation(im1, im2)
-r,c = np.unravel_index(corrimg.argmax(), corrimg.shape)
-print(r, c)
+corrimg[corrimg < 0.05] = 0
+r,c = np.unravel_index(np.where(corrimg>0), corrimg.shape)
+print('rows:', r)
+print('cols:', c)
 '''
 plt.plot([c],[r],'ro')
 plt.show()
 '''
 
 #plt.figure(figsize=[8,8])
-corrimg[corrimg < 0] = 0
 ax3.imshow(corrimg, cmap='gray')
 
 plt.show()
-print(corrimg)
+print('corrimg', corrimg)
 sys.exit()
     
