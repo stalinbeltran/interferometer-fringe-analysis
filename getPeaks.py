@@ -35,7 +35,7 @@ xmin = min(xp)
 
 target_slice = (xmax - xmin) / 4 + xmin # get the middle of the fringe blob
 
-sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5) # get the vertical derivative
+sobely = img #cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5) # get the vertical derivative
 
 sobely = cv2.blur(sobely,(7,7)) # make the peaks a little smoother
 
@@ -50,8 +50,8 @@ slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
 # again an arbitrary threshold
 
 ax3.plot(slc)
-slc *=-1
-ax3.plot(slc)
+#slc *=-1
+#ax3.plot(slc)
 peaks = find_peaks(slc)[0] # [0] returns only locations 
 
 ax3.plot(peaks, slc[peaks], 'ro')
