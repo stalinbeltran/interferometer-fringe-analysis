@@ -166,6 +166,14 @@ plt.show()
 '''
 #Get two images with snippet at different locations
 
+
+fig = plt.figure(tight_layout=True)
+gs = gridspec.GridSpec(1, 3)
+ax1 = fig.add_subplot(gs[0, 0])
+ax2 = fig.add_subplot(gs[0, 1])
+ax3 = fig.add_subplot(gs[0, 2])
+
+
 xmiddle = int(xmax/2)
 im1 = sobely[:, 0:xmiddle]
 im2 = np.zeros_like(im1)
@@ -173,11 +181,9 @@ im2 = np.zeros_like(im1)
 im2[:250, :50] = sobely[50:300, xmiddle:xmiddle+50]
 
 
-plt.imshow(im1)
-plt.show()
+ax1.imshow(im1)
 
-plt.imshow(im2)
-plt.show()
+ax2.imshow(im2)
 
 corrimg = phase_correlation(im1, im2)
 r,c = np.unravel_index(corrimg.argmax(), corrimg.shape)
@@ -188,7 +194,7 @@ plt.show()
 '''
 
 #plt.figure(figsize=[8,8])
-plt.imshow(corrimg, cmap='gray')
+ax3.imshow(corrimg, cmap='gray')
 
 plt.show()
 print(corrimg)
