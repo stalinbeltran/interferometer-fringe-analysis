@@ -50,6 +50,7 @@ slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
 # again an arbitrary threshold
 
 ax3.plot(slc) 
+slc *=-1
 peaks = find_peaks(slc)[0] # [0] returns only locations 
 
 ax3.plot(peaks, slc[peaks], 'ro')
