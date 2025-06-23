@@ -10,7 +10,7 @@ archivoProcesar = sys.argv[1]
 print('file:',archivoProcesar)
 
 fig = plt.figure(tight_layout=True)
-gs = gridspec.GridSpec(2, 2)
+gs = gridspec.GridSpec(3, 2)
 ax1 = fig.add_subplot(gs[0, 0])
 ax2 = fig.add_subplot(gs[0, 1])
 ax3 = fig.add_subplot(gs[1, :])
