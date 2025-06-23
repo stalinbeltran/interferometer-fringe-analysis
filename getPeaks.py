@@ -14,6 +14,7 @@ gs = gridspec.GridSpec(2, 2)
 ax1 = fig.add_subplot(gs[0, 0])
 ax2 = fig.add_subplot(gs[0, 1])
 ax3 = fig.add_subplot(gs[1, :])
+ax4 = fig.add_subplot(gs[2, :])
 ax1.set_xticks([])
 ax1.set_yticks([])
 ax2.set_yticks([])
@@ -38,6 +39,7 @@ sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5) # get the vertical derivative
 sobely = cv2.blur(sobely,(7,7)) # make the peaks a little smoother
 
 ax2.imshow(sobely, cmap='gray') #show the derivative (troughs are very visible)
+ax2.set_title("vertical derivative (red line indicating slice taken from image)")
 
 def findPeaks(slc):
     peaks = find_peaks(slc)[0] # [0] returns only locations
@@ -75,19 +77,18 @@ def processSlicePhase(slc, phases, wavelength):
     phases = np.append(phases, phase)
     return phases
 
-def scanImageWavelengths(xbegin, xend):
+def scanImageWavelengths(xbegin, xend, axis):
     wavelengths = np.empty(0)
+    
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
         slc[slc < 0] = 0
-        ax2.set_title("vertical derivative (red line indicating slice taken from image)")
-
         slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
         # again an arbitrary threshold
 
         
         ax2.plot([target_slice, target_slice], [img.shape[0], 0], 'r-')
-        ax3.plot(slc)
+        axis.plot(slc)
         
         wavelengths = processSliceWavelength(slc, wavelengths)
         slc *=-1                    #get the negative of the slice to work the minimums
@@ -104,8 +105,6 @@ def scanImagePhases(xbegin, xend, wavelength):
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
         slc[slc < 0] = 0
-        ax2.set_title("vertical derivative (red line indicating slice taken from image)")
-
         slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
         # again an arbitrary threshold
         
