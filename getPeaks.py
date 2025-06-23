@@ -23,7 +23,7 @@ ax2.set_xticks([])
 img = cv2.imread(archivoProcesar, 0) # read in the image as grayscale
 
 ax1.imshow(img, cmap='gray')
-ax1.set_title("Original image (grayscale)")
+ax1.set_title("Original image")
 
 img[img < 10] = 0 # apply some arbitrary thresholding (there's
 # a bunch of noise in the image
@@ -39,7 +39,7 @@ sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5) # get the vertical derivative
 sobely = cv2.blur(sobely,(7,7)) # make the peaks a little smoother
 
 ax2.imshow(sobely, cmap='gray') #show the derivative (troughs are very visible)
-ax2.set_title("vertical derivative (red line indicating slice taken from image)")
+ax2.set_title("vertical derivative")
 
 def findPeaks(slc):
     peaks = find_peaks(slc)[0] # [0] returns only locations
@@ -82,15 +82,11 @@ def scanImageWavelengths(xbegin, xend, axis):
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
         slc[slc < 0] = 0
-        slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
-        # again an arbitrary threshold
-
-        
-        ax2.plot([target_slice, target_slice], [img.shape[0], 0], 'r-')
+        slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise, again an arbitrary threshold
         axis.plot(slc)
         
         wavelengths = processSliceWavelength(slc, wavelengths)
-        slc *=-1                    #get the negative of the slice to work the minimums
+        slc *=-1                    #get the negative of the slice to work the minimums too
         wavelengths = processSliceWavelength(slc, wavelengths)
 
 
@@ -119,6 +115,7 @@ def scanImagePhases(xbegin, xend, wavelength):
 print()
 xmiddle = int((xmax - xmin)*.5)
 print('Left image:')
+ax3.set_title("Left Image Wave")
 meanWavelength, stdWavelength, wavelengths = scanImageWavelengths(xmin, xmiddle - 1, ax3)
 print('wavelengths size:', np.size(wavelengths))
 print(wavelengths)
@@ -134,6 +131,7 @@ print('std phase:', stdPhase)
     
 print()
 print('Right image:')
+ax4.set_title("Right Image Wave")
 meanWavelength, stdWavelength, wavelengths = scanImageWavelengths(xmiddle, xmax, ax4)
 print('wavelengths size:', np.size(wavelengths))
 print(wavelengths)
