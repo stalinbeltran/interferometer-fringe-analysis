@@ -25,14 +25,12 @@ img = cv2.imread(archivoProcesar, 0) # read in the image as grayscale
 ax1.imshow(img, cmap='gray')
 ax1.set_title("Original image")
 
-img[img < 10] = 0 # apply some arbitrary thresholding (there's
+#img[img < 10] = 0 # apply some arbitrary thresholding (there's
 # a bunch of noise in the image
 
-yp, xp = np.where(img != 0)
 
-xmax = max(xp)
-xmin = min(xp)
-target_slice = (xmax - xmin)*.75 + xmin # get the middle of the fringe blob
+xmax, ymax = img.shape
+xmin = 0
 
 sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5) # get the vertical derivative
 
@@ -111,6 +109,41 @@ def scanImagePhases(xbegin, xend, wavelength):
     std = np.std(phases)
     return mean, std, phases
     
+    
+def phase_correlation(a, b):
+    G_a = np.fft.fft2(a)
+    G_b = np.fft.fft2(b)
+    conj_b = np.ma.conjugate(G_b)
+    R = G_a*conj_b
+    R /= np.absolute(R)
+    r = np.fft.ifft2(R).real
+    return r
+    
+    
+    
+
+#Get two images with snippet at different locations
+
+xmiddle = int(xmax/2)
+im1 = sobely[0:xmiddle, :]
+im2 = sobely[xmiddle:xmax, :]
+
+corrimg = phase_correlation(im1, im2)
+r,c = np.unravel_index(corrimg.argmax(), corrimg.shape)
+
+plt.imshow(im1)
+plt.plot([c],[r],'ro')
+plt.show()
+
+plt.imshow(im2)
+plt.show()
+
+plt.figure(figsize=[8,8])
+plt.imshow(corrimg, cmap='gray')
+
+plt.show()
+
+sys.exit()
     
 print()
 xmiddle = int((xmax - xmin)*.5)
