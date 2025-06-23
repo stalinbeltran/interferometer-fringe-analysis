@@ -59,8 +59,8 @@ def getPhaseArray(peaks, wavelength):
     size = np.size(peaks)
     phase = np.empty(size)
     for i in range(0, size-1):
-        phase[i] = peaks[i]%1.0
-    print(phase)
+        phase[i] = peaks[i]/wavelength%1.0
+    print('phase: ', phase)
     return phase
 
 def processSliceWavelength(slc, wavelengths):
@@ -69,6 +69,14 @@ def processSliceWavelength(slc, wavelengths):
     np.resize(wavelengths, np.size(wavelengths) + np.size(wavelength))
     wavelengths = np.append(wavelengths, wavelength)
     return wavelengths
+    
+    
+def processSlicePhase(slc, phases, wavelength):
+    peaks = findPeaks(slc)
+    phase = getPhaseArray(peaks, wavelength)
+    np.resize(phases, np.size(phases) + np.size(phase))
+    phases = np.append(phases, phase)
+    return phases
 
 def scanImageWavelengths(xbegin, xend):
     wavelengths = np.empty(0)
@@ -95,7 +103,7 @@ def scanImageWavelengths(xbegin, xend):
     return mean, std, wavelengths
     
 
-def scanImagePhases(xbegin, xend):
+def scanImagePhases(xbegin, xend, wavelength):
     phases = np.empty(0)
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
@@ -105,10 +113,10 @@ def scanImagePhases(xbegin, xend):
         slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
         # again an arbitrary threshold
         
-        phases = processSliceWavelength(slc, phases)
+        phases = processSlicePhase(slc, phases, wavelength)
         
         slc *=-1                    #get the negative of the slice to work the minimums
-        phases = processSliceWavelength(slc, phases)
+        phases = processSlicePhase(slc, phases, wavelength)
         break
 
     mean = np.mean(phases)
@@ -119,11 +127,18 @@ def scanImagePhases(xbegin, xend):
 print()
 xmiddle = int((xmax - xmin)*.5)
 print('Left image:')
-mean, std, wavelengths = scanImageWavelengths(xmin, xmiddle - 1)
+meanWavelength, stdWavelength, wavelengths = scanImageWavelengths(xmin, xmiddle - 1)
 print('wavelengths size:', np.size(wavelengths))
 print(wavelengths)
-print('mean:', mean)
-print('std:', std)
+print('mean wavelength:', meanWavelength)
+print('std wavelength:', stdWavelength)
+
+
+meanPhase, stdPhase, phases = scanImagePhases(xmin, xmiddle - 1, meanWavelength)
+print('phases size:', np.size(phases))
+print(phases)
+print('mean phase:', meanPhase)
+print('std phase:', stdPhase)
     
 print()
 print('Right image:')
