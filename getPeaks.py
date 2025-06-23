@@ -54,9 +54,14 @@ def getWavelengthArray(peaks):
     
 
 def getPhaseArray(peaks, wavelength):
+    
+    print('peaks:', peaks)
     size = np.size(peaks)
     phase = np.empty(size)
-    for i in range(0, size-1):
+    print('phase size:', size)
+    print('phase:', phase)
+    print('range(0, size)', range(0, size))
+    for i in range(0, size):
         phase[i] = peaks[i]/wavelength%1.0
     print('phase: ', phase)
     return phase
