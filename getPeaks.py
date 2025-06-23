@@ -115,12 +115,12 @@ def scanImagePhases(xbegin, xend, wavelength):
 print()
 xmiddle = int((xmax - xmin)*.5)
 print('Left image:')
-ax3.set_title("Left Image Wave")
 meanWavelength, stdWavelength, wavelengths = scanImageWavelengths(xmin, xmiddle - 1, ax3)
 print('wavelengths size:', np.size(wavelengths))
 print(wavelengths)
 print('mean wavelength:', meanWavelength)
 print('std wavelength:', stdWavelength)
+ax3.set_title("Left Image Wave" + ' mean: ' + "{:.1f}".format(meanWavelength) + ' std: ' + "{:.1f}".format(stdWavelength) )
 
 
 meanPhase, stdPhase, phases = scanImagePhases(xmin, xmiddle - 1, meanWavelength)
@@ -131,12 +131,12 @@ print('std phase:', stdPhase)
     
 print()
 print('Right image:')
-ax4.set_title("Right Image Wave")
 meanWavelength, stdWavelength, wavelengths = scanImageWavelengths(xmiddle, xmax, ax4)
 print('wavelengths size:', np.size(wavelengths))
 print(wavelengths)
 print('mean wavelength:', meanWavelength)
 print('std wavelength:', stdWavelength)
+ax4.set_title("Right Image Wave" + ' mean: ' + "{:.1f}".format(meanWavelength) + ' std: ' + "{:.1f}".format(stdWavelength) )
 
 
 meanPhase, stdPhase, phases = scanImagePhases(xmiddle, xmax, meanWavelength)
