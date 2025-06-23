@@ -90,10 +90,9 @@ def scanImageWavelengths(xbegin, xend):
         ax3.plot(slc)
         
         wavelengths = processSliceWavelength(slc, wavelengths)
-        
         slc *=-1                    #get the negative of the slice to work the minimums
         wavelengths = processSliceWavelength(slc, wavelengths)
-        break
+
 
     mean = np.mean(wavelengths)
     std = np.std(wavelengths)
@@ -111,10 +110,8 @@ def scanImagePhases(xbegin, xend, wavelength):
         # again an arbitrary threshold
         
         phases = processSlicePhase(slc, phases, wavelength)
-        
         slc *=-1                    #get the negative of the slice to work the minimums
         phases = processSlicePhase(slc, phases, wavelength)
-        break
 
     mean = np.mean(phases)
     std = np.std(phases)
