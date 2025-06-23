@@ -54,7 +54,7 @@ def getWavelengthArray(peaks):
     return wavelength
     
 
-def getPhaseArray(peaks):
+def getPhaseArray(peaks, wavelength):
     i = 0
     size = np.size(peaks)
     phase = np.empty(size)
@@ -66,12 +66,11 @@ def getPhaseArray(peaks):
 def processSlice(slc, wavelengths):
     peaks = findPeaks(slc)
     wavelength = getWavelengthArray(peaks)
-    phase = getPhaseArray(peaks)
     np.resize(wavelengths, np.size(wavelengths) + np.size(wavelength))
     wavelengths = np.append(wavelengths, wavelength)
     return wavelengths
 
-def scanImage(xbegin, xend):
+def scanImageWavelengths(xbegin, xend):
     wavelengths = np.empty(0)
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
@@ -91,17 +90,21 @@ def scanImage(xbegin, xend):
         wavelengths = processSlice(slc, wavelengths)
         break
 
-    print('wavelengths size:', np.size(wavelengths))
-    print(wavelengths)
-    print('mean:', np.mean(wavelengths))
-    print('std:', np.std(wavelengths))
+    mean = np.mean(wavelengths)
+    std = np.std(wavelengths)
+    return mean, std, wavelengths
     
 print()
 xmiddle = int((xmax - xmin)*.5)
 print('Left image:')
-scanImage(xmin, xmiddle - 1)
+mean, std, wavelengths = scanImageWavelengths(xmin, xmiddle - 1)
+print('wavelengths size:', np.size(wavelengths))
+print(wavelengths)
+print('mean:', mean)
+print('std:', std)
+    
 print()
 print('Right image:')
-scanImage(xmiddle, xmax)
+#scanImageWavelengths(xmiddle, xmax)
 #ax3.set_title('number of fringes: ' + str(len(peaks)))
 #plt.show()
