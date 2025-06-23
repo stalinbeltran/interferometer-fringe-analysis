@@ -43,7 +43,7 @@ ax2.imshow(sobely, cmap='gray') #show the derivative (troughs are very visible)
 ax2.plot([target_slice, target_slice], [img.shape[0], 0], 'r-')
 
 slc = sobely[:, int(target_slice)]
-slc[slc < 0] = 0
+#slc[slc < 0] = 0
 ax2.set_title("vertical derivative (red line indicating slice taken from image)")
 
 slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
