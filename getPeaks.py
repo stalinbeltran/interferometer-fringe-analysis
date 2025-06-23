@@ -178,8 +178,9 @@ xmiddle = int(xmax/2)
 im1 = sobely[:, 0:xmiddle]
 im2 = np.zeros_like(im1)
 #im2[:100,:100] = im1[200:300, 50:150]
-ymax = 200
-ymin = 0
+height = 200
+ymin = 50
+ymax = ymin + height
 wide = 50
 im2[0:ymax - ymin, :wide] = sobely[ymin: ymax, xmiddle:xmiddle+wide]
 
