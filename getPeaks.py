@@ -120,7 +120,6 @@ print('wavelengths size:', np.size(wavelengths))
 print(wavelengths)
 print('mean wavelength:', meanWavelength)
 print('std wavelength:', stdWavelength)
-ax3.set_title("Left Image Wave" + ' mean: ' + "{:.1f}".format(meanWavelength) + ' std: ' + "{:.1f}".format(stdWavelength) )
 
 
 meanPhase, stdPhase, phases = scanImagePhases(xmin, xmiddle - 1, meanWavelength)
@@ -128,6 +127,7 @@ print('phases size:', np.size(phases))
 print(phases)
 print('mean phase:', meanPhase)
 print('std phase:', stdPhase)
+ax3.set_title("Left Image (Wavelength: " + ' mean: ' + "{:.1f}".format(meanWavelength) + ' std: ' + "{:.1f}".format(stdWavelength) + ") (Phase: " + ' mean: ' + "{:.2f}".format(meanPhase) + ' std: ' + "{:.2f}".format(stdPhase) + ")")
     
 print()
 print('Right image:')
@@ -136,7 +136,7 @@ print('wavelengths size:', np.size(wavelengths))
 print(wavelengths)
 print('mean wavelength:', meanWavelength)
 print('std wavelength:', stdWavelength)
-ax4.set_title("Right Image Wave" + ' mean: ' + "{:.1f}".format(meanWavelength) + ' std: ' + "{:.1f}".format(stdWavelength) )
+ax4.set_title("Right Image Wavelength" + ' mean: ' + "{:.1f}".format(meanWavelength) + ' std: ' + "{:.1f}".format(stdWavelength) )
 
 
 meanPhase, stdPhase, phases = scanImagePhases(xmiddle, xmax, meanWavelength)
@@ -144,7 +144,7 @@ print('phases size:', np.size(phases))
 print(phases)
 print('mean phase:', meanPhase)
 print('std phase:', stdPhase)
-
+ax4.set_title("Right Image (Wavelength: " + ' mean: ' + "{:.1f}".format(meanWavelength) + ' std: ' + "{:.1f}".format(stdWavelength) + ") (Phase: " + ' mean: ' + "{:.2f}".format(meanPhase) + ' std: ' + "{:.2f}".format(stdPhase) + ")")
 
 #ax3.set_title('number of fringes: ' + str(len(peaks)))
 plt.show()
