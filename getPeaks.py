@@ -136,6 +136,19 @@ print('std phase:', stdPhase)
     
 print()
 print('Right image:')
-#scanImageWavelengths(xmiddle, xmax)
+meanWavelength, stdWavelength, wavelengths = scanImageWavelengths(xmiddle, xmax)
+print('wavelengths size:', np.size(wavelengths))
+print(wavelengths)
+print('mean wavelength:', meanWavelength)
+print('std wavelength:', stdWavelength)
+
+
+meanPhase, stdPhase, phases = scanImagePhases(xmiddle, xmax, meanWavelength)
+print('phases size:', np.size(phases))
+print(phases)
+print('mean phase:', meanPhase)
+print('std phase:', stdPhase)
+
+
 #ax3.set_title('number of fringes: ' + str(len(peaks)))
-#plt.show()
+plt.show()
