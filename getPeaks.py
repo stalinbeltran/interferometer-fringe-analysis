@@ -199,7 +199,6 @@ print('cols:', c)
 
 #ax1.plot([c],[r],'ro')
 ax1.plot(c, r,'ro')
-plt.show()
 
 #plt.figure(figsize=[8,8])
 ax3.imshow(corrimg, cmap='gray')
