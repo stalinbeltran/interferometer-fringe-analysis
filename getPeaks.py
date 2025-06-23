@@ -46,7 +46,6 @@ def findPeaks(slc):
     size = np.size(peaks)
     wavelength = np.empty(size)
     for i in range(1, size):
-        #print(peaks[i] - peaks[i-1])
         wavelength[i-1] = peaks[i] - peaks[i-1]
     return wavelength
 
@@ -61,6 +60,11 @@ def getWavelength(xmiddle, xmax):
         # again an arbitrary threshold
 
         ax3.plot(slc) 
+        wavelength = findPeaks(slc)
+        np.resize(wavelengths, np.size(wavelength))
+        wavelengths = np.append(wavelengths, wavelength)
+        
+        slc *=-1
         wavelength = findPeaks(slc)
         np.resize(wavelengths, np.size(wavelength))
         wavelengths = np.append(wavelengths, wavelength)
