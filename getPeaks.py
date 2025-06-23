@@ -76,9 +76,9 @@ def scanImage(xbegin, xend):
         slc *=-1                    #get the negative of the slice to work the minimums
     #FALTA PROCESAR EL NEGATIVO DE SLICE
     
-        debugCounter+=1
-        if debugCounter==10:
-            break
+        # debugCounter+=1
+        # if debugCounter==10:
+            # break
 
     print('wavelengths size:', np.size(wavelengths))
     print(wavelengths)
