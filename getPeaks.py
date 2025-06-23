@@ -56,9 +56,8 @@ def getWavelengthArray(peaks):
 def getPhaseArray(peaks, wavelength):
     size = np.size(peaks)
     phase = np.empty(size)
-    for i in range(0, size-1):
+    for i in range(size):
         phase[i] = peaks[i]/wavelength%1.0
-    print('phase: ', phase)
     return phase
 
 def processSliceWavelength(slc, wavelengths):
