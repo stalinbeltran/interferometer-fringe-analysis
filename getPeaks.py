@@ -193,7 +193,9 @@ corrimg = phase_correlation(im1, im2)
 print('corrimg shape:', corrimg.shape)
 corrimg[corrimg < 0.05] = 0
 print('where:', np.where(corrimg>0))
-r,c = np.where(corrimg>0)
+#r,c = np.where(corrimg>0)
+
+r,c = np.unravel_index(corrimg.argmax(), corrimg.shape)
 print('rows:', r)
 print('cols:', c)
 
