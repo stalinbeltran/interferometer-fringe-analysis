@@ -55,6 +55,7 @@ def getWavelengthArray(peaks):
 
 def scanImage(xbegin, xend):
     wavelengths = np.empty(0)
+    debugCounter = 0
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
         slc[slc < 0] = 0
@@ -74,7 +75,10 @@ def scanImage(xbegin, xend):
         
         slc *=-1                    #get the negative of the slice to work the minimums
     #FALTA PROCESAR EL NEGATIVO DE SLICE
-        break
+    
+        debugCounter+=1
+        if debugCounter==10:
+            break
 
     print('wavelengths size:', np.size(wavelengths))
     print(wavelengths)
@@ -86,7 +90,7 @@ xmiddle = int((xmax - xmin)*.5)
 print('Left image:')
 scanImage(xmin, xmiddle - 1)
 print()
-print('Right image:')
-scanImage(xmiddle, xmax)
+#print('Right image:')
+#scanImage(xmiddle, xmax)
 #ax3.set_title('number of fringes: ' + str(len(peaks)))
-#plt.show()
+plt.show()
