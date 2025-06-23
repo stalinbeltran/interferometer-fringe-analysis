@@ -50,8 +50,9 @@ def findPeaks(slc):
     return wavelength
 
 def getWavelength(xmiddle, xmax):
+def getWavelength(xbegin, xend):
     wavelengths = np.empty(0)
-    for target_slice in range(xmiddle, xmax):
+    for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
         slc[slc < 0] = 0
         ax2.set_title("vertical derivative (red line indicating slice taken from image)")
@@ -82,4 +83,4 @@ print('Right image:')
 getWavelength(xmiddle, xmax)
 #ax3.plot(peaks, slc[peaks], 'ro')
 #ax3.set_title('number of fringes: ' + str(len(peaks)))
-#plt.show()
+plt.show()
