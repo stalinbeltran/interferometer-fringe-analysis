@@ -38,18 +38,19 @@ sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5) # get the vertical derivative
 sobely = cv2.blur(sobely,(7,7)) # make the peaks a little smoother
 
 ax2.imshow(sobely, cmap='gray') #show the derivative (troughs are very visible)
-ax2.plot([target_slice, target_slice], [img.shape[0], 0], 'r-')
 
 def findPeaks(slc):
     peaks = find_peaks(slc)[0] # [0] returns only locations
+    ax3.plot(peaks, slc[peaks], 'ro')
     return peaks
     
 def getWavelengthArray(peaks):
     i = 0
     size = np.size(peaks)
-    wavelength = np.empty(size)
+    wavelength = np.empty(size - 1)
     for i in range(1, size):
         wavelength[i-1] = peaks[i] - peaks[i-1]
+    print(wavelength)
     return wavelength
 
 def scanImage(xbegin, xend):
@@ -62,18 +63,21 @@ def scanImage(xbegin, xend):
         slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
         # again an arbitrary threshold
 
-        ax3.plot(slc) 
+        
+        ax2.plot([target_slice, target_slice], [img.shape[0], 0], 'r-')
+        ax3.plot(slc)
+        
         peaks = findPeaks(slc)
         wavelength = getWavelengthArray(peaks)
-        np.resize(wavelengths, np.size(wavelength))
+        np.resize(wavelengths, np.size(wavelengths) + np.size(wavelength))
         wavelengths = np.append(wavelengths, wavelength)
         
         slc *=-1                    #get the negative of the slice to work the minimums
-        wavelength = findPeaks(slc)
-        np.resize(wavelengths, np.size(wavelength))
-        wavelengths = np.append(wavelengths, wavelength)
+    #FALTA PROCESAR EL NEGATIVO DE SLICE
+        break
 
     print('wavelengths size:', np.size(wavelengths))
+    print(wavelengths)
     print('mean:', np.mean(wavelengths))
     print('std:', np.std(wavelengths))
     
@@ -84,6 +88,5 @@ scanImage(xmin, xmiddle - 1)
 print()
 print('Right image:')
 scanImage(xmiddle, xmax)
-#ax3.plot(peaks, slc[peaks], 'ro')
 #ax3.set_title('number of fringes: ' + str(len(peaks)))
-plt.show()
+#plt.show()
