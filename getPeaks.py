@@ -114,7 +114,7 @@ def scanImagePhases(xbegin, xend, wavelength, axis):
         #print('slc', slc)
         #slc[slc < 0] = 0
         #print('slc0', slc)
-        #slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
+        slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
         # again an arbitrary threshold
         axis.plot(slc)
         peaks = findPeaks(slc)
