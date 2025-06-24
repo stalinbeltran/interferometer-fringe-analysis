@@ -120,7 +120,7 @@ def scanImagePhases(xbegin, xend, wavelength, axis):
         peaks = findPeaks(slc)
         axis.plot(peaks, slc[peaks], 'rx')
         phases = processSlicePhase(peaks, phases, wavelength)
-        break
+        #break
         #slc *=-1                    #get the negative of the slice to work the minimums
         #phases = processSlicePhase(slc, phases, wavelength, True)
 
