@@ -43,7 +43,7 @@ ax2.imshow(sobely, cmap='gray') #show the derivative (troughs are very visible)
 ax2.set_title("vertical derivative")
 
 def findPeaks(slc):
-    peaks = find_peaks(slc)[0] # [0] returns only locations
+    peaks = find_peaks(slc, threshold=20)[0] # [0] returns only locations
     return peaks
     
 def getWavelengthArray(peaks):
@@ -118,7 +118,7 @@ def scanImagePhases(xbegin, xend, wavelength, axis):
         # again an arbitrary threshold
         axis.plot(slc)
         peaks = findPeaks(slc)
-        axis.plot(peaks, 'rx')
+        axis.plot(peaks, slc[peaks], 'rx')
         phases = processSlicePhase(peaks, phases, wavelength)
         break
         #slc *=-1                    #get the negative of the slice to work the minimums
