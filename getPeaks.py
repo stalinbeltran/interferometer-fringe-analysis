@@ -94,7 +94,7 @@ def scanImageWavelengths(xbegin, xend, axis):
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
         #slc[slc < 0] = 0
-        #slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise, again an arbitrary threshold
+        slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise, again an arbitrary threshold
         #axis.plot(slc)
         
         wavelengths = processSliceWavelength(slc, wavelengths)
@@ -114,7 +114,7 @@ def scanImagePhases(xbegin, xend, wavelength, axis):
         #print('slc', slc)
         #slc[slc < 0] = 0
         #print('slc0', slc)
-        slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
+        #slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
         # again an arbitrary threshold
         axis.plot(slc)
         peaks = findPeaks(slc)
