@@ -66,6 +66,8 @@ def getPhaseArray(peaks, wavelength, negativeFunction):
 
 def processSliceWavelength(slc, wavelengths):
     peaks = findPeaks(slc)
+    if np.size(peaks)<2:
+	    return wavelengths
     wavelength = getWavelengthArray(peaks)
     np.resize(wavelengths, np.size(wavelengths) + np.size(wavelength))
     wavelengths = np.append(wavelengths, wavelength)
@@ -74,6 +76,8 @@ def processSliceWavelength(slc, wavelengths):
     
 def processSlicePhase(slc, phases, wavelength, negative = False):
     peaks = findPeaks(slc)
+    if np.size(peaks)<1:
+        return phases
     phase = getPhaseArray(peaks, wavelength, negative)
     np.resize(phases, np.size(phases) + np.size(phase))
     phases = np.append(phases, phase)
@@ -85,7 +89,7 @@ def scanImageWavelengths(xbegin, xend, axis):
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
         slc[slc < 0] = 0
-        slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise, again an arbitrary threshold
+        #slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise, again an arbitrary threshold
         axis.plot(slc)
         
         wavelengths = processSliceWavelength(slc, wavelengths)
@@ -103,7 +107,7 @@ def scanImagePhases(xbegin, xend, wavelength):
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
         slc[slc < 0] = 0
-        slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
+        #slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
         # again an arbitrary threshold
         
         phases = processSlicePhase(slc, phases, wavelength)
