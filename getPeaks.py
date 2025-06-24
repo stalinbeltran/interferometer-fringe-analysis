@@ -10,6 +10,7 @@ archivoProcesar = sys.argv[1]
 print('file:',archivoProcesar)
 
 fig = plt.figure(tight_layout=True)
+
 gs = gridspec.GridSpec(3, 2)
 ax1 = fig.add_subplot(gs[0, 0])
 ax2 = fig.add_subplot(gs[0, 1])
@@ -23,7 +24,7 @@ ax2.set_xticks([])
 img = cv2.imread(archivoProcesar, 0) # read in the image as grayscale
 
 ax1.imshow(img, cmap='gray')
-ax1.set_title("Original image")
+ax1.set_title("Original image (" + archivoProcesar + ")")
 
 #img[img < 10] = 0 # apply some arbitrary thresholding (there's
 # a bunch of noise in the image
@@ -81,7 +82,7 @@ def processSlicePhase(slc, phases, wavelength, negative = False):
     #print('peaks', peaks)
     if np.size(peaks)<1:
         return phases
-    print('before getPhaseArray')
+    #print('before getPhaseArray')
     phase = getPhaseArray(peaks, wavelength, negative)
     np.resize(phases, np.size(phases) + np.size(phase))
     phases = np.append(phases, phase)
