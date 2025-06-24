@@ -43,7 +43,7 @@ ax2.imshow(sobely, cmap='gray') #show the derivative (troughs are very visible)
 ax2.set_title("vertical derivative")
 
 def findPeaks(slc):
-    peaks = find_peaks(slc, threshold=20)[0] # [0] returns only locations
+    peaks = find_peaks(slc, prominence=10)[0] # [0] returns only locations
     return peaks
     
 def getWavelengthArray(peaks):
