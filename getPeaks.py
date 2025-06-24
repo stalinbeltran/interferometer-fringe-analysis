@@ -77,8 +77,8 @@ def processSliceWavelength(slc, wavelengths):
     return wavelengths
     
     
-def processSlicePhase(slc, phases, wavelength, negative = False):
-    peaks = findPeaks(slc)
+def processSlicePhase(peaks, phases, wavelength, negative = False):
+    
     #print('peaks', peaks)
     if np.size(peaks)<1:
         return phases
@@ -117,9 +117,10 @@ def scanImagePhases(xbegin, xend, wavelength, axis):
         #slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
         # again an arbitrary threshold
         axis.plot(slc)
-        
-        phases = processSlicePhase(slc, phases, wavelength)
-        #break
+        peaks = findPeaks(slc)
+        axis.plot(peaks, 'rx')
+        phases = processSlicePhase(peaks, phases, wavelength)
+        break
         #slc *=-1                    #get the negative of the slice to work the minimums
         #phases = processSlicePhase(slc, phases, wavelength, True)
 
