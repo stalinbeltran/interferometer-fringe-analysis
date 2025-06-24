@@ -60,6 +60,7 @@ def getPhaseArray(peaks, wavelength, negativeFunction):
         phase[i] = peaks[i]/wavelength%1.0
         if negativeFunction:
             phase[i]+=0.25      #as the negative function will have a pi/2 phase offset, we add it to compensate
+            phase[i] = phase[i]%1.0     #and avoid values over 1
     return phase
 
 def processSliceWavelength(slc, wavelengths):
