@@ -94,7 +94,7 @@ def scanImageWavelengths(xbegin, xend, axis):
         slc = sobely[:, int(target_slice)]
         #slc[slc < 0] = 0
         #slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise, again an arbitrary threshold
-        axis.plot(slc)
+        #axis.plot(slc)
         
         wavelengths = processSliceWavelength(slc, wavelengths)
         slc *=-1                    #get the negative of the slice to work the minimums too
@@ -106,7 +106,7 @@ def scanImageWavelengths(xbegin, xend, axis):
     return mean, std, wavelengths
     
 
-def scanImagePhases(xbegin, xend, wavelength):
+def scanImagePhases(xbegin, xend, wavelength, axis):
     phases = np.empty(0)
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
@@ -115,8 +115,10 @@ def scanImagePhases(xbegin, xend, wavelength):
         #print('slc0', slc)
         #slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
         # again an arbitrary threshold
+        axis.plot(slc)
         
         phases = processSlicePhase(slc, phases, wavelength)
+        break
         slc *=-1                    #get the negative of the slice to work the minimums
         phases = processSlicePhase(slc, phases, wavelength, True)
 
@@ -135,7 +137,7 @@ print('mean wavelength:', meanWavelength)
 print('std wavelength:', stdWavelength)
 
 
-meanPhase, stdPhase, phases = scanImagePhases(xmin, xmiddle - 1, meanWavelength)
+meanPhase, stdPhase, phases = scanImagePhases(xmin, xmiddle - 1, meanWavelength, ax3)
 print('phases size:', np.size(phases))
 print(phases)
 print('mean phase:', meanPhase)
@@ -154,7 +156,7 @@ print('std wavelength:', stdWavelength)
 ax4.set_title("Right Image Wavelength" + ' mean: ' + "{:.1f}".format(meanWavelength) + ' std: ' + "{:.1f}".format(stdWavelength) )
 
 
-meanPhase, stdPhase, phases = scanImagePhases(xmiddle, xmax, meanWavelength)
+meanPhase, stdPhase, phases = scanImagePhases(xmiddle, xmax, meanWavelength, ax4)
 print('phases size:', np.size(phases))
 print(phases)
 print('mean phase:', meanPhase)
