@@ -48,20 +48,18 @@ def findPeaks(slc):
 def getWavelengthArray(peaks):
     size = np.size(peaks)
     wavelength = np.empty(size - 1)
-    print('peaks size:', size)
     for i in range(1, size):
-        print(i)
         wavelength[i-1] = peaks[i] - peaks[i-1]
-        print(wavelength[i-1])
-    #print(wavelength)
     return wavelength
     
 
-def getPhaseArray(peaks, wavelength):
+def getPhaseArray(peaks, wavelength, negativeFunction):
     size = np.size(peaks)
     phase = np.empty(size)
     for i in range(size):
         phase[i] = peaks[i]/wavelength%1.0
+        if negativeFunction:
+            phase[i]+=0.25      #as the negative function will have a pi/2 phase offset, we add it to compensate
     return phase
 
 def processSliceWavelength(slc, wavelengths):
@@ -72,9 +70,9 @@ def processSliceWavelength(slc, wavelengths):
     return wavelengths
     
     
-def processSlicePhase(slc, phases, wavelength):
+def processSlicePhase(slc, phases, wavelength, negative = False):
     peaks = findPeaks(slc)
-    phase = getPhaseArray(peaks, wavelength)
+    phase = getPhaseArray(peaks, wavelength, negative)
     np.resize(phases, np.size(phases) + np.size(phase))
     phases = np.append(phases, phase)
     return phases
@@ -100,15 +98,17 @@ def scanImageWavelengths(xbegin, xend, axis):
 
 def scanImagePhases(xbegin, xend, wavelength):
     phases = np.empty(0)
+    c = 0
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
         slc[slc < 0] = 0
         slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
         # again an arbitrary threshold
         
+        c +=1
         phases = processSlicePhase(slc, phases, wavelength)
         slc *=-1                    #get the negative of the slice to work the minimums
-        phases = processSlicePhase(slc, phases, wavelength)
+        phases = processSlicePhase(slc, phases, wavelength, True)
 
     mean = np.mean(phases)
     std = np.std(phases)
@@ -150,4 +150,8 @@ print('std phase:', stdPhase)
 ax4.set_title("Right Image (Wavelength: " + ' mean: ' + "{:.1f}".format(meanWavelength) + ' std: ' + "{:.1f}".format(stdWavelength) + ") (Phase: " + ' mean: ' + "{:.2f}".format(meanPhase) + ' std: ' + "{:.2f}".format(stdPhase) + ")")
 
 #ax3.set_title('number of fringes: ' + str(len(peaks)))
+with open("output2.txt", "w") as txt_file:
+    for line in phases:
+        txt_file.write("{:.2f}".format(line) + "\n")
+
 plt.show()
