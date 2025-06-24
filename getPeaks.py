@@ -54,11 +54,14 @@ def getWavelengthArray(peaks):
     return wavelength
     
 
-def getPhaseArray(peaks, wavelength):
+def getPhaseArray(peaks, wavelength, negativeFunction):
     size = np.size(peaks)
     phase = np.empty(size)
     for i in range(size):
         phase[i] = peaks[i]/wavelength%1.0
+        if negativeFunction:
+            phase[i]+=0.25      #as the negative function will have a pi/2 phase offset, we add it to compensate
+            phase[i] = phase[i]%1.0     #and avoid values over 1
     return phase
 
 def processSliceWavelength(slc, wavelengths):
@@ -69,9 +72,9 @@ def processSliceWavelength(slc, wavelengths):
     return wavelengths
     
     
-def processSlicePhase(slc, phases, wavelength):
+def processSlicePhase(slc, phases, wavelength, negative = False):
     peaks = findPeaks(slc)
-    phase = getPhaseArray(peaks, wavelength)
+    phase = getPhaseArray(peaks, wavelength, negative)
     np.resize(phases, np.size(phases) + np.size(phase))
     phases = np.append(phases, phase)
     return phases
@@ -105,7 +108,7 @@ def scanImagePhases(xbegin, xend, wavelength):
         
         phases = processSlicePhase(slc, phases, wavelength)
         slc *=-1                    #get the negative of the slice to work the minimums
-        phases = processSlicePhase(slc, phases, wavelength)
+        phases = processSlicePhase(slc, phases, wavelength, True)
 
     mean = np.mean(phases)
     std = np.std(phases)
