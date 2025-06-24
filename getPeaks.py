@@ -25,7 +25,7 @@ img = cv2.imread(archivoProcesar, 0) # read in the image as grayscale
 ax1.imshow(img, cmap='gray')
 ax1.set_title("Original image")
 
-img[img < 10] = 0 # apply some arbitrary thresholding (there's
+#img[img < 10] = 0 # apply some arbitrary thresholding (there's
 # a bunch of noise in the image
 
 yp, xp = np.where(img != 0)
@@ -55,6 +55,7 @@ def getWavelengthArray(peaks):
     
 
 def getPhaseArray(peaks, wavelength, negativeFunction):
+    print('getPhaseArray')
     size = np.size(peaks)
     phase = np.empty(size)
     for i in range(size):
@@ -62,6 +63,7 @@ def getPhaseArray(peaks, wavelength, negativeFunction):
         if negativeFunction:
             phase[i]+=0.25      #as the negative function will have a pi/2 phase offset, we add it to compensate
             phase[i] = phase[i]%1.0     #and avoid values over 1
+        print('phase[i]', phase[i])
     return phase
 
 def processSliceWavelength(slc, wavelengths):
@@ -76,8 +78,10 @@ def processSliceWavelength(slc, wavelengths):
     
 def processSlicePhase(slc, phases, wavelength, negative = False):
     peaks = findPeaks(slc)
+    print('peaks', peaks)
     if np.size(peaks)<1:
         return phases
+    print('before getPhaseArray')
     phase = getPhaseArray(peaks, wavelength, negative)
     np.resize(phases, np.size(phases) + np.size(phase))
     phases = np.append(phases, phase)
@@ -88,7 +92,7 @@ def scanImageWavelengths(xbegin, xend, axis):
     
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
-        slc[slc < 0] = 0
+        #slc[slc < 0] = 0
         #slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise, again an arbitrary threshold
         axis.plot(slc)
         
@@ -106,7 +110,9 @@ def scanImagePhases(xbegin, xend, wavelength):
     phases = np.empty(0)
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
-        slc[slc < 0] = 0
+        #print('slc', slc)
+        #slc[slc < 0] = 0
+        #print('slc0', slc)
         #slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
         # again an arbitrary threshold
         
@@ -135,6 +141,8 @@ print(phases)
 print('mean phase:', meanPhase)
 print('std phase:', stdPhase)
 ax3.set_title("Left Image (Wavelength: " + ' mean: ' + "{:.1f}".format(meanWavelength) + ' std: ' + "{:.1f}".format(stdWavelength) + ") (Phase: " + ' mean: ' + "{:.2f}".format(meanPhase) + ' std: ' + "{:.2f}".format(stdPhase) + ")")
+    
+
     
 print()
 print('Right image:')
