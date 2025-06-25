@@ -79,14 +79,28 @@ def scanImage(xbegin, xend, axis):
         axis.plot(x, y_fit)
         imgnew[:, int(target_slice)] = y_fit
         cont+=1
-    return paramsList
+    phases = []
+    for params in paramsList:
+        a, b, c, d = params
+        phases.append(c)
+        
+    mean = np.mean(phases)
+    std = np.std(phases)
+    return mean, std, phases, paramsList 
   
     
     
 print()
 xmiddle = int((xmax - xmin)/2)
-paramListLeft = scanImage(0, xmiddle, ax3)
-paramListRight = scanImage(xmiddle, xmax, ax4)
+meanPhase, stdPhase, phases, paramListLeft = scanImage(0, xmiddle, ax3)
+print('phases size:', np.size(phases))
+print('mean phase:', meanPhase)
+print('std phase:', stdPhase)
+
+meanPhase, stdPhase, phases, paramListRight = scanImage(xmiddle, xmax, ax4)
+print('phases size:', np.size(phases))
+print('mean phase:', meanPhase)
+print('std phase:', stdPhase)
 #print('paramList:', paramList)
 ax3.set_title("Left Image")
 ax4.set_title("Right Image")
