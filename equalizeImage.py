@@ -8,6 +8,7 @@ import cv2
 from scipy.signal import find_peaks
 from scipy.ndimage.filters import gaussian_filter1d
 import sys
+from scipy.optimize import curve_fit
 
 archivoProcesar = sys.argv[1]
 print('file:',archivoProcesar)
@@ -46,6 +47,9 @@ def findPeaks(slc):
     return peaks
     
 
+def sine_function(x, A, B, C, D):
+    return A * np.sin(B * x + C) + D
+
 def scanImage(xbegin, xend, axis):
     wavelengths = np.empty(0)
     
@@ -53,6 +57,23 @@ def scanImage(xbegin, xend, axis):
         slc = sobely[:, int(target_slice)]
         #slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise, again an arbitrary threshold
         axis.plot(slc)
+
+        # Initial guess for the parameters [A, B, C, D]
+        initial_guess = [2, 1.5, 0, 0]
+
+        len = np.size(slc)
+        x = range(0, len)
+        # Perform the curve fitting
+        params, covariance = curve_fit(sine_function, x, slc, p0=initial_guess)
+
+        # Extract the fitted parameters
+        A_fit, B_fit, C_fit, D_fit = params
+
+        print(f"Fitted parameters: A={A_fit}, B={B_fit}, C={C_fit}, D={D_fit}")
+        # Generate y values using the fitted parameters
+        y_fit = sine_function(x, A_fit, B_fit, C_fit, D_fit)
+
+
         break
 
   
