@@ -14,20 +14,18 @@ archivoProcesar = sys.argv[1]
 print('file:',archivoProcesar)
 
 fig = plt.figure(tight_layout=True)
-gs = gridspec.GridSpec(3, 2)
-ax1 = fig.add_subplot(gs[0, 0])
-ax2 = fig.add_subplot(gs[0, 1])
-ax3 = fig.add_subplot(gs[1, :])
-ax4 = fig.add_subplot(gs[2, :])
+gs = gridspec.GridSpec(2, 2)
+ax1 = fig.add_subplot(gs[0, 1])
+ax2 = fig.add_subplot(gs[0, 0])
+ax4 = fig.add_subplot(gs[1, :])
 ax1.set_xticks([])
 ax1.set_yticks([])
 ax2.set_yticks([])
 ax2.set_xticks([])
 
 img = cv2.imread(archivoProcesar, 0) # read in the image as grayscale
+imgnew = img
 
-ax1.imshow(img, cmap='gray')
-ax1.set_title("Original image")
 
 yp, xp = np.where(img != 0)
 
@@ -52,9 +50,9 @@ def sine_function(x, A, B, C, D):
 
 def scanImage(xbegin, xend, axis):
     wavelengths = np.empty(0)
-    
+    cont = 0
     for target_slice in range(xbegin, xend):
-        slc = sobely[:, int(target_slice)]
+        slc = img[:, int(target_slice)]
         slc1 = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise, again an arbitrary threshold
         axis.plot(slc)
         axis.plot(slc1)
@@ -62,7 +60,7 @@ def scanImage(xbegin, xend, axis):
         
 
         # Initial guess for the parameters [A, B, C, D]
-        initial_guess = [2, np.pi/40, 0.5, 0]
+        initial_guess = [250, np.pi/40, 0.5, 0]
 
         len = np.size(slc)
         x = range(0, len)
@@ -76,8 +74,10 @@ def scanImage(xbegin, xend, axis):
         # Generate y values using the fitted parameters
         y_fit = sine_function(x, A_fit, B_fit, C_fit, D_fit)
         axis.plot(x, y_fit)
-
-        break
+        imgnew[:, int(target_slice)] = y_fit
+        cont+=1
+        if cont > 50:
+            break
 
   
     
@@ -88,4 +88,6 @@ scanImage(xmiddle, xmax, ax4)
 
 ax4.set_title("Right Image")
 
+ax1.imshow(imgnew, cmap='gray')
+ax1.set_title("New image")
 plt.show()
