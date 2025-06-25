@@ -55,8 +55,9 @@ def scanImage(xbegin, xend, axis):
     
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
-        #slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise, again an arbitrary threshold
+        slc1 = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise, again an arbitrary threshold
         axis.plot(slc)
+        axis.plot(slc1)
         ax2.plot([target_slice, target_slice], [img.shape[0], 0], 'r-')
         
 
