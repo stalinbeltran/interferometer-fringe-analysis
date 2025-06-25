@@ -31,12 +31,12 @@ yp, xp = np.where(img != 0)
 xmax = max(xp)
 xmin = min(xp)
 target_slice = (xmax - xmin)*.75 + xmin # get the middle of the fringe blob
-img2 = gaussian_filter(img, sigma =5)
+img2 = gaussian_filter(img, sigma =3)
 sobely = cv2.Sobel(img2,cv2.CV_64F,0,1,ksize=5) # get the vertical derivative
 
 sobely = cv2.blur(sobely,(7,7)) # make the peaks a little smoother
 
-ax2.imshow(sobely, cmap='gray') #show the derivative (troughs are very visible)
+ax2.imshow(img2, cmap='gray') #show the derivative (troughs are very visible)
 ax2.set_title("vertical derivative")
 
 def findPeaks(slc):
