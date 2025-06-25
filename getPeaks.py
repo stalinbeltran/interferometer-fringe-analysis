@@ -12,15 +12,11 @@ print('file:',archivoProcesar)
 
 fig = plt.figure(tight_layout=True)
 
-gs = gridspec.GridSpec(3, 2)
+gs = gridspec.GridSpec(1, 2)
 ax1 = fig.add_subplot(gs[0, 0])
 ax2 = fig.add_subplot(gs[0, 1])
-ax3 = fig.add_subplot(gs[1, :])
-ax4 = fig.add_subplot(gs[2, :])
 ax1.set_xticks([])
 ax1.set_yticks([])
-ax2.set_yticks([])
-ax2.set_xticks([])
 
 img = cv2.imread(archivoProcesar, 0) # read in the image as grayscale
 
@@ -117,9 +113,9 @@ def scanImagePhases(xbegin, xend, wavelength, axis):
         #print('slc0', slc)
         #slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
         # again an arbitrary threshold
-        axis.plot(slc)
+        #axis.plot(slc)
         peaks = findPeaks(slc)
-        axis.plot(peaks, slc[peaks], 'rx')
+        #axis.plot(peaks, slc[peaks], 'rx')
         phases = processSlicePhase(peaks, phases, wavelength)
         #break
         #slc *=-1                    #get the negative of the slice to work the minimums
@@ -130,41 +126,4 @@ def scanImagePhases(xbegin, xend, wavelength, axis):
     return mean, std, phases
     
     
-print()
-xmiddle = int((xmax - xmin)*.5)
-print('Left image:')
-meanWavelength, stdWavelength, wavelengths = scanImageWavelengths(xmin, xmiddle - 1, ax3)
-print('wavelengths size:', np.size(wavelengths))
-print(wavelengths)
-print('mean wavelength:', meanWavelength)
-print('std wavelength:', stdWavelength)
-
-
-meanPhase, stdPhase, phases = scanImagePhases(xmin, xmiddle - 1, meanWavelength, ax3)
-print('phases size:', np.size(phases))
-print(phases)
-print('mean phase:', meanPhase)
-print('std phase:', stdPhase)
-ax3.set_title("Left Image (Wavelength: " + ' mean: ' + "{:.1f}".format(meanWavelength) + ' std: ' + "{:.1f}".format(stdWavelength) + ") (Phase: " + ' mean: ' + "{:.2f}".format(meanPhase) + ' std: ' + "{:.2f}".format(stdPhase) + ")")
-    
-
-    
-print()
-print('Right image:')
-meanWavelength, stdWavelength, wavelengths = scanImageWavelengths(xmiddle, xmax, ax4)
-print('wavelengths size:', np.size(wavelengths))
-print(wavelengths)
-print('mean wavelength:', meanWavelength)
-print('std wavelength:', stdWavelength)
-ax4.set_title("Right Image Wavelength" + ' mean: ' + "{:.1f}".format(meanWavelength) + ' std: ' + "{:.1f}".format(stdWavelength) )
-
-
-meanPhase, stdPhase, phases = scanImagePhases(xmiddle, xmax, meanWavelength, ax4)
-print('phases size:', np.size(phases))
-print(phases)
-print('mean phase:', meanPhase)
-print('std phase:', stdPhase)
-ax4.set_title("Right Image (Wavelength: " + ' mean: ' + "{:.1f}".format(meanWavelength) + ' std: ' + "{:.1f}".format(stdWavelength) + ") (Phase: " + ' mean: ' + "{:.2f}".format(meanPhase) + ' std: ' + "{:.2f}".format(stdPhase) + ")")
-
-#ax3.set_title('number of fringes: ' + str(len(peaks)))
 plt.show()
