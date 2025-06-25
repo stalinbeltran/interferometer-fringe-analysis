@@ -57,9 +57,11 @@ def scanImage(xbegin, xend, axis):
         slc = sobely[:, int(target_slice)]
         #slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise, again an arbitrary threshold
         axis.plot(slc)
+        ax2.plot(target_slice, 'r-')
+        
 
         # Initial guess for the parameters [A, B, C, D]
-        initial_guess = [2, 1.5, 0, 0]
+        initial_guess = [2, np.pi/40, 0.5, 0]
 
         len = np.size(slc)
         x = range(0, len)
@@ -72,7 +74,7 @@ def scanImage(xbegin, xend, axis):
         print(f"Fitted parameters: A={A_fit}, B={B_fit}, C={C_fit}, D={D_fit}")
         # Generate y values using the fitted parameters
         y_fit = sine_function(x, A_fit, B_fit, C_fit, D_fit)
-
+        axis.plot(x, y_fit)
 
         break
 
@@ -80,7 +82,7 @@ def scanImage(xbegin, xend, axis):
     
     
 print()
-xmiddle = int((xmax - xmin)*.5)
+xmiddle = int((xmax - xmin)*.75)
 scanImage(xmiddle, xmax, ax4)
 
 ax4.set_title("Right Image")
