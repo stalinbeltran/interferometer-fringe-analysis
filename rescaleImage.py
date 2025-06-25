@@ -1,4 +1,4 @@
-#D:\Stalin\Desarrollo\interferometer-fringe-analysis>python equalizeImage.py ./images/alineacion666.png
+#D:\Stalin\Desarrollo\interferometer-fringe-analysis>python rescaleImage.py ./images/alineacion666.png
 
 import cv2
 import matplotlib.pyplot as plt
