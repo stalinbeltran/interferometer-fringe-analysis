@@ -54,9 +54,9 @@ def scanImage(xbegin, xend, axis):
     for target_slice in range(xbegin, xend):
         slc = img[:, int(target_slice)]
         slc1 = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise, again an arbitrary threshold
-        axis.plot(slc)
-        axis.plot(slc1)
-        ax2.plot([target_slice, target_slice], [img.shape[0], 0], 'r-')
+        # axis.plot(slc)
+        # axis.plot(slc1)
+        #ax2.plot([target_slice, target_slice], [img.shape[0], 0], 'r-')
         
 
         # Initial guess for the parameters [A, B, C, D]
@@ -76,15 +76,13 @@ def scanImage(xbegin, xend, axis):
         axis.plot(x, y_fit)
         imgnew[:, int(target_slice)] = y_fit
         cont+=1
-        if cont > 50:
-            break
 
   
     
     
 print()
 xmiddle = int((xmax - xmin)*.75)
-scanImage(xmiddle, xmax, ax4)
+scanImage(0, xmax, ax4)
 
 ax4.set_title("Right Image")
 
