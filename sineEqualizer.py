@@ -20,11 +20,13 @@ def scanImage(img, xbegin, xend, guessedParameters, imgnew):
         guessedVerticalDisplacement = guessedParameters["guessedVerticalDisplacement"]
         
         initial_guess = [guessedAmplitude, 2*np.pi/guessedWavelength, guessedPhase, guessedVerticalDisplacement]
-
+        len = np.size(slc)
+        x = range(0, len)
         # Perform the curve fitting
         try:
             params, covariance = curve_fit(sine_function, x, slc, p0=initial_guess)
-        except:
+        except Exception as e:
+            print('Error', e)
             continue    #if no fit, left slice unchanged, no fit getted
             
         paramsList.append(params)
