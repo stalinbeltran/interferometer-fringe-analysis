@@ -8,6 +8,7 @@ import cv2
 from scipy.signal import find_peaks
 from scipy.ndimage.filters import gaussian_filter1d
 import sys
+import os
 from scipy.optimize import curve_fit
 
 archivoProcesar = sys.argv[1]
@@ -109,6 +110,10 @@ print('std phase:', stdPhase)
 ax3.set_title("Left Image")
 ax4.set_title("Right Image")
 
+filenameNoExt, file_extension = os.path.splitext(archivoProcesar)
+outputPath = os.path.join(filenameNoExt + "_equalized" + file_extension)
+img2 = imgnew
+cv2.imwrite(outputPath, img2)
 ax1.imshow(imgnew, cmap='gray')
 ax1.set_title("New image")
 plt.show()
