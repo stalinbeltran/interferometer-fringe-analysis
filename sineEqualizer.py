@@ -54,5 +54,5 @@ def imageEqualize(archivoProcesar, guessedWavelength):
     filenameNoExt, file_extension = os.path.splitext(archivoProcesar)
     outputPath = os.path.join(filenameNoExt + "_equalized" + file_extension)
     cv2.imwrite(outputPath, imgnew)
-
+    return outputPath, paramList
 

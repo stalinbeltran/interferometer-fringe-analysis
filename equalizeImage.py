@@ -35,13 +35,11 @@ xmin = min(xp)
 ax2.imshow(img, cmap='gray') #show the derivative (troughs are very visible)
 ax2.set_title("original: " + archivoProcesar)
 
-se.imageEqualize(archivoProcesar, guessedWavelength)
-sys.exit()
-
-
 print()
-xmiddle = int((xmax - xmin)/2)
-meanPhase, stdPhase, phases, paramListLeft = scanImage(0, xmiddle, ax3)
+
+outputPath, paramList = se.imageEqualize(archivoProcesar, guessedWavelength)
+print(outputPath, paramList)
+sys.exit()
 print('phases size:', np.size(phases))
 print('mean phase:', meanPhase)
 print('std phase:', stdPhase)
