@@ -51,6 +51,6 @@ ffmpeg -framerate 6 -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/v
 video to frames:
 ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7/fringes_7.mp4 -vf fps=6 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7/frames/fringes_7_%d.png
 python imageVerticalCentralCropper.py 800 ./videos/fringes_7/frames ./videos/fringes_7/framesCropped
-
+python rescaleImage.py ./videos/fringes_7/framesCropped ./videos/fringes_7/framesRescaled
 
 
