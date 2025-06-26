@@ -6,6 +6,8 @@ import matplotlib.gridspec as gridspec
 from skimage import exposure
 import sys
 import os
+import imageSineFit as isf
+import json
 
 input_folder = (sys.argv[1])
 output_folder = (sys.argv[2])

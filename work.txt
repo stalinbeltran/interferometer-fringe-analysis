@@ -47,10 +47,26 @@ DIFERENCIA: 0.1932 (19%)
 d/Stalin/Desarrollo/interferometer-fringe-analysis
 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis
 ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_8.h264
+
+fringes_7:
 ffmpeg -framerate 6 -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7.h264 -c copy /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7.mp4
 video to frames:
 ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7/fringes_7.mp4 -vf fps=6 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7/frames/fringes_7_%d.png
 python imageVerticalCentralCropper.py 800 ./videos/fringes_7/frames ./videos/fringes_7/framesCropped
 python rescaleImage.py ./videos/fringes_7/framesCropped ./videos/fringes_7/framesRescaled
+D:\Stalin\Desarrollo\interferometer-fringe-analysis>python fitImage.py ./videos/fringes_7/framesRescaled ./videos/fringes_7/framesFitImage ./videos/fringes_7/framesFitImagejson 300
 
+
+fringes_8:
+En linux:
+h264 to mp4:
+ffmpeg -framerate 6 -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_8.h264 -c copy /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_8.mp4
+video to frames:
+mkdir /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_8/frames
+ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_8/fringes_8.mp4 -vf fps=6 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_8/frames/fringes_8_%d.png
+
+En windows:
+python imageVerticalCentralCropper.py 800 ./videos/fringes_8/frames ./videos/fringes_8/framesCropped
+python rescaleImage.py ./videos/fringes_8/framesCropped ./videos/fringes_8/framesRescaled
+python fitImage.py ./videos/fringes_8/framesRescaled ./videos/fringes_8/framesFitImage ./videos/fringes_8/framesFitImagejson 300
 
