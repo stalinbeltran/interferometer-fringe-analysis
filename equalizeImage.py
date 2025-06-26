@@ -1,4 +1,4 @@
-#python equalizeImage.py ./images/alineacion666_rescaled.png
+#python equalizeImage.py ./images/alineacion666_rescaled.png 250
 
 
 import matplotlib.pyplot as plt
