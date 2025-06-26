@@ -3,7 +3,7 @@ import os
 
 input_folder = './originales'
 output_folder = 'recortadas'
-pixelesXrecortarCentro = 100
+pixelesXrecortarCentro = 200
 pixelesXrecortarPorLado = pixelesXrecortarCentro/2 
 os.makedirs(output_folder, exist_ok=True)
 

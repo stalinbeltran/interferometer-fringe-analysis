@@ -11,6 +11,7 @@ import sys
 from scipy.optimize import curve_fit
 
 archivoProcesar = sys.argv[1]
+guessedWavelength = float(sys.argv[2])
 print('file:',archivoProcesar)
 
 fig = plt.figure(tight_layout=True)
@@ -63,12 +64,15 @@ def scanImage(xbegin, xend, axis):
         
 
         # Initial guess for the parameters [A, B, C, D]
-        initial_guess = [250, np.pi/40, 0.5, 0]
+        initial_guess = [250, 2*np.pi/guessedWavelength, 0.5, 0]
 
         len = np.size(slc)
         x = range(0, len)
         # Perform the curve fitting
-        params, covariance = curve_fit(sine_function, x, slc, p0=initial_guess)
+        try:
+            params, covariance = curve_fit(sine_function, x, slc, p0=initial_guess)
+        except:
+            continue
         paramsList.append(params)
         # Extract the fitted parameters
         A_fit, B_fit, C_fit, D_fit = params
@@ -84,8 +88,8 @@ def scanImage(xbegin, xend, axis):
         a, b, c, d = params
         phases.append(c)
         
-    mean = np.mean(phases)
-    std = np.std(phases)
+    mean = np.mean(phases)/(2*np.pi)
+    std = np.std(phases)/(2*np.pi)
     return mean, std, phases, paramsList 
   
     
