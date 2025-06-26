@@ -1,4 +1,4 @@
-#python equalizeImage.py ./images/alineacion666_rescaled.png 250
+#python equalizeImage.py ./images/alineacion666_rescaled.png 80
 
 
 import matplotlib.pyplot as plt
@@ -11,6 +11,7 @@ import sys
 import os
 from scipy.optimize import curve_fit
 import imageSineFit as isf
+import json
 
 archivoProcesar = sys.argv[1]
 guessedWavelength = float(sys.argv[2])
@@ -37,10 +38,12 @@ print()
 
 filenameNoExt, file_extension = os.path.splitext(archivoProcesar)
 outputFile = os.path.join(filenameNoExt + "_equalized" + file_extension)
+outputFileJSON = os.path.join(filenameNoExt + ".json")
 
 imageSineFit = isf.imageSineFit(archivoProcesar, outputFile, guessedWavelength)
-#print(imageSineFit)
-#sys.exit()
+
+with open(outputFileJSON, 'w') as f:
+    json.dump(imageSineFit, f)
 
 imgnew = cv2.imread(imageSineFit["imagepath"]["output"], 0)
 ax2.imshow(imgnew, cmap='gray')
