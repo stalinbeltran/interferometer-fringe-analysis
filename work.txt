@@ -1,0 +1,56 @@
+#movimiento:
+phases size: 559
+mean phase: -0.07682806108061155
+std phase: 0.21869698060863665
+phases size: 560
+mean phase: 0.243778938670437
+std phase: 0.11467300817507034
+DIFERENCIA: -0.3205
+
+
+antes reposo:
+phases size: 559
+mean phase: -0.05342784850200644
+std phase: 0.19664655834696407
+phases size: 559
+mean phase: 0.17911585266546667
+std phase: 0.17582677340123817
+DIFERENCIA: -0.2325
+
+
+reposo:
+phases size: 559
+mean phase: -0.004194724057677881
+std phase: 0.18450418288052892
+phases size: 560
+mean phase: 0.05059663659649321
+std phase: 0.36341823485254326
+DIFERENCIA: -0.0546
+
+
+
+
+
+LEFT:
+mean phase: -0.07682806108061155 movimiento
+mean phase: -0.004194724057677881 reposo
+			-0.0727 diferencia (7%)
+			
+RIGHT:
+mean phase: 0.243778938670437 movimiento
+mean phase: 0.05059663659649321 reposo
+DIFERENCIA: 0.1932 (19%)
+
+
+
+
+d/Stalin/Desarrollo/interferometer-fringe-analysis
+/mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis
+ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_8.h264
+ffmpeg -framerate 6 -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7.h264 -c copy /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7.mp4
+video to frames:
+ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7/fringes_7.mp4 -vf fps=6 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7/frames/fringes_7_%d.png
+
+
+
+
