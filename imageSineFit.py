@@ -36,8 +36,8 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
         
     return imgnew, paramsList 
   
-def imageEqualize(archivoProcesar, guessedWavelength):
-    img = cv2.imread(archivoProcesar, cv2.IMREAD_GRAYSCALE) # read in the image as grayscale
+def imageSineFit(inputFile, outputFile, guessedWavelength):
+    img = cv2.imread(inputFile, cv2.IMREAD_GRAYSCALE) # read in the image as grayscale
     imgnew = img
     xmin = 0
     xmax = img.shape[1]     #width of the image
@@ -51,8 +51,6 @@ def imageEqualize(archivoProcesar, guessedWavelength):
     imgnew, paramList = scanImageRange(img, 0, xmiddle, guessedParameters, imgnew)
     #meanPhase, stdPhase, phases, paramListRight = scanImage(xmiddle, xmax)
 
-    filenameNoExt, file_extension = os.path.splitext(archivoProcesar)
-    outputPath = os.path.join(filenameNoExt + "_equalized" + file_extension)
-    cv2.imwrite(outputPath, imgnew)
-    return outputPath, paramList
+    cv2.imwrite(outputFile, imgnew)
+    return paramList
 

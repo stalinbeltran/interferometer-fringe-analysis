@@ -37,9 +37,14 @@ ax2.set_title("original: " + archivoProcesar)
 
 print()
 
-outputPath, paramList = isf.imageEqualize(archivoProcesar, guessedWavelength)
-print(outputPath, paramList)
+filenameNoExt, file_extension = os.path.splitext(archivoProcesar)
+outputFile = os.path.join(filenameNoExt + "_equalized" + file_extension)
+
+paramList = isf.imageSineFit(archivoProcesar, outputFile, guessedWavelength)
+print(outputFile)
+#print(paramList)
 sys.exit()
+
 print('phases size:', np.size(phases))
 print('mean phase:', meanPhase)
 print('std phase:', stdPhase)
