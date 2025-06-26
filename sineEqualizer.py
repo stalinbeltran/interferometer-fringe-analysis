@@ -12,10 +12,14 @@ def scanImage(img, xbegin, xend, guessedParameters, imgnew):
     paramsList = []
     for target_slice in range(xbegin, xend):
         slc = img[:, int(target_slice)]             #take a slice to process
-        
+
         # Initial guess for the parameters [A, B, C, D]
-        guessedWavelength = guessedParameters.guessedWavelength
-        initial_guess = [250, 2*np.pi/guessedWavelength, 0.5, 0]
+        guessedAmplitude = guessedParameters["guessedAmplitude"]
+        guessedWavelength = guessedParameters["guessedWavelength"]
+        guessedPhase = guessedParameters["guessedPhase"]
+        guessedVerticalDisplacement = guessedParameters["guessedVerticalDisplacement"]
+        
+        initial_guess = [guessedAmplitude, 2*np.pi/guessedWavelength, guessedPhase, guessedVerticalDisplacement]
 
         # Perform the curve fitting
         try:
@@ -33,12 +37,16 @@ def scanImage(img, xbegin, xend, guessedParameters, imgnew):
 def imageEqualize(archivoProcesar, guessedWavelength):
     img = cv2.imread(archivoProcesar, cv2.IMREAD_GRAYSCALE) # read in the image as grayscale
     imgnew = img
-    print(img.shape)
     xmin = 0
-    #xmax = shape.
-
+    xmax = img.shape[1]     #width of the image
+    guessedParameters = {
+        "guessedAmplitude": 250,
+        "guessedWavelength": guessedWavelength,
+        "guessedPhase": 0.5,
+        "guessedVerticalDisplacement": 0
+    }
     xmiddle = int((xmax - xmin)/2)
-    imgnew, paramList = scanImage(0, xmiddle)
+    imgnew, paramList = scanImage(img, 0, xmiddle, guessedParameters, imgnew)
     #meanPhase, stdPhase, phases, paramListRight = scanImage(xmiddle, xmax)
 
     filenameNoExt, file_extension = os.path.splitext(archivoProcesar)
