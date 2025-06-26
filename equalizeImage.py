@@ -40,9 +40,8 @@ print()
 filenameNoExt, file_extension = os.path.splitext(archivoProcesar)
 outputFile = os.path.join(filenameNoExt + "_equalized" + file_extension)
 
-paramList = isf.imageSineFit(archivoProcesar, outputFile, guessedWavelength)
-print(outputFile)
-#print(paramList)
+imageSineFit = isf.imageSineFit(archivoProcesar, outputFile, guessedWavelength)
+#print(imageSineFit)
 sys.exit()
 
 print('phases size:', np.size(phases))
