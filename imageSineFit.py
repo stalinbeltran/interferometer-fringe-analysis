@@ -8,7 +8,7 @@ from scipy.optimize import curve_fit
 def sine_function(x, A, B, C, D):
     return A * np.sin(B * x + C) + D
 
-def scanImage(img, xbegin, xend, guessedParameters, imgnew):
+def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
     paramsList = []
     for target_slice in range(xbegin, xend):
         slc = img[:, int(target_slice)]             #take a slice to process
@@ -48,7 +48,7 @@ def imageEqualize(archivoProcesar, guessedWavelength):
         "guessedVerticalDisplacement": 0
     }
     xmiddle = int((xmax - xmin)/2)
-    imgnew, paramList = scanImage(img, 0, xmiddle, guessedParameters, imgnew)
+    imgnew, paramList = scanImageRange(img, 0, xmiddle, guessedParameters, imgnew)
     #meanPhase, stdPhase, phases, paramListRight = scanImage(xmiddle, xmax)
 
     filenameNoExt, file_extension = os.path.splitext(archivoProcesar)

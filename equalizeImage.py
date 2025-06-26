@@ -10,7 +10,7 @@ from scipy.ndimage.filters import gaussian_filter1d
 import sys
 import os
 from scipy.optimize import curve_fit
-import sineEqualizer as se
+import imageSineFit as isf
 
 archivoProcesar = sys.argv[1]
 guessedWavelength = float(sys.argv[2])
@@ -37,7 +37,7 @@ ax2.set_title("original: " + archivoProcesar)
 
 print()
 
-outputPath, paramList = se.imageEqualize(archivoProcesar, guessedWavelength)
+outputPath, paramList = isf.imageEqualize(archivoProcesar, guessedWavelength)
 print(outputPath, paramList)
 sys.exit()
 print('phases size:', np.size(phases))
