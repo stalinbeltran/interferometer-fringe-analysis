@@ -1,12 +1,11 @@
-#python imageVerticalCentralCropper.py 800
+#python imageVerticalCentralCropper.py 800  ./originales ./recortadas
 from PIL import Image
 import os
 import sys
 
 pixelesXrecortarCentro = int(sys.argv[1])
-
-input_folder = './originales'
-output_folder = 'recortadas'
+input_folder = (sys.argv[2])
+output_folder = (sys.argv[3])
 
 pixelesXrecortarPorLado = pixelesXrecortarCentro/2 
 os.makedirs(output_folder, exist_ok=True)
