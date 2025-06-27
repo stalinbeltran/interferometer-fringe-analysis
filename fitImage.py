@@ -28,7 +28,7 @@ for filename in os.listdir(input_folder):
         with open(outputPathJSON, 'w') as f:
             json.dump(imageSineFit, f)
         print(outputPath, outputPathJSON)
-    break
+    
 
 
 

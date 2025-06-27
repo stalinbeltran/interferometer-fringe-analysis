@@ -21,9 +21,9 @@ def findGivenParamMean(paramName, paramsList):
         i +=1
     
     mean = np.mean(values)
-    if paramName == "frequency":
-        print('values', values)
-        print('mean', mean)
+    #if paramName == "frequency":
+        #print('values', values)
+        #print('mean', mean)
     return mean
 
 def getBetterGuessedParameters(paramsList):
@@ -42,7 +42,7 @@ def getBetterGuessedParameters(paramsList):
         
 def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
     paramsList = []
-    print('guessedParameters', guessedParameters)
+    #print('guessedParameters', guessedParameters)
     counter = 0
     for target_slice in range(xbegin, xend):
         slc = img[:, int(target_slice)]             #take a slice to process
@@ -89,8 +89,8 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
         counter+=1
         if counter % 200 == 0:
             guessedParameters = getBetterGuessedParameters(paramsList)
-            print('guessedParameters', guessedParameters)
-            break
+            #print('guessedParameters', guessedParameters)
+            #break
            
 
     return imgnew, paramsList 
