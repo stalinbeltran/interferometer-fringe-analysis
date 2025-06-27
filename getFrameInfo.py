@@ -47,7 +47,8 @@ for filename in os.listdir(input_folder):
             npParameters[i][j] = leftParameter[parameters[i]]["value"]
         #break
         j +=1
-    print(npParameters)
+        
+    print('mean', np.mean(npParameters))
     break
 '''
     imageSineFit = {
