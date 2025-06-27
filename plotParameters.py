@@ -26,26 +26,21 @@ with open(archivoProcesar, 'r') as f:
 if not data:
     sys.exit()
 size = len(data)
-frameNumbers = range(1,size+1)
-framePhasesLeft = np.zeros(size)
-framePhasesRight = np.zeros(size)
+frameNumbers = []
+framePhasesLeft = []
+framePhasesRight = []
 i = 0
 for frame in data:
     frameNumber = frame["frameNumber"]
-    #frameNumbers[i] = frameNumber
+    frameNumbers.append(frameNumber)
     leftImageMean = frame["leftImage"]["mean"]
     rightImageMean = frame["rightImage"]["mean"]
     leftImageMeanPhase = leftImageMean["phase"]
     rightImageMeanPhase = rightImageMean["phase"]
-    framePhasesLeft[frameNumber-1] = leftImageMeanPhase
-    framePhasesRight[frameNumber-1] = rightImageMeanPhase
+    framePhasesLeft.append(leftImageMeanPhase)
+    framePhasesRight.append(rightImageMeanPhase)
     i+=1
 
-
-x = np.linspace(0, 10, 30)
-y = np.sin(x)
-
-#plt.plot(x, y, 'o', markersize=3, color='black');
 ax1.plot(frameNumbers, framePhasesLeft, 'ro', markersize=3, label="Left Beam")
 ax1.plot(frameNumbers, framePhasesRight, 'go', markersize=3, label="Right Beam")
 ax1.set_xlabel("video frame")
