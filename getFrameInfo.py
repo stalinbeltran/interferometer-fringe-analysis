@@ -1,4 +1,4 @@
-#D:\Stalin\Desarrollo\interferometer-fringe-analysis>python fitImage.py ./videos/fringes_7/framesRescaled ./videos/fringes_7/framesFitImage ./videos/fringes_7/framesFitImagejson 300
+#python getFrameInfo.py ./videos/fringes_7/framesFitImagejson ./videos/fringes_7/infoFrames.json
 
 import cv2
 import matplotlib.pyplot as plt
@@ -32,7 +32,7 @@ def getMeanBySide(data, side):
     return f
     
     
-def getMean(data, filename, video_name):
+def getMean(data, filename):
     filenameParts = filename.split('-')
     #print(filenameParts)
     frameNumber = filenameParts[1]              #define the frame number is always in this position in the filename
@@ -57,7 +57,6 @@ def getMean(data, filename, video_name):
 
 input_folder = (sys.argv[1])
 output_file = (sys.argv[2])
-video_name = (sys.argv[3])
 
 frameData = []
 for filename in os.listdir(input_folder):
@@ -67,7 +66,7 @@ for filename in os.listdir(input_folder):
         data = json.load(f)
     if not data:
         continue
-    frame = getMean(data, filename, video_name)
+    frame = getMean(data, filename)
     frameData.append(frame)
     
 with open(output_file, 'w') as f:
