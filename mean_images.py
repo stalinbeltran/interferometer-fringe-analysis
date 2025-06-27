@@ -18,7 +18,8 @@ for filename in os.listdir(input_folder):
     if not filename.lower().endswith(('.jpg', '.jpeg', '.png')):
         continue
     inputPath = os.path.join(input_folder, filename)
-    img = cv2.imread(inputPath, cv2.IMREAD_GRAYSCALE) # read in the image as grayscale
+    img = cv2.imread(inputPath, cv2.IMREAD_GRAYSCALE) # read in the image as grayscale    
+    if isf.isBlackImage(img): continue
     if imgf is None:
         imgf = img.astype(np.float32)
     else:
@@ -34,12 +35,13 @@ print(np.max(imgMean))
 cv2.imshow('image', imgMean)
 cv2.waitKey(0)
 
-
+c=0
 for filename in os.listdir(input_folder):
     if not filename.lower().endswith(('.jpg', '.jpeg', '.png')):
         continue
     inputPath = os.path.join(input_folder, filename)
     img = cv2.imread(inputPath, cv2.IMREAD_GRAYSCALE) # read in the image as grayscale
+    if isf.isBlackImage(img): continue
     img = img.astype(np.float32)
     img -= imgf
     img /=2.0
