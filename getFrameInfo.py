@@ -41,7 +41,7 @@ def getMean(data, filename):
     
     frame = {
         "filename": filename,
-        "frameNumber": frameNumber,
+        "frameNumber": int(frameNumber),
         "leftImage":{
             "mean":leftMean
         },
