@@ -41,20 +41,24 @@ for frame in data:
     framePhasesRight.append(rightImageMeanPhase)
     i+=1
 
-del frameNumbers[15]
+#del frameNumbers[15]
 maxFrame = max(frameNumbers)
-droppedFrames = [0 for x in range (maxFrame)]
+print(maxFrame)
+droppedFrames = [-3 for x in range (maxFrame)]
 print(droppedFrames)
 for i in range(maxFrame):
     if i+1 in frameNumbers:
-        droppedFrames[i] = 1        #existence marked
+        droppedFrames[i] = -2        #existence marked
 
 print(droppedFrames)
 print(frameNumbers)
-sys.exit()
+allFrameNumbers = [x for x in range (1, maxFrame + 1)]
+
+print(len(allFrameNumbers))
 
 ax1.plot(frameNumbers, framePhasesLeft, 'ro', markersize=3, label="Left Beam")
 ax1.plot(frameNumbers, framePhasesRight, 'go', markersize=3, label="Right Beam")
+ax1.plot(allFrameNumbers, droppedFrames, 'b-', markersize=3, label="Valid Frame")
 ax1.set_xlabel("video frame")
 ax1.set_ylabel("phase")
 plt.legend(loc="upper left")
