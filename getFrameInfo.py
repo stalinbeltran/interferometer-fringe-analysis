@@ -32,12 +32,16 @@ def getMeanBySide(data, side):
     return f
     
     
-def getMean(data, filename):
+def getMean(data, filename, video_name):
+    filenameParts = filename.split('-')
+    print(filenameParts)
+    frameNumber = filenameParts[1]              #define the frame number is always in this position in the filename
     leftMean = getMeanBySide(data, "leftSide")
     rightMean = getMeanBySide(data, "rightSide")
     
     frame = {
         "filename": filename,
+        "frameNumber": frameNumber,
         "leftImage":{
             "mean":leftMean
         },
@@ -53,6 +57,7 @@ def getMean(data, filename):
 
 input_folder = (sys.argv[1])
 output_file = (sys.argv[2])
+video_name = (sys.argv[3])
 
 frameData = []
 for filename in os.listdir(input_folder):
@@ -62,11 +67,8 @@ for filename in os.listdir(input_folder):
         data = json.load(f)
     if not data:
         continue
-    frame = getMean(data, filename)
+    frame = getMean(data, filename, video_name)
     frameData.append(frame)
-    break
     
-print('JSON', json.dumps(frameData))
 with open(output_file, 'w') as f:
     json.dump(frameData, f)
-#print(outputPath, outputPathJSON)

@@ -51,10 +51,11 @@ ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes
 fringes_7:
 ffmpeg -framerate 6 -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7.h264 -c copy /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7.mp4
 video to frames:
-ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7/fringes_7.mp4 -vf fps=6 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7/frames/fringes_7_%d.png
+mkdir /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7/frames
+ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7/fringes_7.mp4 -vf fps=6 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_7/frames/fringes_7-%d-.png
 python imageVerticalCentralCropper.py 800 ./videos/fringes_7/frames ./videos/fringes_7/framesCropped
 python rescaleImage.py ./videos/fringes_7/framesCropped ./videos/fringes_7/framesRescaled
-D:\Stalin\Desarrollo\interferometer-fringe-analysis>python fitImage.py ./videos/fringes_7/framesRescaled ./videos/fringes_7/framesFitImage ./videos/fringes_7/framesFitImagejson 300
+python fitImage.py ./videos/fringes_7/framesRescaled ./videos/fringes_7/framesFitImage ./videos/fringes_7/framesFitImagejson 300
 
 
 fringes_8:
@@ -80,7 +81,7 @@ h264 to mp4:
 ffmpeg -framerate 6 -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_9.h264 -c copy /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_9.mp4
 video to frames:
 mkdir /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_9/frames
-ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_9/fringes_9.mp4 -vf fps=6 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_9/frames/fringes_9_%d.png
+ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_9/fringes_9.mp4 -vf fps=6 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_9/frames/fringes_9-%d-.png
 
 En windows:
 python imageVerticalCentralCropper.py 800 ./videos/fringes_9/frames ./videos/fringes_9/framesCropped
