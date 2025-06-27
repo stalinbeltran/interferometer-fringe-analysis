@@ -13,16 +13,16 @@ def sine_function(x, A, B, C, D):
 
 def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
     paramsList = []
+    # Initial guess for the parameters [A, B, C, D]
+    guessedAmplitude = guessedParameters["guessedAmplitude"]
+    guessedWavelength = guessedParameters["guessedWavelength"]
+    guessedPhase = guessedParameters["guessedPhase"]
+    guessedVerticalDisplacement = guessedParameters["guessedVerticalDisplacement"]    
+    initial_guess = [guessedAmplitude, 2*np.pi/guessedWavelength, guessedPhase, guessedVerticalDisplacement]
+    
     for target_slice in range(xbegin, xend):
         slc = img[:, int(target_slice)]             #take a slice to process
 
-        # Initial guess for the parameters [A, B, C, D]
-        guessedAmplitude = guessedParameters["guessedAmplitude"]
-        guessedWavelength = guessedParameters["guessedWavelength"]
-        guessedPhase = guessedParameters["guessedPhase"]
-        guessedVerticalDisplacement = guessedParameters["guessedVerticalDisplacement"]
-        
-        initial_guess = [guessedAmplitude, 2*np.pi/guessedWavelength, guessedPhase, guessedVerticalDisplacement]
         len = np.size(slc)
         x = range(0, len)
         # Perform the curve fitting
@@ -34,7 +34,7 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
                     "value": params[0],
                     "error": perr[0]
                 },
-                "wavelength":{
+                "frequency":{
                     "value": params[1],
                     "error": perr[1]
                 },
