@@ -49,7 +49,7 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
         guessedPhase = guessedParameters["guessedPhase"]
         guessedVerticalDisplacement = guessedParameters["guessedVerticalDisplacement"]
         
-        initial_guess = [guessedAmplitude, 2*np.pi/guessedFrequency, guessedPhase, guessedVerticalDisplacement]
+        initial_guess = [guessedAmplitude, guessedFrequency, guessedPhase, guessedVerticalDisplacement]
         len = np.size(slc)
         x = range(0, len)
         # Perform the curve fitting
@@ -83,7 +83,7 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
         y_fit = sine_function(x, A_fit, B_fit, C_fit, D_fit)    # Generate y values using the fitted parameters
         imgnew[:, int(target_slice)] = y_fit            #modify image with the best fit found
         counter+=1
-        if counter % 20 == 0:
+        if counter % 100 == 0:
             guessedParameters = getBetterGuessedParameters(paramsList)
            
 
