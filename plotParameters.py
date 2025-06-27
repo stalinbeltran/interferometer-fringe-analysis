@@ -91,7 +91,7 @@ plt.hist(framePhasesErrorsLeft, bins=30, color='skyblue', edgecolor='black')
 plt.hist(framePhasesErrorsRight, bins=30, color='green', edgecolor='black')
 '''
 
-plt.hist(framePhasesLeft, bins=30, color='skyblue', edgecolor='black')
+#plt.hist(framePhasesLeft, bins=30, color='skyblue', edgecolor='black')
 plt.hist(framePhasesRight, bins=30, color='green', edgecolor='black')
 
 

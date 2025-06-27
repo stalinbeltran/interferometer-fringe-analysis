@@ -43,11 +43,11 @@ for filename in os.listdir(input_folder):
     img = cv2.imread(inputPath, cv2.IMREAD_GRAYSCALE) # read in the image as grayscale
     if isf.isBlackImage(img): continue
     img = img.astype(np.float32)
-    img -= imgf
+    img = imgf - img
     img /=2.0
     
     img = img.astype(np.uint8)
-    if c == 10: break
+    #if c == 10: break
     c+=1
     cv2.imshow('image', img)
     cv2.waitKey(0)
