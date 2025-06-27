@@ -44,23 +44,17 @@ for frame in data:
     i+=1
 
 maxFrame = max(frameNumbers)
-print(maxFrame)
 
 MARK_NOT_EXIST = 3.5
 droppedFrames = [MARK_NOT_EXIST for x in range (maxFrame)]
-print(droppedFrames)
 for i in range(maxFrame):
     if i+1 in frameNumbers:
         droppedFrames[i] = 4        #existence marked
 
-print(droppedFrames)
-print(frameNumbers)
 allFrameNumbers = [x for x in range (1, maxFrame + 1)]
 
-print(len(allFrameNumbers))
-
 previouslyDropped = []
-PREVIOUSFRAMES = 12
+PREVIOUSFRAMES = 18
 for frame in frameNumbers:
     if frame < PREVIOUSFRAMES:
         final = 0
@@ -68,7 +62,6 @@ for frame in frameNumbers:
         final = frame - PREVIOUSFRAMES
     previous = 0
     for i in range(frame - 1, final, -1):
-        print(i, len(droppedFrames))
         if droppedFrames[i] == MARK_NOT_EXIST:
             previous+=1
     previouslyDropped.append(previous)
@@ -88,10 +81,13 @@ for previous in previouslyDropped:
 #ax1.plot(allFrameNumbers, droppedFrames, 'b-', markersize=3, label="Valid Frame")
 #ax1.plot(frameNumbers, leftrightdifference, 'ro', markersize=3, label="Phase difference")
 #ax1.plot(previouslyDropped, leftrightdifference, 'go', markersize=3, label="previously dropped")
-ax1.plot(filteredFrames, filteredPhaseDifference, 'go', markersize=3, label="filteredPhaseDifference")
+#ax1.plot(filteredFrames, filteredPhaseDifference, 'go', markersize=3, label="filteredPhaseDifference")
+plt.hist(filteredPhaseDifference, bins=30, color='skyblue', edgecolor='black')
+npFilteredPhaseDifference = np.asarray(filteredPhaseDifference, dtype=np.float32)
+plt.axvline(npFilteredPhaseDifference.mean(), color='k', linestyle='dashed', linewidth=1)
 
 #ax1.set_xlabel("previously dropped")
 #ax1.set_ylabel("phase")
-ax1.set_ylabel("phase")
-plt.legend(loc="upper left")
+#ax1.set_ylabel("phase")
+#plt.legend(loc="upper left")
 plt.show()
