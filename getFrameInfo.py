@@ -48,7 +48,20 @@ for filename in os.listdir(input_folder):
         #break
         j +=1
         
-    print('mean', np.mean(npParameters, axis = 1))
+    mean = np.mean(npParameters, axis = 1)
+    print('mean', mean)
+    
+    frame = {
+        "filename": filename,
+        "mean":[]
+    }
+    i = 0
+    for param in parameters:
+        f = {}
+        f[param] = mean[i]
+        frame["mean"].append(f)
+        i+=1
+    print(frame)
     break
 '''
     imageSineFit = {
