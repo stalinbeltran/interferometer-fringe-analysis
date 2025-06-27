@@ -29,6 +29,7 @@ size = len(data)
 frameNumbers = []
 framePhasesLeft = []
 framePhasesRight = []
+leftrightdifference = []
 i = 0
 for frame in data:
     frameNumber = frame["frameNumber"]
@@ -39,16 +40,19 @@ for frame in data:
     rightImageMeanPhase = rightImageMean["phase"]
     framePhasesLeft.append(leftImageMeanPhase)
     framePhasesRight.append(rightImageMeanPhase)
+    leftrightdifference.append(leftImageMeanPhase - rightImageMeanPhase)
     i+=1
+    if i > 20:
+        break
 
 #del frameNumbers[15]
 maxFrame = max(frameNumbers)
 print(maxFrame)
-droppedFrames = [-3 for x in range (maxFrame)]
+droppedFrames = [3.5 for x in range (maxFrame)]
 print(droppedFrames)
 for i in range(maxFrame):
     if i+1 in frameNumbers:
-        droppedFrames[i] = -2        #existence marked
+        droppedFrames[i] = 4        #existence marked
 
 print(droppedFrames)
 print(frameNumbers)
@@ -56,9 +60,10 @@ allFrameNumbers = [x for x in range (1, maxFrame + 1)]
 
 print(len(allFrameNumbers))
 
-ax1.plot(frameNumbers, framePhasesLeft, 'ro', markersize=3, label="Left Beam")
-ax1.plot(frameNumbers, framePhasesRight, 'go', markersize=3, label="Right Beam")
+# ax1.plot(frameNumbers, framePhasesLeft, 'ro', markersize=3, label="Left Beam")
+#ax1.plot(frameNumbers, framePhasesRight, 'go', markersize=3, label="Right Beam")
 ax1.plot(allFrameNumbers, droppedFrames, 'b-', markersize=3, label="Valid Frame")
+ax1.plot(frameNumbers, leftrightdifference, 'ro', markersize=3, label="Phase difference")
 ax1.set_xlabel("video frame")
 ax1.set_ylabel("phase")
 plt.legend(loc="upper left")
