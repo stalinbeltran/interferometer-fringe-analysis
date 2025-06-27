@@ -60,7 +60,7 @@ allFrameNumbers = [x for x in range (1, maxFrame + 1)]
 print(len(allFrameNumbers))
 
 previouslyDropped = []
-PREVIOUSFRAMES = 10
+PREVIOUSFRAMES = 12
 for frame in frameNumbers:
     if frame < PREVIOUSFRAMES:
         final = 0
