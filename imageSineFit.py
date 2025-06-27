@@ -31,7 +31,7 @@ def getBetterGuessedParameters(paramsList):
         #break
     guessedParameters = {
         "guessedAmplitude": findGivenParamMean("amplitude", paramsList),
-        "guessedWavelength": 2*np.pi*findGivenParamMean("wavelength", paramsList),
+        "guessedFrequency": 2*np.pi*findGivenParamMean("frequency", paramsList),
         "guessedPhase": findGivenParamMean("phase", paramsList),
         "guessedVerticalDisplacement": findGivenParamMean("verticalDisplacement", paramsList)
     }
@@ -45,11 +45,11 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
 
         # Initial guess for the parameters [A, B, C, D]
         guessedAmplitude = guessedParameters["guessedAmplitude"]
-        guessedWavelength = guessedParameters["guessedWavelength"]
+        guessedFrequency = guessedParameters["guessedFrequency"]
         guessedPhase = guessedParameters["guessedPhase"]
         guessedVerticalDisplacement = guessedParameters["guessedVerticalDisplacement"]
         
-        initial_guess = [guessedAmplitude, 2*np.pi/guessedWavelength, guessedPhase, guessedVerticalDisplacement]
+        initial_guess = [guessedAmplitude, 2*np.pi/guessedFrequency, guessedPhase, guessedVerticalDisplacement]
         len = np.size(slc)
         x = range(0, len)
         # Perform the curve fitting
@@ -61,7 +61,7 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
                     "value": params[0],
                     "error": perr[0]
                 },
-                "wavelength":{
+                "frequency":{
                     "value": params[1],
                     "error": perr[1]
                 },
@@ -90,6 +90,7 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
     return imgnew, paramsList 
   
 def imageSineFit(inputFile, outputFile, guessedWavelength):
+    guessedFrequency = 2*np.pi/guessedWavelength
     img = cv2.imread(inputFile, cv2.IMREAD_GRAYSCALE) # read in the image as grayscale
     if isBlackImage(img):
         return None
@@ -98,7 +99,7 @@ def imageSineFit(inputFile, outputFile, guessedWavelength):
     xmax = img.shape[1]     #width of the image
     guessedParameters = {
         "guessedAmplitude": 250,
-        "guessedWavelength": guessedWavelength,
+        "guessedFrequency": guessedFrequency,
         "guessedPhase": 0.5,
         "guessedVerticalDisplacement": 0
     }
