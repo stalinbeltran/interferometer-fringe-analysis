@@ -5,6 +5,9 @@ import cv2
 import os
 from scipy.optimize import curve_fit
 
+def isBlackImage(img):
+    return np.mean(img) < 90
+
 def sine_function(x, A, B, C, D):
     return A * np.sin(B * x + C) + D
 

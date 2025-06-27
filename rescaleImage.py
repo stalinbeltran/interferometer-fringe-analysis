@@ -6,6 +6,7 @@ import matplotlib.gridspec as gridspec
 from skimage import exposure
 import sys
 import os
+import imageSineFit as isf
 
 input_folder = (sys.argv[1])
 output_folder = (sys.argv[2])
@@ -17,7 +18,10 @@ for filename in os.listdir(input_folder):
         filenameNoExt, file_extension = os.path.splitext(filename)
         outputPath = os.path.join(output_folder, filenameNoExt + "" + file_extension)
         img = cv2.imread(inputPath, cv2.IMREAD_GRAYSCALE)
-        img2 = exposure.rescale_intensity(img)
+        if isf.isBlackImage(img):
+            img2 = img
+        else:
+            img2 = exposure.rescale_intensity(img)
         cv2.imwrite(outputPath, img2)
 
 
