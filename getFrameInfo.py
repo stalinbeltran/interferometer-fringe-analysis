@@ -45,7 +45,8 @@ for filename in os.listdir(input_folder):
     for leftParameter in leftParameters:
         for i in range(parametersSize):
             npParameters[i][j] = leftParameter[parameters[i]]["value"]
-        break
+        #break
+        j +=1
     print(npParameters)
     break
 '''
