@@ -17,36 +17,47 @@ def getMeanBySide(data, side):
     parametersSize = len(parameters)
     leftParametersPhases = np.zeros(len(sideParameters))
     npParameters = np.zeros((parametersSize, len(sideParameters)))
+    npErrors = np.zeros((parametersSize, len(sideParameters)))
     j = 0
-    for leftParameter in sideParameters:
+    for sideParameter in sideParameters:
         for i in range(parametersSize):
-            npParameters[i][j] = leftParameter[parameters[i]]["value"]
+            npParameters[i][j] = sideParameter[parameters[i]]["value"]
+            npErrors[i][j] = sideParameter[parameters[i]]["error"]
         j +=1
         
     mean = np.mean(npParameters, axis = 1)
+    stdMean = np.mean(npErrors, axis = 1)
     i = 0
     f = {}
     for param in parameters:
         f[param] = mean[i]
         i+=1
-    return f
+    i = 0
+    error = {}
+    for param in parameters:
+        error[param] = stdMean[i]
+        i+=1
+        
+    return f, error
     
     
 def getMean(data, filename):
     filenameParts = filename.split('-')
     #print(filenameParts)
     frameNumber = filenameParts[1]              #define the frame number is always in this position in the filename
-    leftMean = getMeanBySide(data, "leftSide")
-    rightMean = getMeanBySide(data, "rightSide")
+    leftMean, leftError = getMeanBySide(data, "leftSide")
+    rightMean, rightError = getMeanBySide(data, "rightSide")
     
     frame = {
         "filename": filename,
         "frameNumber": int(frameNumber),
         "leftImage":{
-            "mean":leftMean
+            "mean":leftMean,
+            "stdMean":leftError
         },
         "rightImage":{
-            "mean":rightMean
+            "mean":rightMean,
+            "stdMean":rightError
         }
     }
 
