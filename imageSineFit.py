@@ -11,8 +11,35 @@ def isBlackImage(img):
 def sine_function(x, A, B, C, D):
     return A * np.sin(B * x + C) + D
 
+def findGivenParamMean(paramName, paramsList):
+    size = len(paramsList)
+    values = np.empty(size)
+    i = 0
+    for params in paramsList:
+        # if params[paramName]["error"] < 1:
+        values[i] = params[paramName]["value"]
+        i +=1
+    
+    mean = np.mean(values)
+    return mean
+
+def getBetterGuessedParameters(paramsList):
+    #for params in paramsList:
+        #print(params)
+        # if params["amplitude"]["error"] < 0.1:
+            # amplitudes.append(
+        #break
+    guessedParameters = {
+        "guessedAmplitude": findGivenParamMean("amplitude", paramsList),
+        "guessedWavelength": 2*np.pi*findGivenParamMean("wavelength", paramsList),
+        "guessedPhase": findGivenParamMean("phase", paramsList),
+        "guessedVerticalDisplacement": findGivenParamMean("verticalDisplacement", paramsList)
+    }
+    return guessedParameters
+        
 def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
     paramsList = []
+    counter = 0
     for target_slice in range(xbegin, xend):
         slc = img[:, int(target_slice)]             #take a slice to process
 
@@ -50,11 +77,15 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
         except Exception as e:
             print('Error', e)
             continue    #if no fit, left slice unchanged, no fit getted
-            
+        #print(fittedParameters)
         paramsList.append(fittedParameters)
         A_fit, B_fit, C_fit, D_fit = params     # Extract the fitted parameters
         y_fit = sine_function(x, A_fit, B_fit, C_fit, D_fit)    # Generate y values using the fitted parameters
         imgnew[:, int(target_slice)] = y_fit            #modify image with the best fit found
+        counter+=1
+        if counter % 20 == 0:
+            guessedParameters = getBetterGuessedParameters(paramsList)
+           
 
     return imgnew, paramsList 
   
