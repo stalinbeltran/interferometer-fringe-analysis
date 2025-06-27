@@ -60,6 +60,8 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
   
 def imageSineFit(inputFile, outputFile, guessedWavelength):
     img = cv2.imread(inputFile, cv2.IMREAD_GRAYSCALE) # read in the image as grayscale
+    if isBlackImage(img):
+        return None
     imgnew = img
     xmin = 0
     xmax = img.shape[1]     #width of the image
