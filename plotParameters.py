@@ -72,8 +72,14 @@ for frame in frameNumbers:
         if droppedFrames[i] == MARK_NOT_EXIST:
             previous+=1
     previouslyDropped.append(previous)
-
-    
+i = 0
+filteredFrames = []
+filteredPhaseDifference = []
+for previous in previouslyDropped:
+    if previous == 0:
+        filteredFrames.append(frameNumbers[i])
+        filteredPhaseDifference.append(leftrightdifference[i])
+    i+=1
 
 
 
@@ -81,8 +87,10 @@ for frame in frameNumbers:
 #ax1.plot(frameNumbers, framePhasesRight, 'go', markersize=3, label="Right Beam")
 #ax1.plot(allFrameNumbers, droppedFrames, 'b-', markersize=3, label="Valid Frame")
 #ax1.plot(frameNumbers, leftrightdifference, 'ro', markersize=3, label="Phase difference")
-ax1.plot(previouslyDropped, leftrightdifference, 'go', markersize=3, label="previously dropped")
-ax1.set_xlabel("previously dropped")
+#ax1.plot(previouslyDropped, leftrightdifference, 'go', markersize=3, label="previously dropped")
+ax1.plot(filteredFrames, filteredPhaseDifference, 'go', markersize=3, label="filteredPhaseDifference")
+
+#ax1.set_xlabel("previously dropped")
 #ax1.set_ylabel("phase")
 ax1.set_ylabel("phase")
 plt.legend(loc="upper left")
