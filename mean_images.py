@@ -35,4 +35,17 @@ cv2.imshow('image', imgMean)
 cv2.waitKey(0)
 
 
-
+for filename in os.listdir(input_folder):
+    if not filename.lower().endswith(('.jpg', '.jpeg', '.png')):
+        continue
+    inputPath = os.path.join(input_folder, filename)
+    img = cv2.imread(inputPath, cv2.IMREAD_GRAYSCALE) # read in the image as grayscale
+    img = img.astype(np.float32)
+    img -= imgf
+    img /=2.0
+    
+    img = img.astype(np.uint8)
+    if c == 10: break
+    c+=1
+    cv2.imshow('image', img)
+    cv2.waitKey(0)
