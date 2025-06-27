@@ -70,3 +70,19 @@ python imageVerticalCentralCropper.py 800 ./videos/fringes_8/frames ./videos/fri
 python rescaleImage.py ./videos/fringes_8/framesCropped ./videos/fringes_8/framesRescaled
 python fitImage.py ./videos/fringes_8/framesRescaled ./videos/fringes_8/framesFitImage ./videos/fringes_8/framesFitImagejson 300
 
+
+
+
+
+fringes_9:
+En linux:
+h264 to mp4:
+ffmpeg -framerate 6 -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_9.h264 -c copy /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_9.mp4
+video to frames:
+mkdir /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_9/frames
+ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_9/fringes_9.mp4 -vf fps=6 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_9/frames/fringes_9_%d.png
+
+En windows:
+python imageVerticalCentralCropper.py 800 ./videos/fringes_9/frames ./videos/fringes_9/framesCropped
+python rescaleImage.py ./videos/fringes_9/framesCropped ./videos/fringes_9/framesRescaled
+python fitImage.py ./videos/fringes_9/framesRescaled ./videos/fringes_9/framesFitImage ./videos/fringes_9/framesFitImagejson 250
