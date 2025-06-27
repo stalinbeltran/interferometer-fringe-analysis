@@ -11,19 +11,26 @@ import json
 
 input_folder = (sys.argv[1])
 output_folder = (sys.argv[2])
-os.makedirs(output_folder, exist_ok=True)
+#os.makedirs(output_folder, exist_ok=True)
 
-        outputPath = os.path.join(output_folder, filename)
-        filenameNoExt, file_extension = os.path.splitext(filename)
-        filenameJSON = filenameNoExt + ".json"
-        outputPathJSON = os.path.join(outputJSON_folder, filenameJSON)
-        
+outputPath = os.path.join(output_folder, 'frames.json')
+
 for filename in os.listdir(input_folder):
-    if filename.lower().endswith(('.jpg', '.jpeg', '.png')):
-        inputPath = os.path.join(input_folder, filename)
-        with open(inputPath, 'r') as f:
-            data = json.load(f)
-        print('data', data)
+    inputPath = os.path.join(input_folder, filename)
+    with open(inputPath, 'r') as f:
+        data = json.load(f)
+    # print('data', data)
+    # print(data.keys())
+    #dict_keys(['imagepath', 'fitData'])
+    fitData = data["fitData"]
+    #print(fitData.keys())
+    #dict_keys(['leftSide', 'rightSide'])
+    leftData = fitData["leftSide"]
+    #print(leftData.keys())
+    #dict_keys(['fitParameters'])
+    parameters = leftData["fitParameters"]
+    #print(parameters[0])
+    #{'amplitude': {'value': 52.445338132835005, 'error': 1.5758581058845498}, 'wavelength': {'value': 0.012312298713821406, 'error': 9.062006024708478e-05}, 'phase': {'value': 5.493020119917932, 'error': 0.055429869589786004}, 'verticalDisplacement': {'value': 105.12554035537349, 'error': 1.1043501120158479}}
     break
 '''
     imageSineFit = {
