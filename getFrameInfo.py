@@ -34,7 +34,7 @@ def getMeanBySide(data, side):
     
 def getMean(data, filename, video_name):
     filenameParts = filename.split('-')
-    print(filenameParts)
+    #print(filenameParts)
     frameNumber = filenameParts[1]              #define the frame number is always in this position in the filename
     leftMean = getMeanBySide(data, "leftSide")
     rightMean = getMeanBySide(data, "rightSide")
