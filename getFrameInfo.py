@@ -12,13 +12,13 @@ import numpy as np
 
 
 def getMeanBySide(data, side):
-    leftParameters = data["fitData"][side]["fitParameters"]
-    parameters = list(leftParameters[0].keys())
+    sideParameters = data["fitData"][side]["fitParameters"]
+    parameters = list(sideParameters[0].keys())
     parametersSize = len(parameters)
-    leftParametersPhases = np.zeros(len(leftParameters))
-    npParameters = np.zeros((parametersSize, len(leftParameters)))
+    leftParametersPhases = np.zeros(len(sideParameters))
+    npParameters = np.zeros((parametersSize, len(sideParameters)))
     j = 0
-    for leftParameter in leftParameters:
+    for leftParameter in sideParameters:
         for i in range(parametersSize):
             npParameters[i][j] = leftParameter[parameters[i]]["value"]
         j +=1
