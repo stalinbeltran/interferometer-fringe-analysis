@@ -48,5 +48,7 @@ y = np.sin(x)
 #plt.plot(x, y, 'o', markersize=3, color='black');
 ax1.plot(frameNumbers, framePhasesLeft, 'ro', markersize=3, label="Left Beam")
 ax1.plot(frameNumbers, framePhasesRight, 'go', markersize=3, label="Right Beam")
+ax1.set_xlabel("video frame")
+ax1.set_ylabel("phase")
 plt.legend(loc="upper left")
 plt.show()
