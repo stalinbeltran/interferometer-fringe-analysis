@@ -21,6 +21,9 @@ def findGivenParamMean(paramName, paramsList):
         i +=1
     
     mean = np.mean(values)
+    if paramName == "frequency":
+        print('values', values)
+        print('mean', mean)
     return mean
 
 def getBetterGuessedParameters(paramsList):
@@ -31,7 +34,7 @@ def getBetterGuessedParameters(paramsList):
         #break
     guessedParameters = {
         "guessedAmplitude": findGivenParamMean("amplitude", paramsList),
-        "guessedFrequency": 2*np.pi*findGivenParamMean("frequency", paramsList),
+        "guessedFrequency": findGivenParamMean("frequency", paramsList),
         "guessedPhase": findGivenParamMean("phase", paramsList),
         "guessedVerticalDisplacement": findGivenParamMean("verticalDisplacement", paramsList)
     }
@@ -39,6 +42,7 @@ def getBetterGuessedParameters(paramsList):
         
 def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
     paramsList = []
+    print('guessedParameters', guessedParameters)
     counter = 0
     for target_slice in range(xbegin, xend):
         slc = img[:, int(target_slice)]             #take a slice to process
@@ -83,8 +87,10 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
         y_fit = sine_function(x, A_fit, B_fit, C_fit, D_fit)    # Generate y values using the fitted parameters
         imgnew[:, int(target_slice)] = y_fit            #modify image with the best fit found
         counter+=1
-        if counter % 100 == 0:
+        if counter % 200 == 0:
             guessedParameters = getBetterGuessedParameters(paramsList)
+            print('guessedParameters', guessedParameters)
+            break
            
 
     return imgnew, paramsList 
