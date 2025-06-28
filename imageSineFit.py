@@ -4,6 +4,7 @@ import numpy as np
 import cv2
 import os
 from scipy.optimize import curve_fit
+import sys
 
 def isBlackImage(img):
     return np.mean(img) < 60
@@ -19,42 +20,50 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
     guessedPhase = guessedParameters["guessedPhase"]
     guessedVerticalDisplacement = guessedParameters["guessedVerticalDisplacement"]    
     initial_guess = [guessedAmplitude, 2*np.pi/guessedWavelength, guessedPhase, guessedVerticalDisplacement]
+    halfImage = img[:, xbegin: xend]
+    alto, ancho = np.shape(halfImage)
+    print(ancho, alto)
+    #sys.exit()
+    halfImageArray = np.reshape(halfImage, ancho * alto)
+    size = np.size(halfImageArray)
+    xImageArray = np.zeros(size, dtype=int)
+    x = range(0, alto)               #x values por each column of the image
+    for pos in range(xbegin, xend):
+        posArray = pos*alto
+        xImageArray[posArray:posArray+alto] = x
     
-    for target_slice in range(xbegin, xend):
-        slc = img[:, int(target_slice)]             #take a slice to process
-
-        len = np.size(slc)
-        x = range(0, len)
-        # Perform the curve fitting
-        try:
-            params, covariance = curve_fit(sine_function, x, slc, p0=initial_guess)
-            perr = np.sqrt(np.diag(covariance))
-            fittedParameters = {
-                "amplitude":{
-                    "value": params[0],
-                    "error": perr[0]
-                },
-                "frequency":{
-                    "value": params[1],
-                    "error": perr[1]
-                },
-                "phase":{
-                    "value": params[2],
-                    "error": perr[2]
-                },
-                "verticalDisplacement":{
-                    "value": params[3],
-                    "error": perr[3]
-                }
+    print('xImageArray', xImageArray[3*alto - 3:3*alto + 3])
+    sys.exit()
+    # Perform the curve fitting
+    try:
+        params, covariance = curve_fit(sine_function, xImageArray, halfImageArray, p0=initial_guess)
+        perr = np.sqrt(np.diag(covariance))
+        fittedParameters = {
+            "amplitude":{
+                "value": params[0],
+                "error": perr[0]
+            },
+            "frequency":{
+                "value": params[1],
+                "error": perr[1]
+            },
+            "phase":{
+                "value": params[2],
+                "error": perr[2]
+            },
+            "verticalDisplacement":{
+                "value": params[3],
+                "error": perr[3]
             }
-        except Exception as e:
-            print('Error', e)
-            continue    #if no fit, left slice unchanged, no fit getted
-            
-        paramsList.append(fittedParameters)
-        A_fit, B_fit, C_fit, D_fit = params     # Extract the fitted parameters
-        y_fit = sine_function(x, A_fit, B_fit, C_fit, D_fit)    # Generate y values using the fitted parameters
-        imgnew[:, int(target_slice)] = y_fit            #modify image with the best fit found
+        }
+    except Exception as e:
+        print('Error', e)
+        
+    paramsList.append(fittedParameters)
+    A_fit, B_fit, C_fit, D_fit = params     # Extract the fitted parameters
+    y_fit = sine_function(xImageArray, A_fit, B_fit, C_fit, D_fit)    # Generate y values using the fitted parameters
+    y_fit = np.reshape(y_fit, (alto, ancho))
+    imgnew[:, xbegin:xend] = y_fit            #modify image with the best fit found
 
     return imgnew, paramsList 
   
