@@ -88,3 +88,9 @@ python imageVerticalCentralCropper.py 800 ./videos/fringes_9/frames ./videos/fri
 python rescaleImage.py ./videos/fringes_9/framesCropped ./videos/fringes_9/framesRescaled
 python fitImage.py ./videos/fringes_9/framesRescaled ./videos/fringes_9/framesFitImage ./videos/fringes_9/framesFitImagejson 250
 python getFrameInfo.py ./videos/fringes_9/framesFitImagejson ./videos/fringes_9/infoFrames.json
+
+python imageVerticalCentralCropper.py 800 ./videos/fringes_9/frames ./videos/fringes_9/framesCropped_02
+python fitImage.py ./videos/fringes_9/framesCropped_02 ./videos/fringes_9/framesFitImage_02 ./videos/fringes_9/framesFitImagejson_02 250
+
+
+
