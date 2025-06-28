@@ -32,8 +32,8 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
         posArray = pos*alto
         xImageArray[posArray:posArray+alto] = x
     
-    print('xImageArray', xImageArray[3*alto - 3:3*alto + 3])
-    sys.exit()
+    #print('xImageArray', xImageArray[3*alto - 3:3*alto + 3])
+    #sys.exit()
     # Perform the curve fitting
     try:
         params, covariance = curve_fit(sine_function, xImageArray, halfImageArray, p0=initial_guess)
@@ -62,6 +62,7 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
     paramsList.append(fittedParameters)
     A_fit, B_fit, C_fit, D_fit = params     # Extract the fitted parameters
     y_fit = sine_function(xImageArray, A_fit, B_fit, C_fit, D_fit)    # Generate y values using the fitted parameters
+    print('y_fit', y_fit[3*alto - 3:3*alto + 3])
     y_fit = np.reshape(y_fit, (alto, ancho))
     imgnew[:, xbegin:xend] = y_fit            #modify image with the best fit found
 
@@ -80,8 +81,14 @@ def imageSineFit(inputFile, outputFile, guessedWavelength):
         "guessedPhase": 0.5,
         "guessedVerticalDisplacement": 0
     }
-    xmiddle = int((xmax - xmin)/2)
-    imgnew, paramListLeft = scanImageRange(img, 0, xmiddle, guessedParameters, imgnew)
+    xmiddle = int((xmax - xmin)/2) + 250
+    imgnew, paramListLeft = scanImageRange(img, xmiddle, xmiddle+1, guessedParameters, imgnew)
+    
+    print('imgnew', imgnew)
+    print('paramListLeft', paramListLeft)
+    cv2.imshow('imgnew', imgnew)
+    cv2.waitKey(0)
+    sys.exit()
     imgnew, paramListRight = scanImageRange(img, xmiddle, xmax, guessedParameters, imgnew)
 
     cv2.imwrite(outputFile, imgnew)
