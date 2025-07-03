@@ -1,16 +1,15 @@
 #python imageVerticalCentralCropper.py 800  ./originales ./recortadas
-from PIL import Image
+
 import os
 import sys
-import imageSineFit as isf
 
-rangoArchivos = sys.argv[1]
+input_folder = (sys.argv[1])
+rangoArchivos = sys.argv[2]
 inicio, final = rangoArchivos.split('-')
-input_folder = (sys.argv[2])
+inicio = int(inicio)
+final = int(final)
 
-os.makedirs(output_folder, exist_ok=True)
-
-for index in rangoArchivosArray:
+for index in range(inicio, final):
     command = "ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX.h264 -c copy /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX.mp4"
-    command.replace("fringes_XXX", "fringes_" + index)
+    command = command.replace("fringes_XXX", "fringes_" + str(index))
     os.system(command)

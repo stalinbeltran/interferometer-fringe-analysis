@@ -101,7 +101,9 @@ ffmpeg -framerate 6 -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/v
 
 fringes_XXX:
 En linux:
-ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX.h264
+ffmpeg -i 
+
+fringes_XXX.h264
 h264 to mp4:
 ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX.h264 -c copy /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX.mp4
 video to frames:
@@ -113,3 +115,10 @@ python imageVerticalCentralCropper.py 800 ./videos/fringes_XXX/frames ./videos/f
 python rescaleImage.py ./videos/fringes_XXX/framesCropped ./videos/fringes_XXX/framesRescaled
 python fitImage.py ./videos/fringes_XXX/framesRescaled ./videos/fringes_XXX/framesFitImage ./videos/fringes_XXX/framesFitImagejson 250
 python getFrameInfo.py ./videos/fringes_XXX/framesFitImagejson ./videos/fringes_XXX/infoFrames.json
+
+
+para convertir videos de h264 a mp4:
+python /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/procesadorVideos.py 18-29 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/
+
+
+
