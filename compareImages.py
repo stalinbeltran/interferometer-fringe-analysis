@@ -21,7 +21,9 @@ print(img0_norm)
 print(img1_norm)
 
 similaritiy = np.sum(np.sqrt(img0_norm*img0_norm))
+print("similaritiy: ", similaritiy)
 
+similaritiy = np.sum(np.sqrt(img0_norm*img1_norm))
 print("similaritiy: ", similaritiy)
 
 
