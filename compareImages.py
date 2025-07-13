@@ -2,10 +2,12 @@
 import numpy as np
 import cv2
 import os
+import sys
 import imageSineFit as isf
 
-input_folder = "./videos/fringes_9/frames/"   #(sys.argv[1])
-img0 = cv2.imread("./videos/fringes_9/frames/fringes_9-400-.png", cv2.IMREAD_GRAYSCALE)
+input_folder = (sys.argv[1])
+img0_path = (sys.argv[2])
+img0 = cv2.imread(img0_path, cv2.IMREAD_GRAYSCALE)
 img0_norm = img0/np.sum(img0)
 
 for filename in os.listdir(input_folder):
