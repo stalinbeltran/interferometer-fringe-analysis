@@ -7,6 +7,8 @@ import imageSineFit as isf
 
 input_folder = (sys.argv[1])
 img0_path = (sys.argv[2])
+threshold = float(sys.argv[3])
+
 img0 = cv2.imread(img0_path, cv2.IMREAD_GRAYSCALE)
 img0_norm = img0/np.sum(img0)
 
@@ -20,7 +22,7 @@ for filename in os.listdir(input_folder):
 
         img1_norm = img1/np.sum(img1)
         similarity = np.sum(np.sqrt(img0_norm*img1_norm))
-        if similarity > 0.999:
+        if similarity > threshold:
             print("archivo: ", filename, " - ", similarity)
 
 
