@@ -1,9 +1,13 @@
+#python imageVerticalCentralCropper.py 800  ./originales ./recortadas
 from PIL import Image
 import os
+import sys
+import imageSineFit as isf
 
-input_folder = './originales'
-output_folder = 'recortadas'
-pixelesXrecortarCentro = 100
+pixelesXrecortarCentro = int(sys.argv[1])
+input_folder = (sys.argv[2])
+output_folder = (sys.argv[3])
+
 pixelesXrecortarPorLado = pixelesXrecortarCentro/2 
 os.makedirs(output_folder, exist_ok=True)
 
@@ -16,7 +20,8 @@ for filename in os.listdir(input_folder):
     if filename.lower().endswith(('.jpg', '.jpeg', '.png')):
         path = os.path.join(input_folder, filename)
         img = Image.open(path)
-
+        if isf.isBlackImage(img):
+            continue
         # Recortar porciones superior e inferior y unirlas (saltando zona central)
         # top = img.crop((0, 0, img.width, img.height//2 - pixelesXrecortarPorLado))
         # bottom = img.crop((0, img.height//2 + pixelesXrecortarPorLado, img.width, img.height))

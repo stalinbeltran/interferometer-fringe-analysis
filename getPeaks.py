@@ -4,14 +4,12 @@ import numpy as np
 import cv2
 from scipy.signal import find_peaks
 from scipy.ndimage.filters import gaussian_filter1d
-from scipy.ndimage import gaussian_filter
 import sys
 
 archivoProcesar = sys.argv[1]
 print('file:',archivoProcesar)
 
 fig = plt.figure(tight_layout=True)
-
 gs = gridspec.GridSpec(3, 2)
 ax1 = fig.add_subplot(gs[0, 0])
 ax2 = fig.add_subplot(gs[0, 1])
@@ -25,9 +23,9 @@ ax2.set_xticks([])
 img = cv2.imread(archivoProcesar, 0) # read in the image as grayscale
 
 ax1.imshow(img, cmap='gray')
-ax1.set_title("Original image (" + archivoProcesar + ")")
+ax1.set_title("Original image")
 
-#img[img < 10] = 0 # apply some arbitrary thresholding (there's
+img[img < 10] = 0 # apply some arbitrary thresholding (there's
 # a bunch of noise in the image
 
 yp, xp = np.where(img != 0)
@@ -35,8 +33,8 @@ yp, xp = np.where(img != 0)
 xmax = max(xp)
 xmin = min(xp)
 target_slice = (xmax - xmin)*.75 + xmin # get the middle of the fringe blob
-img2 = gaussian_filter(img, sigma =5)
-sobely = cv2.Sobel(img2,cv2.CV_64F,0,1,ksize=5) # get the vertical derivative
+
+sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5) # get the vertical derivative
 
 sobely = cv2.blur(sobely,(7,7)) # make the peaks a little smoother
 
@@ -44,7 +42,7 @@ ax2.imshow(sobely, cmap='gray') #show the derivative (troughs are very visible)
 ax2.set_title("vertical derivative")
 
 def findPeaks(slc):
-    peaks = find_peaks(slc, prominence=10)[0] # [0] returns only locations
+    peaks = find_peaks(slc)[0] # [0] returns only locations
     return peaks
     
 def getWavelengthArray(peaks):
@@ -57,7 +55,6 @@ def getWavelengthArray(peaks):
     
 
 def getPhaseArray(peaks, wavelength, negativeFunction):
-    #print('getPhaseArray')
     size = np.size(peaks)
     phase = np.empty(size)
     for i in range(size):
@@ -65,7 +62,6 @@ def getPhaseArray(peaks, wavelength, negativeFunction):
         if negativeFunction:
             phase[i]+=0.25      #as the negative function will have a pi/2 phase offset, we add it to compensate
             phase[i] = phase[i]%1.0     #and avoid values over 1
-        #print('phase[i]', phase[i])
     return phase
 
 def processSliceWavelength(slc, wavelengths):
@@ -78,12 +74,10 @@ def processSliceWavelength(slc, wavelengths):
     return wavelengths
     
     
-def processSlicePhase(peaks, phases, wavelength, negative = False):
-    
-    #print('peaks', peaks)
+def processSlicePhase(slc, phases, wavelength, negative = False):
+    peaks = findPeaks(slc)
     if np.size(peaks)<1:
         return phases
-    #print('before getPhaseArray')
     phase = getPhaseArray(peaks, wavelength, negative)
     np.resize(phases, np.size(phases) + np.size(phase))
     phases = np.append(phases, phase)
@@ -96,7 +90,7 @@ def scanImageWavelengths(xbegin, xend, axis):
         slc = sobely[:, int(target_slice)]
         #slc[slc < 0] = 0
         #slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise, again an arbitrary threshold
-        #axis.plot(slc)
+        axis.plot(slc)
         
         wavelengths = processSliceWavelength(slc, wavelengths)
         slc *=-1                    #get the negative of the slice to work the minimums too
@@ -108,22 +102,17 @@ def scanImageWavelengths(xbegin, xend, axis):
     return mean, std, wavelengths
     
 
-def scanImagePhases(xbegin, xend, wavelength, axis):
+def scanImagePhases(xbegin, xend, wavelength):
     phases = np.empty(0)
     for target_slice in range(xbegin, xend):
         slc = sobely[:, int(target_slice)]
-        #print('slc', slc)
         #slc[slc < 0] = 0
-        #print('slc0', slc)
         #slc = gaussian_filter1d(slc, sigma=10) # filter the peaks the remove noise,
         # again an arbitrary threshold
-        axis.plot(slc)
-        peaks = findPeaks(slc)
-        axis.plot(peaks, slc[peaks], 'rx')
-        phases = processSlicePhase(peaks, phases, wavelength)
-        #break
-        #slc *=-1                    #get the negative of the slice to work the minimums
-        #phases = processSlicePhase(slc, phases, wavelength, True)
+        
+        phases = processSlicePhase(slc, phases, wavelength)
+        slc *=-1                    #get the negative of the slice to work the minimums
+        phases = processSlicePhase(slc, phases, wavelength, True)
 
     mean = np.mean(phases)
     std = np.std(phases)
@@ -140,14 +129,12 @@ print('mean wavelength:', meanWavelength)
 print('std wavelength:', stdWavelength)
 
 
-meanPhase, stdPhase, phases = scanImagePhases(xmin, xmiddle - 1, meanWavelength, ax3)
+meanPhase, stdPhase, phases = scanImagePhases(xmin, xmiddle - 1, meanWavelength)
 print('phases size:', np.size(phases))
 print(phases)
 print('mean phase:', meanPhase)
 print('std phase:', stdPhase)
 ax3.set_title("Left Image (Wavelength: " + ' mean: ' + "{:.1f}".format(meanWavelength) + ' std: ' + "{:.1f}".format(stdWavelength) + ") (Phase: " + ' mean: ' + "{:.2f}".format(meanPhase) + ' std: ' + "{:.2f}".format(stdPhase) + ")")
-    
-
     
 print()
 print('Right image:')
@@ -159,7 +146,7 @@ print('std wavelength:', stdWavelength)
 ax4.set_title("Right Image Wavelength" + ' mean: ' + "{:.1f}".format(meanWavelength) + ' std: ' + "{:.1f}".format(stdWavelength) )
 
 
-meanPhase, stdPhase, phases = scanImagePhases(xmiddle, xmax, meanWavelength, ax4)
+meanPhase, stdPhase, phases = scanImagePhases(xmiddle, xmax, meanWavelength)
 print('phases size:', np.size(phases))
 print(phases)
 print('mean phase:', meanPhase)
