@@ -12,12 +12,13 @@ img1 = cv2.imread("./videos/fringes_9/frames/fringes_9-369-.png", cv2.IMREAD_GRA
 # cv2.waitKey()
 
 
-img0_norm = img0/np.sqrt(np.sum(img0**2))
-img1_norm = img1/np.sqrt(np.sum(img1**2))
+img0_norm = img0/np.sum(img0)
+img1_norm = img1/np.sum(img1)
 
-similaritiy = np.sum(img0_norm*img1_norm)
-
-print("similaritiy: ", similaritiy)
+similaritiy = np.sum(np.sqrt(img0_norm*img0_norm))
+print("similaritiy (img0_norm*img0_norm): ", similaritiy)
+similaritiy = np.sum(np.sqrt(img0_norm*img1_norm))
+print("similaritiy (img0_norm*img1_norm): ", similaritiy)
 
 
 cv2.destroyAllWindows()
