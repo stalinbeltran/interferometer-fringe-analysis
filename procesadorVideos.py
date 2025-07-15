@@ -15,18 +15,16 @@ def run(command, falseFileName, trueFileName):
 
 
 for index in range(inicio, final):
+    falseFileName = "fringes_XXX"
+    trueFileName = "fringes_" + str(index)
+    
     #h264 to mp4
-    command = "ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX.h264 -c copy /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX.mp4"
-    run(command, "fringes_XXX", "fringes_" + str(index))
-    sys.exit(9)
+    run("ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX.h264 -c copy /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX.mp4", falseFileName, trueFileName)
 
     #video to frames:
-    #create the required folder for the frames
-    command = "mkdir /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX/frames"
-    command = command.replace("fringes_XXX", "fringes_" + str(index))
-    os.system(command)
+    #create the required folder for the frames    
+    run("mkdir /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX", falseFileName, trueFileName)
+    run("mkdir /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX/frames", falseFileName, trueFileName)
     #get frames from mp4
-    command = "ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX/fringes_XXX.mp4 -vf fps=6 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX/frames/fringes_XXX-%d-.png"
-    command = command.replace("fringes_XXX", "fringes_" + str(index))
-    os.system(command)
+    run("ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX/fringes_XXX.mp4 -vf fps=6 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX/frames/fringes_XXX-%d-.png", falseFileName, trueFileName)
 
