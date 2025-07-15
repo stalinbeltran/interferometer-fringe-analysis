@@ -20,7 +20,8 @@ for filename in os.listdir(input_folder):
     inputPath = os.path.join(input_folder, filename)
     img = cv2.imread(inputPath, cv2.IMREAD_GRAYSCALE) # read in the image as grayscale
     print(filename + " mean: " + str(np.mean(img)))
-    c+=1
-    if c == 20: break
-    if isf.isBlackImage(img): continue
+    # c+=1
+    # if c == 20: break
+    if isf.isBlackImage(img):
+        os.remove(inputPath)        #delete black images
     
