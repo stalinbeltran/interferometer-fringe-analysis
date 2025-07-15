@@ -24,6 +24,7 @@ for index in range(inicio, final):
     #video to frames:
     #create the required folder for the frames    
     run("mkdir /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX", falseFileName, trueFileName)
+    run("mv /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX.mp4 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX/fringes_XXX.mp4", falseFileName, trueFileName)
     run("mkdir /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX/frames", falseFileName, trueFileName)
     #get frames from mp4
     run("ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX/fringes_XXX.mp4 -vf fps=6 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX/frames/fringes_XXX-%d-.png", falseFileName, trueFileName)
