@@ -18,10 +18,9 @@ for filename in os.listdir(input_folder):
     if not filename.lower().endswith(('.jpg', '.jpeg', '.png')):
         continue
     inputPath = os.path.join(input_folder, filename)
-    img = cv2.imread(inputPath, cv2.IMREAD_GRAYSCALE) # read in the image as grayscale    
-    if isf.isBlackImage(img): continue
-    print("mean: " + str(np.mean(img)))
-    if isf.isBlackImage(img): continue
+    img = cv2.imread(inputPath, cv2.IMREAD_GRAYSCALE) # read in the image as grayscale
+    print(filename + " mean: " + str(np.mean(img)))
     c+=1
-    if c == 10: break
+    if c == 20: break
+    if isf.isBlackImage(img): continue
     
