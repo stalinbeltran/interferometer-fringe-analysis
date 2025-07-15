@@ -1,4 +1,4 @@
-#python3 " + basePath + "/procesadorVideos.py " + basePath + "/videos 39-40
+#python3 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/procesadorVideos.py /videos 39-40 160
 
 import os
 import sys
@@ -9,8 +9,8 @@ fps = int(sys.argv[3])
 inicio, final = rangoArchivos.split('-')
 inicio = int(inicio)
 final = int(final)
-#basePath = "/mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis"
-basePath = "/home/stalin/interferometer-fringe-analysis"
+basePath = "/mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis"
+#basePath = "/home/stalin/interferometer-fringe-analysis"
 
 
 def run(command, falseFileName, trueFileName):
