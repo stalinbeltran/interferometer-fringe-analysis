@@ -1,4 +1,5 @@
 #python3 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/deleteBlackImage.py /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_40/frames
+#python /home/stalin/interferometer-fringe-analysis/deleteBlackImage.py /home/stalin/interferometer-fringe-analysis/videos/fringes_45/frames
 
 import cv2
 import matplotlib.pyplot as plt
