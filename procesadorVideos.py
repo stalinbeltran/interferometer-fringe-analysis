@@ -1,15 +1,17 @@
 #python3 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/procesadorVideos.py /videos 39-40 160
+#python /home/stalin/interferometer-fringe-analysis/procesadorVideos.py /home/stalin/interferometer-fringe-analysis /videos 160 39-40
 
 import os
 import sys
 
-input_folder = (sys.argv[1])
-rangoArchivos = sys.argv[2]
+basePath = sys.argv[1]
+input_folder = (sys.argv[2])
 fps = int(sys.argv[3])
+rangoArchivos = sys.argv[4]
 inicio, final = rangoArchivos.split('-')
 inicio = int(inicio)
 final = int(final)
-basePath = "/mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis"
+#basePath = "/mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis"
 #basePath = "/home/stalin/interferometer-fringe-analysis"
 
 
