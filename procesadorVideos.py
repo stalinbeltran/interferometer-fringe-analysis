@@ -32,3 +32,5 @@ for index in range(inicio, final):
     #get frames from mp4
     run("ffmpeg -i " + basePath + "/videos/fringes_XXX/fringes_XXX.mp4 -vf fps=" + str(fps) + " " + basePath + "/videos/fringes_XXX/frames/fringes_XXX-%d-.png", falseFileName, trueFileName)
 
+    #delete black frames
+    run("python3 " + basePath + "/deleteBlackImage.py " + basePath + "/videos/fringes_XXX/frames", falseFileName, trueFileName)
