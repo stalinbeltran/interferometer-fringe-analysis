@@ -20,18 +20,10 @@ for filename in os.listdir(input_folder):
             continue                #ignore black images
         diff = np.absolute(img0-img1)
         difference = np.sum(diff)
-        if difference == 0: continue
-        # print(img0)
-        # print(img1)
-        # print(diff)
-        # cv2.imshow('frame', diff)
-        # break
-        # print("archivo: ", filename, " - ", difference)
+        if difference == 0: continue        #in case of the exactly same image
         if difference < threshold:
             print("archivo: ", filename, " - ", difference)
             cv2.imshow('frame', diff)
             cv2.waitKey()
-            #break
-            
 
 cv2.destroyAllWindows()
