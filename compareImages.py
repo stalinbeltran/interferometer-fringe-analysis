@@ -11,19 +11,22 @@ img0_path = (sys.argv[2])
 threshold = float(sys.argv[3])
 
 img0 = cv2.imread(img0_path, cv2.IMREAD_GRAYSCALE)
+img0 = 1.0*img0/255
+maxDiff = 640*480.0
 
 for filename in os.listdir(input_folder):
     if filename.lower().endswith(('.jpg', '.jpeg', '.png')):
         inputPath = os.path.join(input_folder, filename)
         img1 = cv2.imread(inputPath, cv2.IMREAD_GRAYSCALE)
-        if isf.isBlackImage(img1):
-            continue                #ignore black images
+        img1 = 1.0*img1/255
+        # if isf.isBlackImage(img1):
+            # continue                #ignore black images
         diff = np.absolute(img0-img1)
-        difference = np.sum(diff)
+        difference = np.sum(diff)/maxDiff
+        # print("difference: " + str(difference))
+        # break
         if difference == 0: continue        #in case of the exactly same image
         if difference < threshold:
             print("archivo: ", filename, " - ", difference)
-            cv2.imshow('frame', diff)
-            cv2.waitKey()
 
 cv2.destroyAllWindows()

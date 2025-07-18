@@ -17,7 +17,7 @@ for filename in os.listdir(input_folder):
         img1 = cv2.imread(inputPath, cv2.IMREAD_GRAYSCALE)
         kernel = np.ones((dim,dim),np.float32)/product
         imgBlurred = cv2.filter2D(img1,-1,kernel)
-        outputPath = os.path.join(input_folder, filenameNoExt + "-blurred" + file_extension)
-        #outputPath = os.path.join(input_folder, filename)
+        #outputPath = os.path.join(input_folder, filenameNoExt + "-blurred" + file_extension)
+        outputPath = inputPath
         cv2.imwrite(outputPath, imgBlurred)
 cv2.destroyAllWindows()
