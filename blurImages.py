@@ -7,7 +7,7 @@ import sys
 import imageSineFit as isf
 
 input_folder = (sys.argv[1])
-dim = 5
+dim = 25
 product = dim*dim
 
 for filename in os.listdir(input_folder):
