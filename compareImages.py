@@ -19,12 +19,8 @@ for filename in os.listdir(input_folder):
         inputPath = os.path.join(input_folder, filename)
         img1 = cv2.imread(inputPath, cv2.IMREAD_GRAYSCALE)
         img1 = 1.0*img1/255
-        # if isf.isBlackImage(img1):
-            # continue                #ignore black images
         diff = np.absolute(img0-img1)
         difference = np.sum(diff)/maxDiff
-        # print("difference: " + str(difference))
-        # break
         if difference == 0: continue        #in case of the exactly same image
         if difference < threshold:
             print("archivo: ", filename, " - ", difference)
