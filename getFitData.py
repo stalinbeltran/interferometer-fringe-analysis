@@ -1,4 +1,4 @@
-#python3 equalizeImages.py ./videos/fringes_44/framesLeft ./videos/fringes_44/framesLeftEqualized
+#python3 getFitData.py ./videos/fringes_44/framesLeftEqualized 120
 
 import cv2
 import matplotlib.pyplot as plt
@@ -7,16 +7,20 @@ from skimage import exposure
 import sys
 import os
 import imageSineFit as isf
+import json
 
 input_folder = (sys.argv[1])
-output_folder = (sys.argv[2])
-os.makedirs(output_folder, exist_ok=True)
+guessedWavelength = float(sys.argv[2])
 
+fitDataList = []
 for filename in os.listdir(input_folder):
     if filename.lower().endswith(('.jpg', '.jpeg', '.png')):
         inputPath = os.path.join(input_folder, filename)
-        outputPath = os.path.join(output_folder, filename)
         img = cv2.imread(inputPath, 0)
-        imgnew = isf.scanImageMean(img, img)
-        cv2.imwrite(outputPath, imgnew)
-        #break
+        fitData = isf.verticalSineFit(img, guessedWavelength)
+        fitDataList.append(fitData)
+        break
+outputPath = os.path.join(input_folder, "fitData.json")
+with open(outputPath, 'w') as f:
+    json.dump(fitDataList, f)
+print(outputPath)
