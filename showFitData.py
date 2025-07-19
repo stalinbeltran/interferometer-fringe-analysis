@@ -12,7 +12,7 @@ from scipy.optimize import curve_fit
 import imageSineFit as isf
 import json
 import histogram as hist
-import math
+import phaseProcessing as pp
 
 archivoProcesar = sys.argv[1]
 data = None
@@ -23,17 +23,9 @@ phases = []
 for framedata in data:
     phase = framedata["phase"]["value"]
     amplitude = framedata["amplitude"]["value"]
-    factor = abs(math.trunc(phase/(2*np.pi)))
-    if phase < 0: phase += (factor)*2*np.pi         #avoid negative phases
-    if phase > 2*np.pi: phase -= factor*2*np.pi     #avoid greater than 2pi
-    if phase > np.pi: phase
-    if amplitude < 0:                               #fix negative amplitude (every comparison is amplitude positive
-        phase -= np.pi
-        amplitude *=-1                              #now amplitude is positive
+    phase, amplitude = pp.getProcessedPhase(phase, amplitude)
 
     phases.append(phase)
 hist.showHistogram(phases)
 
-# frequency = params["frequency"]["value"]
-# wavelength = 2*np.pi/frequency
 
