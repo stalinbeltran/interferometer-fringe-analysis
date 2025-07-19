@@ -85,3 +85,11 @@ def imageSineFit(inputFile, outputFile, guessedWavelength):
     }
     return imageSineFit
 
+def scanImageMean(img, imgnew):
+    ymin = 0
+    ymax = img.shape[0]     #width of the image
+    imgnew = img
+    for row in range(ymin, ymax):
+        rowMean = np.mean(img[row])
+        imgnew[row, :] = rowMean
+    return imgnew
