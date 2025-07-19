@@ -1,4 +1,4 @@
-#python3 compareImages.py ./videos/fringes_65/frames/ ./videos/fringes_65/frames/fringes_65-483-.png 25505474
+#python3 compareImages.py ./videos/fringes_65/framesSoftened/ ./videos/fringes_65/framessoftened/fringes_65-2-.png 0.02
 
 import numpy as np
 import cv2
@@ -6,6 +6,7 @@ import os
 import sys
 import matplotlib.pyplot as plt
 import imageSineFit as isf
+import histogram as hist
 
 input_folder = (sys.argv[1])
 img0_path = (sys.argv[2])
@@ -25,9 +26,6 @@ for filename in os.listdir(input_folder):
         difference = np.sum(diff)/maxDiff
         differences.append(difference)
         if difference == 0: continue        #in case of the exactly same image
-
-fig = plt.figure(tight_layout=False)
-fig.canvas.manager.set_window_title(img0_path)
-plt.hist(differences, bins=30, color='skyblue', edgecolor='black')
-plt.show()
+        
+hist.showHistogram(differences)
 cv2.destroyAllWindows()
