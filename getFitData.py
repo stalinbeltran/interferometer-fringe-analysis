@@ -19,7 +19,7 @@ for filename in os.listdir(input_folder):
         img = cv2.imread(inputPath, 0)
         fitData = isf.verticalSineFit(img, guessedWavelength)
         fitDataList.append(fitData)
-        break
+        #break
 outputPath = os.path.join(input_folder, "fitData.json")
 with open(outputPath, 'w') as f:
     json.dump(fitDataList, f)
