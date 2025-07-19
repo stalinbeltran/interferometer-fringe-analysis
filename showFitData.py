@@ -24,7 +24,6 @@ for framedata in data:
     phase = framedata["phase"]["value"]
     amplitude = framedata["amplitude"]["value"]
     phase, amplitude = pp.getProcessedPhase(phase, amplitude)
-
     phases.append(phase)
 hist.showHistogram(phases)
 
