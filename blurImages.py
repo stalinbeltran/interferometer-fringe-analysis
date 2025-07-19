@@ -1,4 +1,4 @@
-#python3 blurImages.py ./videos/fringes_65/frames ./videos/fringes_65/framesSoftened03
+#python3 blurImages.py ./videos/fringes_65/frames ./videos/fringes_65/framesSoftened
 
 import numpy as np
 import cv2

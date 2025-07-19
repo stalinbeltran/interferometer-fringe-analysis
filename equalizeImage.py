@@ -1,5 +1,4 @@
-#python equalizeImage.py ./images/alineacion666_rescaled.png 80
-
+#python3 equalizeImage.py ./images/fringes_44-1-.png 160
 
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec

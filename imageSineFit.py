@@ -11,7 +11,7 @@ def isBlackImage(img):
 def sine_function(x, A, B, C, D):
     return A * np.sin(B * x + C) + D
 
-def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
+def scanImage(img, guessedParameters, imgnew):
     paramsList = []
     # Initial guess for the parameters [A, B, C, D]
     guessedAmplitude = guessedParameters["guessedAmplitude"]
@@ -20,7 +20,9 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
     guessedVerticalDisplacement = guessedParameters["guessedVerticalDisplacement"]    
     initial_guess = [guessedAmplitude, 2*np.pi/guessedWavelength, guessedPhase, guessedVerticalDisplacement]
     
-    for target_slice in range(xbegin, xend):
+    xmin = 0
+    xmax = img.shape[1]     #width of the image
+    for target_slice in range(xmin, xmax):
         slc = img[:, int(target_slice)]             #take a slice to process
 
         len = np.size(slc)
@@ -60,35 +62,25 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
   
 def imageSineFit(inputFile, outputFile, guessedWavelength):
     img = cv2.imread(inputFile, cv2.IMREAD_GRAYSCALE) # read in the image as grayscale
-    if isBlackImage(img):
-        return None
+    print(img)
     imgnew = img
-    xmin = 0
-    xmax = img.shape[1]     #width of the image
+
     guessedParameters = {
         "guessedAmplitude": 250,
         "guessedWavelength": guessedWavelength,
         "guessedPhase": 0.5,
         "guessedVerticalDisplacement": 0
     }
-    xmiddle = int((xmax - xmin)/2)
-    imgnew, paramListLeft = scanImageRange(img, 0, xmiddle, guessedParameters, imgnew)
-    imgnew, paramListRight = scanImageRange(img, xmiddle, xmax, guessedParameters, imgnew)
-
+    imgnew, paramList = scanImage(img, guessedParameters, imgnew)
+    print('imgnew')
+    print(imgnew)
     cv2.imwrite(outputFile, imgnew)
     imageSineFit = {
         "imagepath": {
             "input": inputFile, 
             "output": outputFile
         },
-        "fitData":{
-            "leftSide": {
-                "fitParameters": paramListLeft
-            },
-            "rightSide": {
-                "fitParameters": paramListRight
-            },
-        }
+        "fitParameters": paramList
 
     }
     return imageSineFit
