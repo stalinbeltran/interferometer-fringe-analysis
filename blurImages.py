@@ -20,7 +20,7 @@ for filename in os.listdir(input_folder):
         imgBlurred = blur.blurImage(img1)
         outputPath = os.path.join(output_folder, filenameNoExt + "" + file_extension)
         cv2.imwrite(outputPath, imgBlurred)
-        cv2.imshow('-', imgBlurred)
-        cv2.waitKey()
-        break
+        # cv2.imshow('-', imgBlurred)
+        # cv2.waitKey()
+        # break
 cv2.destroyAllWindows()
