@@ -1,4 +1,4 @@
-#python3 compareImages.py ./videos/fringes_65/framesSoftened/ ./videos/fringes_65/framessoftened/fringes_65-2-.png 0.02
+#python3 compareImages.py ./videos/fringes_44/framesLeft/ ./videos/fringes_44/framesLeft/fringes_44-1-.png
 
 import numpy as np
 import cv2
@@ -10,7 +10,7 @@ import histogram as hist
 
 input_folder = (sys.argv[1])
 img0_path = (sys.argv[2])
-threshold = float(sys.argv[3])
+#threshold = float(sys.argv[3])
 
 img0 = cv2.imread(img0_path, cv2.IMREAD_GRAYSCALE)
 img0 = 1.0*img0/255
