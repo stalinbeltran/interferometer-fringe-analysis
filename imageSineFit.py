@@ -60,30 +60,49 @@ def scanImage(img, guessedParameters, imgnew):
 
     return imgnew, paramsList 
   
-def imageSineFit(inputFile, outputFile, guessedWavelength):
-    img = cv2.imread(inputFile, cv2.IMREAD_GRAYSCALE) # read in the image as grayscale
-    print(img)
-    imgnew = img
-
+def verticalSineFit(img, guessedWavelength):
     guessedParameters = {
-        "guessedAmplitude": 250,
+        "guessedAmplitude": 125,
         "guessedWavelength": guessedWavelength,
         "guessedPhase": 0.5,
         "guessedVerticalDisplacement": 0
     }
-    imgnew, paramList = scanImage(img, guessedParameters, imgnew)
-    print('imgnew')
-    print(imgnew)
-    cv2.imwrite(outputFile, imgnew)
-    imageSineFit = {
-        "imagepath": {
-            "input": inputFile, 
-            "output": outputFile
-        },
-        "fitParameters": paramList
+    guessedAmplitude = guessedParameters["guessedAmplitude"]
+    guessedWavelength = guessedParameters["guessedWavelength"]
+    guessedPhase = guessedParameters["guessedPhase"]
+    guessedVerticalDisplacement = guessedParameters["guessedVerticalDisplacement"]    
+    initial_guess = [guessedAmplitude, 2*np.pi/guessedWavelength, guessedPhase, guessedVerticalDisplacement]
+    
+    slc = img[:, 0]             #our image has the same vertical wave (if equalized)
 
-    }
-    return imageSineFit
+    len = np.size(slc)
+    x = range(0, len)
+    # Perform the curve fitting
+    try:
+        params, covariance = curve_fit(sine_function, x, slc, p0=initial_guess)
+        perr = np.sqrt(np.diag(covariance))
+        fittedParameters = {
+            "amplitude":{
+                "value": params[0],
+                "error": perr[0]
+            },
+            "frequency":{
+                "value": params[1],
+                "error": perr[1]
+            },
+            "phase":{
+                "value": params[2],
+                "error": perr[2]
+            },
+            "verticalDisplacement":{
+                "value": params[3],
+                "error": perr[3]
+            }
+        }
+    except Exception as e:
+        print('Error', e)
+
+    return fittedParameters
 
 def scanImageMean(img, imgnew):
     ymin = 0

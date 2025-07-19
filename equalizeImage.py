@@ -14,6 +14,7 @@ import json
 
 archivoProcesar = sys.argv[1]
 print('file:',archivoProcesar)
+guessedWavelength = 100
 
 fig = plt.figure(tight_layout=True)
 gs = gridspec.GridSpec(1, 2)
@@ -38,6 +39,11 @@ filenameNoExt, file_extension = os.path.splitext(archivoProcesar)
 outputFile = os.path.join(filenameNoExt + "_equalized" + file_extension)
 
 imgnew = isf.scanImageMean(img, img)
+params = isf.verticalSineFit(img, guessedWavelength)
+print(params)
+frequency = params["frequency"]["value"]
+wavelength = 2*np.pi/frequency
+print("wavelength: " + str(wavelength))
 
 ax2.imshow(imgnew, cmap='gray')
 ax2.set_title("New image")
