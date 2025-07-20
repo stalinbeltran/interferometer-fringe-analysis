@@ -1,11 +1,16 @@
+#python3 captureVideo.py
+
 import numpy as np
 import cv2 as cv
 import imageSineFit as isf
+from publisher import Publisher
 
 cap = cv.VideoCapture(0)
 if not cap.isOpened():
     print("Cannot open camera")
     exit()
+pub = Publisher()
+
 while True:
     # Capture frame-by-frame
     ret, frame = cap.read()
@@ -18,6 +23,7 @@ while True:
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
     # Display the resulting frame
     if not isf.isBlackImage(gray):
+        pub.publishImage("phototaken", gray)
         cv.imshow('frame', gray)
     if cv.waitKey(1) == ord('q'):
         break
