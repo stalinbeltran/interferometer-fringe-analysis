@@ -20,11 +20,11 @@ while True:
         print("Can't receive frame (stream end?). Exiting ...")
         break
     # Our operations on the frame come here
-    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    photo = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
     # Display the resulting frame
-    if not isf.isBlackImage(gray):
-        pub.publishImage("phototaken", gray)
-        cv.imshow('frame', gray)
+    if not isf.isBlackImage(photo):
+        pub.publishImage("phototaken", photo)       #publish photo
+        cv.imshow('frame', photo)
     if cv.waitKey(1) == ord('q'):
         break
 

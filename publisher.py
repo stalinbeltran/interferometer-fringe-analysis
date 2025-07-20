@@ -18,13 +18,6 @@ class Publisher:
         
     def publishImage(self, tag, image):
         print(type(image))
-        exit()
-        
-        a0 = np.arange(64,dtype=np.uint16).reshape(8,8)
-        print (a0)
-        arbitrary_binary_data = a0
-        base64_encoded_bytes = base64.b64encode(a0)
-
-        r.set('foo', base64_encoded_bytes)
-        self.redis.publish(tag, message)
+        base64_encoded_bytes = base64.b64encode(image)
+        self.publish(tag, base64_encoded_bytes)
         
