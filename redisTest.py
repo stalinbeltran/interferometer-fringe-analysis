@@ -38,7 +38,7 @@ getted = r.get('foo')
 print(getted)
 
 
-b = np.frombuffer(b'\x00\x00\x80?\x00\x00\x00@\x00\x00@@\x00\x00\x80@', dtype='<f4') # or dtype=np.dtype('<f4'), or np.float32 on a little-endian system (which most computers are these days)
+b = np.frombuffer(getted, dtype='<f4') # or dtype=np.dtype('<f4'), or np.float32 on a little-endian system (which most computers are these days)
 print (b)
 # Or, if you want big-endian:
 
