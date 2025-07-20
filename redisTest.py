@@ -36,9 +36,9 @@ base64_encoded_bytes = base64.b64encode(a0)
 r.set('foo', base64_encoded_bytes)
 getted = r.get('foo')
 print(getted)
+safe_string_base64 = base64.b64decode(getted)
 
-
-b = np.frombuffer(getted, dtype='<f4') # or dtype=np.dtype('<f4'), or np.float32 on a little-endian system (which most computers are these days)
+b = np.frombuffer(safe_string_base64, dtype='<f4') # or dtype=np.dtype('<f4'), or np.float32 on a little-endian system (which most computers are these days)
 print (b)
 # Or, if you want big-endian:
 
@@ -48,7 +48,7 @@ print (b)
 
 
 
-# safe_string_base64 = base64.b64decode(getted)
+# 
 # print('safe_string_base64')
 # print(safe_string_base64)
 
