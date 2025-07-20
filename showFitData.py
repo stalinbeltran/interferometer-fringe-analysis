@@ -17,7 +17,7 @@ import phaseProcessing as pp
 archivoProcesar = sys.argv[1]
 data = None
 with open(archivoProcesar, 'r') as f:
-    data = json.load( f)
+    data = json.load(f)
 
 phases = []
 for framedata in data:
