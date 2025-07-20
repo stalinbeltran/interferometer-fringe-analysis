@@ -10,6 +10,7 @@ if not cap.isOpened():
     print("Cannot open camera")
     exit()
 pub = Publisher()
+pub.init()
 
 while True:
     # Capture frame-by-frame
