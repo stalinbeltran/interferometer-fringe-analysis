@@ -30,6 +30,7 @@ print(getted)
 
 import base64
 a0 = np.arange(64,dtype=np.uint16).reshape(8,8)
+print (a0)
 arbitrary_binary_data = a0
 base64_encoded_bytes = base64.b64encode(a0)
 
@@ -38,8 +39,11 @@ getted = r.get('foo')
 print(getted)
 safe_string_base64 = base64.b64decode(getted)
 
-b = np.frombuffer(safe_string_base64, dtype='<f4') # or dtype=np.dtype('<f4'), or np.float32 on a little-endian system (which most computers are these days)
+b = np.frombuffer(safe_string_base64, dtype=np.uint16) # or dtype=np.dtype('<f4'), or np.float32 on a little-endian system (which most computers are these days)
 print (b)
+b = b.reshape(8, 8)
+print (b)
+
 # Or, if you want big-endian:
 
 # >>> np.frombuffer(b'\x00\x00\x80?\x00\x00\x00@\x00\x00@@\x00\x00\x80@', dtype='>f4') # or dtype=np.dtype('>f4'), or np.float32  on a big-endian system
