@@ -23,13 +23,10 @@ class Publisher:
         return base64_encoded_bytes
         
     def publishImage(self, tag, image):
-        print(type(image))
         base64_encoded_bytes = self.imageToString(image)
         self.publish(tag, base64_encoded_bytes)
         
     def subscribe(self, tag):
-        print('self.redisdb')
-        print(self.redisdb)
         self.pubsub = self.redisdb.pubsub()
         self.pubsub.subscribe(tag)
         
