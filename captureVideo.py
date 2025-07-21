@@ -4,6 +4,8 @@ import numpy as np
 import cv2 as cv
 import imageSineFit as isf
 from publisher import Publisher
+import time
+import redis
 
 cap = cv.VideoCapture(0)
 if not cap.isOpened():
@@ -11,6 +13,7 @@ if not cap.isOpened():
     exit()
 pub = Publisher()
 pub.init()
+time.sleep(3)
 
 while True:
     # Capture frame-by-frame
@@ -28,7 +31,7 @@ while True:
         cv.imshow('frame', photo)
     if cv.waitKey(1) == ord('q'):
         break
-
+    break
 # When everything done, release the capture
 cap.release()
 cv.destroyAllWindows()
