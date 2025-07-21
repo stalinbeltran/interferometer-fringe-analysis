@@ -23,7 +23,7 @@ if not cap.isOpened():
     exit()
 pub = Publisher()
 pub.init()
-#time.sleep(3)
+time.sleep(3)
 
 while True:
     # Capture frame-by-frame
