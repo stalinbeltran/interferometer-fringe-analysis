@@ -8,8 +8,8 @@ import cv2 as cv2
 #states
 WAITING_MOBILEMIRROR_PHOTO = 1
 WAITING_FIXEDMIRROR_PHOTO = 2
-HIDE = "hide".encode('ascii', 'ignore').decode('ascii')
-SHOW = "show".encode('ascii', 'ignore').decode('ascii')
+HIDE = "hide"
+SHOW = "show"
 
 def waitPhoto(message):
     value = message['data']
@@ -28,7 +28,6 @@ print(pub)
 pub.subscribe('photovalidated')
 pub.publish("commandShutter", HIDE)          #hide fixed retroreflector
 state = WAITING_MOBILEMIRROR_PHOTO
-exit()
 
 mobileMirrorPhoto = None
 fixedMirrorPhoto = None

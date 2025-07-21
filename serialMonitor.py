@@ -18,5 +18,7 @@ while True:
             print('is string')
             value = value.encode('ascii', 'ignore')
         s.write(value)                    #send command to serial
-    if s.in_waiting: print(s.readline())            #always write data received from serial
+        break
+    if s.in_waiting: print(s.read())            #always write data received from serial
+
 
