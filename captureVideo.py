@@ -38,7 +38,6 @@ while True:
     # Display the resulting frame
     if not isf.isBlackImage(photo):
         pub.publishImage("phototaken", photo)       #publish photo
-        #redisdb.publish("army-camp-1", 'message')
         cv.imshow('frame', photo)
     if cv.waitKey(1) == ord('q'):
         break
