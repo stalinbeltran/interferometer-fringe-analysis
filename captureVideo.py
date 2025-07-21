@@ -7,15 +7,15 @@ from publisher import Publisher
 import time
 import redis
 
-redisdb = None
 def init(hostIP = '127.0.0.1', port = 6379):
     redisdb = redis.Redis(
         host=hostIP,
         port=port,
         decode_responses=True # <-- this will ensure that binary data is decoded
     )
+    return redisdb
 
-init()
+redisdb = init()
 
 cap = cv.VideoCapture(0)
 if not cap.isOpened():
@@ -23,7 +23,7 @@ if not cap.isOpened():
     exit()
 #pub = Publisher()
 #pub.init()
-#time.sleep(3)
+time.sleep(3)
 
 while True:
     # Capture frame-by-frame
@@ -37,11 +37,12 @@ while True:
     photo = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
     # Display the resulting frame
     if not isf.isBlackImage(photo):
-        pub.publishImage("phototaken", photo)       #publish photo
+        #pub.publishImage("phototaken", photo)       #publish photo
+        redisdb.publish("army-camp-1", 'message')
         cv.imshow('frame', photo)
     if cv.waitKey(1) == ord('q'):
         break
-
+    break
 # When everything done, release the capture
 cap.release()
 cv.destroyAllWindows()
