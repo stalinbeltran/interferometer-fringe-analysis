@@ -9,6 +9,7 @@ pub.init()
 print(pub)
 pub.subscribe('phototaken')
 
+c = 0
 for message in pub.listen():
     value = message['data']
     if value == 'qc': exit()
@@ -18,6 +19,7 @@ for message in pub.listen():
     pub.publishImage("photovalidated", photo)
     # cv2.imshow('', photo)
     # key = cv2.waitKey()
-    break                               #debugging
+    c +=1
+    if c == 2: break                               #debugging
     
 cv2.destroyAllWindows()

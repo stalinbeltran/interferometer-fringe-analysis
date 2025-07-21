@@ -8,7 +8,8 @@ import cv2 as cv2
 #states
 WAITING_MOBILEMIRROR_PHOTO = 1
 WAITING_FIXEDMIRROR_PHOTO = 2
-
+HIDE = "hide".encode('ascii', 'ignore').decode('ascii')
+SHOW = "show".encode('ascii', 'ignore').decode('ascii')
 
 def waitPhoto(message):
     value = message['data']
@@ -25,8 +26,9 @@ pub = Publisher()
 pub.init()
 print(pub)
 pub.subscribe('photovalidated')
-pub.publish("commandShutter", "hide")          #hide fixed retroreflector
+pub.publish("commandShutter", HIDE)          #hide fixed retroreflector
 state = WAITING_MOBILEMIRROR_PHOTO
+exit()
 
 mobileMirrorPhoto = None
 fixedMirrorPhoto = None
@@ -36,7 +38,7 @@ for message in pub.listen():
     match state:
         case controller.WAITING_MOBILEMIRROR_PHOTO:
             mobileMirrorPhoto = photo
-            pub.publish("commandShutter", "show")          #hide fixed retroreflector
+            pub.publish("commandShutter", SHOW)          #hide fixed retroreflector
             state = WAITING_FIXEDMIRROR_PHOTO
         case controller.WAITING_FIXEDMIRROR_PHOTO:
             fixedMirrorPhoto = photo
@@ -47,6 +49,7 @@ for message in pub.listen():
             dataString = json.dumps(data)
             #save data
             pub.publish("saveDataPair", dataString)
+            pub.publish("commandShutter", HIDE)          #hide fixed retroreflector
             state = WAITING_MOBILEMIRROR_PHOTO
             
 

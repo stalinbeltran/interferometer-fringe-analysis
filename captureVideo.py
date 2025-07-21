@@ -15,6 +15,7 @@ pub = Publisher()
 pub.init()
 
 key = None
+c = 0
 while True:
     # Capture frame-by-frame
     ret, frame = cap.read()
@@ -35,11 +36,13 @@ while True:
         pub.publishImage("phototaken", photo)       #publish photo
         #cv2.imshow('frame', photo)
         #key = cv2.waitKey()
+        c +=1
     if key == ord('c'):
         pub.publish("phototaken", 'qc')       
     if key == ord('q'):
         break
-    break
+
+    if c == 2: break                               #debugging
 # When everything done, release the capture
 cap.release()
 cv2.destroyAllWindows()

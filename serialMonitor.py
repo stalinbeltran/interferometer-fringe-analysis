@@ -14,6 +14,9 @@ while True:
     message = pub.get_message()
     if message:
         value = message["data"]
+        if isinstance(value, str):
+            print('is string')
+            value = value.encode('ascii', 'ignore')
         s.write(value)                    #send command to serial
     if s.in_waiting: print(s.readline())            #always write data received from serial
 
