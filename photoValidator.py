@@ -1,4 +1,4 @@
-
+#python3 ./photoValidator.py
 import time
 import numpy as np
 from publisher import Publisher
@@ -8,6 +8,7 @@ pub.init()
 time.sleep(3)
 print(pub)
 pub.subscribe('phototaken')
+time.sleep(3)
 
 for message in pub.listen():
     print((message))

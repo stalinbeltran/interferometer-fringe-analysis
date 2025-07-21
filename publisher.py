@@ -33,5 +33,6 @@ class Publisher:
         return self.pubsub.listen()
         
     def getImage(self, imageStringBase64):
-        img = np.frombuffer(imageStringBase64, dtype=np.uint8)
+        bytesbase64 = base64.b64decode(imageStringBase64)
+        img = np.frombuffer(bytesbase64, dtype=np.uint8)
         return img
