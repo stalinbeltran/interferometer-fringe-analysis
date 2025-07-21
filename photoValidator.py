@@ -6,10 +6,8 @@ import cv2 as cv2
 
 pub = Publisher()
 pub.init()
-time.sleep(3)
 print(pub)
 pub.subscribe('phototaken')
-time.sleep(3)
 
 for message in pub.listen():
     value = message['data']

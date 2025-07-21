@@ -13,7 +13,6 @@ if not cap.isOpened():
     exit()
 pub = Publisher()
 pub.init()
-time.sleep(3)
 
 key = None
 while True:
