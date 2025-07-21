@@ -14,3 +14,11 @@ def getKey():
     if msvcrt.kbhit():  # Check if a keypress is available
         return msvcrt.getch().decode() # Read the character
     return None
+    
+def shouldCloseThisApp():
+    key = getKey()
+    if key == 'q':
+        print("salir")
+        return True
+    return False
+    

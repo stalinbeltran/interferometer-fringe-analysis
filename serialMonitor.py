@@ -12,10 +12,7 @@ pub.subscribe('commandShutter')
 
 
 while True:
-    key = globals.getKey()
-    if key == 'q':
-        print("salir")
-        break
+    if globals.shouldCloseThisApp(): break
     message = pub.get_message()
     if message:
         value = message["data"]
