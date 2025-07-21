@@ -1,5 +1,6 @@
 import redis
 import base64
+import numpy as np
 
 class Publisher:
     
@@ -31,3 +32,6 @@ class Publisher:
     def listen(self):
         return self.pubsub.listen()
         
+    def getImage(self, imageStringBase64):
+        img = np.frombuffer(imageStringBase64, dtype=np.uint8)
+        return img

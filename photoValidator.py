@@ -1,5 +1,6 @@
 
 import time
+import numpy as np
 from publisher import Publisher
 
 pub = Publisher()
@@ -10,4 +11,11 @@ pub.subscribe('phototaken')
 
 for message in pub.listen():
     print((message))
-    if message['data'] == 'qc': exit()
+    value = message['data']
+    if value == 'qc': exit()
+    print(type(value))
+    if isinstance(value, int) or len(value) < 200: continue
+    imageBase64 = value
+    img = pub.getImage(imageBase64)
+    print(type(img))
+    
