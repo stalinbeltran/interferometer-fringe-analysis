@@ -21,8 +21,8 @@ cap = cv.VideoCapture(0)
 if not cap.isOpened():
     print("Cannot open camera")
     exit()
-#pub = Publisher()
-#pub.init()
+pub = Publisher()
+pub.init()
 time.sleep(3)
 
 while True:
@@ -37,8 +37,8 @@ while True:
     photo = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
     # Display the resulting frame
     if not isf.isBlackImage(photo):
-        #pub.publishImage("phototaken", photo)       #publish photo
-        redisdb.publish("army-camp-1", 'message')
+        pub.publishImage("phototaken", photo)       #publish photo
+        #redisdb.publish("army-camp-1", 'message')
         cv.imshow('frame', photo)
     if cv.waitKey(1) == ord('q'):
         break
