@@ -23,7 +23,7 @@ for message in pub.listen():
     print('shape')
     print(img.shape)
     print(img)
-    #cv2.imshow('', img)
-    #key = cv2.waitKey()
+    cv2.imshow('', img)
+    key = cv2.waitKey()
     break
     
