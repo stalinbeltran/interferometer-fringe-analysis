@@ -1,8 +1,9 @@
 
+import asyncio
 from publisher import Publisher
 
 pub = Publisher()
-pub.init()
+asyncio.run(pub.init())
 print(pub)
 pub.subscribe('phototaken')
 
