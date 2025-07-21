@@ -29,7 +29,10 @@ while True:
     if not isf.isBlackImage(photo):
         pub.publishImage("phototaken", photo)       #publish photo
         cv.imshow('frame', photo)
-    if cv.waitKey(1) == ord('q'):
+    key = cv.waitKey()
+    if key == ord('c'):
+        pub.publish("phototaken", 'qc')       
+    if key == ord('q'):
         break
     break
 # When everything done, release the capture

@@ -2,6 +2,7 @@
 import time
 import numpy as np
 from publisher import Publisher
+import cv2 as cv2
 
 pub = Publisher()
 pub.init()
@@ -11,7 +12,6 @@ pub.subscribe('phototaken')
 time.sleep(3)
 
 for message in pub.listen():
-    print((message))
     value = message['data']
     if value == 'qc': exit()
     print(type(value))
@@ -19,4 +19,5 @@ for message in pub.listen():
     imageBase64 = value
     img = pub.getImage(imageBase64)
     print(type(img))
+    cv2.imshow('', img)
     
