@@ -3,7 +3,7 @@ import redis
 
 r = redis.Redis(
     host='127.0.0.1',
-    port=6378,
+    port=6379,
     decode_responses=True
 )
 
@@ -18,4 +18,5 @@ mobile.subscribe('phototaken')
 
 for message in mobile.listen():
     print(message) # <-- you can literally do any thing with this message i am just printing it
+    if message == 'q': break
 
