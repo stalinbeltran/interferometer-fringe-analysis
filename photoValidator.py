@@ -19,5 +19,11 @@ for message in pub.listen():
     imageBase64 = value
     img = pub.getImage(imageBase64)
     print(type(img))
-    cv2.imshow('', img)
+    img = img.reshape((480, 640))
+    print('shape')
+    print(img.shape)
+    print(img)
+    #cv2.imshow('', img)
+    #key = cv2.waitKey()
+    break
     

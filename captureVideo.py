@@ -15,6 +15,7 @@ pub = Publisher()
 pub.init()
 time.sleep(3)
 
+key = None
 while True:
     # Capture frame-by-frame
     ret, frame = cap.read()
@@ -25,11 +26,16 @@ while True:
         break
     # Our operations on the frame come here
     photo = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    print('type(photo)')
+    print(type(photo))
+    print('shape')
+    print(photo.shape)
+    print(photo)
     # Display the resulting frame
     if not isf.isBlackImage(photo):
         pub.publishImage("phototaken", photo)       #publish photo
-        cv.imshow('frame', photo)
-    key = cv.waitKey()
+        #cv.imshow('frame', photo)
+        #key = cv.waitKey()
     if key == ord('c'):
         pub.publish("phototaken", 'qc')       
     if key == ord('q'):
