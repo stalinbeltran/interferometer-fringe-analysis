@@ -1,5 +1,5 @@
 #python3 ./controller.py
-import controller
+#import controller
 import time
 import numpy as np
 from publisher import Publisher
@@ -70,4 +70,4 @@ while True:
 
     break                               #debugging
     
-cv2.destroyAllWindows()
+#cv2.destroyAllWindows()
