@@ -1,0 +1,7 @@
+#states
+WAITING_MOBILE_MIRROR_PHOTO = 1
+WAITING_FIXED_MIRROR_PHOTO = 2
+
+#constants
+HIDE = "hide"
+SHOW = "show"

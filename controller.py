@@ -1,16 +1,10 @@
 #python3 ./controller.py
-#import controller
+import constants
 import time
 import numpy as np
 from publisher import Publisher
 import cv2 as cv2
 import msvcrt
-
-#states
-WAITING_MOBILEMIRROR_PHOTO = 1
-WAITING_FIXEDMIRROR_PHOTO = 2
-HIDE = "hide"
-SHOW = "show"
 
 def getKey():
     if msvcrt.kbhit():  # Check if a keypress is available
@@ -25,16 +19,14 @@ def waitPhoto(message):
     photo = pub.getImage(imageBase64, 640, 480)
     return photo
 
-
-
 print('before create Publisher')
 pub = Publisher()
 pub.init()
 print('pub:')
 print(pub)
 pub.subscribe('photovalidated')
-pub.publish("commandShutter", HIDE)          #hide fixed retroreflector
-state = WAITING_MOBILEMIRROR_PHOTO
+pub.publish("commandShutter", constants.HIDE)          #hide fixed retroreflector
+state = constants.WAITING_MOBILE_MIRROR_PHOTO
 
 mobileMirrorPhoto = None
 fixedMirrorPhoto = None
@@ -51,11 +43,11 @@ while True:
     photo = waitPhoto(message)
     if photo is None: continue
     match state:
-        case controller.WAITING_MOBILEMIRROR_PHOTO:
+        case constants.WAITING_MOBILE_MIRROR_PHOTO:
             mobileMirrorPhoto = photo
-            pub.publish("commandShutter", SHOW)          #hide fixed retroreflector
-            state = WAITING_FIXEDMIRROR_PHOTO
-        case controller.WAITING_FIXEDMIRROR_PHOTO:
+            pub.publish("commandShutter", constants.SHOW)          #hide fixed retroreflector
+            state = constants.WAITING_FIXED_MIRROR_PHOTO
+        case constants.WAITING_FIXED_MIRROR_PHOTO:
             fixedMirrorPhoto = photo
             data = {
                 "mobileMirrorPhoto": pub.imageToString(mobileMirrorPhoto),
@@ -64,8 +56,8 @@ while True:
             dataString = json.dumps(data)
             #save data
             pub.publish("saveDataPair", dataString)
-            pub.publish("commandShutter", HIDE)          #hide fixed retroreflector
-            state = WAITING_MOBILEMIRROR_PHOTO
+            pub.publish("commandShutter", constants.HIDE)          #hide fixed retroreflector
+            state = constants.WAITING_MOBILE_MIRROR_PHOTO
             
 
     break                               #debugging
