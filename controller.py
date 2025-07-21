@@ -4,13 +4,7 @@ import time
 import numpy as np
 from publisher import Publisher
 import cv2 as cv2
-import msvcrt
 
-def getKey():
-    if msvcrt.kbhit():  # Check if a keypress is available
-        return msvcrt.getch().decode() # Read the character
-    return None
-    
 def waitPhoto(message):
     value = message['data']
     if value == 'qc': exit()
@@ -32,7 +26,7 @@ mobileMirrorPhoto = None
 fixedMirrorPhoto = None
 
 while True:
-    key = getKey()
+    key = constants.getKey()
     if key: print(key)
     if key == 'q':
         print("salir")
