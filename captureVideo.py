@@ -1,5 +1,6 @@
 #python3 captureVideo.py
 
+import globals
 import numpy as np
 import cv2 as cv2
 import imageSineFit as isf

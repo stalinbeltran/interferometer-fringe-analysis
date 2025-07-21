@@ -1,4 +1,6 @@
 #python3 ./photoValidator.py
+
+import globals
 import time
 import numpy as np
 from publisher import Publisher
@@ -10,7 +12,10 @@ print(pub)
 pub.subscribe('phototaken')
 
 c = 0
-for message in pub.listen():
+while True:
+    if globals.shouldCloseThisApp(): break
+    message = pub.get_message()
+    if message is None: continue
     value = message['data']
     if value == 'qc': exit()
     if isinstance(value, int) or len(value) < 200: continue

@@ -26,11 +26,7 @@ mobileMirrorPhoto = None
 fixedMirrorPhoto = None
 
 while True:
-    key = globals.getKey()
-    if key: print(key)
-    if key == 'q':
-        print("salir")
-        break
+    if globals.shouldCloseThisApp(): break
     
     message = pub.get_message()
     if message is None: continue
