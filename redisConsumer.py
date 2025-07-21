@@ -18,5 +18,5 @@ mobile.subscribe('phototaken')
 
 for message in mobile.listen():
     print(message) # <-- you can literally do any thing with this message i am just printing it
-    if message == 'q': break
+    if message['data'] == 'q': exit()
 

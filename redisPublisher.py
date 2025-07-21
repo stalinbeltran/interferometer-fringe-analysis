@@ -10,5 +10,5 @@ r = redis.Redis(
 
 while True:
     message = input("Enter the message you want to send to solders: ")
+    r.publish("phototaken", message)
     if message == 'q': break
-    r.publish("army-camp-1", message)
