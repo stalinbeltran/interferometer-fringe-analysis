@@ -4,7 +4,7 @@ import time
 import numpy as np
 from publisher import Publisher
 import cv2 as cv2
-import curses
+import msvcrt
 
 #states
 WAITING_MOBILEMIRROR_PHOTO = 1
@@ -12,14 +12,12 @@ WAITING_FIXEDMIRROR_PHOTO = 2
 HIDE = "hide"
 SHOW = "show"
 
-stdscr = curses.initscr()
-stdscr.nodelay(True)
-#curses.noecho()  # Don't echo keypresses to the screen
-curses.cbreak()  # React to keys instantly, without waiting for Enter
-#stdscr.keypad(True) # Enable special keys like arrow keys
 
-# stdscr.addstr("Press any key (or 'q' to quit): ")
-# stdscr.refresh()
+def getKey():
+    if msvcrt.kbhit():  # Check if a keypress is available
+        return msvcrt.getch().decode() # Read the character
+    return None
+
 
 
 def waitPhoto(message):
@@ -47,12 +45,13 @@ mobileMirrorPhoto = None
 fixedMirrorPhoto = None
 
 while True:
-    key = stdscr.getch()
-    if key == ord('q'):
+    key = getKey()
+    if key: print(key)
+    if key == 'q':
         print("salir")
         break
-    else:
-        print('.')
+    # else:
+        # print('.')
     message = pub.get_message()
     photo = waitPhoto(message)
     if photo is None: continue
