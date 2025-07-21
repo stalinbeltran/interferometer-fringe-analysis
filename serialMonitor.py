@@ -1,3 +1,4 @@
+import globals
 import serial
 from publisher import Publisher
 
@@ -11,6 +12,10 @@ pub.subscribe('commandShutter')
 
 
 while True:
+    key = globals.getKey()
+    if key == 'q':
+        print("salir")
+        break
     message = pub.get_message()
     if message:
         value = message["data"]
@@ -18,7 +23,6 @@ while True:
             print('is string')
             value = value.encode('ascii', 'ignore')
         s.write(value)                    #send command to serial
-        break
     if s.in_waiting: print(s.read())            #always write data received from serial
 
 
