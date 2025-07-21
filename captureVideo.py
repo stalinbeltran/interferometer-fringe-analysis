@@ -1,13 +1,13 @@
 #python3 captureVideo.py
 
 import numpy as np
-import cv2 as cv
+import cv2 as cv2
 import imageSineFit as isf
 from publisher import Publisher
 import time
 import redis
 
-cap = cv.VideoCapture(0)
+cap = cv2.VideoCapture(0)
 if not cap.isOpened():
     print("Cannot open camera")
     exit()
@@ -24,7 +24,7 @@ while True:
         print("Can't receive frame (stream end?). Exiting ...")
         break
     # Our operations on the frame come here
-    photo = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    photo = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     print('type(photo)')
     print(type(photo))
     print('shape')
@@ -33,8 +33,8 @@ while True:
     # Display the resulting frame
     if not isf.isBlackImage(photo):
         pub.publishImage("phototaken", photo)       #publish photo
-        #cv.imshow('frame', photo)
-        #key = cv.waitKey()
+        #cv2.imshow('frame', photo)
+        #key = cv2.waitKey()
     if key == ord('c'):
         pub.publish("phototaken", 'qc')       
     if key == ord('q'):
@@ -42,4 +42,4 @@ while True:
     break
 # When everything done, release the capture
 cap.release()
-cv.destroyAllWindows()
+cv2.destroyAllWindows()

@@ -20,4 +20,4 @@ for message in pub.listen():
     # key = cv2.waitKey()
     break                               #debugging
     
-cv.destroyAllWindows()
+cv2.destroyAllWindows()
