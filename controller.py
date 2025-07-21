@@ -4,6 +4,7 @@ import time
 import numpy as np
 from publisher import Publisher
 import cv2 as cv2
+import msvcrt
 
 #states
 WAITING_MOBILEMIRROR_PHOTO = 1
@@ -11,6 +12,11 @@ WAITING_FIXEDMIRROR_PHOTO = 2
 HIDE = "hide"
 SHOW = "show"
 
+def getKey():
+    if msvcrt.kbhit():  # Check if a keypress is available
+        return msvcrt.getch().decode() # Read the character
+    return None
+    
 def waitPhoto(message):
     value = message['data']
     if value == 'qc': exit()
@@ -21,9 +27,10 @@ def waitPhoto(message):
 
 
 
-
+print('before create Publisher')
 pub = Publisher()
 pub.init()
+print('pub:')
 print(pub)
 pub.subscribe('photovalidated')
 pub.publish("commandShutter", HIDE)          #hide fixed retroreflector
@@ -31,7 +38,16 @@ state = WAITING_MOBILEMIRROR_PHOTO
 
 mobileMirrorPhoto = None
 fixedMirrorPhoto = None
-for message in pub.listen():
+
+while True:
+    key = getKey()
+    if key: print(key)
+    if key == 'q':
+        print("salir")
+        break
+    
+    message = pub.get_message()
+    if message is None: continue
     photo = waitPhoto(message)
     if photo is None: continue
     match state:
