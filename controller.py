@@ -1,5 +1,5 @@
 #python3 ./controller.py
-import constants
+import globals
 import time
 import numpy as np
 from publisher import Publisher
@@ -19,14 +19,14 @@ pub.init()
 print('pub:')
 print(pub)
 pub.subscribe('photovalidated')
-pub.publish("commandShutter", constants.HIDE)          #hide fixed retroreflector
-state = constants.WAITING_MOBILE_MIRROR_PHOTO
+pub.publish("commandShutter", globals.HIDE)          #hide fixed retroreflector
+state = globals.WAITING_MOBILE_MIRROR_PHOTO
 
 mobileMirrorPhoto = None
 fixedMirrorPhoto = None
 
 while True:
-    key = constants.getKey()
+    key = globals.getKey()
     if key: print(key)
     if key == 'q':
         print("salir")
@@ -37,11 +37,11 @@ while True:
     photo = waitPhoto(message)
     if photo is None: continue
     match state:
-        case constants.WAITING_MOBILE_MIRROR_PHOTO:
+        case globals.WAITING_MOBILE_MIRROR_PHOTO:
             mobileMirrorPhoto = photo
-            pub.publish("commandShutter", constants.SHOW)          #hide fixed retroreflector
-            state = constants.WAITING_FIXED_MIRROR_PHOTO
-        case constants.WAITING_FIXED_MIRROR_PHOTO:
+            pub.publish("commandShutter", globals.SHOW)          #hide fixed retroreflector
+            state = globals.WAITING_FIXED_MIRROR_PHOTO
+        case globals.WAITING_FIXED_MIRROR_PHOTO:
             fixedMirrorPhoto = photo
             data = {
                 "mobileMirrorPhoto": pub.imageToString(mobileMirrorPhoto),
@@ -50,8 +50,8 @@ while True:
             dataString = json.dumps(data)
             #save data
             pub.publish("saveDataPair", dataString)
-            pub.publish("commandShutter", constants.HIDE)          #hide fixed retroreflector
-            state = constants.WAITING_MOBILE_MIRROR_PHOTO
+            pub.publish("commandShutter", globals.HIDE)          #hide fixed retroreflector
+            state = globals.WAITING_MOBILE_MIRROR_PHOTO
             
 
     break                               #debugging
