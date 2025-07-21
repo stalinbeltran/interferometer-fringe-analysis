@@ -18,9 +18,13 @@ class Publisher:
     def publish(self, tag, message):
         self.redisdb.publish(tag, message)
         
+    def imageToString(self, image):   
+        base64_encoded_bytes = base64.b64encode(image)
+        return base64_encoded_bytes
+        
     def publishImage(self, tag, image):
         print(type(image))
-        base64_encoded_bytes = base64.b64encode(image)
+        base64_encoded_bytes = self.imageToString(image)
         self.publish(tag, base64_encoded_bytes)
         
     def subscribe(self, tag):
@@ -31,6 +35,9 @@ class Publisher:
         
     def listen(self):
         return self.pubsub.listen()
+        
+    def get_message(self):
+        return self.pubsub.get_message()
         
     def getImage(self, imageStringBase64, width, height):
         bytesbase64 = base64.b64decode(imageStringBase64)
