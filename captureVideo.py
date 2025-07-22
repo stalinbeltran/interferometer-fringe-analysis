@@ -8,7 +8,7 @@ from publisher import Publisher
 import time
 import redis
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture('/dev/video0')
 if not cap.isOpened():
     print("Cannot open camera")
     exit()
