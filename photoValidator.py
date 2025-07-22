@@ -19,12 +19,12 @@ while True:
     value = message['data']
     if isinstance(value, int) or len(value) < 200: continue
     c +=1
-    print('image' + str(c))
+    if c % 10 == 0: print('image' + str(c))
     imageBase64 = value
     photo = pub.getImage(imageBase64, globals.WIDTH, globals.HEIGHT)
     pub.publishImage("photovalidated", photo)
     cv2.imshow('', photo)
-    cv2.waitKey()
+    cv2.waitKey(1)
 
     
 cv2.destroyAllWindows()
