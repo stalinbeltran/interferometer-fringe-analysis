@@ -24,11 +24,9 @@ while True:
     if c % 10 == 0: print('image' + str(c))
     imageBase64 = value
     photo = pub.getImage(imageBase64, globals.WIDTH, globals.HEIGHT)
-    photoHorizontalMean = isf.getHorizontalMean(photo)
-    fitData = isf.verticalSineFit(photoHorizontalMean, guessedWavelength)
-    print(2*np.pi/fitData["frequency"]["value"])
+    resized_image = cv2.resize(photo, (320, 240))
     pub.publishImage("photovalidated", photo)
-    cv2.imshow('', photoHorizontalMean)
+    cv2.imshow('', resized_image)
     cv2.waitKey(1)
 
     
