@@ -7,11 +7,10 @@ from publisher import Publisher
 import cv2 as cv2
 import imageSineFit as isf
 
-guessedWavelength = 350
 pub = Publisher()
 pub.init(hostIP='192.168.0.24')
 print(pub)
-pub.subscribe('phototaken')
+pub.subscribe('phototakenresized')      #subscribe for the resized version only (it is faster than original)
 
 c=0
 while True:
@@ -23,10 +22,10 @@ while True:
     c +=1
     if c % 10 == 0: print('image' + str(c))
     imageBase64 = value
-    photo = pub.getImage(imageBase64, 320, 240) #globals.WIDTH, globals.HEIGHT)
-    #resized_image = cv2.resize(photo, (320, 240))
-    pub.publishImage("photovalidated", photo)
-    cv2.imshow('', photo)
+    photo = pub.getImage(imageBase64, 320, 200)         #globals.WIDTH, globals.HEIGHT)
+    resized_image = cv2.resize(photo, (640, 400))
+    #pub.publishImage("photovalidated", resized_image)
+    cv2.imshow('', resized_image)
     cv2.waitKey(1)
 
     

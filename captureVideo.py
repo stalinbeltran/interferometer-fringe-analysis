@@ -24,10 +24,9 @@ while True:
     photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
     photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
     resized_image = cv2.resize(photo, (320, 240))
-    # if not isf.isBlackImage(photo):
-        # pub.publishImage("phototaken", photo)       #publish photo
-    pub.publishImage("phototaken", resized_image)
-    #break
+    if not isf.isBlackImage(resized_image):
+        pub.publishImage("phototakenresized", resized_image)    #resized for fast feedback
+        pub.publishImage("phototaken", photo)                   #original for files
 
 # When everything done, release the capture
 picam2.stop()
