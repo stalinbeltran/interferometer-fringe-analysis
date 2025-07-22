@@ -12,8 +12,6 @@ from picamera2 import Picamera2
 picam2 = Picamera2()
 WIDTH = 640
 HEIGHT = 480
-raw_format = SensorFormat(picam2.sensor_format)
-raw_format.packing = None
 config = picam2.create_video_configuration(raw = {'format': 'R8', 'size': (HEIGHT, WIDTH)})
 picam2.configure(config)
 picam2.start()
