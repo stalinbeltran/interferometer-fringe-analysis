@@ -38,7 +38,7 @@ print()
 filenameNoExt, file_extension = os.path.splitext(archivoProcesar)
 outputFile = os.path.join(filenameNoExt + "_equalized" + file_extension)
 
-imgnew = isf.scanImageMean(img, img)
+imgnew = isf.getHorizontalMean(img, img)
 params = isf.verticalSineFit(img, guessedWavelength)
 print(params)
 frequency = params["frequency"]["value"]

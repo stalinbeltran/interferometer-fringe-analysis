@@ -104,11 +104,12 @@ def verticalSineFit(img, guessedWavelength):
 
     return fittedParameters
 
-def scanImageMean(img, imgnew):
+def getHorizontalMean(img):
     ymin = 0
-    ymax = img.shape[0]     #width of the image
-    imgnew = img
+    height, width = img.shape
+    ymax = height     #width of the image
+    imgnew = np.empty((height, 10), dtype=np.uint8)
     for row in range(ymin, ymax):
         rowMean = np.mean(img[row])
-        imgnew[row, :] = rowMean
+        imgnew[row, :] = int(rowMean)
     return imgnew

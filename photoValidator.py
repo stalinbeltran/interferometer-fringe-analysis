@@ -5,6 +5,7 @@ import time
 import numpy as np
 from publisher import Publisher
 import cv2 as cv2
+import imageSineFit as isf
 
 pub = Publisher()
 pub.init(hostIP='192.168.0.24')
@@ -22,8 +23,9 @@ while True:
     if c % 10 == 0: print('image' + str(c))
     imageBase64 = value
     photo = pub.getImage(imageBase64, globals.WIDTH, globals.HEIGHT)
+    photoHorizontalMean = isf.getHorizontalMean(photo)
     pub.publishImage("photovalidated", photo)
-    cv2.imshow('', photo)
+    cv2.imshow('', photoHorizontalMean)
     cv2.waitKey(1)
 
     

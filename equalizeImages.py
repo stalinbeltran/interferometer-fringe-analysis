@@ -17,6 +17,6 @@ for filename in os.listdir(input_folder):
         inputPath = os.path.join(input_folder, filename)
         outputPath = os.path.join(output_folder, filename)
         img = cv2.imread(inputPath, 0)
-        imgnew = isf.scanImageMean(img, img)
+        imgnew = isf.getHorizontalMean(img, img)
         cv2.imwrite(outputPath, imgnew)
         #break
