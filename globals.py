@@ -50,19 +50,18 @@ def getKey_WINDOWS():
 def getKey_UNIX():
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
+    value = None
     try:
         tty.setcbreak(fd)  # Set terminal to cbreak mode (non-canonical)
-        print('getKey_UNIX 0')
         if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
-            print('getKey_UNIX 1')
-            return sys.stdin.read(1)
+            value = sys.stdin.read(1)
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    return None
+    return value
     
 def isPressedKey(key):
     keyReaded = getKey()
-    if keyReaded: print(keyReaded)
+    if keyReaded: print('keyReaded: ' + keyReaded)
     if keyReaded == key:
         return True
     return False
