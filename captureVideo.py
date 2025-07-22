@@ -9,16 +9,18 @@ import time
 import redis
 from picamera2 import Picamera2
 
-# Initialize Picamera2
 picam2 = Picamera2()
-
-# Configure the camera for video capture
-# You can adjust resolution, format, etc.
-camera_config = picam2.create_video_configuration(main={"size": (640, 480)})
-picam2.configure(camera_config)
-
-# Start the camera
+WIDTH = 640
+HEIGHT = 480
+config = picam2.create_video_configuration({'format': 'YUV420', 'size': (WIDTH, HEIGHT)})
+picam2.configure(config)
 picam2.start()
+
+
+# yuv = picam2.capture_array('raw')
+# grey = yuv[:HEIGHT, :WIDTH]
+
+
 
 
 # cap = cv2.VideoCapture('/dev/video0')
