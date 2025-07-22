@@ -52,6 +52,7 @@ def getKey_UNIX():
     old_settings = termios.tcgetattr(fd)
     try:
         tty.setcbreak(fd)  # Set terminal to cbreak mode (non-canonical)
+        print('getKey_UNIX 0')
         if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
             print('getKey_UNIX 1')
             return sys.stdin.read(1)
