@@ -30,16 +30,10 @@ pub.init()
 
 key = None
 while True:
-    #if globals.shouldCloseThisApp(): break
+    if globals.shouldCloseThisApp(): break
     # Capture frame-by-frame
     #ret, frame = cap.read()
-    frame = picam2.capture_array()
-    # if frame is read correctly ret is True
-    # if not ret:
-        # print("Can't receive frame (stream end?). Exiting ...")
-        # break
-    # Our operations on the frame come here
-    photo = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    photo = picam2.capture_array()
     print('type(photo)')
     print(type(photo))
     print('shape')
@@ -48,13 +42,7 @@ while True:
     # Display the resulting frame
     if not isf.isBlackImage(photo):
         pub.publishImage("phototaken", photo)       #publish photo
-        cv2.imshow('frame', photo)
-        key = cv2.waitKey()
-        break
-    if key == ord('c'):
-        pub.publish("phototaken", 'qc')       
-    if key == ord('q'):
-        break
+    break
 
 # When everything done, release the capture
 cap.release()
