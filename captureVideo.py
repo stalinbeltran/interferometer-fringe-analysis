@@ -9,29 +9,20 @@ import time
 import redis
 from picamera2 import Picamera2
 
+pub = Publisher()
+pub.init()
+
 picam2 = Picamera2()
-WIDTH = 1280
-HEIGHT = 800
+WIDTH = globals.WIDTH
+HEIGHT = globals.HEIGHT
 config = picam2.create_video_configuration(raw = {'format': "SBGGR8", 'size': (HEIGHT, WIDTH)})
 picam2.configure(config)
 picam2.start()
 
-pub = Publisher()
-pub.init()
-
-key = None
 while True:
     if globals.shouldCloseThisApp(): break
-    # Capture frame-by-frame
-    #ret, frame = cap.read()
-    photo = picam2.capture_array('raw')
-    photo = globals.toY8array(photo, WIDTH, HEIGHT)
-    print('type(photo)')
-    print(type(photo))
-    print('shape')
-    print(photo.shape)
-    print(photo)
-    # Display the resulting frame
+    photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
+    photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that
     if not isf.isBlackImage(photo):
         pub.publishImage("phototaken", photo)       #publish photo
     break

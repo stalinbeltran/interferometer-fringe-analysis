@@ -30,7 +30,9 @@ WAITING_FIXED_MIRROR_PHOTO = 2
 HIDE = "hide"
 SHOW = "show"
 
-
+#photo taken size
+WIDTH = 1280
+HEIGHT = 800
 
 def getKey_WINDOWS():
     if msvcrt.kbhit():  # Check if a keypress is available
