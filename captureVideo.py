@@ -12,7 +12,9 @@ from picamera2 import Picamera2
 picam2 = Picamera2()
 WIDTH = 640
 HEIGHT = 480
-config = picam2.create_video_configuration({'format': 'YUV420', 'size': (HEIGHT, WIDTH)})
+raw_format = SensorFormat(picam2.sensor_format)
+raw_format.packing = None
+config = picam2.create_video_configuration({'format': raw_format.format, 'size': (HEIGHT, WIDTH)})
 picam2.configure(config)
 picam2.start()
 
@@ -20,13 +22,6 @@ picam2.start()
 # yuv = picam2.capture_array('raw')
 # grey = yuv[:HEIGHT, :WIDTH]
 
-
-
-
-# cap = cv2.VideoCapture('/dev/video0')
-# if not cap.isOpened():
-    # print("Cannot open camera")
-    # exit()
 pub = Publisher()
 pub.init()
 
