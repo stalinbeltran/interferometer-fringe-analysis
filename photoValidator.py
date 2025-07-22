@@ -23,10 +23,10 @@ while True:
     c +=1
     if c % 10 == 0: print('image' + str(c))
     imageBase64 = value
-    photo = pub.getImage(imageBase64, globals.WIDTH, globals.HEIGHT)
-    resized_image = cv2.resize(photo, (320, 240))
+    photo = pub.getImage(imageBase64, 320, 240) #globals.WIDTH, globals.HEIGHT)
+    #resized_image = cv2.resize(photo, (320, 240))
     pub.publishImage("photovalidated", photo)
-    cv2.imshow('', resized_image)
+    cv2.imshow('', photo)
     cv2.waitKey(1)
 
     
