@@ -1,6 +1,6 @@
 
-OS = "WINDOWS"
-#OS = "LINUX"
+import os
+OS = my_variable_value = os.getenv('OS_INTERFEROMETER_FRINGE_ANALYSIS')
 
 if OS == "WINDOWS":
     import msvcrt
