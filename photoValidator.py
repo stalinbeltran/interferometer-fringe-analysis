@@ -18,9 +18,7 @@ while True:
     message = pub.get_message()
     if message is None: continue
     value = message['data']
-    if isinstance(value, int):
-        print('is int')
-        continue
+    if isinstance(value, int): continue
     c +=1
     if c % 10 == 0: print('image' + str(c))
     imageBase64 = value
@@ -28,6 +26,6 @@ while True:
     resized_image = cv2.resize(photo, (2*globals.RESIZED_WIDTH, 2*globals.RESIZED_HEIGHT))
     cv2.imshow('', resized_image)
     cv2.waitKey(1)
+    if globals.shouldPauseThisApp(): cv2.waitKey()
 
-    
 cv2.destroyAllWindows()

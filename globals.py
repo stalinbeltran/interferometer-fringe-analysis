@@ -58,12 +58,20 @@ def getKey_UNIX():
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return None
     
-def shouldCloseThisApp():
-    key = getKey()
-    if key == 'q':
-        print("salir")
+def isPressedKey(key):
+    keyReaded = getKey()
+    if keyReaded == key:
         return True
     return False
+    
+    
+    
+def shouldCloseThisApp():
+    return isPressedKey('q')
+    
+def shouldPauseThisApp():
+    print('should pause check')
+    return isPressedKey('p')
     
 def toY8array(Y16array, width, height):
     Y16array = Y16array.reshape((width*height, 2))
