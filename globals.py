@@ -1,7 +1,22 @@
 
-#import msvcrt
-import sys, tty, termios
-import select
+OS = "WINDOWS"
+#OS = "LINUX"
+
+if OS == "WINDOWS":
+    import msvcrt
+    
+    def getKey():
+        return getKey_WINDOWS()
+
+if OS == "LINUX":
+    import sys, tty, termios
+    import select
+    
+    def getKey():
+        return getKey_UNIX()
+    
+    
+    
 import numpy as np
 
 #SERIAL_PORT_NAME = 'COM3'
@@ -16,8 +31,6 @@ HIDE = "hide"
 SHOW = "show"
 
 
-def getKey():
-    return getKey_UNIX()
 
 def getKey_WINDOWS():
     if msvcrt.kbhit():  # Check if a keypress is available
