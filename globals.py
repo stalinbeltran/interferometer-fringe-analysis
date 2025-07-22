@@ -1,6 +1,7 @@
 
 #import msvcrt
 import sys, tty, termios
+import select
 
 #SERIAL_PORT_NAME = 'COM3'
 SERIAL_PORT_NAME = '/dev/ttyUSB0'
