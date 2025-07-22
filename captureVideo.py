@@ -12,7 +12,7 @@ from picamera2 import Picamera2
 picam2 = Picamera2()
 WIDTH = 640
 HEIGHT = 480
-config = picam2.create_video_configuration({'format': 'raw', 'size': (HEIGHT, WIDTH)})
+config = picam2.create_video_configuration({'format': 'YUV420', 'size': (HEIGHT, WIDTH)})
 picam2.configure(config)
 picam2.start()
 
@@ -35,7 +35,7 @@ while True:
     if globals.shouldCloseThisApp(): break
     # Capture frame-by-frame
     #ret, frame = cap.read()
-    photo = picam2.capture_array()
+    photo = picam2.capture_array('raw')
     print('type(photo)')
     print(type(photo))
     print('shape')
