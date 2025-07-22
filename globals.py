@@ -28,6 +28,7 @@ reader_thread.start()
 
 
 def getKey():
+    user_input = None
     try:
         # Try to get input from the queue without blocking
         user_input = input_queue.get_nowait()
@@ -36,7 +37,7 @@ def getKey():
     except queue.Empty:
         # No input available, perform other tasks
         pass
-    return None
+    return user_input
 
     
     
