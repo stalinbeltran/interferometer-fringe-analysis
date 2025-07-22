@@ -45,5 +45,4 @@ while True:
     break
 
 # When everything done, release the capture
-cap.release()
-cv2.destroyAllWindows()
+picam2.stop()
