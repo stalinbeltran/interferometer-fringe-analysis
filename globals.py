@@ -67,6 +67,7 @@ def isPressedKey(key):
     
     
 def shouldCloseThisApp():
+    print('should close check')
     return isPressedKey('q')
     
 def shouldPauseThisApp():
