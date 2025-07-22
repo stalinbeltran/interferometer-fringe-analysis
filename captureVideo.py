@@ -26,7 +26,7 @@ while True:
     # if not isf.isBlackImage(photo):
         # pub.publishImage("phototaken", photo)       #publish photo
     pub.publishImage("phototaken", photo)
-    break
+    #break
 
 # When everything done, release the capture
 picam2.stop()
