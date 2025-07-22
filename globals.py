@@ -36,6 +36,12 @@ SHOW = "show"
 WIDTH = 1280
 HEIGHT = 800
 
+
+#photo resized size
+RESIZED_WIDTH = 320
+RESIZED_HEIGHT = 200
+
+
 def getKey_WINDOWS():
     if msvcrt.kbhit():  # Check if a keypress is available
         return msvcrt.getch().decode() # Read the character
