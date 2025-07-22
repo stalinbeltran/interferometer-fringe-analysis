@@ -1,15 +1,36 @@
-#python imageVerticalCentralCropper.py 800  ./originales ./recortadas
+#python3 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/procesadorVideos.py /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis /videos 160 39-40
+#python /home/stalin/interferometer-fringe-analysis/procesadorVideos.py /home/stalin/interferometer-fringe-analysis /videos 160 39-40
 
 import os
 import sys
 
-input_folder = (sys.argv[1])
-rangoArchivos = sys.argv[2]
+basePath = sys.argv[1]
+input_folder = (sys.argv[2])
+fps = int(sys.argv[3])
+rangoArchivos = sys.argv[4]
 inicio, final = rangoArchivos.split('-')
 inicio = int(inicio)
 final = int(final)
 
-for index in range(inicio, final):
-    command = "ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX.h264 -c copy /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX.mp4"
-    command = command.replace("fringes_XXX", "fringes_" + str(index))
+def run(command, falseFileName, trueFileName):
+    command = command.replace(falseFileName, trueFileName)
     os.system(command)
+
+
+for index in range(inicio, final):
+    falseFileName = "fringes_XXX"
+    trueFileName = "fringes_" + str(index)
+    
+    #h264 to mp4
+    run("ffmpeg -i " + basePath + "/videos/fringes_XXX.h264 -c copy " + basePath + "/videos/fringes_XXX.mp4", falseFileName, trueFileName)
+
+    #video to frames:
+    #create the required folder for the frames    
+    run("mkdir " + basePath + "/videos/fringes_XXX", falseFileName, trueFileName)
+    run("mv " + basePath + "/videos/fringes_XXX.mp4 " + basePath + "/videos/fringes_XXX/fringes_XXX.mp4", falseFileName, trueFileName)
+    run("mkdir " + basePath + "/videos/fringes_XXX/frames", falseFileName, trueFileName)
+    #get frames from mp4
+    run("ffmpeg -i " + basePath + "/videos/fringes_XXX/fringes_XXX.mp4 -vf fps=" + str(fps) + " " + basePath + "/videos/fringes_XXX/frames/fringes_XXX-%d-.png", falseFileName, trueFileName)
+
+    #delete black frames
+    run("python3 " + basePath + "/deleteBlackImage.py " + basePath + "/videos/fringes_XXX/frames", falseFileName, trueFileName)

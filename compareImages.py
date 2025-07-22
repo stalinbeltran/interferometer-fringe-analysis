@@ -1,30 +1,31 @@
+#python3 compareImages.py ./videos/fringes_44/framesLeft/ ./videos/fringes_44/framesLeft/fringes_44-1-.png
 
 import numpy as np
 import cv2
+import os
 import sys
+import matplotlib.pyplot as plt
+import imageSineFit as isf
+import histogram as hist
 
-img0 = cv2.imread("./videos/fringes_9/frames/fringes_9-400-.png", cv2.IMREAD_GRAYSCALE)
-# cv2.imshow('', img0)
-# cv2.waitKey()
+input_folder = (sys.argv[1])
+img0_path = (sys.argv[2])
+#threshold = float(sys.argv[3])
 
-img1 = cv2.imread("./videos/fringes_9/frames/fringes_9-369-.png", cv2.IMREAD_GRAYSCALE)
-# cv2.imshow('', img1)
-# cv2.waitKey()
+img0 = cv2.imread(img0_path, cv2.IMREAD_GRAYSCALE)
+img0 = 1.0*img0/255
+maxDiff = 640*480.0
+differences = []
 
-
-img0_norm = img0/np.sum(img0)
-img1_norm = img1/np.sum(img1)
-
-print("np.sum(img0): ", np.sum(img0))
-print("np.sum(img1): ", np.sum(img1))
-print(img0_norm)
-print(img1_norm)
-
-similaritiy = np.sum(np.sqrt(img0_norm*img0_norm))
-print("similaritiy: ", similaritiy)
-
-similaritiy = np.sum(np.sqrt(img0_norm*img1_norm))
-print("similaritiy: ", similaritiy)
-
-
+for filename in os.listdir(input_folder):
+    if filename.lower().endswith(('.jpg', '.jpeg', '.png')):
+        inputPath = os.path.join(input_folder, filename)
+        img1 = cv2.imread(inputPath, cv2.IMREAD_GRAYSCALE)
+        img1 = 1.0*img1/255
+        diff = np.absolute(img0-img1)
+        difference = np.sum(diff)/maxDiff
+        differences.append(difference)
+        if difference == 0: continue        #in case of the exactly same image
+        
+hist.showHistogram(differences)
 cv2.destroyAllWindows()

@@ -1,5 +1,4 @@
-#python equalizeImage.py ./images/alineacion666_rescaled.png 80
-
+#python3 averageImage.py ./images/fringes_44-1-.png
 
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
@@ -14,8 +13,8 @@ import imageSineFit as isf
 import json
 
 archivoProcesar = sys.argv[1]
-guessedWavelength = float(sys.argv[2])
 print('file:',archivoProcesar)
+guessedWavelength = 100
 
 fig = plt.figure(tight_layout=True)
 gs = gridspec.GridSpec(1, 2)
@@ -38,14 +37,14 @@ print()
 
 filenameNoExt, file_extension = os.path.splitext(archivoProcesar)
 outputFile = os.path.join(filenameNoExt + "_equalized" + file_extension)
-outputFileJSON = os.path.join(filenameNoExt + ".json")
 
-imageSineFit = isf.imageSineFit(archivoProcesar, outputFile, guessedWavelength)
+imgnew = isf.scanImageMean(img, img)
+params = isf.verticalSineFit(img, guessedWavelength)
+print(params)
+frequency = params["frequency"]["value"]
+wavelength = 2*np.pi/frequency
+print("wavelength: " + str(wavelength))
 
-with open(outputFileJSON, 'w') as f:
-    json.dump(imageSineFit, f)
-
-imgnew = cv2.imread(imageSineFit["imagepath"]["output"], 0)
 ax2.imshow(imgnew, cmap='gray')
 ax2.set_title("New image")
 plt.show()

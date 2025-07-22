@@ -11,7 +11,7 @@ def isBlackImage(img):
 def sine_function(x, A, B, C, D):
     return A * np.sin(B * x + C) + D
 
-def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
+def scanImage(img, guessedParameters, imgnew):
     paramsList = []
     # Initial guess for the parameters [A, B, C, D]
     guessedAmplitude = guessedParameters["guessedAmplitude"]
@@ -20,7 +20,9 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
     guessedVerticalDisplacement = guessedParameters["guessedVerticalDisplacement"]    
     initial_guess = [guessedAmplitude, 2*np.pi/guessedWavelength, guessedPhase, guessedVerticalDisplacement]
     
-    for target_slice in range(xbegin, xend):
+    xmin = 0
+    xmax = img.shape[1]     #width of the image
+    for target_slice in range(xmin, xmax):
         slc = img[:, int(target_slice)]             #take a slice to process
 
         len = np.size(slc)
@@ -58,38 +60,55 @@ def scanImageRange(img, xbegin, xend, guessedParameters, imgnew):
 
     return imgnew, paramsList 
   
-def imageSineFit(inputFile, outputFile, guessedWavelength):
-    img = cv2.imread(inputFile, cv2.IMREAD_GRAYSCALE) # read in the image as grayscale
-    if isBlackImage(img):
-        return None
-    imgnew = img
-    xmin = 0
-    xmax = img.shape[1]     #width of the image
+def verticalSineFit(img, guessedWavelength):
     guessedParameters = {
-        "guessedAmplitude": 250,
+        "guessedAmplitude": 125,
         "guessedWavelength": guessedWavelength,
         "guessedPhase": 0.5,
         "guessedVerticalDisplacement": 0
     }
-    xmiddle = int((xmax - xmin)/2)
-    imgnew, paramListLeft = scanImageRange(img, 0, xmiddle, guessedParameters, imgnew)
-    imgnew, paramListRight = scanImageRange(img, xmiddle, xmax, guessedParameters, imgnew)
+    guessedAmplitude = guessedParameters["guessedAmplitude"]
+    guessedWavelength = guessedParameters["guessedWavelength"]
+    guessedPhase = guessedParameters["guessedPhase"]
+    guessedVerticalDisplacement = guessedParameters["guessedVerticalDisplacement"]    
+    initial_guess = [guessedAmplitude, 2*np.pi/guessedWavelength, guessedPhase, guessedVerticalDisplacement]
+    
+    slc = img[:, 0]             #our image has the same vertical wave (if equalized)
 
-    cv2.imwrite(outputFile, imgnew)
-    imageSineFit = {
-        "imagepath": {
-            "input": inputFile, 
-            "output": outputFile
-        },
-        "fitData":{
-            "leftSide": {
-                "fitParameters": paramListLeft
+    len = np.size(slc)
+    x = range(0, len)
+    # Perform the curve fitting
+    try:
+        params, covariance = curve_fit(sine_function, x, slc, p0=initial_guess)
+        perr = np.sqrt(np.diag(covariance))
+        fittedParameters = {
+            "amplitude":{
+                "value": params[0],
+                "error": perr[0]
             },
-            "rightSide": {
-                "fitParameters": paramListRight
+            "frequency":{
+                "value": params[1],
+                "error": perr[1]
             },
+            "phase":{
+                "value": params[2],
+                "error": perr[2]
+            },
+            "verticalDisplacement":{
+                "value": params[3],
+                "error": perr[3]
+            }
         }
+    except Exception as e:
+        print('Error', e)
 
-    }
-    return imageSineFit
+    return fittedParameters
 
+def scanImageMean(img, imgnew):
+    ymin = 0
+    ymax = img.shape[0]     #width of the image
+    imgnew = img
+    for row in range(ymin, ymax):
+        rowMean = np.mean(img[row])
+        imgnew[row, :] = rowMean
+    return imgnew
