@@ -2,18 +2,34 @@
 import os
 OS = my_variable_value = os.getenv('OS_INTERFEROMETER_FRINGE_ANALYSIS')
 
-if OS == "WINDOWS":
-    import msvcrt
-    
-    def getKey():
-        return getKey_WINDOWS()
 
-if OS == "LINUX":
-    import sys, tty, termios
-    import select
-    
-    def getKey():
-        return getKey_UNIX()
+import threading
+import queue
+import sys
+
+input_queue = queue.Queue()
+
+def read_stdin_thread(q):
+    while True:
+        line = sys.stdin.readline().strip()
+        q.put(line)
+
+# Start the reading thread
+reader_thread = threading.Thread(target=read_stdin_thread, args=(input_queue,), daemon=True)
+reader_thread.start()
+
+def getKey():
+    user_input = None
+    try:
+        # Try to get input from the queue without blocking
+        user_input = input_queue.get_nowait()
+        if user_input:
+            print(f"Processed: {user_input}")
+    except queue.Empty:
+        # No input available, perform other tasks
+        pass
+    return user_input
+
     
     
     
@@ -42,21 +58,6 @@ RESIZED_WIDTH = 320
 RESIZED_HEIGHT = 200
 
 
-def getKey_WINDOWS():
-    if msvcrt.kbhit():  # Check if a keypress is available
-        return msvcrt.getch().decode() # Read the character
-    return None
-    
-def getKey_UNIX():
-    fd = sys.stdin.fileno()
-    old_settings = termios.tcgetattr(fd)
-    try:
-        tty.setcbreak(fd)  # Set terminal to cbreak mode (non-canonical)
-        if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
-            return sys.stdin.read(1)
-    finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    return None
     
 def isPressedKey(key):
     keyReaded = getKey()
@@ -67,7 +68,6 @@ def isPressedKey(key):
     
     
 def shouldCloseThisApp():
-    print('should close check')
     return isPressedKey('q')
     
 def shouldPauseThisApp():
