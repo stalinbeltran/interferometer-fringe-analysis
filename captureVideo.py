@@ -12,7 +12,7 @@ from picamera2 import Picamera2
 picam2 = Picamera2()
 WIDTH = 640
 HEIGHT = 480
-config = picam2.create_video_configuration({'format': 'SGBRG8', 'size': (HEIGHT, WIDTH)}) #RuntimeError: Bad format SGBRG8 in stream main
+config = picam2.create_video_configuration({'format': 'raw', 'size': (HEIGHT, WIDTH)})
 picam2.configure(config)
 picam2.start()
 
