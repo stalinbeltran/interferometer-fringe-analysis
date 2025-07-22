@@ -41,3 +41,9 @@ def shouldCloseThisApp():
         return True
     return False
     
+def toY8array(Y16array, width, height):
+    Y16array = Y16array.reshape((width*height, 2))
+    Y16array = Y16array[:, 1]                     #avoid unnecesary zeroes, halve the size
+    Y8array = Y16array.reshape((height, width))
+    return Y8array
+    

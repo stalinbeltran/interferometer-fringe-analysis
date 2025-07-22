@@ -16,10 +16,6 @@ config = picam2.create_video_configuration(raw = {'format': "SBGGR8", 'size': (H
 picam2.configure(config)
 picam2.start()
 
-
-# yuv = picam2.capture_array('raw')
-# grey = yuv[:HEIGHT, :WIDTH]
-
 pub = Publisher()
 pub.init()
 
@@ -29,6 +25,7 @@ while True:
     # Capture frame-by-frame
     #ret, frame = cap.read()
     photo = picam2.capture_array('raw')
+    photo = globals.toY8array(photo, WIDTH, HEIGHT)
     print('type(photo)')
     print(type(photo))
     print('shape')
