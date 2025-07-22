@@ -2,8 +2,7 @@ import globals
 import serial
 from publisher import Publisher
 
-SERIAL_PORT_NAME = 'COM3'
-s = serial.Serial(SERIAL_PORT_NAME)
+s = serial.Serial(globals.SERIAL_PORT_NAME)
 
 pub = Publisher()
 pub.init()

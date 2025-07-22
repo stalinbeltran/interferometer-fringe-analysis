@@ -2,6 +2,9 @@
 #import msvcrt
 import sys, tty, termios
 
+#SERIAL_PORT_NAME = 'COM3'
+SERIAL_PORT_NAME = '/dev/ttyUSB0'
+
 #states
 WAITING_MOBILE_MIRROR_PHOTO = 1
 WAITING_FIXED_MIRROR_PHOTO = 2
