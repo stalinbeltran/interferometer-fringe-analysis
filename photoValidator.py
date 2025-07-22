@@ -17,11 +17,12 @@ while True:
     if message is None: continue
     value = message['data']
     if isinstance(value, int) or len(value) < 200: continue
+    print('image')
     imageBase64 = value
     photo = pub.getImage(imageBase64, globals.WIDTH, globals.HEIGHT)
     pub.publishImage("photovalidated", photo)
     cv2.imshow('', photo)
-    key = cv2.waitKey()
+    #key = cv2.waitKey()
 
     
 cv2.destroyAllWindows()

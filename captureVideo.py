@@ -23,8 +23,9 @@ while True:
     if globals.shouldCloseThisApp(): break
     photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
     photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that
-    if not isf.isBlackImage(photo):
-        pub.publishImage("phototaken", photo)       #publish photo
+    # if not isf.isBlackImage(photo):
+        # pub.publishImage("phototaken", photo)       #publish photo
+    pub.publishImage("phototaken", photo)
     break
 
 # When everything done, release the capture
