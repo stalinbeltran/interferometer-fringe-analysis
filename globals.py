@@ -2,11 +2,45 @@
 import os
 OS = my_variable_value = os.getenv('OS_INTERFEROMETER_FRINGE_ANALYSIS')
 
+
+import threading
+import queue
+import sys
+
+input_queue = queue.Queue()
+
+def read_stdin_thread(q):
+    while True:
+        line = sys.stdin.readline().strip()
+        q.put(line)
+
+# Start the reading thread
+reader_thread = threading.Thread(target=read_stdin_thread, args=(input_queue,), daemon=True)
+reader_thread.start()
+
+
+
+
+
+
+
+
+
+
 if OS == "WINDOWS":
     import msvcrt
     
     def getKey():
-        return getKey_WINDOWS()
+        try:
+            # Try to get input from the queue without blocking
+            user_input = input_queue.get_nowait()
+            if user_input:
+                print(f"Processed: {user_input}")
+        except queue.Empty:
+            # No input available, perform other tasks
+            pass
+        return None
+
 
 if OS == "LINUX":
     import sys, tty, termios
