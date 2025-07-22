@@ -1,12 +1,14 @@
 #python equalizeImage.py ./images/alineacion666_rescaled.png 250
 
+import globals
 import numpy as np
 import cv2
 import os
 from scipy.optimize import curve_fit
 
 def isBlackImage(img):
-    return np.mean(img) < 60
+    print(np.mean(img))
+    return np.mean(img) < globals.BLACK_IMAGE_LEVEL
 
 def sine_function(x, A, B, C, D):
     return A * np.sin(B * x + C) + D

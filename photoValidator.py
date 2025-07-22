@@ -18,7 +18,9 @@ while True:
     message = pub.get_message()
     if message is None: continue
     value = message['data']
-    if isinstance(value, int) or len(value) < 200: continue
+    if isinstance(value, int):
+        print('is int')
+        continue
     c +=1
     if c % 10 == 0: print('image' + str(c))
     imageBase64 = value
