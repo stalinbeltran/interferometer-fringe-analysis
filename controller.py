@@ -13,12 +13,9 @@ def waitPhoto(message):
     photo = pub.getImage(imageBase64, 640, 480)
     return photo
 
-print('before create Publisher')
 pub = Publisher()
 pub.init()
-print('pub:')
-print(pub)
-pub.subscribe('photovalidated')
+pub.subscribe(globals.FOTO_TAKEN)
 pub.publish("commandShutter", globals.HIDE)          #hide fixed retroreflector
 state = globals.WAITING_MOBILE_MIRROR_PHOTO
 
@@ -26,11 +23,12 @@ mobileMirrorPhoto = None
 fixedMirrorPhoto = None
 
 while True:
-    if globals.shouldCloseThisApp(): break
+    key = globals.getKey()
+    if globals.shouldCloseThisApp(key): break
     
     message = pub.get_message()
     if message is None: continue
-    photo = waitPhoto(message)
+    photo = message['data']
     if photo is None: continue
     match state:
         case globals.WAITING_MOBILE_MIRROR_PHOTO:
@@ -40,8 +38,8 @@ while True:
         case globals.WAITING_FIXED_MIRROR_PHOTO:
             fixedMirrorPhoto = photo
             data = {
-                "mobileMirrorPhoto": pub.imageToString(mobileMirrorPhoto),
-                "fixedMirrorPhoto": pub.imageToString(fixedMirrorPhoto),
+                "mobileMirrorPhoto": mobileMirrorPhoto,
+                "fixedMirrorPhoto": fixedMirrorPhoto,
             }
             dataString = json.dumps(data)
             #save data
