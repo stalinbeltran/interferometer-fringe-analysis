@@ -29,12 +29,9 @@ picam2.start()
 picam2.set_controls({'ExposureTime':200})
 
 while True:
-    if globals.shouldCloseThisApp(): break
+    key = globals.getKey()
+    if globals.shouldCloseThisApp(key): break
     photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
-    print(len(photo))
-    print(photo.shape)
-    print(photo)
-    break
     photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
     resized_image = cv2.resize(photo, (RESIZED_WIDTH, RESIZED_HEIGHT))
     if not isf.isBlackImage(resized_image):

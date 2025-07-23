@@ -2,7 +2,7 @@
 import os
 OS = my_variable_value = os.getenv('OS_INTERFEROMETER_FRINGE_ANALYSIS')
 
-BLACK_IMAGE_LEVEL = 60
+BLACK_IMAGE_LEVEL = 30
 
 
 
@@ -26,8 +26,9 @@ def getKey():
     try:
         # Try to get input from the queue without blocking
         user_input = input_queue.get_nowait()
-        if user_input:
-            print(f"Processed: {user_input}")
+        return user_input
+        #if user_input:
+        #    print(f"Processed: {user_input}")
     except queue.Empty:
         # No input available, perform other tasks
         pass
@@ -73,15 +74,12 @@ def isPressedKey(key):
     
     
     
-def shouldCloseThisApp():
-    return isPressedKey('q')
+def shouldCloseThisApp(key):
+    return key == 'q'
     
-def shouldPauseThisApp():
-    ispressed =  isPressedKey('p')
-    if ispressed:
-        print('se presiono PAUSA')
-        return ispressed
-    return ispressed
+def shouldPauseThisApp(key):
+    return key == 'p'
+
     
 def toY8array(Y16array, width, height):
     Y16array = Y16array.reshape((width*height, 2))
