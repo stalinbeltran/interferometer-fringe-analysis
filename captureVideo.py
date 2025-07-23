@@ -28,8 +28,8 @@ while True:
     photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
     resized_image = cv2.resize(photo, (RESIZED_WIDTH, RESIZED_HEIGHT))
     if not isf.isBlackImage(resized_image):
-        pub.publishImage("phototakenresized", resized_image)    #resized for fast feedback
-        pub.publishImage("phototaken", photo)                   #original for files
+        pub.publishImage(globals.FOTO_TAKEN_RESIZED, resized_image)    #resized for fast feedback
+        pub.publishImage(globals.FOTO_TAKEN, photo)                   #original for files
 
 # When everything done, release the capture
 picam2.stop()

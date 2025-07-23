@@ -7,10 +7,12 @@ from publisher import Publisher
 import cv2 as cv2
 import imageSineFit as isf
 
+
+
 pub = Publisher()
 pub.init(hostIP='192.168.0.24')
 print(pub)
-pub.subscribe('phototakenresized')      #subscribe for the resized version only (it is faster than original)
+pub.subscribe(globals.FOTO_TAKEN_RESIZED)      #subscribe for the resized version only (it is faster than original)
 
 c=0
 while True:
@@ -28,7 +30,7 @@ while True:
     cv2.waitKey(1)
     if globals.shouldPauseThisApp():
         print('listos para pausarla')
-        pub.unsubscribe('phototakenresized')        #to avoid being disconnected while waiting
+        pub.unsubscribe(globals.FOTO_TAKEN_RESIZED)        #to avoid being disconnected while waiting
         cv2.waitKey()      #the idea is to keep that last image visible, for comparison
-        pub.subscribe('phototakenresized')
+        pub.subscribe(globals.FOTO_TAKEN_RESIZED)
 cv2.destroyAllWindows()

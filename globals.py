@@ -44,6 +44,11 @@ BLACK_IMAGE_LEVEL = 10
 WAITING_MOBILE_MIRROR_PHOTO = 1
 WAITING_FIXED_MIRROR_PHOTO = 2
 
+#redis subscriptions
+FOTO_TAKEN_RESIZED = 'phototakenresized'
+FOTO_TAKEN = 'phototaken'
+
+
 #constants
 HIDE = "hide"
 SHOW = "show"
