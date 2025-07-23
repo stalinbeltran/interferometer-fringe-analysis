@@ -26,6 +26,8 @@ while True:
     resized_image = cv2.resize(photo, (2*globals.RESIZED_WIDTH, 2*globals.RESIZED_HEIGHT))
     cv2.imshow('', resized_image)
     cv2.waitKey(1)
-    if globals.shouldPauseThisApp(): cv2.waitKey()      #the idea is to keep that last image visible, for comparison
+    if globals.shouldPauseThisApp():
+        print('listos para pausarla')
+        cv2.waitKey()      #the idea is to keep that last image visible, for comparison
 
 cv2.destroyAllWindows()

@@ -71,8 +71,11 @@ def shouldCloseThisApp():
     return isPressedKey('q')
     
 def shouldPauseThisApp():
-    print('should pause check')
-    return isPressedKey('p')
+    ispressed =  isPressedKey('p')
+    if ispressed:
+        print('se presiono PAUSA')
+        return ispressed
+    return ispressed
     
 def toY8array(Y16array, width, height):
     Y16array = Y16array.reshape((width*height, 2))
