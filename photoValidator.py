@@ -10,7 +10,7 @@ import imageSineFit as isf
 
 
 pub = Publisher()
-pub.init(hostIP='192.168.0.24')
+pub.init(hostIP='localhost')
 print(pub)
 pub.subscribe(globals.FOTO_TAKEN_RESIZED)      #subscribe for the resized version only (it is faster than original)
 

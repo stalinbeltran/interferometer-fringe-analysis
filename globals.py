@@ -2,6 +2,9 @@
 import os
 OS = my_variable_value = os.getenv('OS_INTERFEROMETER_FRINGE_ANALYSIS')
 
+BLACK_IMAGE_LEVEL = 60
+
+
 
 import threading
 import queue
@@ -38,8 +41,6 @@ import numpy as np
 #SERIAL_PORT_NAME = 'COM3'
 SERIAL_PORT_NAME = '/dev/ttyUSB0'
 
-BLACK_IMAGE_LEVEL = 10
-
 #states
 WAITING_MOBILE_MIRROR_PHOTO = 1
 WAITING_FIXED_MIRROR_PHOTO = 2
@@ -54,8 +55,8 @@ HIDE = "hide"
 SHOW = "show"
 
 #photo taken size
-WIDTH = 1280
-HEIGHT = 800
+WIDTH = 640
+HEIGHT = 400
 
 
 #photo resized size

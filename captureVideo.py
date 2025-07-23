@@ -18,13 +18,21 @@ HEIGHT = globals.HEIGHT
 RESIZED_WIDTH = globals.RESIZED_WIDTH
 RESIZED_HEIGHT = globals.RESIZED_HEIGHT
 
-config = picam2.create_video_configuration(raw = {'format': "SBGGR8", 'size': (HEIGHT, WIDTH)})
+config = picam2.create_video_configuration(
+    main = {'size': (WIDTH, HEIGHT)},
+    encode ="main",
+    buffer_count=12,
+    #controls={"FrameDurationLimits": (3952, 3952)} #error: Camera frontend has timed out!
+)
 picam2.configure(config)
+print(picam2.camera_configuration())
+print(picam2.sensor_modes)
 picam2.start()
+picam2.set_controls({'ExposureTime':200})
 
 while True:
     if globals.shouldCloseThisApp(): break
-    photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
+    photo = picam2.capture_array()                 #photo have 16 bits when actually 8 bits where sent by the camera
     photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
     resized_image = cv2.resize(photo, (RESIZED_WIDTH, RESIZED_HEIGHT))
     if not isf.isBlackImage(resized_image):

@@ -7,7 +7,11 @@ import os
 from scipy.optimize import curve_fit
 
 def isBlackImage(img):
-    return np.mean(img) < globals.BLACK_IMAGE_LEVEL
+    mean = np.mean(img)
+    if mean > globals.BLACK_IMAGE_LEVEL:
+        print(mean)
+        return False
+    return True
 
 def sine_function(x, A, B, C, D):
     return A * np.sin(B * x + C) + D
