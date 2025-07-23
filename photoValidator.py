@@ -28,6 +28,7 @@ while True:
     cv2.waitKey(1)
     if globals.shouldPauseThisApp():
         print('listos para pausarla')
+        pub.unsubscribe('phototakenresized')        #to avoid being disconnected while waiting
         cv2.waitKey()      #the idea is to keep that last image visible, for comparison
-
+        pub.subscribe('phototakenresized')
 cv2.destroyAllWindows()
