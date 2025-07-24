@@ -29,7 +29,7 @@ picam2.start()
 picam2.set_controls({'ExposureTime':200})
 
 request = picam2.capture_request(flush = time.monotonic_ns())
-photo = request.make_image("main")
+photo = request.make_image("raw")
 print(photo)
 request.release()
 
