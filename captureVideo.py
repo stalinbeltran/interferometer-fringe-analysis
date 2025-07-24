@@ -32,8 +32,8 @@ picam2.set_controls({'ExposureTime':200})
 
 factor = 0
 offset = 0 #ns = 17us
-smallAdjustment = 1000
-baseOffset = 163000000
+smallAdjustment = 100
+baseOffset = 163000000 + 180000
 valid = False
 c = 0
 while True:
