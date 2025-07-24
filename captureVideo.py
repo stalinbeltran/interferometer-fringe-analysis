@@ -32,7 +32,7 @@ picam2.set_controls({'ExposureTime':200})
 
 factor = 0
 offset = 0 #ns = 17us
-smallAdjustment = 1700
+smallAdjustment = 1000
 baseOffset = 163000000
 valid = False
 c = 0
@@ -55,7 +55,7 @@ while True:
             print('valid')
         cv2.imshow('sample', photo)
         cv2.waitKey(1)
-        print('offset: ' + str(offset) + 'factor: ' + str(factor))
+        print('offset: ' + str(offset) + ' factor: ' + str(factor))
         factor = 0
     elif valid:
         factor +=1

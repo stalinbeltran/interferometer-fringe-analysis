@@ -9,7 +9,7 @@ from scipy.optimize import curve_fit
 def isBlackImage(img):
     mean = np.mean(img)
     if mean > globals.BLACK_IMAGE_LEVEL:
-        print(mean)
+        #print(mean)
         return False
     return True
 
