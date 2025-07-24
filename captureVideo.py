@@ -35,11 +35,12 @@ offset = 0 #ns = 17us
 smallAdjustment = 17000
 baseOffset = 163000000
 valid = False
+c = 0
 while True:
-    key = globals.getKey()
-    if globals.shouldCloseThisApp(key):
-        valid = True
-        print('q received')
+    # ~ key = globals.getKey()
+    # ~ if globals.shouldCloseThisApp(key):
+        # ~ valid = True
+        # ~ print('q received')
     request = picam2.capture_request(flush = time.monotonic_ns() + baseOffset + factor * offset)
     photo = request.make_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
     request.release()
@@ -48,8 +49,12 @@ while True:
     # ~ cv2.imshow('', photo)
     # ~ cv2.waitKey(1)
     if not isf.isBlackImage(photo):
+        c += 1
+        if c > 2:
+            valid = True
+            print('valid')
         factor = 0
-        cv2.imshow('', photo)
+        cv2.imshow('sample', photo)
         cv2.waitKey(1)
         print('offset: ' + str(offset))
     elif valid:
