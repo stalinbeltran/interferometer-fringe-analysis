@@ -32,7 +32,7 @@ picam2.set_controls({'ExposureTime':200})
 
 factor = 1
 # ~ minFactor = 4000
-maxFactor = 100
+maxFactor = 1000
 factors = []
 direction = 1       #positive = 1 or negative = -1
 offset = 0 #ns = 17us
@@ -60,9 +60,9 @@ while True:
         if c % 200 == 0:
             maxFactor = sum(factors)/len(factors)
             print('maxFactor: ' + str(maxFactor) + ' c: ' + str(c))
-        if c > 3 and not valid:
+        if c > 8 and not valid:
             valid = True
-            baseOffset = 150*1000000
+            baseOffset = 149*1000000
             print('valid')
         cv2.imshow('sample', photo)
         cv2.waitKey(1)
