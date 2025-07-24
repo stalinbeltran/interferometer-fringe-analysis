@@ -28,19 +28,27 @@ print(picam2.sensor_modes)
 picam2.start()
 picam2.set_controls({'ExposureTime':200})
 
-request = picam2.capture_request(flush = time.monotonic_ns())
-photo = request.make_array("raw")
-print(photo)
-request.release()
 
 
-# ~ while True:
+factor = 0
+offset = 0 #ns = 17us
+smallAdjustment = 17000
+while True:
     # ~ key = globals.getKey()
     # ~ if globals.shouldCloseThisApp(key): break
-    # ~ photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
-    # ~ photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
-    # ~ resized_image = cv2.resize(photo, (RESIZED_WIDTH, RESIZED_HEIGHT))
-    # ~ if not isf.isBlackImage(resized_image):
+    request = picam2.capture_request(flush = time.monotonic_ns() + factor * offset)
+    photo = request.make_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
+    request.release()
+    photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
+    #resized_image = cv2.resize(photo, (RESIZED_WIDTH, RESIZED_HEIGHT))
+    # ~ cv2.imshow('', photo)
+    # ~ cv2.waitKey(1)
+    if not isf.isBlackImage(photo):
+        cv2.imshow('', photo)
+        cv2.waitKey(1)
+        factor +=1
+        offset +=smallAdjustment
+        print('offset: ' + str(offset))
         # ~ pub.publishImage(globals.FOTO_TAKEN_RESIZED, resized_image)    #resized for fast feedback
         # ~ pub.publishImage(globals.FOTO_TAKEN, photo)                   #original for files
 
