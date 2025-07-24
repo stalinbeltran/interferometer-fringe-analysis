@@ -32,10 +32,11 @@ picam2.set_controls({'ExposureTime':200})
 
 factor = 0
 minFactor = 4000
-direction = 1       #positive or negative
+maxFactor = 1000
+direction = 1       #positive = 1 or negative = -1
 offset = 0 #ns = 17us
 smallAdjustment = 100
-baseOffset = 163000000 + 160000
+baseOffset = 149*1000000
 valid = False
 c = 0
 start = time.monotonic_ns()
@@ -66,7 +67,7 @@ while True:
         factor = 0
     elif valid:
         factor +=1
-        if factor > minFactor:
+        if factor > maxFactor:
             direction *= -1
         offset +=smallAdjustment*direction
         # ~ pub.publishImage(globals.FOTO_TAKEN_RESIZED, resized_image)    #resized for fast feedback
