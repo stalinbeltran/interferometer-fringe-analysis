@@ -28,9 +28,9 @@ print(picam2.sensor_modes)
 picam2.start()
 picam2.set_controls({'ExposureTime':200})
 
-request = picam2.capture_request(flush = time.monotonic_ns() + 1000000000 * 3)
-request.save("main", "capture1.jpg")
-print(request.get_metadata())
+request = picam2.capture_request(flush = time.monotonic_ns())
+photo = request.make_image("main")
+print(photo)
 request.release()
 
 
