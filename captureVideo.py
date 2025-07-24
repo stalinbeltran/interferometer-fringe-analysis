@@ -32,11 +32,11 @@ picam2.set_controls({'ExposureTime':200})
 
 factor = 0
 minFactor = 4000
-maxFactor = 1000
+maxFactor = 40
 direction = 1       #positive = 1 or negative = -1
 offset = 0 #ns = 17us
-smallAdjustment = 100
-baseOffset = 149*1000000
+smallAdjustment = 1000
+baseOffset = 0
 valid = False
 c = 0
 start = time.monotonic_ns()
@@ -46,9 +46,8 @@ while True:
         # ~ valid = True
         # ~ print('q received')
     end = time.monotonic_ns()
-    elapsepTime = end - start
-    request = picam2.capture_request(flush = time.monotonic_ns() - elapsepTime + baseOffset + factor * offset)
-    start = time.monotonic_ns() 
+    request = picam2.capture_request(flush = start + baseOffset + factor * offset)
+    start = end
     photo = request.make_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
     request.release()
     photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
@@ -59,6 +58,7 @@ while True:
         c += 1
         if c > 3 and not valid:
             valid = True
+            baseOffset = 149*1000000
             print('valid')
         cv2.imshow('sample', photo)
         cv2.waitKey(1)
@@ -69,6 +69,8 @@ while True:
         factor +=1
         if factor > maxFactor:
             direction *= -1
+            factor = 0
+            print('change direction')
         offset +=smallAdjustment*direction
         # ~ pub.publishImage(globals.FOTO_TAKEN_RESIZED, resized_image)    #resized for fast feedback
         # ~ pub.publishImage(globals.FOTO_TAKEN, photo)                   #original for files
