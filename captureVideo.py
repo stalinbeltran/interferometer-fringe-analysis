@@ -31,8 +31,9 @@ picam2.set_controls({'ExposureTime':200})
 
 
 factor = 0
-minFactor = 4000
-maxFactor = 40
+# ~ minFactor = 4000
+maxFactor = 100
+factors = []
 direction = 1       #positive = 1 or negative = -1
 offset = 0 #ns = 17us
 smallAdjustment = 1000
@@ -56,14 +57,18 @@ while True:
     # ~ cv2.waitKey(1)
     if not isf.isBlackImage(photo):
         c += 1
+        if c % 20 == 0:
+            maxFactor = sum(factors)/len(factors)
+            print('maxFactor: ' + str(maxFactor) + ' c: ' + str(c))
         if c > 3 and not valid:
             valid = True
-            baseOffset = 149*1000000
+            baseOffset = 150*1000000
             print('valid')
         cv2.imshow('sample', photo)
         cv2.waitKey(1)
         print('offset: ' + str(offset) + ' factor: ' + str(factor))
-        if factor < minFactor: minFactor = factor
+        # ~ if factor < minFactor: minFactor = factor
+        factors.append(factor)
         factor = 0
     elif valid:
         factor +=1
