@@ -30,7 +30,7 @@ picam2.set_controls({'ExposureTime':200})
 
 
 
-factor = 0
+factor = 1
 # ~ minFactor = 4000
 maxFactor = 100
 factors = []
@@ -57,7 +57,7 @@ while True:
     # ~ cv2.waitKey(1)
     if not isf.isBlackImage(photo):
         c += 1
-        if c % 20 == 0:
+        if c % 200 == 0:
             maxFactor = sum(factors)/len(factors)
             print('maxFactor: ' + str(maxFactor) + ' c: ' + str(c))
         if c > 3 and not valid:
@@ -69,12 +69,12 @@ while True:
         print('offset: ' + str(offset) + ' factor: ' + str(factor))
         # ~ if factor < minFactor: minFactor = factor
         factors.append(factor)
-        factor = 0
+        factor = 1
     elif valid:
         factor +=1
         if factor > maxFactor:
             direction *= -1
-            factor = 0
+            factor = 1
             print('change direction')
         offset +=smallAdjustment*direction
         # ~ pub.publishImage(globals.FOTO_TAKEN_RESIZED, resized_image)    #resized for fast feedback
