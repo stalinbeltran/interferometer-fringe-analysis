@@ -53,10 +53,10 @@ while True:
         if c > 2:
             valid = True
             print('valid')
-        factor = 0
         cv2.imshow('sample', photo)
         cv2.waitKey(1)
-        print('offset: ' + str(offset))
+        print('offset: ' + str(offset) + 'factor: ' + str(factor))
+        factor = 0
     elif valid:
         factor +=1
         offset +=smallAdjustment
