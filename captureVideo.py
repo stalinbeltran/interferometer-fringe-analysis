@@ -31,17 +31,23 @@ picam2.set_controls({'ExposureTime':200})
 
 
 factor = 0
+minFactor = 4000
+direction = 1       #positive or negative
 offset = 0 #ns = 17us
 smallAdjustment = 100
 baseOffset = 163000000 + 160000
 valid = False
 c = 0
+start = time.monotonic_ns()
 while True:
     # ~ key = globals.getKey()
     # ~ if globals.shouldCloseThisApp(key):
         # ~ valid = True
         # ~ print('q received')
-    request = picam2.capture_request(flush = time.monotonic_ns() + baseOffset + factor * offset)
+    end = time.monotonic_ns()
+    elapsepTime = end - start
+    request = picam2.capture_request(flush = time.monotonic_ns() - elapsepTime + baseOffset + factor * offset)
+    start = time.monotonic_ns() 
     photo = request.make_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
     request.release()
     photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
@@ -50,16 +56,19 @@ while True:
     # ~ cv2.waitKey(1)
     if not isf.isBlackImage(photo):
         c += 1
-        if c > 2:
+        if c > 3 and not valid:
             valid = True
             print('valid')
         cv2.imshow('sample', photo)
         cv2.waitKey(1)
         print('offset: ' + str(offset) + ' factor: ' + str(factor))
+        if factor < minFactor: minFactor = factor
         factor = 0
     elif valid:
         factor +=1
-        offset +=smallAdjustment
+        if factor > minFactor:
+            direction *= -1
+        offset +=smallAdjustment*direction
         # ~ pub.publishImage(globals.FOTO_TAKEN_RESIZED, resized_image)    #resized for fast feedback
         # ~ pub.publishImage(globals.FOTO_TAKEN, photo)                   #original for files
 
