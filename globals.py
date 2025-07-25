@@ -2,7 +2,7 @@
 import os
 OS = my_variable_value = os.getenv('OS_INTERFEROMETER_FRINGE_ANALYSIS')
 
-BLACK_IMAGE_LEVEL = 30
+BLACK_IMAGE_LEVEL = 10
 
 
 
@@ -61,8 +61,8 @@ HEIGHT = 400
 
 
 #photo resized size
-RESIZED_WIDTH = 320
-RESIZED_HEIGHT = 200
+RESIZED_WIDTH = WIDTH
+RESIZED_HEIGHT = HEIGHT
 
 
     
