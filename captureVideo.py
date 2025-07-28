@@ -8,7 +8,7 @@ from publisher import Publisher
 import time
 import redis
 from picamera2 import Picamera2
-from gpiozero import Button
+from gpiozero import Button, DigitalInputDevice
 from signal import pause
 
 
@@ -69,8 +69,8 @@ def capture():
 
 
 
-button = Button(26)
-button.when_pressed = capture
+button = DigitalInputDevice(26, pull_up = None, active_state = False)
+button.when_activated = capture
 
 pause()
 # When everything done, release the capture
