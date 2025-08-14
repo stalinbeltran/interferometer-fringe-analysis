@@ -100,7 +100,7 @@ def verticalSineFit(img, guessedWavelength):
     except Exception as e:
         print('Error', e)
 
-    return fittedParameters
+    return fittedParameters, getImageFromParams(len, params)
 
 def getHorizontalMean(img):
     ymin = 0
@@ -110,4 +110,15 @@ def getHorizontalMean(img):
     for row in range(ymin, ymax):
         rowMean = np.mean(img[row])
         imgnew[row, :] = int(rowMean)
+    return imgnew
+
+
+def getImageFromParams(height, params):
+    x = range(0, height)
+    imgnew = np.empty((height, globals.EQUALIZED_IMAGE_WIDTH), dtype=np.uint8)
+    A_fit, B_fit, C_fit, D_fit = params     # Extract the fitted parameters
+    y_fit = sine_function(x, A_fit, B_fit, C_fit, D_fit)    # Generate y values using the fitted parameters
+    for row in range(0, height):
+        imgnew[row, :] = y_fit[row]
+    #imgnew[:, :] = y_fit            #modify image with the best fit found
     return imgnew
