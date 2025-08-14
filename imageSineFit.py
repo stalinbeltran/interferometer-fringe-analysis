@@ -106,7 +106,7 @@ def getHorizontalMean(img):
     ymin = 0
     height, width = img.shape
     ymax = height     #width of the image
-    imgnew = np.empty((height, 10), dtype=np.uint8)
+    imgnew = np.empty((height, globals.EQUALIZED_IMAGE_WIDTH), dtype=np.uint8)
     for row in range(ymin, ymax):
         rowMean = np.mean(img[row])
         imgnew[row, :] = int(rowMean)

@@ -3,7 +3,7 @@ import os
 OS = my_variable_value = os.getenv('OS_INTERFEROMETER_FRINGE_ANALYSIS')
 
 BLACK_IMAGE_LEVEL = 10
-
+EQUALIZED_IMAGE_WIDTH = 50
 
 
 import threading
