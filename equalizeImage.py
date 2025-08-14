@@ -1,4 +1,4 @@
-#python3 averageImage.py ./images/fringes_44-1-.png
+#python3 equalizeImage.py ./images/fringes_44-1-.png
 
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
@@ -38,7 +38,7 @@ print()
 filenameNoExt, file_extension = os.path.splitext(archivoProcesar)
 outputFile = os.path.join(filenameNoExt + "_equalized" + file_extension)
 
-imgnew = isf.getHorizontalMean(img, img)
+imgnew = isf.getHorizontalMean(img)
 params = isf.verticalSineFit(img, guessedWavelength)
 print(params)
 frequency = params["frequency"]["value"]

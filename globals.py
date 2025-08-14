@@ -87,3 +87,10 @@ def toY8array(Y16array, width, height):
     Y8array = Y8array.reshape((height, width))
     return Y8array
     
+
+def isBlackImage(img):
+    mean = np.mean(img)
+    if mean > globals.BLACK_IMAGE_LEVEL:
+        print(mean)
+        return False
+    return True
