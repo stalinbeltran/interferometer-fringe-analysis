@@ -17,5 +17,18 @@ grating = np.sin(
 )
 
 plt.set_cmap("gray")
+plt.subplot(121)
 plt.imshow(grating)
+
+# Calculate Fourier transform of grating
+ft = np.fft.ifftshift(grating)
+ft = np.fft.fft2(ft)
+ft = np.fft.fftshift(ft)
+
+plt.subplot(122)
+plt.imshow(abs(ft))
+plt.xlim([480, 520])
+plt.ylim([520, 480])  # Note, order is reversed for y
+
+
 plt.show()
