@@ -43,6 +43,7 @@ print(maxPosition)
 index = np.unravel_index(maxPosition, np.shape(ft))
 imaginaryValue = ft[index]
 print(imaginaryValue)
+print(abs(imaginaryValue))
 maxAngle = np.angle(imaginaryValue, True)
 print(maxAngle)
 
