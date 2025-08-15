@@ -31,7 +31,6 @@ plt.xlim([480, 520])
 plt.ylim([520, 480])  # Note, order is reversed for y
 
 
-#plt.show()
 print(ft)
 rows, cols = np.shape(ft)
 print("rows: ", rows, "cols: ", cols)
@@ -39,12 +38,12 @@ print("rows: ", rows, "cols: ", cols)
 maxRow = 0
 absft = abs(ft)
 maxRowValue = 0
-for row in range(0, rows):
-    max = np.max(absft[row])
-    if max > maxRowValue:
-        maxRowValue = max
-        maxRow = row
-    #print(max)
-    
-print(max)
-print(maxRow)
+maxPosition = np.argmax(absft)
+print(maxPosition)
+index = np.unravel_index(maxPosition, np.shape(ft))
+imaginaryValue = ft[index]
+print(imaginaryValue)
+maxAngle = np.angle(imaginaryValue, True)
+print(maxAngle)
+
+plt.show()
