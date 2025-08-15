@@ -31,4 +31,20 @@ plt.xlim([480, 520])
 plt.ylim([520, 480])  # Note, order is reversed for y
 
 
-plt.show()
+#plt.show()
+print(ft)
+rows, cols = np.shape(ft)
+print("rows: ", rows, "cols: ", cols)
+
+maxRow = 0
+absft = abs(ft)
+maxRowValue = 0
+for row in range(0, rows):
+    max = np.max(absft[row])
+    if max > maxRowValue:
+        maxRowValue = max
+        maxRow = row
+    #print(max)
+    
+print(max)
+print(maxRow)
