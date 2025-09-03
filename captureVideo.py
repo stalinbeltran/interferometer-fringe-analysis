@@ -55,8 +55,8 @@ def capture():
         now = time.monotonic_ns()
         print('image: ' + str(c) + ' - elapsed: ' + str((now - lastOne)/1000))
         lastOne = now
-        # ~ cv2.imshow('sample', photo)
-        # ~ cv2.waitKey(1)
+        cv2.imshow('sample', photo)
+        cv2.waitKey(1)
         # ~ pub.publishImage(globals.FOTO_TAKEN, photo)                   #original for files
         # ~ pub.publishImage(globals.FOTO_TAKEN_RESIZED, resized_image)    #resized for fast feedback
 
