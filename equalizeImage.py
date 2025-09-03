@@ -1,4 +1,4 @@
-#python3 averageImage.py ./images/fringes_44-1-.png
+#python3 equalizeImage.py ./images/fringes_44-1-.png
 
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
@@ -13,13 +13,14 @@ import imageSineFit as isf
 import json
 
 archivoProcesar = sys.argv[1]
+guessedWavelength = int(sys.argv[2])
 print('file:',archivoProcesar)
-guessedWavelength = 100
 
 fig = plt.figure(tight_layout=True)
-gs = gridspec.GridSpec(1, 2)
+gs = gridspec.GridSpec(1, 3)
 ax1 = fig.add_subplot(gs[0, 0])
 ax2 = fig.add_subplot(gs[0, 1])
+ax3 = fig.add_subplot(gs[0, 2])
 ax1.set_xticks([])
 ax1.set_yticks([])
 ax2.set_yticks([])
@@ -38,13 +39,16 @@ print()
 filenameNoExt, file_extension = os.path.splitext(archivoProcesar)
 outputFile = os.path.join(filenameNoExt + "_equalized" + file_extension)
 
-imgnew = isf.getHorizontalMean(img, img)
-params = isf.verticalSineFit(img, guessedWavelength)
+imgnew = isf.getHorizontalMean(img)
+params, imgnewFit = isf.verticalSineFit(img, guessedWavelength)
 print(params)
 frequency = params["frequency"]["value"]
 wavelength = 2*np.pi/frequency
 print("wavelength: " + str(wavelength))
 
 ax2.imshow(imgnew, cmap='gray')
-ax2.set_title("New image")
+ax2.set_title("imgnew")
+
+ax3.imshow(imgnewFit, cmap='gray')
+ax3.set_title("imgnewFit")
 plt.show()
