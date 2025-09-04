@@ -37,9 +37,9 @@ while True:
     photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
     #resized_image = cv2.resize(photo, (RESIZED_WIDTH, RESIZED_HEIGHT)) 
     resized_image = photo
-    cv2.imshow('sample', photo)
-    cv2.waitKey(1)
     if not globals.isBlackImage(resized_image):
+        cv2.imshow('sample', photo)
+        cv2.waitKey(1)
         #pub.publishImage(globals.FOTO_TAKEN_RESIZED, resized_image)    #resized for fast feedback
         pub.publishImage(globals.FOTO_TAKEN, photo)                   #original for files
 

@@ -2,7 +2,7 @@
 import os
 OS = my_variable_value = os.getenv('OS_INTERFEROMETER_FRINGE_ANALYSIS')
 
-BLACK_IMAGE_LEVEL = 10
+BLACK_IMAGE_LEVEL = 50
 EQUALIZED_IMAGE_WIDTH = 50
 
 
