@@ -3,7 +3,6 @@
 import globals
 import numpy as np
 import cv2 as cv2
-import imageSineFit as isf
 from publisher import Publisher
 import time
 import redis
@@ -31,45 +30,19 @@ print(picam2.sensor_modes)
 picam2.start()
 picam2.set_controls({'ExposureTime':200})
 
-c = 0
-goodOnes= 0
-lastOne = time.monotonic_ns()
-
-def capture():
-    global picam2, c, goodOnes, lastOne
-    now = time.monotonic_ns()
-    request = picam2.capture_request(flush = True) #6000
-    photo = request.make_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
-    request.release()
-    photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that
-    # ~ cv2.imshow('sample', photo)
-    # ~ cv2.waitKey(1)
-    c +=1
-    if c % 10 == 0:
-        # ~ print('image' + str(c))
-        print('goodOnes: ' + str(goodOnes))
-        goodOnes = 0
-    # ~ isf.isBlackImage(photo)
-    if not isf.isBlackImage(photo):
-        goodOnes +=1
-        print('image: ' + str(c) + ' - elapsed: ' + str((now - lastOne)/1000))
-        lastOne = now
-        cv2.imshow('sample', photo)
-        cv2.waitKey(1)
-        # ~ pub.publishImage(globals.FOTO_TAKEN, photo)                   #original for files
-
+while True:
     key = globals.getKey()
-    if globals.shouldCloseThisApp(key):
-        picam2.stop()
-        exit()
-        # ~ valid = True
-        # ~ print('q received')
+    if globals.shouldCloseThisApp(key): break
+    photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
+    photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
+    #resized_image = cv2.resize(photo, (RESIZED_WIDTH, RESIZED_HEIGHT)) 
+    resized_image = photo
+    cv2.imshow('sample', photo)
+    cv2.waitKey(1)
+    if not globals.isBlackImage(resized_image):
+        #pub.publishImage(globals.FOTO_TAKEN_RESIZED, resized_image)    #resized for fast feedback
+        pub.publishImage(globals.FOTO_TAKEN, photo)                   #original for files
 
 
-
-button = DigitalInputDevice(26, pull_up = None, active_state = False)
-button.when_activated = capture
-
-pause()
 # When everything done, release the capture
 picam2.stop()
