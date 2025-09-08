@@ -20,6 +20,11 @@ grating = np.sin(
 plt.set_cmap("gray")
 plt.subplot(131)
 plt.imshow(grating)
+print("\n\n-------------------\n------------------- grating:")
+print(grating)
+print("\n\n-------------------\n------------------- max(grating):")
+print(np.max(grating))
+print(np.min(grating))
 
 # Calculate Fourier transform of grating
 ft = np.fft.ifftshift(grating)
@@ -27,11 +32,37 @@ ft = np.fft.fft2(ft)
 ft = np.fft.fftshift(ft)
 
 plt.subplot(132)
-plt.imshow(abs(ft))
+#ftmod = (abs(ft)*1000).astype(int)
+ftmod = abs(ft)
+ftmod /=415411/4
+ftmod -=2
+print("\n\n-------------------\n------------------- ftmod:")
+ftmod[0:100, :] = grating[0:100, :]
+plt.imshow(ftmod)
+print(ftmod)
+diferencia = 20
+plt.xlim([500 - diferencia, 500 + diferencia])
+plt.ylim([500 + diferencia, 500-diferencia])  # Note, order is reversed for y
+
+
+print("\n\n-------------------\n------------------- max(ftmod):")
+print(np.max(ftmod))
+print(np.min(ftmod))
+
 plt.subplot(133)
-plt.imshow(np.angle(ft))
-plt.xlim([480, 520])
-plt.ylim([520, 480])  # Note, order is reversed for y
+angle = np.angle(ft)
+
+print("\n\n-------------------\n------------------- angle:")
+print(angle)
+plt.imshow(angle)
+
+print("\n\n-------------------\n------------------- max(angle):")
+print(np.max(angle))
+print(np.min(angle))
+
+diferencia = 500
+plt.xlim([500 - diferencia, 500 + diferencia])
+plt.ylim([500 + diferencia, 500-diferencia])  # Note, order is reversed for y
 
 
 #print(ft)
