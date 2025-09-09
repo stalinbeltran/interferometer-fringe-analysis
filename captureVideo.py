@@ -28,20 +28,39 @@ picam2.configure(config)
 print(picam2.camera_configuration())
 print(picam2.sensor_modes)
 picam2.start()
-picam2.set_controls({'ExposureTime':200})
+#picam2.set_controls({'ExposureTime':200})
 
+FIRST_FIXED_MIRROR = 0
+MOBILE_MIRROR = 0
+SECOND_FIXED_MIRROR = 0
+
+status = globals.FIRST_FIXED_MIRROR
 while True:
     key = globals.getKey()
     if globals.shouldCloseThisApp(key): break
     photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
     photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
     #resized_image = cv2.resize(photo, (RESIZED_WIDTH, RESIZED_HEIGHT)) 
-    resized_image = photo
-    if not globals.isBlackImage(resized_image):
-        cv2.imshow('sample', photo)
+    #resized_image = photo
+    if globals.isBlackImage(photo):
+        status = globals.BLACK_IMAGE
+        continue
+    elif status == globals.BLACK_IMAGE:
+        status = globals.FIRST_FIXED_MIRROR
+    elif status == globals.FIRST_FIXED_MIRROR:
+        status = globals.MOBILE_MIRROR
+    elif status == globals.MOBILE_MIRROR:
+        status = globals.SECOND_FIXED_MIRROR
+        
+    if status == globals.MOBILE_MIRROR:
+        cv2.imshow('mobile mirror', photo)
         cv2.waitKey(1)
+    if status == globals.SECOND_FIXED_MIRROR:
+        cv2.imshow('fixed mirror', photo)
+        cv2.waitKey(1)
+        
         #pub.publishImage(globals.FOTO_TAKEN_RESIZED, resized_image)    #resized for fast feedback
-        pub.publishImage(globals.FOTO_TAKEN, photo)                   #original for files
+        #pub.publishImage(globals.FOTO_TAKEN, photo)                   #original for files
 
 
 # When everything done, release the capture
