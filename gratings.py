@@ -56,9 +56,9 @@ angle = np.angle(ft)
 #print(angle)
 plt.imshow(angle)
 
-print("\n\n-------------------\n------------------- max(angle):")
-print(np.max(angle))
-print(np.min(angle))
+# print("\n\n-------------------\n------------------- max(angle):")
+# print(np.max(angle))
+# print(np.min(angle))
 
 plt.xlim([500 - diferencia, 500 + diferencia])
 plt.ylim([500 + diferencia, 500-diferencia])  # Note, order is reversed for y
@@ -71,13 +71,21 @@ print("rows: ", rows, "cols: ", cols)
 maxRow = 0
 absft = abs(ft)
 maxRowValue = 0
-maxPosition = np.argmax(absft)
-print("maxPosition:" + str(maxPosition))
-index = np.unravel_index(maxPosition, np.shape(ft))
-imaginaryValue = ft[index]
-print(imaginaryValue)
-print(abs(imaginaryValue))
-maxAngle = np.angle(imaginaryValue, True)
-print(maxAngle)
+absftFlat = absft.flatten()
+sorted_indices = np.argsort(-absftFlat)
+
+for i in range(0, 2):
+    maxPosition = sorted_indices[i]
+    print("maxPosition: " + str(maxPosition))
+    index = np.unravel_index(maxPosition, np.shape(ft))
+    imaginaryValue = ft[index]
+    maxAngle = np.angle(imaginaryValue, True)
+    print('maxAngle: ', maxAngle)
+
+
+# print(imaginaryValue)
+# print(abs(imaginaryValue))
+# maxAngle = np.angle(imaginaryValue, True)
+# print(maxAngle)
 
 #plt.show()
