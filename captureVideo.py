@@ -30,9 +30,6 @@ print(picam2.sensor_modes)
 picam2.start()
 #picam2.set_controls({'ExposureTime':200})
 
-FIRST_FIXED_MIRROR = 0
-MOBILE_MIRROR = 0
-SECOND_FIXED_MIRROR = 0
 
 status = globals.FIRST_FIXED_MIRROR
 while True:
@@ -58,6 +55,7 @@ while True:
     if status == globals.SECOND_FIXED_MIRROR:
         cv2.imshow('fixed mirror', photo)
         cv2.waitKey(1)
+        status = globals.WAIT_BLACK_IMAGE
         
         #pub.publishImage(globals.FOTO_TAKEN_RESIZED, resized_image)    #resized for fast feedback
         #pub.publishImage(globals.FOTO_TAKEN, photo)                   #original for files
