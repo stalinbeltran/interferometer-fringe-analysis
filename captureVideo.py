@@ -40,62 +40,62 @@ p1.daemon = True
 p1.start()
 
 
-pub = Publisher()
-pub.init()
+    pub = Publisher()
+    pub.init()
 
-picam2 = Picamera2()
-WIDTH = globals.WIDTH
-HEIGHT = globals.HEIGHT
-RESIZED_WIDTH = globals.RESIZED_WIDTH
-RESIZED_HEIGHT = globals.RESIZED_HEIGHT
+    picam2 = Picamera2()
+    WIDTH = globals.WIDTH
+    HEIGHT = globals.HEIGHT
+    RESIZED_WIDTH = globals.RESIZED_WIDTH
+    RESIZED_HEIGHT = globals.RESIZED_HEIGHT
 
-config = picam2.create_video_configuration(
-    raw = picam2.sensor_modes[0],
-    buffer_count=12,
-)
-picam2.configure(config)
-print(picam2.camera_configuration())
-print(picam2.sensor_modes)
-picam2.start()
-picam2.set_controls({'ExposureTime':200})
+    config = picam2.create_video_configuration(
+        raw = picam2.sensor_modes[0],
+        buffer_count=12,
+    )
+    picam2.configure(config)
+    print(picam2.camera_configuration())
+    print(picam2.sensor_modes)
+    picam2.start()
+    picam2.set_controls({'ExposureTime':200})
 
 
-status = globals.FIRST_FIXED_MIRROR
-while True:
-    key = globals.getKey()
-    if globals.shouldCloseThisApp(key):
-        exit1 = True
-        break
-    photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
-    photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
-    #resized_image = cv2.resize(photo, (RESIZED_WIDTH, RESIZED_HEIGHT)) 
-    #resized_image = photo
-    if globals.isBlackImage(photo):
-        status = globals.BLACK_IMAGE
-        #continue
-    elif status == globals.BLACK_IMAGE:
-        status = globals.FIRST_FIXED_MIRROR
-    elif status == globals.FIRST_FIXED_MIRROR:
-        status = globals.MOBILE_MIRROR
-    elif status == globals.MOBILE_MIRROR:
-        status = globals.SECOND_FIXED_MIRROR
-        
-    # if not status == globals.BLACK_IMAGE:
-        # cv2.imshow('union', photo)
-        # cv2.waitKey(1)
-    if status == globals.MOBILE_MIRROR or status == globals.BLACK_IMAGE:
-        cv2.imshow('mobile mirror', photo)
-        cv2.waitKey(1)
-    if status == globals.FIRST_FIXED_MIRROR or status == globals.SECOND_FIXED_MIRROR:
-        photoFixed = photo
-        cv2.imshow('fixed mirror', photo)
-        cv2.waitKey(1)
-        #status = globals.WAIT_BLACK_IMAGE
-        
-    if status == globals.MOBILE_MIRROR:
-        photoMobile = photo
-        
-picam2.stop()
+    status = globals.FIRST_FIXED_MIRROR
+    while True:
+        key = globals.getKey()
+        if globals.shouldCloseThisApp(key):
+            exit1 = True
+            break
+        photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
+        photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
+        #resized_image = cv2.resize(photo, (RESIZED_WIDTH, RESIZED_HEIGHT)) 
+        #resized_image = photo
+        if globals.isBlackImage(photo):
+            status = globals.BLACK_IMAGE
+            #continue
+        elif status == globals.BLACK_IMAGE:
+            status = globals.FIRST_FIXED_MIRROR
+        elif status == globals.FIRST_FIXED_MIRROR:
+            status = globals.MOBILE_MIRROR
+        elif status == globals.MOBILE_MIRROR:
+            status = globals.SECOND_FIXED_MIRROR
+            
+        # if not status == globals.BLACK_IMAGE:
+            # cv2.imshow('union', photo)
+            # cv2.waitKey(1)
+        if status == globals.MOBILE_MIRROR or status == globals.BLACK_IMAGE:
+            cv2.imshow('mobile mirror', photo)
+            cv2.waitKey(1)
+        if status == globals.FIRST_FIXED_MIRROR or status == globals.SECOND_FIXED_MIRROR:
+            photoFixed = photo
+            cv2.imshow('fixed mirror', photo)
+            cv2.waitKey(1)
+            #status = globals.WAIT_BLACK_IMAGE
+            
+        if status == globals.MOBILE_MIRROR:
+            photoMobile = photo
+            
+    picam2.stop()
         
         
         
