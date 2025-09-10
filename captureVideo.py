@@ -20,23 +20,18 @@ imageQueue = queue.Queue()
 
 def visibleComparison(imageQueue):
     global exit1, delayComparison, photoMobile, photoFixed, cv2
-    
-    print('...................inicio', flush = True)
 
     while not exit1:
         if photoMobile is not None and photoFixed is not None:
             break
         time.sleep(delayComparison)
-        
-        print('...................esperando fotos.....', flush = True)
-    print('...................Fotos conseguidas.....', flush = True)   
+ 
     while not exit1:
         imageQueue.put('union')
         imageQueue.put(photoMobile)
         time.sleep(delayComparison)
         imageQueue.put('union')
         imageQueue.put(photoFixed)
-        print('...................union.....', flush = True)
         time.sleep(delayComparison)
 
 
@@ -116,12 +111,10 @@ while True:
         cv2.imshow(title, image)
         cv2.waitKey(1)
     time.sleep(0.01)
-        #pub.publishImage(globals.FOTO_TAKEN_RESIZED, resized_image)    #resized for fast feedback
-        #pub.publishImage(globals.FOTO_TAKEN, photo)                   #original for files
-
 
 
 
 # When everything done, release the capture
 
-#p1.join()
+p1.join()
+p2.join()
