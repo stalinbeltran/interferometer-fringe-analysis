@@ -10,13 +10,15 @@ from picamera2 import Picamera2
 from gpiozero import Button, DigitalInputDevice
 from signal import pause
 import threading
+import queue
 
 exit1 = False
 delayComparison = 0.2
 photoMobile = None
 photoFixed = None
+imageQueue = queue.Queue()
 
-def visibleComparison():
+def visibleComparison(imageQueue):
     global exit1, delayComparison, photoMobile, photoFixed, cv2
     
     print('...................inicio', flush = True)
@@ -27,16 +29,13 @@ def visibleComparison():
         time.sleep(delayComparison)
     return
     while not exit:
-        cv2.imshow('union', photoMobile)
-        cv2.waitKey(1)
+        imageQueue.put(photoMobile)
         time.sleep(delayComparison)
-        cv2.imshow('union', photoFixed)
-        cv2.waitKey(1)
+        imageQueue.put(photoFixed)
         time.sleep(delayComparison)
-    '''
-'''
 
-p1 = threading.Thread(target=visibleComparison, args = ())
+
+p1 = threading.Thread(target=visibleComparison, args = (imageQueue))
 p1.daemon = True
 p1.start()
 
@@ -96,10 +95,18 @@ while True:
     if status == globals.MOBILE_MIRROR:
         photoMobile = photo
         
+picam2.stop()
+        
+        
+        
+if not imageQueue.empty(): pass
+        
         #pub.publishImage(globals.FOTO_TAKEN_RESIZED, resized_image)    #resized for fast feedback
         #pub.publishImage(globals.FOTO_TAKEN, photo)                   #original for files
 
 
+
+
 # When everything done, release the capture
-picam2.stop()
+
 #p1.join()
