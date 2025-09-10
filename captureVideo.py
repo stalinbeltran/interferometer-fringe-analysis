@@ -28,7 +28,7 @@ picam2.configure(config)
 print(picam2.camera_configuration())
 print(picam2.sensor_modes)
 picam2.start()
-#picam2.set_controls({'ExposureTime':200})
+picam2.set_controls({'ExposureTime':200})
 
 
 status = globals.FIRST_FIXED_MIRROR
@@ -41,7 +41,7 @@ while True:
     #resized_image = photo
     if globals.isBlackImage(photo):
         status = globals.BLACK_IMAGE
-        continue
+        #continue
     elif status == globals.BLACK_IMAGE:
         status = globals.FIRST_FIXED_MIRROR
     elif status == globals.FIRST_FIXED_MIRROR:
@@ -49,13 +49,16 @@ while True:
     elif status == globals.MOBILE_MIRROR:
         status = globals.SECOND_FIXED_MIRROR
         
-    if status == globals.MOBILE_MIRROR:
+    if not status == globals.BLACK_IMAGE:
+        cv2.imshow('union', photo)
+        cv2.waitKey(1)
+    if status == globals.MOBILE_MIRROR or status == globals.BLACK_IMAGE:
         cv2.imshow('mobile mirror', photo)
         cv2.waitKey(1)
-    if status == globals.SECOND_FIXED_MIRROR:
+    if status == globals.FIRST_FIXED_MIRROR or status == globals.SECOND_FIXED_MIRROR:
         cv2.imshow('fixed mirror', photo)
         cv2.waitKey(1)
-        status = globals.WAIT_BLACK_IMAGE
+        #status = globals.WAIT_BLACK_IMAGE
         
         #pub.publishImage(globals.FOTO_TAKEN_RESIZED, resized_image)    #resized for fast feedback
         #pub.publishImage(globals.FOTO_TAKEN, photo)                   #original for files
