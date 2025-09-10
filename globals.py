@@ -2,8 +2,16 @@
 import os
 OS = my_variable_value = os.getenv('OS_INTERFEROMETER_FRINGE_ANALYSIS')
 
-BLACK_IMAGE_LEVEL = 50
+BLACK_IMAGE_LEVEL = 20
 EQUALIZED_IMAGE_WIDTH = 50
+
+#STATUS
+BLACK_IMAGE = 0
+FIRST_FIXED_MIRROR = 1
+MOBILE_MIRROR = 2
+SECOND_FIXED_MIRROR = 3
+WAIT_BLACK_IMAGE = 4
+
 
 
 import threading
@@ -90,7 +98,7 @@ def toY8array(Y16array, width, height):
 
 def isBlackImage(img):
     mean = np.mean(img)
+    print(mean)
     if mean > BLACK_IMAGE_LEVEL:
-        print(mean)
         return False
     return True
