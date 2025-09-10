@@ -1,4 +1,4 @@
-# gratings.py
+# python3 gratings.py 100 0 0
 
 import numpy as np
 import sys
@@ -27,9 +27,18 @@ plt.imshow(grating)
 # print(np.min(grating))
 
 # Calculate Fourier transform of grating
-ft = np.fft.ifftshift(grating)
+isft = np.fft.ifftshift(grating)
+sft = np.fft.fftshift(grating)
+plt.subplot(132)
+plt.imshow(isft)
+plt.subplot(133)
+plt.imshow(sft)
+plt.show()
+exit()
+
 ft = np.fft.fft2(ft)
 ft = np.fft.fftshift(ft)
+
 
 plt.subplot(132)
 #ftmod = (abs(ft)*1000).astype(int)
