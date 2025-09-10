@@ -9,7 +9,7 @@ import redis
 from picamera2 import Picamera2
 from gpiozero import Button, DigitalInputDevice
 from signal import pause
-import multiprocessing
+import threading
 
 exit1 = False
 delayComparison = 0.2
@@ -17,9 +17,9 @@ photoMobile = None
 photoFixed = None
 
 def visibleComparison():
-    global exit1, delayComparison, photoMobile, photoFixed
+    global exit1, delayComparison, photoMobile, photoFixed, cv2
     
-    print('...................inicio')
+    print('...................inicio', flush = True)
 
     while not exit:
         if photoMobile is not None and photoFixed is not None:
@@ -36,7 +36,7 @@ def visibleComparison():
     '''
 '''
 
-p1 = multiprocessing.Process(target=visibleComparison, args = ())
+p1 = threading.Thread(target=visibleComparison, args = ())
 p1.daemon = True
 p1.start()
 
