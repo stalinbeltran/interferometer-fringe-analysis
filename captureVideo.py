@@ -23,23 +23,25 @@ def visibleComparison(imageQueue):
     
     print('...................inicio', flush = True)
 
-    while not exit:
+    while not exit1:
         if photoMobile is not None and photoFixed is not None:
             break
         time.sleep(delayComparison)
-    return
-    while not exit:
+        
+        print('...................esperando fotos.....', flush = True)
+    print('...................Fotos conseguidas.....', flush = True)   
+    while not exit1:
+        imageQueue.put('union')
         imageQueue.put(photoMobile)
         time.sleep(delayComparison)
+        imageQueue.put('union')
         imageQueue.put(photoFixed)
+        print('...................union.....', flush = True)
         time.sleep(delayComparison)
 
 
-p1 = threading.Thread(target=visibleComparison, args = (imageQueue))
-p1.daemon = True
-p1.start()
-
-
+def capture(imageQueue):
+    global photoFixed, photoMobile, exit1
     pub = Publisher()
     pub.init()
 
@@ -61,11 +63,11 @@ p1.start()
 
 
     status = globals.FIRST_FIXED_MIRROR
-    while True:
-        key = globals.getKey()
-        if globals.shouldCloseThisApp(key):
-            exit1 = True
-            break
+    while not exit1:
+        # key = globals.getKey()
+        # if globals.shouldCloseThisApp(key):
+            # exit1 = True
+            # break
         photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
         photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
         #resized_image = cv2.resize(photo, (RESIZED_WIDTH, RESIZED_HEIGHT)) 
@@ -79,28 +81,41 @@ p1.start()
             status = globals.MOBILE_MIRROR
         elif status == globals.MOBILE_MIRROR:
             status = globals.SECOND_FIXED_MIRROR
-            
-        # if not status == globals.BLACK_IMAGE:
-            # cv2.imshow('union', photo)
-            # cv2.waitKey(1)
+
         if status == globals.MOBILE_MIRROR or status == globals.BLACK_IMAGE:
-            cv2.imshow('mobile mirror', photo)
-            cv2.waitKey(1)
+            imageQueue.put('mobile mirror')
+            imageQueue.put(photo)
         if status == globals.FIRST_FIXED_MIRROR or status == globals.SECOND_FIXED_MIRROR:
+            imageQueue.put('fixed mirror')
+            imageQueue.put(photo)
             photoFixed = photo
-            cv2.imshow('fixed mirror', photo)
-            cv2.waitKey(1)
-            #status = globals.WAIT_BLACK_IMAGE
             
         if status == globals.MOBILE_MIRROR:
             photoMobile = photo
             
     picam2.stop()
         
+
+p1 = threading.Thread(target=visibleComparison, args = (imageQueue,))
+p2 = threading.Thread(target=capture, args = (imageQueue,))
+p1.daemon = True
+#p2.daemon = True
+p1.start()
+p2.start()
+
         
         
-if not imageQueue.empty(): pass
-        
+while True:
+    key = globals.getKey()
+    if globals.shouldCloseThisApp(key):
+        exit1 = True
+        break
+    while not imageQueue.empty():
+        title = imageQueue.get()
+        image = imageQueue.get()
+        cv2.imshow(title, image)
+        cv2.waitKey(1)
+    time.sleep(0.01)
         #pub.publishImage(globals.FOTO_TAKEN_RESIZED, resized_image)    #resized for fast feedback
         #pub.publishImage(globals.FOTO_TAKEN, photo)                   #original for files
 
