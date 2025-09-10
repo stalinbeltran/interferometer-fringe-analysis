@@ -28,7 +28,7 @@ plt.imshow(grating)
 
 # Calculate Fourier transform of grating
 isft = np.fft.ifftshift(grating)
-sft = np.fft.fftshift(grating)
+sft = np.fft.fftshift(isft)
 plt.subplot(132)
 plt.imshow(isft)
 plt.subplot(133)
