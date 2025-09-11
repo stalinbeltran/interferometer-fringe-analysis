@@ -38,7 +38,7 @@ plt.imshow(grating)
 
 ft = np.fft.ifftshift(grating)
 ft = np.fft.fft2(ft)
-ft = np.fft.fftshift(ft)
+#ft = np.fft.fftshift(ft)
 
 
 
@@ -51,9 +51,9 @@ ftmod -=2
 plt.subplot(132)
 plt.imshow(ftmod)
 
-diferencia = 20
-plt.xlim([500 - diferencia, 500 + diferencia])
-plt.ylim([500 + diferencia, 500-diferencia])  # Note, order is reversed for y
+diferencia = -490
+plt.xlim([0, 500 + diferencia])
+plt.ylim([500 + diferencia, 0])  # Note, order is reversed for y
 
 
 # print("\n\n-------------------\n------------------- max(ftmod):")
@@ -71,8 +71,8 @@ plt.imshow(angle)
 # print(np.max(angle))
 # print(np.min(angle))
 
-plt.xlim([500 - diferencia, 500 + diferencia])
-plt.ylim([500 + diferencia, 500-diferencia])  # Note, order is reversed for y
+plt.xlim([0, 500 + diferencia])
+plt.ylim([500 + diferencia, 0])  # Note, order is reversed for y
 
 
 #print(ft)
