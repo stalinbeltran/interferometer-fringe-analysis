@@ -44,8 +44,8 @@ ft = np.fft.fft2(ft)
 
 #ftmod = (abs(ft)*1000).astype(int)
 ftmod = abs(ft)
-ftmod /=415411/4
-ftmod -=2
+# ftmod /=415411/4
+# ftmod -=2
 #print("\n\n-------------------\n------------------- ftmod:")
 
 plt.subplot(132)
@@ -62,6 +62,7 @@ plt.ylim([500 + diferencia, 0])  # Note, order is reversed for y
 
 plt.subplot(133)
 angle = np.angle(ft)
+angle *= ftmod
 
 #print("\n\n-------------------\n------------------- angle:")
 #print(angle)
