@@ -27,28 +27,30 @@ plt.imshow(grating)
 # print(np.min(grating))
 
 # Calculate Fourier transform of grating
-isft = np.fft.ifftshift(grating)
-sft = np.fft.fftshift(isft)
-plt.subplot(132)
-plt.imshow(isft)
-plt.subplot(133)
-plt.imshow(sft)
-plt.show()
-exit()
+# isft = np.fft.ifftshift(grating)
+# sft = np.fft.fftshift(isft)
+# plt.subplot(132)
+# plt.imshow(isft)
+# plt.subplot(133)
+# plt.imshow(sft)
+# plt.show()
+# exit()
 
+ft = np.fft.ifftshift(grating)
 ft = np.fft.fft2(ft)
 ft = np.fft.fftshift(ft)
 
 
-plt.subplot(132)
+
 #ftmod = (abs(ft)*1000).astype(int)
 ftmod = abs(ft)
 ftmod /=415411/4
 ftmod -=2
 #print("\n\n-------------------\n------------------- ftmod:")
-ftmod[0:100, :] = grating[0:100, :]
+
+plt.subplot(132)
 plt.imshow(ftmod)
-#print(ftmod)
+
 diferencia = 20
 plt.xlim([500 - diferencia, 500 + diferencia])
 plt.ylim([500 + diferencia, 500-diferencia])  # Note, order is reversed for y
@@ -97,4 +99,4 @@ for i in range(0, 2):
 # maxAngle = np.angle(imaginaryValue, True)
 # print(maxAngle)
 
-#plt.show()
+plt.show()
