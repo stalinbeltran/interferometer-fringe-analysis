@@ -65,7 +65,7 @@ SHOW = "show"
 
 #photo taken size
 WIDTH = 640
-HEIGHT = 400
+HEIGHT = 480
 
 
 #photo resized size
