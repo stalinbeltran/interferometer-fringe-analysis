@@ -61,6 +61,8 @@ def capture(imageQueue):
     while not exit1:
         photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
         photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
+        pub.publishImage(globals.FOTO_TAKEN, photo)                   #publish original, to be used by other processes
+        
         if globals.isBlackImage(photo):
             status = globals.BLACK_IMAGE
             #continue
