@@ -9,6 +9,10 @@ wavelength = int(sys.argv[1])
 angleFactor = float(sys.argv[2])
 phaseFactor = float(sys.argv[3])
 
+file_name = "images/fringes_57-1-.png"
+with open(file_name, 'r') as file:
+    image = file.read()
+
 x = np.arange(-500, 501, 1)
 X, Y = np.meshgrid(x, x)
 
