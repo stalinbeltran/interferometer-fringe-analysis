@@ -186,3 +186,75 @@ python /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/procesadorVideos.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+fringes_XXX:
+En linux:
+ffmpeg -i 
+
+fringes_XXX.h264
+h264 to mp4:
+ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX.h264 -c copy /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_XXX.mp4
+
+
+En windows:
+python imageVerticalCentralCropper.py 800 ./videos/fringes_XXX/frames ./videos/fringes_XXX/framesCropped
+python rescaleImage.py ./videos/fringes_XXX/framesCropped ./videos/fringes_XXX/framesRescaled
+python fitImage.py ./videos/fringes_XXX/framesRescaled ./videos/fringes_XXX/framesFitImage ./videos/fringes_XXX/framesFitImagejson 250
+python getFrameInfo.py ./videos/fringes_XXX/framesFitImagejson ./videos/fringes_XXX/infoFrames.json
+
+
+para convertir videos de h264 a mp4:
+python /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/procesadorVideos.py 18-29 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+fringes_11092025_1230
+
+video to frames:
+mkdir /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_11092025_1230
+mkdir /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_11092025_1230/frames
+ffmpeg -i /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_11092025_1230/fringes_11092025_1230.flv -vf fps=1 /mnt/d/Stalin/Desarrollo/interferometer-fringe-analysis/videos/fringes_11092025_1230/frames/fringes_11092025_1230-%d-.png
+
+
+
+
+
+
