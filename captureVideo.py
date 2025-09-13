@@ -1,4 +1,4 @@
-#python3 captureVideo.py
+#python3 captureVideo.py 0
 
 import globals
 import numpy as np
@@ -12,6 +12,8 @@ from signal import pause
 import threading
 import queue
 
+saveImagesOnly = int(sys.argv[1]) == 1
+
 exit1 = False
 delayComparison = 0.2
 photoMobile = None
@@ -20,7 +22,8 @@ imageQueue = queue.Queue()
 
 def visibleComparison(imageQueue):
     global exit1, delayComparison, photoMobile, photoFixed, cv2
-
+    if saveImagesOnly: return       #no comparison if save only
+    
     while not exit1:
         if photoMobile is not None and photoFixed is not None:
             break
@@ -54,7 +57,7 @@ def capture(imageQueue):
     print(picam2.camera_configuration())
     print(picam2.sensor_modes)
     picam2.start()
-    picam2.set_controls({'ExposureTime':200})
+    picam2.set_controls({'ExposureTime':40})
 
 
     status = globals.FIRST_FIXED_MIRROR
@@ -76,6 +79,7 @@ def capture(imageQueue):
         if status == globals.MOBILE_MIRROR or status == globals.BLACK_IMAGE:
             imageQueue.put('mobile mirror')
             imageQueue.put(photo)
+        if saveImagesOnly: continue
         if status == globals.FIRST_FIXED_MIRROR or status == globals.SECOND_FIXED_MIRROR:
             imageQueue.put('fixed mirror')
             imageQueue.put(photo)
@@ -109,6 +113,7 @@ while True:
     time.sleep(0.01)
 
 
+cv2.destroyAllWindows()
 
 # When everything done, release the capture
 
