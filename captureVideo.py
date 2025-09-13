@@ -59,14 +59,8 @@ def capture(imageQueue):
 
     status = globals.FIRST_FIXED_MIRROR
     while not exit1:
-        # key = globals.getKey()
-        # if globals.shouldCloseThisApp(key):
-            # exit1 = True
-            # break
         photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
         photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
-        #resized_image = cv2.resize(photo, (RESIZED_WIDTH, RESIZED_HEIGHT)) 
-        #resized_image = photo
         if globals.isBlackImage(photo):
             status = globals.BLACK_IMAGE
             #continue
