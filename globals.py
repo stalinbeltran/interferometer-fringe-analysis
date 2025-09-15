@@ -63,10 +63,28 @@ FOTO_TAKEN = 'phototaken'
 HIDE = "hide"
 SHOW = "show"
 
-#photo taken size
-WIDTH = 640
-HEIGHT = 480
+CAMERA_SENSOR_MODE = 0 # 0 o 2
 
+
+#photo taken size
+if CAMERA_SENSOR_MODE == 0:
+    WIDTH = 640
+    HEIGHT = 400
+    
+if CAMERA_SENSOR_MODE == 2:
+    WIDTH = 1280
+    HEIGHT = 800
+    
+    
+
+'''
+
+WIDTH = 640
+HEIGHT = 400
+
+WIDTH = 1280
+HEIGHT = 800
+'''
 
 #photo resized size
 RESIZED_WIDTH = WIDTH

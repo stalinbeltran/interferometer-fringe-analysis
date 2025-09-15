@@ -11,6 +11,7 @@ from gpiozero import Button, DigitalInputDevice
 from signal import pause
 import threading
 import queue
+import sys
 
 saveImagesOnly = int(sys.argv[1]) == 1
 
@@ -50,11 +51,12 @@ def capture(imageQueue):
     RESIZED_HEIGHT = globals.RESIZED_HEIGHT
 
     config = picam2.create_video_configuration(
-        raw = picam2.sensor_modes[0],
+        raw = picam2.sensor_modes[globals.CAMERA_SENSOR_MODE],
         buffer_count=12,
     )
     picam2.configure(config)
     print(picam2.camera_configuration())
+    print("picam2.sensor_modes:")
     print(picam2.sensor_modes)
     picam2.start()
     picam2.set_controls({'ExposureTime':40})
