@@ -1,4 +1,4 @@
-# gratings.py
+# python3 gratings.py 100 0 0
 
 import numpy as np
 import sys
@@ -8,6 +8,10 @@ import matplotlib.pyplot as plt
 wavelength = int(sys.argv[1])
 angleFactor = float(sys.argv[2])
 phaseFactor = float(sys.argv[3])
+
+file_name = "images/fringes_57-1-.png"
+with open(file_name, 'r') as file:
+    image = file.read()
 
 x = np.arange(-500, 501, 1)
 X, Y = np.meshgrid(x, x)
@@ -27,22 +31,33 @@ plt.imshow(grating)
 # print(np.min(grating))
 
 # Calculate Fourier transform of grating
+# isft = np.fft.ifftshift(grating)
+# sft = np.fft.fftshift(isft)
+# plt.subplot(132)
+# plt.imshow(isft)
+# plt.subplot(133)
+# plt.imshow(sft)
+# plt.show()
+# exit()
+
 ft = np.fft.ifftshift(grating)
 ft = np.fft.fft2(ft)
-ft = np.fft.fftshift(ft)
+#ft = np.fft.fftshift(ft)
 
-plt.subplot(132)
+
+
 #ftmod = (abs(ft)*1000).astype(int)
 ftmod = abs(ft)
-ftmod /=415411/4
-ftmod -=2
+# ftmod /=415411/4
+# ftmod -=2
 #print("\n\n-------------------\n------------------- ftmod:")
-ftmod[0:100, :] = grating[0:100, :]
+
+plt.subplot(132)
 plt.imshow(ftmod)
-#print(ftmod)
-diferencia = 20
-plt.xlim([500 - diferencia, 500 + diferencia])
-plt.ylim([500 + diferencia, 500-diferencia])  # Note, order is reversed for y
+
+diferencia = -490
+plt.xlim([0, 500 + diferencia])
+plt.ylim([500 + diferencia, 0])  # Note, order is reversed for y
 
 
 # print("\n\n-------------------\n------------------- max(ftmod):")
@@ -51,6 +66,7 @@ plt.ylim([500 + diferencia, 500-diferencia])  # Note, order is reversed for y
 
 plt.subplot(133)
 angle = np.angle(ft)
+angle *= ftmod
 
 #print("\n\n-------------------\n------------------- angle:")
 #print(angle)
@@ -60,8 +76,8 @@ plt.imshow(angle)
 # print(np.max(angle))
 # print(np.min(angle))
 
-plt.xlim([500 - diferencia, 500 + diferencia])
-plt.ylim([500 + diferencia, 500-diferencia])  # Note, order is reversed for y
+plt.xlim([0, 500 + diferencia])
+plt.ylim([500 + diferencia, 0])  # Note, order is reversed for y
 
 
 #print(ft)
@@ -88,4 +104,4 @@ for i in range(0, 2):
 # maxAngle = np.angle(imaginaryValue, True)
 # print(maxAngle)
 
-#plt.show()
+plt.show()
