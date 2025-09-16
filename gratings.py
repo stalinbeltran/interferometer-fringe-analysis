@@ -9,11 +9,11 @@ wavelength = int(sys.argv[1])
 angleFactor = float(sys.argv[2])
 phaseFactor = float(sys.argv[3])
 
-file_name = "images/fringes_57-1-.png"
-with open(file_name, 'r') as file:
-    image = file.read()
 
 x = np.arange(-500, 501, 1)
+print('len(x):')
+sizex = len(x)
+print(sizex)
 X, Y = np.meshgrid(x, x)
 
 angle = np.pi * angleFactor
@@ -79,6 +79,14 @@ plt.imshow(angle)
 plt.xlim([0, 500 + diferencia])
 plt.ylim([500 + diferencia, 0])  # Note, order is reversed for y
 
+# Calculate frequency components for each dimension
+sample_spacing_x = x[1] - x[0]
+freq_x = np.fft.fftfreq(sizex, d=sample_spacing_x)
+
+print("\n\n-------------------\n------------------- freq_x:")
+print(freq_x)
+#print(xxxxxxxxx)
+
 
 #print(ft)
 rows, cols = np.shape(ft)
@@ -94,9 +102,14 @@ for i in range(0, 2):
     maxPosition = sorted_indices[i]
     print("maxPosition: " + str(maxPosition))
     index = np.unravel_index(maxPosition, np.shape(ft))
+    print('index: ', index)
+    print(index)
     imaginaryValue = ft[index]
     maxAngle = np.angle(imaginaryValue, True)
     print('maxAngle: ', maxAngle)
+    print('freq_x: ', freq_x[index[1]])
+    print('periodo: ', 1/freq_x[index[1]])
+    
 
 
 # print(imaginaryValue)
