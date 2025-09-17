@@ -35,8 +35,6 @@ def getKey():
         # Try to get input from the queue without blocking
         user_input = input_queue.get_nowait()
         return user_input
-        #if user_input:
-        #    print(f"Processed: {user_input}")
     except queue.Empty:
         # No input available, perform other tasks
         pass
@@ -116,7 +114,6 @@ def toY8array(Y16array, width, height):
 
 def isBlackImage(img):
     mean = np.mean(img)
-    print(mean)
     if mean > BLACK_IMAGE_LEVEL:
         return False
     return True
