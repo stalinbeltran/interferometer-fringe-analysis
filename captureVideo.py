@@ -67,15 +67,15 @@ def capture(imageQueue):
     pos = 0
     tfinal = time.time()
     
-    status = globals.FIRST_FIXED_MIRROR
+    status = globals.MOBILE_MIRROR
     while not exit1:
         tinicial = time.time()
         tiemposProceso[pos] = tinicial - tfinal
         photo = picam2.capture_array('raw')                 
         tfinal = time.time()
         tiemposCaptura[pos] = tfinal-tinicial
-        pos+=1
-        if pos==NTESTS: break
+        # pos+=1
+        # if pos==NTESTS: break
                                                             #photo have 16 bits when actually 8 bits where sent by the camera
         photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
         pub.publishImage(globals.FOTO_TAKEN, photo)         #publish original, to be used by other processes
@@ -86,31 +86,24 @@ def capture(imageQueue):
 
         if saveImagesOnly: continue         #prioritize image publishing
         
-        if globals.isBlackImage(photo):
-            status = globals.BLACK_IMAGE
-        elif status == globals.BLACK_IMAGE:
+        if status == globals.MOBILE_MIRROR:
             status = globals.FIRST_FIXED_MIRROR
-        elif status == globals.FIRST_FIXED_MIRROR:
+        else:
             status = globals.MOBILE_MIRROR
-        elif status == globals.MOBILE_MIRROR:
-            status = globals.SECOND_FIXED_MIRROR
 
-        if status == globals.MOBILE_MIRROR or status == globals.BLACK_IMAGE:
+        if status == globals.MOBILE_MIRROR:
             imageQueue.put('mobile mirror')
             imageQueue.put(photo)
-        if status == globals.FIRST_FIXED_MIRROR or status == globals.SECOND_FIXED_MIRROR:
+            photoMobile = photo
+        if status == globals.FIRST_FIXED_MIRROR:
             imageQueue.put('fixed mirror')
             imageQueue.put(photo)
             photoFixed = photo
-            
-        if status == globals.MOBILE_MIRROR:
-            photoMobile = photo
-            
-    
-    print("tiemposCaptura:")
-    print(tiemposCaptura)
-    print("tiemposProceso:")
-    print(tiemposProceso)
+
+    # print("tiemposCaptura:")
+    # print(tiemposCaptura)
+    # print("tiemposProceso:")
+    # print(tiemposProceso)
     
     
     picam2.stop()
