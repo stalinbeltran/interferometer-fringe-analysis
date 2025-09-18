@@ -1,4 +1,4 @@
-#python photoSaving.py ./Videos/monday15092025_/fringes_15092025
+#python photoSaving.py ./Videos/monday15092025/fringes_15092025
 
 import globals
 import time
@@ -20,7 +20,7 @@ print(pub)
 pub.subscribe(globals.FOTO_TAKEN)      #subscribe for the resized version only (it is faster than original)
 
 c=0
-while True:
+while True and c<10:
     key = globals.getKey()
     if globals.shouldCloseThisApp(key): break
     message = pub.get_message()
@@ -31,6 +31,7 @@ while True:
     if type(imageBase64) == int: continue
     photo = pub.getImage(imageBase64, globals.WIDTH, globals.HEIGHT)         #globals.WIDTH, globals.HEIGHT)
     saveFile(filepath, photo)
+    c+=1
     # ~ resized_image = cv2.resize(photo, (2*globals.RESIZED_WIDTH, 2*globals.RESIZED_HEIGHT))
     # cv2.imshow('photoSaving', photo)
     # cv2.waitKey(1)
