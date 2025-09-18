@@ -9,28 +9,28 @@ import redis
 from picamera2 import Picamera2
 from gpiozero import Button, DigitalInputDevice
 from signal import pause
-import threading
+from multiprocessing import Process, Value, Array
 import queue
 import sys
 
 saveImagesOnly = int(sys.argv[1]) == 1
 
-exit1 = False
-delayComparison = 0.2
+exit1 = Value('b', True)        #shared value to exit processes
+delayComparison = 0.2           #interval for showing comparison images
 photoMobile = None
 photoFixed = None
 imageQueue = queue.Queue()
 
-def visibleComparison(imageQueue):
-    global exit1, delayComparison, photoMobile, photoFixed, cv2
+def visibleComparison(imageQueue, exit1):
+    global delayComparison, photoMobile, photoFixed, cv2
     if saveImagesOnly: return       #no comparison if save only
     
-    while not exit1:
+    while not exit1.value:
         if photoMobile is not None and photoFixed is not None:
             break
         time.sleep(delayComparison)
  
-    while not exit1:
+    while not exit1.value:
         imageQueue.put('union')
         imageQueue.put(photoMobile)
         time.sleep(delayComparison)
@@ -39,8 +39,8 @@ def visibleComparison(imageQueue):
         time.sleep(delayComparison)
 
 
-def capture(imageQueue):
-    global photoFixed, photoMobile, exit1
+def capture(imageQueue, exit1):
+    global photoFixed, photoMobile
     pub = Publisher()
     pub.init()
 
@@ -63,7 +63,7 @@ def capture(imageQueue):
 
 
     status = globals.FIRST_FIXED_MIRROR
-    while not exit1:
+    while not exit1.value:
         photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
         photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
         pub.publishImage(globals.FOTO_TAKEN, photo)                   #publish original, to be used by other processes
@@ -93,8 +93,8 @@ def capture(imageQueue):
     picam2.stop()
         
 
-p1 = threading.Thread(target=visibleComparison, args = (imageQueue,))
-p2 = threading.Thread(target=capture, args = (imageQueue,))
+p1 = multiprocessing.Process(target=visibleComparison, args = (imageQueue, exit1))
+p2 = multiprocessing.Process(target=capture, args = (imageQueue, exit1))
 p1.daemon = True
 #p2.daemon = True
 p1.start()
@@ -105,7 +105,7 @@ p2.start()
 while True:
     key = globals.getKey()
     if globals.shouldCloseThisApp(key):
-        exit1 = True
+        exit1.value = True
         break
     while not imageQueue.empty():
         title = imageQueue.get()
