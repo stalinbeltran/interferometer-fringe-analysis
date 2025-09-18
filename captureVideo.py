@@ -9,8 +9,7 @@ import redis
 from picamera2 import Picamera2
 from gpiozero import Button, DigitalInputDevice
 from signal import pause
-from multiprocessing import Process, Value, Array
-import queue
+from multiprocessing import Process, Value, Array, Queue
 import sys
 
 saveImagesOnly = int(sys.argv[1]) == 1
@@ -19,7 +18,7 @@ exit1 = Value('b', True)        #shared value to exit processes
 delayComparison = 0.2           #interval for showing comparison images
 photoMobile = None
 photoFixed = None
-imageQueue = queue.Queue()
+imageQueue = Queue()
 
 def visibleComparison(imageQueue, exit1):
     global delayComparison, photoMobile, photoFixed, cv2
@@ -56,8 +55,8 @@ def capture(imageQueue, exit1):
     )
     picam2.configure(config)
     print(picam2.camera_configuration())
-    print("picam2.sensor_modes:")
-    print(picam2.sensor_modes)
+    #print("picam2.sensor_modes:")
+    #print(picam2.sensor_modes)
     picam2.start()
     picam2.set_controls({'ExposureTime':40})
 
@@ -92,12 +91,11 @@ def capture(imageQueue, exit1):
             
     picam2.stop()
         
-
-p1 = multiprocessing.Process(target=visibleComparison, args = (imageQueue, exit1))
+if not saveImagesOnly:
+    p1 = multiprocessing.Process(target=visibleComparison, args = (imageQueue, exit1))
+    p1.daemon = True
+    p1.start()
 p2 = multiprocessing.Process(target=capture, args = (imageQueue, exit1))
-p1.daemon = True
-#p2.daemon = True
-p1.start()
 p2.start()
 
         
@@ -107,7 +105,7 @@ while True:
     if globals.shouldCloseThisApp(key):
         exit1.value = True
         break
-    while not imageQueue.empty():
+    while not saveImagesOnly && not imageQueue.empty():
         title = imageQueue.get()
         image = imageQueue.get()
         cv2.imshow(title, image)
@@ -119,5 +117,7 @@ cv2.destroyAllWindows()
 
 # When everything done, release the capture
 
-p1.join()
+
+if not saveImagesOnly:
+    p1.join()
 p2.join()
