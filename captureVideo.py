@@ -71,14 +71,17 @@ def capture(imageQueue):
     while not exit1:
         tinicial = time.time()
         tiemposProceso[pos] = tinicial - tfinal
-        photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
+        photo = picam2.capture_array('raw')                 
         tfinal = time.time()
         tiemposCaptura[pos] = tfinal-tinicial
         pos+=1
         if pos==NTESTS: break
-        
+                                                            #photo have 16 bits when actually 8 bits where sent by the camera
         photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
         pub.publishImage(globals.FOTO_TAKEN, photo)         #publish original, to be used by other processes
+        timestamp = f"{tfinal:.6f}"
+        pub.publish(globals.FOTO_TAKEN, timestamp)             #publish timestamp
+        
         
 
         if saveImagesOnly: continue         #prioritize image publishing

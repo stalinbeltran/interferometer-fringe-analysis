@@ -25,11 +25,13 @@ while True and c<10:
     if globals.shouldCloseThisApp(key): break
     message = pub.get_message()
     if message is None: continue
-    timestamp = time.time()
-    filepath = filename + '-' + str(timestamp) + '-' + '.png'
     imageBase64 = message['data']
     if type(imageBase64) == int: continue
     photo = pub.getImage(imageBase64, globals.WIDTH, globals.HEIGHT)         #globals.WIDTH, globals.HEIGHT)
+    #get timestamp:
+    message = pub.get_message()
+    timestamp = message['data']
+    filepath = filename + '-' + (timestamp) + '-' + '.png'
     saveFile(filepath, photo)
     #c+=1
     # ~ resized_image = cv2.resize(photo, (2*globals.RESIZED_WIDTH, 2*globals.RESIZED_HEIGHT))
