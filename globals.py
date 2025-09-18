@@ -5,6 +5,36 @@ OS = my_variable_value = os.getenv('OS_INTERFEROMETER_FRINGE_ANALYSIS')
 BLACK_IMAGE_LEVEL = 30
 EQUALIZED_IMAGE_WIDTH = 50
 
+
+CAMERA_SENSOR_MODE = 2 # 0 o 2
+
+
+#photo taken size
+if CAMERA_SENSOR_MODE == 0:
+    WIDTH = 640
+    HEIGHT = 400
+    
+if CAMERA_SENSOR_MODE == 2:
+    WIDTH = 1280
+    HEIGHT = 800
+    
+    
+
+'''
+
+WIDTH = 640
+HEIGHT = 400
+
+WIDTH = 1280
+HEIGHT = 800
+'''
+
+#photo resized size
+RESIZED_WIDTH = WIDTH
+RESIZED_HEIGHT = HEIGHT
+
+
+
 #STATUS
 BLACK_IMAGE = 0
 FIRST_FIXED_MIRROR = 1
@@ -62,33 +92,6 @@ FOTO_TAKEN = 'phototaken'
 #constants
 HIDE = "hide"
 SHOW = "show"
-
-CAMERA_SENSOR_MODE = 0 # 0 o 2
-
-
-#photo taken size
-if CAMERA_SENSOR_MODE == 0:
-    WIDTH = 640
-    HEIGHT = 400
-    
-if CAMERA_SENSOR_MODE == 2:
-    WIDTH = 1280
-    HEIGHT = 800
-    
-    
-
-'''
-
-WIDTH = 640
-HEIGHT = 400
-
-WIDTH = 1280
-HEIGHT = 800
-'''
-
-#photo resized size
-RESIZED_WIDTH = WIDTH
-RESIZED_HEIGHT = HEIGHT
 
 
     
