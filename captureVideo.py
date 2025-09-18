@@ -9,27 +9,28 @@ import redis
 from picamera2 import Picamera2
 from gpiozero import Button, DigitalInputDevice
 from signal import pause
-from multiprocessing import Process, Value, Array, Queue
+import threading
+import queue
 import sys
 
 saveImagesOnly = int(sys.argv[1]) == 1
 
-exit1 = Value('b', True)        #shared value to exit processes
-delayComparison = 0.2           #interval for showing comparison images
+exit1 = False
+delayComparison = 0.2
 photoMobile = None
 photoFixed = None
-imageQueue = Queue()
+imageQueue = queue.Queue()
 
-def visibleComparison(imageQueue, exit1):
-    global delayComparison, photoMobile, photoFixed, cv2
+def visibleComparison(imageQueue):
+    global exit1, delayComparison, photoMobile, photoFixed, cv2
     if saveImagesOnly: return       #no comparison if save only
     
-    while not exit1.value:
+    while not exit1:
         if photoMobile is not None and photoFixed is not None:
             break
         time.sleep(delayComparison)
  
-    while not exit1.value:
+    while not exit1:
         imageQueue.put('union')
         imageQueue.put(photoMobile)
         time.sleep(delayComparison)
@@ -38,8 +39,8 @@ def visibleComparison(imageQueue, exit1):
         time.sleep(delayComparison)
 
 
-def capture(imageQueue, exit1):
-    global photoFixed, photoMobile
+def capture(imageQueue):
+    global photoFixed, photoMobile, exit1
     pub = Publisher()
     pub.init()
 
@@ -55,14 +56,14 @@ def capture(imageQueue, exit1):
     )
     picam2.configure(config)
     print(picam2.camera_configuration())
-    #print("picam2.sensor_modes:")
-    #print(picam2.sensor_modes)
+    print("picam2.sensor_modes:")
+    print(picam2.sensor_modes)
     picam2.start()
     picam2.set_controls({'ExposureTime':40})
 
 
     status = globals.FIRST_FIXED_MIRROR
-    while not exit1.value:
+    while not exit1:
         photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
         photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
         pub.publishImage(globals.FOTO_TAKEN, photo)                   #publish original, to be used by other processes
@@ -91,11 +92,12 @@ def capture(imageQueue, exit1):
             
     picam2.stop()
         
-if not saveImagesOnly:
-    p1 = multiprocessing.Process(target=visibleComparison, args = (imageQueue, exit1))
-    p1.daemon = True
-    p1.start()
-p2 = multiprocessing.Process(target=capture, args = (imageQueue, exit1))
+
+p1 = threading.Thread(target=visibleComparison, args = (imageQueue,))
+p2 = threading.Thread(target=capture, args = (imageQueue,))
+p1.daemon = True
+#p2.daemon = True
+p1.start()
 p2.start()
 
         
@@ -103,9 +105,9 @@ p2.start()
 while True:
     key = globals.getKey()
     if globals.shouldCloseThisApp(key):
-        exit1.value = True
+        exit1 = True
         break
-    while not saveImagesOnly && not imageQueue.empty():
+    while not imageQueue.empty():
         title = imageQueue.get()
         image = imageQueue.get()
         cv2.imshow(title, image)
@@ -117,7 +119,5 @@ cv2.destroyAllWindows()
 
 # When everything done, release the capture
 
-
-if not saveImagesOnly:
-    p1.join()
+p1.join()
 p2.join()
