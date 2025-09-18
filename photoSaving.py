@@ -31,7 +31,7 @@ while True and c<10:
     if type(imageBase64) == int: continue
     photo = pub.getImage(imageBase64, globals.WIDTH, globals.HEIGHT)         #globals.WIDTH, globals.HEIGHT)
     saveFile(filepath, photo)
-    c+=1
+    #c+=1
     # ~ resized_image = cv2.resize(photo, (2*globals.RESIZED_WIDTH, 2*globals.RESIZED_HEIGHT))
     # cv2.imshow('photoSaving', photo)
     # cv2.waitKey(1)

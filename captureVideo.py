@@ -55,16 +55,28 @@ def capture(imageQueue):
         buffer_count=12,
     )
     picam2.configure(config)
-    print(picam2.camera_configuration())
-    print("picam2.sensor_modes:")
-    print(picam2.sensor_modes)
+    #print(picam2.camera_configuration())
+    #print("picam2.sensor_modes:")
+    #print(picam2.sensor_modes)
     picam2.start()
     picam2.set_controls({'ExposureTime':40})
 
-
+    NTESTS = 50
+    tiemposCaptura = np.zeros(NTESTS)
+    tiemposProceso = np.zeros(NTESTS)
+    pos = 0
+    tfinal = time.time()
+    
     status = globals.FIRST_FIXED_MIRROR
     while not exit1:
+        tinicial = time.time()
+        tiemposProceso[pos] = tinicial - tfinal
         photo = picam2.capture_array('raw')                 #photo have 16 bits when actually 8 bits where sent by the camera
+        tfinal = time.time()
+        tiemposCaptura[pos] = tfinal-tinicial
+        pos+=1
+        if pos==NTESTS: break
+        
         photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
         pub.publishImage(globals.FOTO_TAKEN, photo)         #publish original, to be used by other processes
         
@@ -91,6 +103,13 @@ def capture(imageQueue):
         if status == globals.MOBILE_MIRROR:
             photoMobile = photo
             
+    
+    print("tiemposCaptura:")
+    print(tiemposCaptura)
+    print("tiemposProceso:")
+    print(tiemposProceso)
+    
+    
     picam2.stop()
         
 
