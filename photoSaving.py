@@ -29,7 +29,10 @@ while True and c<10:
     if type(imageBase64) == int: continue
     photo = pub.getImage(imageBase64, globals.WIDTH, globals.HEIGHT)         #globals.WIDTH, globals.HEIGHT)
     #get timestamp:
-    message = pub.get_message()
+    while True:
+        message = pub.get_message()
+        if message is None: continue        #not saving this photo
+        break
     timestamp = message['data']
     filepath = filename + '-' + (timestamp) + '-' + '.png'
     saveFile(filepath, photo)
