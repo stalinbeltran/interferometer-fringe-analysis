@@ -13,6 +13,8 @@ import threading
 import queue
 import sys
 
+
+NTESTS = 0
 saveImagesOnly = int(sys.argv[1]) == 1
 
 exit1 = False
@@ -40,7 +42,7 @@ def visibleComparison(imageQueue):
 
 
 def capture(imageQueue):
-    global photoFixed, photoMobile, exit1
+    global photoFixed, photoMobile, exit1, NTESTS
     pub = Publisher()
     pub.init()
 
@@ -61,7 +63,6 @@ def capture(imageQueue):
     picam2.start()
     picam2.set_controls({'ExposureTime':40})
 
-    NTESTS = 50
     tiemposCaptura = np.zeros(NTESTS)
     tiemposProceso = np.zeros(NTESTS)
     pos = 0
@@ -69,13 +70,16 @@ def capture(imageQueue):
     
     status = globals.MOBILE_MIRROR
     while not exit1:
+        
         tinicial = time.time()
-        tiemposProceso[pos] = tinicial - tfinal
+        tiempoProceso = tinicial - tfinal
         photo = picam2.capture_array('raw')                 
         tfinal = time.time()
-        tiemposCaptura[pos] = tfinal-tinicial
-        # pos+=1
-        # if pos==NTESTS: break
+        if NTESTS > 0:
+            tiemposProceso[pos] = tiempoProceso
+            tiemposCaptura[pos] = tfinal-tinicial
+            pos+=1
+            if pos==NTESTS: break
                                                             #photo have 16 bits when actually 8 bits where sent by the camera
         photo = globals.toY8array(photo, WIDTH, HEIGHT)     #so we fix that    
         pub.publishImage(globals.FOTO_TAKEN, photo)         #publish original, to be used by other processes
@@ -100,10 +104,11 @@ def capture(imageQueue):
             imageQueue.put(photo)
             photoFixed = photo
 
-    # print("tiemposCaptura:")
-    # print(tiemposCaptura)
-    # print("tiemposProceso:")
-    # print(tiemposProceso)
+    if NTESTS > 0:
+        print("tiemposCaptura:")
+        print(tiemposCaptura)
+        print("tiemposProceso:")
+        print(tiemposProceso)
     
     
     picam2.stop()
