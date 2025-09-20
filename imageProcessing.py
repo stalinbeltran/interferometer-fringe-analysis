@@ -7,7 +7,6 @@ import sys
 
 def getParameters(image):
     sizex = image.shape[1]        #number of columns
-    print(sizex)
     ft = np.fft.ifftshift(image)
     ft = np.fft.fft2(ft)
     sample_spacing_x = 1
@@ -17,15 +16,18 @@ def getParameters(image):
     sorted_indices = np.argsort(-absftFlat)
 
     for i in range(0, 6):
+        period = sizex
         maxPosition = sorted_indices[i]
         print("maxPosition: " + str(maxPosition))
         index = np.unravel_index(maxPosition, np.shape(ft))
-        if freq_x[index[1]] > 0:        
+        frequency = freq_x[index[1]]
+        if frequency > 0: period = 1/frequency
+        if frequency > 0 and period < sizex/2:
             imaginaryValue = ft[index]
-            maxAngle = np.angle(imaginaryValue, True)
+            phase = np.angle(imaginaryValue, True)
             print('magnitude: ', absftFlat[i]/1000000)
-            print('maxAngle: ', maxAngle)
-            print('periodo: ', 1/freq_x[index[1]])
+            print('phase: ', phase)
+            print('periodo: ', period)
         print("\n")
     
 
