@@ -32,11 +32,14 @@ def getParameters(image):
 
 
 input_folder = (sys.argv[1])
-
+c = 0
 for filename in os.listdir(input_folder):
     if filename.lower().endswith(('.png')):
         inputPath = os.path.join(input_folder, filename)
         image = cv2.imread(inputPath, cv2.IMREAD_GRAYSCALE)
         getParameters(image)
-    break
+        print("\n")
+        c+=1
+    if c > 20:  break
+    
 cv2.destroyAllWindows()
