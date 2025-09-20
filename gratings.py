@@ -21,9 +21,36 @@ grating = np.sin(
     2*np.pi*(X*np.cos(angle) + Y*np.sin(angle)) / wavelength + np.pi*phaseFactor
 )
 
+
 plt.set_cmap("gray")
 plt.subplot(131)
-plt.imshow(grating)
+grating = np.sin(
+    2*np.pi*(X*np.cos(angle) + Y*np.sin(angle)) / wavelength + np.pi*0.2
+)
+plt.imshow(np.fft.ifftshift(grating))
+
+plt.subplot(132)
+grating = np.sin(
+    2*np.pi*(X*np.cos(angle) + Y*np.sin(angle)) / wavelength + np.pi*0.4
+)
+plt.imshow(np.fft.ifftshift(grating))
+
+plt.subplot(133)
+grating = np.sin(
+    2*np.pi*(X*np.cos(angle) + Y*np.sin(angle)) / wavelength + np.pi*0.6
+)
+plt.imshow(np.fft.ifftshift(grating))
+
+
+plt.show()
+exit()
+
+
+
+plt.set_cmap("gray")
+#plt.subplot(131)
+#plt.imshow(grating)
+
 # print("\n\n-------------------\n------------------- grating:")
 # print(grating)
 # print("\n\n-------------------\n------------------- max(grating):")
@@ -33,12 +60,12 @@ plt.imshow(grating)
 # Calculate Fourier transform of grating
 # isft = np.fft.ifftshift(grating)
 # sft = np.fft.fftshift(isft)
-# plt.subplot(132)
+# plt.subplot(131)
 # plt.imshow(isft)
 # plt.subplot(133)
 # plt.imshow(sft)
-# plt.show()
-# exit()
+plt.show()
+exit()
 
 ft = np.fft.ifftshift(grating)
 ft = np.fft.fft2(ft)
