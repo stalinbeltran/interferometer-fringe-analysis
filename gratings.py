@@ -3,6 +3,7 @@
 import numpy as np
 import sys
 import matplotlib.pyplot as plt
+import cv2
 
 
 wavelength = int(sys.argv[1])
@@ -11,9 +12,7 @@ phaseFactor = float(sys.argv[3])
 
 
 x = np.arange(-500, 501, 1)
-print('len(x):')
-sizex = len(x)
-print(sizex)
+
 X, Y = np.meshgrid(x, x)
 
 angle = np.pi * angleFactor
@@ -21,35 +20,24 @@ grating = np.sin(
     2*np.pi*(X*np.cos(angle) + Y*np.sin(angle)) / wavelength + np.pi*phaseFactor
 )
 
+archivoProcesar = "./images/fringes_19092025-1758305359.476764-.png"
+plt.set_cmap("gray")
+plt.subplot(131)
+grating = cv2.imread(archivoProcesar, 0)
+plt.imshow(np.fft.ifftshift(grating))
+
+print("grating.shape")
+print()
+sizex = grating.shape[1]
+print(sizex)
+
+
+
+
 
 plt.set_cmap("gray")
 plt.subplot(131)
-grating = np.sin(
-    2*np.pi*(X*np.cos(angle) + Y*np.sin(angle)) / wavelength + np.pi*0.2
-)
-plt.imshow(np.fft.ifftshift(grating))
-
-plt.subplot(132)
-grating = np.sin(
-    2*np.pi*(X*np.cos(angle) + Y*np.sin(angle)) / wavelength + np.pi*0.4
-)
-plt.imshow(np.fft.ifftshift(grating))
-
-plt.subplot(133)
-grating = np.sin(
-    2*np.pi*(X*np.cos(angle) + Y*np.sin(angle)) / wavelength + np.pi*0.6
-)
-plt.imshow(np.fft.ifftshift(grating))
-
-
-plt.show()
-exit()
-
-
-
-plt.set_cmap("gray")
-#plt.subplot(131)
-#plt.imshow(grating)
+plt.imshow(grating)
 
 # print("\n\n-------------------\n------------------- grating:")
 # print(grating)
@@ -64,8 +52,8 @@ plt.set_cmap("gray")
 # plt.imshow(isft)
 # plt.subplot(133)
 # plt.imshow(sft)
-plt.show()
-exit()
+# plt.show()
+#exit()
 
 ft = np.fft.ifftshift(grating)
 ft = np.fft.fft2(ft)
@@ -82,9 +70,9 @@ ftmod = abs(ft)
 plt.subplot(132)
 plt.imshow(ftmod)
 
-diferencia = -490
-plt.xlim([0, 500 + diferencia])
-plt.ylim([500 + diferencia, 0])  # Note, order is reversed for y
+# diferencia = -490
+# plt.xlim([0, 500 + diferencia])
+# plt.ylim([500 + diferencia, 0])  # Note, order is reversed for y
 
 
 # print("\n\n-------------------\n------------------- max(ftmod):")
@@ -103,11 +91,11 @@ plt.imshow(angle)
 # print(np.max(angle))
 # print(np.min(angle))
 
-plt.xlim([0, 500 + diferencia])
-plt.ylim([500 + diferencia, 0])  # Note, order is reversed for y
+# plt.xlim([0, 500 + diferencia])
+# plt.ylim([500 + diferencia, 0])  # Note, order is reversed for y
 
 # Calculate frequency components for each dimension
-sample_spacing_x = x[1] - x[0]
+sample_spacing_x = 1
 freq_x = np.fft.fftfreq(sizex, d=sample_spacing_x)
 
 print("\n\n-------------------\n------------------- freq_x:")
