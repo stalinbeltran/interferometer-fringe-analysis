@@ -1,4 +1,4 @@
-# python3 gratings.py 100 0 0
+# python3 gratings.py 100 0.0 0.0
 
 import numpy as np
 import sys
