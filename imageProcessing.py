@@ -18,7 +18,6 @@ def getParameters(image):
     for i in range(0, 6):
         period = sizex
         maxPosition = sorted_indices[i]
-        print("maxPosition: " + str(maxPosition))
         index = np.unravel_index(maxPosition, np.shape(ft))
         frequency = freq_x[index[1]]
         if frequency > 0: period = 1/frequency
@@ -28,7 +27,7 @@ def getParameters(image):
             print('magnitude: ', absftFlat[i]/1000000)
             print('phase: ', phase)
             print('periodo: ', period)
-        print("\n")
+            break
     
 
 
