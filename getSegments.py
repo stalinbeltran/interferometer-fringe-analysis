@@ -1,4 +1,4 @@
- #python3 getSegments.py ./60hzFiles.json
+ #python3 getSegments.py ./60hzFiles.json ./60hzSegments.json
 
 import os
 import sys
@@ -15,12 +15,13 @@ TMAX = 2*(1/(RMPMAX/60))
 
 segments = []           #list of segments
 previousTimestamp = None
+segment = {"files": [], "timestamp": None}
 for file in files:
     timestamp = file["timestamp"]
     if previousTimestamp is None:                   #this is the first file         
         previousTimestamp = timestamp               #previousTimestamp initial value 
-    if timestamp - previousTimestamp > TMAX:        #this is a new segment
-        segment = {"files": [], "timestamp" None}
+    if float(timestamp) - float(previousTimestamp) > TMAX:        #this is a new segment
+        segment = {"files": [], "timestamp": None}
         segment["timestamp"] = timestamp            #this segment will have the timestamp of its first file
         segments.append(segment)                    #add the new segment
 
