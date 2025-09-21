@@ -46,13 +46,14 @@ HIGHER_LIMIT = 1/6.666
 for filename in os.listdir(input_folder):
     if filename.lower().endswith(('.png')):
         parts = filename.split('-')
-        timestamp = datetime.timestamp(parts[1])
+        timestamp = float(parts[1])
         if timestampBefore > 0:
             dif = timestamp - timestampBefore
         if dif > HIGHER_LIMIT:
             print('gap')
             difBefore = 0               #temporal gap here (beginning of a new set)
             lastFile = filename
+            timestampBefore = timestamp
             continue                    #this file is the first, check the next one
             
         if dif > difBefore:                 #mobile mirror
@@ -69,23 +70,23 @@ for filename in os.listdir(input_folder):
             imageMobileMirror = cv2.imread(inputPath_mobileMirrorFile, cv2.IMREAD_GRAYSCALE)
             magnitude, phase, period = getParameters(imageMobileMirror)
             mobileMirror = {
-                "magnitude" = magnitude, 
-                "phase" = phase, 
-                "period" = period, 
+                "magnitude" : magnitude, 
+                "phase" : phase, 
+                "period" : period, 
             }
             inputPath_fixedMirrorFile = os.path.join(input_folder, fixedMirrorFile)
             imageFixedMirror = cv2.imread(inputPath_fixedMirrorFile, cv2.IMREAD_GRAYSCALE)
             magnitude, phase, period = getParameters(imageFixedMirror)
             fixedMirror = {
-                "magnitude" = magnitude,
-                "phase" = phase,
-                "period" = period,
+                "magnitude" : magnitude, 
+                "phase" : phase, 
+                "period" : period, 
             }
             
             print(mobileMirror, fixedMirror, "\n")
             mobileMirrorFile = None
             fixedMirrorFile = None
             c+=1
-    if c > 4:  break
+    if c > 0:  break
     
 cv2.destroyAllWindows()
