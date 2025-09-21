@@ -1,4 +1,4 @@
-#python3 imageProcessing.py ./videos/fringes_65/frames ./videos/fringes_65/framesSoftened
+#python3 imageProcessing.py D:\Stalin\FotosFranjasProyecto\60hz
 
 import numpy as np
 import cv2
@@ -70,6 +70,7 @@ for filename in os.listdir(input_folder):
             imageMobileMirror = cv2.imread(inputPath_mobileMirrorFile, cv2.IMREAD_GRAYSCALE)
             magnitude, phase, period = getParameters(imageMobileMirror)
             mobileMirror = {
+                "file" : mobileMirrorFile, 
                 "magnitude" : magnitude, 
                 "phase" : phase, 
                 "period" : period, 
@@ -78,6 +79,7 @@ for filename in os.listdir(input_folder):
             imageFixedMirror = cv2.imread(inputPath_fixedMirrorFile, cv2.IMREAD_GRAYSCALE)
             magnitude, phase, period = getParameters(imageFixedMirror)
             fixedMirror = {
+                "file" : fixedMirrorFile, 
                 "magnitude" : magnitude, 
                 "phase" : phase, 
                 "period" : period, 
