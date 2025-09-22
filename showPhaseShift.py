@@ -6,6 +6,7 @@ import json
 import cv2
 import numpy as np
 import histogram
+import phaseProcessing
 
 input_file = (sys.argv[1])
 
@@ -25,6 +26,8 @@ for segment in segments:
         try:
             deltaPhase = sample["deltaPhase"]
             if deltaPhase is None: continue
+            amplitude = 1           #only sign is used in getProcessedPhase(), so a positive value is enough
+            deltaPhase, amplitude = phaseProcessing.getProcessedPhase(deltaPhase*2*np.pi, amplitude)
             phases.append(deltaPhase)
         except Exception as e:
             print(e)
