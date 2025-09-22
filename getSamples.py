@@ -19,6 +19,7 @@ previousTimestamp = None
 
 fileCounter = 0
 sampleCounter = 0
+exit = False
 for segment in segments:
     files = segment["files"]
     if len(files) < 3:
@@ -41,6 +42,9 @@ for segment in segments:
     for file in files:
         fileCounter+=1
         timestamp = file["timestamp"]
+        if timestamp == "xx1758310469.967008":
+            fileCounter = 0
+            exit = True
         #print("timestamp:", timestamp)
         if previousTimestamp is None:                   #this is the first file         
             previousTimestamp = timestamp               #previousTimestamp initial value 
@@ -51,10 +55,12 @@ for segment in segments:
                 TMAX_SAMPLE = DISTANCE_FACTOR*previousPeriod
             continue            #wait for the next file
         dif = float(timestamp) - float(previousTimestamp)
-        #print("dif:", dif)
-        
-        #print("previousPeriod:", previousPeriod)
-        #print("TMAX_SAMPLE:", TMAX_SAMPLE)
+        if exit:
+            print("dif:", dif)
+            print("previousTimestamp:", previousTimestamp)
+            
+            print("previousPeriod:", previousPeriod)
+            print("TMAX_SAMPLE:", TMAX_SAMPLE)
         if dif <= TMAX_SAMPLE:        #this is a new sample
             sampleCounter+=1
             sample = {"timestamp": previousTimestamp, "fileMobileMirror": previousFile, "fileFixedMirror": file}
@@ -62,7 +68,12 @@ for segment in segments:
             previousSampleTimestamp = previousTimestamp #saved to calculate Period with the next file
             previousFile = None                         #this file has now been used
             previousTimestamp = None
-        #if fileCounter > 10: break
+        else:
+            previousTimestamp = timestamp               #this is now the previous timestamp
+            previousFile = file                         #this is the previous file
+            print("timestamp:", timestamp)
+            print("previousTimestamp:", previousTimestamp)
+        if exit and fileCounter > 10: break
     if fileCounter > 2*sampleCounter + 2:
         print("fileCounter: ", fileCounter)
         print("sampleCounter: ", sampleCounter)
