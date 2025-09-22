@@ -3,11 +3,14 @@
 import os
 import sys
 import json
+import cv2
+import numpy as np
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 
-def getParameters(image):
+def getFFTParameters(imagePath):
+    image = cv2.imread(imagePath, cv2.IMREAD_GRAYSCALE)
     sizex = image.shape[1]        #number of columns
     ft = np.fft.ifftshift(image)
     ft = np.fft.fft2(ft)
@@ -31,21 +34,24 @@ def getParameters(image):
             print('phase: ', phase)
             print('periodo: ', period)
             break
-    return magnitude, phase, period
+    fftParams = {"magnitude":magnitude, "phase":phase, "period":period, }
+    return fftParams
 
 
 with open(input_file, 'r', encoding='utf-8') as f:
     segmentsJSON = json.load(f)
 
 segments = segmentsJSON["segments"]
-segmentsNew = []
 
 for segment in segments:
-    files = segment["files"]
-    t = float(files[2]["timestamp"]) - float(files[0]["timestamp"])
-    for file in files:
-        timestamp = file["timestamp"]
-
+    samples = segment["samples"]
+    for sample in samples:
+        fileMobile = sample["fileMobileMirror"]
+        fileFixed = sample["fileFixedMirror"]
+        fileMobile["fftParams"] = getFFTParameters(fileMobile["absolutePath"])
+        fileFixed["fftParams"] = getFFTParameters(fileFixed["absolutePath"])
+        break
+    break
 
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
