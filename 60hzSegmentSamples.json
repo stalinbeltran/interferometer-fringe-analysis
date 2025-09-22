@@ -1,0 +1,35 @@
+{
+    "segments": [
+        {
+            "timestamp": "1758305359.289433",
+            "samples": [
+                {
+                    "timestamp": "1758305359.289433",
+                    "fileMobileMirror": {
+                        "filename": "fringes_19092025-1758305359.289433-.png",
+                        "timestamp": "1758305359.289433",
+                        "absolutePath": "D:\\Stalin\\FotosFranjasProyecto\\60hz\\fringes_19092025-1758305359.289433-.png"
+                    },
+                    "fileFixedMirror": {
+                        "filename": "fringes_19092025-1758305359.324645-.png",
+                        "timestamp": "1758305359.324645",
+                        "absolutePath": "D:\\Stalin\\FotosFranjasProyecto\\60hz\\fringes_19092025-1758305359.324645-.png"
+                    }
+                },
+                {
+                    "timestamp": "1758305359.439059",
+                    "fileMobileMirror": {
+                        "filename": "fringes_19092025-1758305359.439059-.png",
+                        "timestamp": "1758305359.439059",
+                        "absolutePath": "D:\\Stalin\\FotosFranjasProyecto\\60hz\\fringes_19092025-1758305359.439059-.png"
+                    },
+                    "fileFixedMirror": {
+                        "filename": "fringes_19092025-1758305359.476764-.png",
+                        "timestamp": "1758305359.476764",
+                        "absolutePath": "D:\\Stalin\\FotosFranjasProyecto\\60hz\\fringes_19092025-1758305359.476764-.png"
+                    }
+                }
+            ]
+        }
+    ]
+}
