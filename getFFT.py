@@ -1,4 +1,4 @@
- #python3 getSamples.py ./60hzSegments.json ./60hzSegmentSamples.json
+ #python3 getFFT.py ./60hzSegmentSamples.json ./60hzSegmentSamplesFFT.json
 
 import os
 import sys
@@ -19,7 +19,10 @@ def getFFTParameters(imagePath):
     absft = abs(ft)
     absftFlat = absft.flatten()
     sorted_indices = np.argsort(-absftFlat)
-
+    
+    magnitude = None
+    phase = None
+    period = None
     for i in range(0, 6):
         period = sizex
         maxPosition = sorted_indices[i]
