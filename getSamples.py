@@ -50,7 +50,9 @@ for segment in segments:
             previousSampleTimestamp = previousTimestamp #saved to calculate Period with the next file
             previousFile = None                         #this file has now been used
             previousTimestamp = None
-
+        else:
+            previousTimestamp = timestamp               #this is now the previous timestamp
+            previousFile = file                         #this is the previous file
 
 segmentsJSON = {"segments": segmentsNew}
 with open(output_file, 'w', encoding='utf-8') as f:
