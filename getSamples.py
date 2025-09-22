@@ -4,7 +4,7 @@ import os
 import sys
 import json
 
-DISTANCE_FACTOR = 0.3
+DISTANCE_FACTOR = 0.5
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 
