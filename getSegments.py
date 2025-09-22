@@ -15,7 +15,8 @@ TMAX = 2*(1/(RMPMAX/60))
 
 segments = []           #list of segments
 previousTimestamp = None
-segment = {"files": [], "timestamp": None}
+segment = {"files": [], "timestamp": files[0]["timestamp"]}
+segments.append(segment)
 for file in files:
     timestamp = file["timestamp"]
     if previousTimestamp is None:                   #this is the first file         
@@ -28,6 +29,7 @@ for file in files:
     previousTimestamp = timestamp
     segment["files"].append(file)                   #always add this file to actual segment (it should belong to one segment at least)
 
+segmentsJSON = {"segments": segments}
 with open(output_file, 'w', encoding='utf-8') as f:
-    json.dump(segments, f, ensure_ascii=False, indent=4)
+    json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
 

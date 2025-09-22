@@ -9,17 +9,21 @@ input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 
 with open(input_file, 'r', encoding='utf-8') as f:
-    segments = json.load(f)
+    segmentsJSON = json.load(f)
 
+segments = segmentsJSON["segments"]
 TMAX_SAMPLE = None
 
 segmentsNew = []
 previousTimestamp = None
 
-c = 0
 for segment in segments:
     files = segment["files"]
-    previousPeriod = float(files[3]["timestamp"]) - float(files[0]["timestamp"])
+    if len(files) < 3:
+        print("Files not used:")
+        print(files)
+        continue                 #we need al least 3 files
+    previousPeriod = float(files[2]["timestamp"]) - float(files[0]["timestamp"])
     TMAX_SAMPLE = DISTANCE_FACTOR*previousPeriod
     previousTimestamp = None
     previousFile = None
@@ -46,10 +50,9 @@ for segment in segments:
             previousSampleTimestamp = previousTimestamp #saved to calculate Period with the next file
             previousFile = None                         #this file has now been used
             previousTimestamp = None
-        c+=1
-        if c > 4: break
-    break
 
+
+segmentsJSON = {"segments": segmentsNew}
 with open(output_file, 'w', encoding='utf-8') as f:
-    json.dump(segmentsNew, f, ensure_ascii=False, indent=4)
+    json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
 
