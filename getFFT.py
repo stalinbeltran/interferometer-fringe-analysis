@@ -30,9 +30,6 @@ def getFFTParameters(imagePath):
             imaginaryValue = ft[index]
             phase = np.angle(imaginaryValue, True)
             magnitude = absftFlat[i]/1000000
-            print('magnitude: ', magnitude)
-            print('phase: ', phase)
-            print('periodo: ', period)
             break
     fftParams = {"magnitude":magnitude, "phase":phase, "period":period, }
     return fftParams
@@ -50,8 +47,7 @@ for segment in segments:
         fileFixed = sample["fileFixedMirror"]
         fileMobile["fftParams"] = getFFTParameters(fileMobile["absolutePath"])
         fileFixed["fftParams"] = getFFTParameters(fileFixed["absolutePath"])
-        break
-    break
+
 
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
