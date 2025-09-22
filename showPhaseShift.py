@@ -16,6 +16,7 @@ with open(input_file, 'r', encoding='utf-8') as f:
 segments = segmentsJSON["segments"]
 phases = []
 for segment in segments:
+    segmentPhases = []
     samples = segment["samples"]
     for sample in samples:
         deltaPhase = None
@@ -28,10 +29,13 @@ for segment in segments:
             if deltaPhase is None: continue
             amplitude = 1           #only sign is used in getProcessedPhase(), so a positive value is enough
             deltaPhase, amplitude = phaseProcessing.getProcessedPhase(deltaPhase*2*np.pi, amplitude)
+            deltaPhase = deltaPhase/(2*np.pi)
             phases.append(deltaPhase)
+            segmentPhases.append(deltaPhase)
         except Exception as e:
             print(e)
 
+    histogram.showHistogram(segmentPhases, "Phases")
 histogram.showHistogram(phases, "Phases")
 
 
