@@ -16,19 +16,19 @@ TMAX_SAMPLE = None
 segmentsNew = []
 previousTimestamp = None
 
-
+c = 0
 for segment in segments:
     files = segment["files"]
     previousPeriod = float(files[3]["timestamp"]) - float(files[0]["timestamp"])
     TMAX_SAMPLE = DISTANCE_FACTOR*previousPeriod
-    previousTimestamp = files[0]["timestamp"]
+    previousTimestamp = None
     previousFile = None
     previousSampleTimestamp = None
     segmentNew = {"timestamp": None, "samples": []}
     segmentsNew.append(segmentNew)
     samples = []
     segmentNew["timestamp"] = segment["timestamp"]            #this segment will have the timestamp of its first file
-    segmentNew["samples"].append(samples)
+    segmentNew["samples"] = samples
     for file in files:
         timestamp = file["timestamp"]
         if previousTimestamp is None:                   #this is the first file         
@@ -36,7 +36,7 @@ for segment in segments:
             previousFile = file
             
             if previousSampleTimestamp:
-                previousPeriod = timestamp - previousSampleTimestamp
+                previousPeriod = float(timestamp) - float(previousSampleTimestamp)
                 TMAX_SAMPLE = DISTANCE_FACTOR*previousPeriod
             continue            #wait for the next file
             
@@ -46,7 +46,10 @@ for segment in segments:
             previousSampleTimestamp = previousTimestamp #saved to calculate Period with the next file
             previousFile = None                         #this file has now been used
             previousTimestamp = None
+        c+=1
+        if c > 4: break
+    break
 
 with open(output_file, 'w', encoding='utf-8') as f:
-    json.dump(segments, f, ensure_ascii=False, indent=4)
+    json.dump(segmentsNew, f, ensure_ascii=False, indent=4)
 
