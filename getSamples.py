@@ -1,4 +1,5 @@
- #python3 getSamples.py ./60hzSegments.json ./60hzSegmentSamples.json
+#python3 getSamples.py ./60hzSegments.json ./60hzSegmentSamples.json
+#python3 getSamples.py ./40hzSegments.json ./40hzSegmentSamples.json
 
 import os
 import sys

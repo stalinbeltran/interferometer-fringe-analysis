@@ -1,5 +1,6 @@
  #python3 getSegments.py ./60hzFiles.json ./60hzSegments.json
-
+ #python3 getSegments.py ./40hzFiles.json ./40hzSegments.json
+ 
 import os
 import sys
 import json

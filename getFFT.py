@@ -1,4 +1,5 @@
- #python3 getFFT.py ./60hzSegmentSamples.json ./60hzSegmentSamplesFFT.json
+#python3 getFFT.py ./60hzSegmentSamples.json ./60hzSegmentSamplesFFT.json
+#python3 getFFT.py ./40hzSegmentSamples.json ./40hzSegmentSamplesFFT.json
 
 import os
 import sys

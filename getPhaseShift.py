@@ -1,4 +1,5 @@
- #python3 getPhaseShift.py ./60hzSegmentSamplesFFT.json ./60hzSegmentsSamplesPhaseShift.json 
+#python3 getPhaseShift.py ./60hzSegmentSamplesFFT.json ./60hzSegmentsSamplesPhaseShift.json 
+#python3 getPhaseShift.py ./40hzSegmentSamplesFFT.json ./40hzSegmentsSamplesPhaseShift.json 
 
 import os
 import sys
