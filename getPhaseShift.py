@@ -26,12 +26,14 @@ for segment in segments:
         try:
             deltaPhase = (fileMobile["fftParams"]["phase"] - fileFixed["fftParams"]["phase"])/360       #phase in degrees, converted to fractional(0.0-1.0)
             averagePeriod = (fileMobile["fftParams"]["period"] + fileFixed["fftParams"]["period"])/2    #in case there are differences in period
+            differencePeriod = abs(fileMobile["fftParams"]["period"] - fileFixed["fftParams"]["period"])
             deltaPhasePixels = averagePeriod*deltaPhase                                                 #useful to compare samples by pixels
         except Exception as e:
             print(e)
 
         sample["deltaPhase"] = deltaPhase
         sample["averagePeriod"] = averagePeriod
+        sample["differencePeriod"] = differencePeriod
         sample["deltaPhasePixels"] = deltaPhasePixels
 
 

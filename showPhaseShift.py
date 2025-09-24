@@ -20,6 +20,7 @@ for segment in segments:
     segmentPhases = []
     samples = segment["samples"]
     periods = []
+    differencePeriods = []
     for sample in samples:
         deltaPhase = None
         averagePeriod = None
@@ -28,7 +29,9 @@ for segment in segments:
             deltaPhase = sample["deltaPhase"]
             if deltaPhase is None: continue            
             averagePeriod = sample["averagePeriod"]
+            differencePeriod = sample["differencePeriod"]
             periods.append(averagePeriod)
+            differencePeriods.append(differencePeriod)
             amplitude = 1           #only sign is used in getProcessedPhase(), so a positive value is enough
             deltaPhase, amplitude = phaseProcessing.getProcessedPhase(deltaPhase*2*np.pi, amplitude)
             deltaPhase = deltaPhase/(2*np.pi)
@@ -38,6 +41,7 @@ for segment in segments:
             print(e)
 
     histogram.showHistogram(periods, "Periods")
+    histogram.showHistogram(differencePeriods, "differencePeriods")
     histogram.showHistogram(segmentPhases, "Phases")
 histogram.showHistogram(phases, "Phases")
 
