@@ -3,6 +3,7 @@
 #python3 getFFT.py ./60hzSegmentSamplesFFT.json ./60hzSegmentSamplesFFT.json
 #python3 getFFT.py ./40hzSegmentSamplesFFT.json ./40hzSegmentSamplesFFT.json
 
+
 import os
 import sys
 import json
@@ -12,7 +13,10 @@ import numpy as np
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 
+maxi = 0
+
 def getFFTParameters(imagePath):
+    global maxi
     image = cv2.imread(imagePath, cv2.IMREAD_GRAYSCALE)
     sizex = image.shape[1]        #number of columns
     ft = np.fft.ifftshift(image)
@@ -23,21 +27,19 @@ def getFFTParameters(imagePath):
     absftFlat = absft.flatten()
     sorted_indices = np.argsort(-absftFlat)
     
-    magnitude = None
-    phase = None
-    period = None
+    ftOrdered = []
+    ftFreqOrdered = []
     for i in range(0, 60):
-        period = sizex
         maxPosition = sorted_indices[i]
         index = np.unravel_index(maxPosition, np.shape(ft))
         frequency = freq_x[index[1]]
-        if frequency > 0: period = 1/frequency
-        if frequency > 0 and period < sizex/4:      #we expect at least 4 wavelengths in each image
-            imaginaryValue = ft[index]
-            phase = np.angle(imaginaryValue, True)
-            magnitude = absftFlat[i]/1000000
-            break
-    fftParams = {"magnitude":magnitude, "phase":phase, "period":period, }
+        imaginaryValue = ft[index]
+        # print (imaginaryValue.real)
+        # print (imaginaryValue.imag)
+        # break
+        ftOrdered.append({"real":imaginaryValue.real, "imag":imaginaryValue.imag })
+        ftFreqOrdered.append(frequency)
+    fftParams = {"ftOrdered":ftOrdered, "ftFreqOrdered":ftFreqOrdered}
     return fftParams
 
 
@@ -60,8 +62,9 @@ for segment in segments:
             fileFixed["fftParams"] = getFFTParameters(fileFixed["absolutePath"])
             #print(fileFixed["absolutePath"])
             processed+=1
-        #if processed > 1: break
+        if processed > 10: break
 print("processed: ", processed)
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
 
+print("maxi:", maxi)
