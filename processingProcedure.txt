@@ -12,6 +12,6 @@ python3 getSamples.py D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegm
 python3 getFFT.py D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamples.json D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamplesFFT.json
 
 
-
-
+#get both period and phase from  every ff available:
+python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamplesFFT.json D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamplesPeriodPhase.json
 
