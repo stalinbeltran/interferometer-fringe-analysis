@@ -13,10 +13,7 @@ import numpy as np
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 
-maxi = 0
-
 def getFFTParameters(imagePath):
-    global maxi
     image = cv2.imread(imagePath, cv2.IMREAD_GRAYSCALE)
     sizex = image.shape[1]        #number of columns
     ft = np.fft.ifftshift(image)
@@ -49,16 +46,12 @@ for segment in segments:
         fileFixed = sample["fileFixedMirror"]
         if "fftParams" not in fileMobile or "magnitude" in fileMobile["fftParams"] and fileMobile["fftParams"]["magnitude"] is None:
             fileMobile["fftParams"] = getFFTParameters(fileMobile["absolutePath"])
-            #print(fileMobile["absolutePath"])
             processed+=1
 
         if "fftParams" not in fileFixed or "magnitude" in fileFixed["fftParams"] and fileFixed["fftParams"]["magnitude"] is None:
             fileFixed["fftParams"] = getFFTParameters(fileFixed["absolutePath"])
-            #print(fileFixed["absolutePath"])
             processed+=1
         if processed > 10: break
 print("processed: ", processed)
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
-
-print("maxi:", maxi)
