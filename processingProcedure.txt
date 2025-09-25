@@ -1,0 +1,17 @@
+
+#get the file list of all fringes images:
+python3 getFileList.py D:\Stalin\FotosFranjasProyecto\viernesXXX\40hz D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzFiles.json
+
+#get segments of continuous measurements:
+python3 getSegments.py D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzFiles.json D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegments.json
+
+#get samples (pairs of continuous related images):
+python3 getSamples.py D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegments.json  D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamples.json
+
+#get first 60 (ordered by magnitude) Fast Fourier Transform (FFT) parameters:
+python3 getFFT.py D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamples.json D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamplesFFT.json
+
+
+
+
+

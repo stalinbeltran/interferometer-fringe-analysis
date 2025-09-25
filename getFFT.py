@@ -28,19 +28,13 @@ def getFFTParameters(imagePath):
     sorted_indices = np.argsort(-absftFlat)
     
     ftOrdered = []
-    ftFreqOrdered = []
     for i in range(0, 60):
         maxPosition = sorted_indices[i]
         index = np.unravel_index(maxPosition, np.shape(ft))
         frequency = freq_x[index[1]]
         imaginaryValue = ft[index]
-        # print (imaginaryValue.real)
-        # print (imaginaryValue.imag)
-        # break
-        ftOrdered.append({"real":imaginaryValue.real, "imag":imaginaryValue.imag })
-        ftFreqOrdered.append(frequency)
-    fftParams = {"ftOrdered":ftOrdered, "ftFreqOrdered":ftFreqOrdered}
-    return fftParams
+        ftOrdered.append({"ft":{"real":imaginaryValue.real, "imag":imaginaryValue.imag}, "frequency": frequency })
+    return ftOrdered
 
 
 with open(input_file, 'r', encoding='utf-8') as f:

@@ -1,5 +1,7 @@
 #python3 getFileList.py D:\Stalin\FotosFranjasProyecto\60hz ./60hzFiles.json
 #python3 getFileList.py D:\Stalin\FotosFranjasProyecto\40hz ./40hzFiles.json
+#python3 getFileList.py D:\Stalin\FotosFranjasProyecto\viernesXXX\40hz D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzFiles.json
+
 
 import os
 import sys
