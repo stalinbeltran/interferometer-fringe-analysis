@@ -29,6 +29,7 @@ def getFFTParameters(imagePath):
         maxPosition = sorted_indices[i]
         index = np.unravel_index(maxPosition, np.shape(ft))
         frequency = freq_x[index[1]]
+        if frequency <= 0: continue             #avoid constant signal (we look for fringes). Avoid negatives
         imaginaryValue = ft[index]
         ftOrdered.append({"ft":{"real":imaginaryValue.real, "imag":imaginaryValue.imag}, "frequency": frequency })
     return ftOrdered
