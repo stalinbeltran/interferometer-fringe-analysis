@@ -15,3 +15,11 @@ python3 getFFT.py D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentS
 #get both period and phase from  every ff available:
 python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamplesFFT.json D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamplesPeriodPhase.json
 
+#get first of the periods (as it is the bigger one):
+python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamplesFirstPeriod.json
+
+#show periods in the samples:
+python3 showPeriods.py D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamplesFirstPeriod.json
+
+
+

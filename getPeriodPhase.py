@@ -14,7 +14,6 @@ def getPeriods(ftOrdered):
     periods = []
     for ftItem in ftOrdered:
         frequency = ftItem["frequency"]
-        if frequency == 0: continue         #discard constant signal
         period = 1/frequency
         ft = complex(ftItem["ft"]["real"], ftItem["ft"]["imag"])
         phase = np.angle(ft, True)
