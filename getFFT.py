@@ -15,6 +15,7 @@ output_file = (sys.argv[2])
 
 def getFFTParameters(imagePath):
     image = cv2.imread(imagePath, cv2.IMREAD_GRAYSCALE)
+    if image is None: return None
     sizex = image.shape[1]        #number of columns
     ft = np.fft.ifftshift(image)
     ft = np.fft.fft2(ft)
@@ -52,7 +53,7 @@ for segment in segments:
         if "fftParams" not in fileFixed or "magnitude" in fileFixed["fftParams"] and fileFixed["fftParams"]["magnitude"] is None:
             fileFixed["fftParams"] = getFFTParameters(fileFixed["absolutePath"])
             processed+=1
-        if processed > 10: break
+        #if processed > 10: break
 print("processed: ", processed)
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
