@@ -1,4 +1,4 @@
-#python3 showPeriods.py D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamplesFirstPeriod.json
+#python3 showPeriods.py D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamplesFirstPeriod.json
 
 import os
 import sys
@@ -27,8 +27,8 @@ for segment in segments:
         segmentPeriod.append(fileMobile["period"]["period"])
         segmentPeriod.append(fileFixed["period"]["period"])            
         processed+=2
-        if processed > 5: break
-    histogram.showHistogram(segmentPeriod, "segment periods")
+        #if processed > 5: break
+    #histogram.showHistogram(segmentPeriod, "segment periods")
 histogram.showHistogram(periods, "periods")
 
 

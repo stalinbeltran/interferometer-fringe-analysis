@@ -1,4 +1,4 @@
-#python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamplesFirstPeriod.json
+#python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamplesFirstPeriod.json
 
 
 import os
@@ -32,7 +32,7 @@ for segment in segments:
         if "period" not in fileFixed:
             fileFixed["period"] = getFirstPeriod(fileFixed["periods"])
             processed+=1
-        if processed > 10: break
+        #if processed > 10: break
 print("processed: ", processed)
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)

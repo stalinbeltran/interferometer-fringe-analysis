@@ -1,4 +1,4 @@
-#python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamplesFFT.json D:\Stalin\FotosFranjasProyecto\viernesXXX\results\40hzSegmentSamplesPeriodPhase.json
+#python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamplesFFT.json D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamplesPeriodPhase.json
 
 
 import os
@@ -39,7 +39,7 @@ for segment in segments:
         if "periods" not in fileFixed:
             fileFixed["periods"] = getPeriods(fileFixed["fftParams"])
             processed+=1
-        if processed > 10: break
+        #if processed > 10: break
 print("processed: ", processed)
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
