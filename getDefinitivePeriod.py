@@ -30,6 +30,7 @@ for segment in segments:
     for sample in samples:
         fileMobile = sample["fileMobileMirror"]
         fileFixed = sample["fileFixedMirror"]
+        if "period" not in fileMobile or "period" not in fileFixed: continue
         if fileMobile["period"]["period"] != lookedPeriod :
             fileMobile["period"] = getDefinitivePeriod(fileMobile["periods"], lookedPeriod)
             processed+=1
