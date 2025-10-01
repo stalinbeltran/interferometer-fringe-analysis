@@ -17,6 +17,7 @@ segments = segmentsJSON["segments"]
 processed = 0
 nulls = 0
 periods = []
+previousPeriods = []
 for segment in segments:
     samples = segment["samples"]
     segmentPeriod = []
@@ -25,10 +26,9 @@ for segment in segments:
         fileFixed = sample["fileFixedMirror"]
         try:
             periods.append(fileMobile["period"]["period"])
+            if periods[-1] not in previousPeriods: previousPeriods.append(periods[-1])
             periods.append(fileFixed["period"]["period"])
-            if processed < 20 and fileFixed["period"] is not None and fileMobile["period"]["period"] < 300:
-                print(fileFixed["period"]["period"])
-                print(fileMobile["period"]["period"])
+            if periods[-1] not in previousPeriods: previousPeriods.append(periods[-1])
         except:
             nulls +=1
             continue
@@ -38,6 +38,7 @@ for segment in segments:
         processed+=2
         #if processed > 5: break
     #histogram.showHistogram(segmentPeriod, "segment periods")
+print("previousPeriods: ", previousPeriods)
 print("nulls: ", nulls)
 histogram.showHistogram(periods, "periods")
 

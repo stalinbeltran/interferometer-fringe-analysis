@@ -1,31 +1,34 @@
 
 #get the file list of all fringes images:
-python3 getFileList.py D:\Stalin\FotosFranjasProyecto\friday19092025\40hz D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzFiles.json
+python3 getFileList.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\60hz D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60hzFiles.json
 
 #get segments of continuous measurements:
-python3 getSegments.py D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzFiles.json D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegments.json
+python3 getSegments.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60hzFiles.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60hzSegments.json
 
 #get samples (pairs of continuous related images):
-python3 getSamples.py D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegments.json  D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamples.json
+python3 getSamples.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60hzSegments.json  D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60hzSegmentSamples.json
 
 #get first 60 (ordered by magnitude) Fast Fourier Transform (FFT) parameters:
-python3 getFFT.py D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamples.json D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamplesFFT.json
+python3 getFFT.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60hzSegmentSamples.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60hzSegmentSamplesFFT.json
 
 
 #get both period and phase from  every ff available:
-python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamplesFFT.json D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamplesPeriodPhase.json
+python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60hzSegmentSamplesFFT.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60hzSegmentSamplesPeriodPhase.json
 
 #get first of the periods (as it is the bigger one):
-python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamplesFirstPeriod.json
+python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60hzSegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60hzSegmentSamplesFirstPeriod.json
 
 #show periods in the samples:
-python3 showPeriods.py D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamplesFirstPeriod.json
+python3 showPeriods.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60hzSegmentSamplesFirstPeriod.json
 
 #get the definitive period in every sample, null otherwise:
-python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamplesDefinitivePeriod.json 142
+python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60hzSegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60hzSegmentSamplesDefinitivePeriod.json 160
 
 #get Phase shift for each sample:
-python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamplesDefinitivePeriod.json D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamplesPhaseShift.json 
+python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60hzSegmentSamplesDefinitivePeriod.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60hzSegmentSamplesPhaseShift.json 
 
 #show phase shift Histogram:
-python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\friday19092025\results\40hzSegmentSamplesPhaseShift.json  
+python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\40hz\friday19092025-40hzSegmentSamplesPhaseShift.json
+
+
+friday19092025-40hzSegmentSamplesPhaseShift.json
