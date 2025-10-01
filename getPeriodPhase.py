@@ -32,6 +32,7 @@ for segment in segments:
     for sample in samples:
         fileMobile = sample["fileMobileMirror"]
         fileFixed = sample["fileFixedMirror"]
+        if fileMobile["fftParams"] is None or fileFixed["fftParams"] is None: continue      #ignore this sample, as there is not fftParams
         if "periods" not in fileMobile:
             fileMobile["periods"] = getPeriods(fileMobile["fftParams"])
             processed+=1
