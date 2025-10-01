@@ -41,9 +41,16 @@ def getFilePhase(input_file):
     #histogram.showHistogram(phases, "Phases")
     return phases
 
-add = np.random.randn(10000, 2)
-#phases.append()
-phases = [getFilePhase(input_file), np.random.randn(10000)]
-#phases.append(add)
-histogram.showHistogram(phases, ["Phases",])
+if input_file:
+    phases = [getFilePhase(input_file)]
+    histogram.showHistogram(phases, ["Phases",])
+else:
+    phases = []
+    filenames = []
+    for filename in os.listdir(inputFolder):
+        absolutePath = os.path.join(inputFolder, filename)
+        phases.append(getFilePhase(absolutePath))
+        filenames.append(filename)
+    histogram.showHistogram(phases, label = filenames, histtype='step')
+
 
