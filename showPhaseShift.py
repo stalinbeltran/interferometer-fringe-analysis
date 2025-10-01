@@ -9,6 +9,9 @@ import histogram
 import phaseProcessing
 
 input_file = (sys.argv[1])
+if len(sys.argv) > 2:
+    inputFolder = input_file
+    input_file = None
 
 def getFilePhase(input_file):
     with open(input_file, 'r', encoding='utf-8') as f:
@@ -40,7 +43,7 @@ def getFilePhase(input_file):
 
 add = np.random.randn(10000, 2)
 #phases.append()
-phases = [getFilePhase(input_file)]
+phases = [getFilePhase(input_file), np.random.randn(10000)]
 #phases.append(add)
 histogram.showHistogram(phases, ["Phases",])
 
