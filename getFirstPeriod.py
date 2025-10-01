@@ -25,6 +25,7 @@ for segment in segments:
     for sample in samples:
         fileMobile = sample["fileMobileMirror"]
         fileFixed = sample["fileFixedMirror"]
+        if "periods" not in fileMobile or "periods" not in fileFixed or fileMobile["periods"] is None or fileFixed["periods"] is None: continue      #ignore this sample, as there are not periods
         if "period" not in fileMobile:
             fileMobile["period"] = getFirstPeriod(fileMobile["periods"])
             processed+=1
