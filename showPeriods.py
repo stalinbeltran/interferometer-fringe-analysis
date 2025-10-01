@@ -26,6 +26,9 @@ for segment in segments:
         try:
             periods.append(fileMobile["period"]["period"])
             periods.append(fileFixed["period"]["period"])
+            if processed < 20 and fileFixed["period"] is not None and fileMobile["period"]["period"] < 300:
+                print(fileFixed["period"]["period"])
+                print(fileMobile["period"]["period"])
         except:
             nulls +=1
             continue

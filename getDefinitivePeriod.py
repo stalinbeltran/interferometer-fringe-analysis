@@ -12,7 +12,7 @@ output_file = (sys.argv[2])
 lookedPeriod = float(sys.argv[3])
 
 def getDefinitivePeriod(periods, lookedPeriod):
-    all_periods = [d for d in periods if d['period'] == lookedPeriod]
+    all_periods = [d for d in periods if abs(d['period'] - lookedPeriod) < 1]
     try:
         return all_periods[0]
     except:
@@ -31,14 +31,13 @@ for segment in segments:
         fileMobile = sample["fileMobileMirror"]
         fileFixed = sample["fileFixedMirror"]
         if "period" not in fileMobile or "period" not in fileFixed: continue
-        if fileMobile["period"]["period"] != lookedPeriod :
+        if abs(fileMobile["period"]["period"] - lookedPeriod) > 1 :
             fileMobile["period"] = getDefinitivePeriod(fileMobile["periods"], lookedPeriod)
             processed+=1
 
-        if fileFixed["period"]["period"] != lookedPeriod:
+        if abs(fileFixed["period"]["period"] - lookedPeriod) > 1 :
             fileFixed["period"] = getDefinitivePeriod(fileFixed["periods"], lookedPeriod)
             processed+=1
-        # if processed > 0: break
     # if processed > 0: break
 print("processed: ", processed)
 with open(output_file, 'w', encoding='utf-8') as f:
