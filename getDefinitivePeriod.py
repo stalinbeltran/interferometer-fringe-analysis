@@ -13,8 +13,10 @@ lookedPeriod = float(sys.argv[3])
 
 def getDefinitivePeriod(periods, lookedPeriod):
     all_periods = [d for d in periods if d['period'] == lookedPeriod]
-    print(all_periods)
-    return 
+    try:
+        return all_periods[0]
+    except:
+        return None
 
 
 
@@ -29,18 +31,14 @@ for segment in segments:
         fileMobile = sample["fileMobileMirror"]
         fileFixed = sample["fileFixedMirror"]
         if fileMobile["period"]["period"] != lookedPeriod :
-            print(fileMobile["filename"])
-            print(fileMobile["period"]["period"] - lookedPeriod)
             fileMobile["period"] = getDefinitivePeriod(fileMobile["periods"], lookedPeriod)
             processed+=1
 
         if fileFixed["period"]["period"] != lookedPeriod:
-            fileFixed["period"]["period"] = getDefinitivePeriod(fileFixed["periods"], lookedPeriod)
-            print(fileMobile["filename"])
-            print(fileMobile["period"]["period"] - lookedPeriod)
+            fileFixed["period"] = getDefinitivePeriod(fileFixed["periods"], lookedPeriod)
             processed+=1
-        if processed > 0: break
-    if processed > 0: break
+        # if processed > 0: break
+    # if processed > 0: break
 print("processed: ", processed)
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)

@@ -15,6 +15,7 @@ with open(input_file, 'r', encoding='utf-8') as f:
 
 segments = segmentsJSON["segments"]
 processed = 0
+nulls = 0
 periods = []
 for segment in segments:
     samples = segment["samples"]
@@ -22,13 +23,19 @@ for segment in segments:
     for sample in samples:
         fileMobile = sample["fileMobileMirror"]
         fileFixed = sample["fileFixedMirror"]
-        periods.append(fileMobile["period"]["period"])
-        periods.append(fileFixed["period"]["period"])
+        try:
+            periods.append(fileMobile["period"]["period"])
+            periods.append(fileFixed["period"]["period"])
+        except:
+            nulls +=1
+            continue
+            
         segmentPeriod.append(fileMobile["period"]["period"])
         segmentPeriod.append(fileFixed["period"]["period"])            
         processed+=2
         #if processed > 5: break
     #histogram.showHistogram(segmentPeriod, "segment periods")
+print("nulls: ", nulls)
 histogram.showHistogram(periods, "periods")
 
 
