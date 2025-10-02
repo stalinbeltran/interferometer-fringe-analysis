@@ -20,47 +20,43 @@ def getFilePhase(input_file):
 
     processed = 0
     segments = segmentsJSON["segments"]
-    phases = []
-    phasesArray = []
     allPhases = []
+    allHz = []
     for segment in segments:
-        segmentPhases = []
+        #segmentPhases = []
         samples = segment["samples"]
         periods = []
         for sample in samples:
             deltaPhase = None
-            deltaPhasePixels = None
+            if "hz" not in sample: continue
+            hz = sample["hz"]
             if "deltaPhase" not in sample or sample["deltaPhase"] is None: continue
             deltaPhase = sample["deltaPhase"]
             if deltaPhase is None: continue
             amplitude = 1           #only sign is used in getProcessedPhase(), so a positive value is enough
             deltaPhase, amplitude = phaseProcessing.getProcessedPhase(deltaPhase*2*np.pi, amplitude)
             deltaPhase = deltaPhase/(2*np.pi)
-            phases.append(deltaPhase)
+            allHz.append(hz)
+            allPhases.append(deltaPhase)
             processed+=1
-            if processed >= 1000:
-                processed = 0
-                phasesArray.append(phases)
-                allPhases.extend(phases)
-                phases = []
-            segmentPhases.append(deltaPhase)
-            # except Exception as e:
-                # print(e)
-        histogram.showHistogram(segmentPhases, label= "Phases", show = False)
-    plt.show()
-    if len(phases) > 0:
-        allPhases.extend(phases)
-    phasesArray.append(phases)
+            #segmentPhases.append(deltaPhase)
+
+        #histogram.showHistogram(segmentPhases, label= "Phases", show = False)
+    #plt.show()
+
     #histogram.showHistogram(phases, "Phases")
-    return phasesArray, allPhases
+    return allPhases, allHz
 
 if input_file:
-    phases, allPhases = getFilePhase(input_file)
-    N = 600
+    allPhases, allHz = getFilePhase(input_file)
+    #print(allPhases)
+    N = len(allHz)
     phaseShiftEvolution = np.convolve(allPhases, np.ones(N)/N, mode='valid')
-    plt.plot(range(0, len(phaseShiftEvolution)), phaseShiftEvolution)
-    #plt.show()
-    histogram.showHistogram(phases, label = "12345678", histtype='bar', stacked= True)
+    plt.plot(allHz, allPhases, '.')
+    m, b = np.polyfit(allHz, allPhases, 1)
+    print("m: ", m, "  -  b: ",b)
+    plt.show()
+    #histogram.showHistogram(phases, label = "12345678", histtype='bar', stacked= True)
 else:
     phases = []
     filenames = []

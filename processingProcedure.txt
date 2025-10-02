@@ -1,40 +1,40 @@
 
 #get the file list of all fringes images:
-python3 getFileList.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\60-50limit D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitFiles.json
+python3 getFileList.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\50-40limit D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitFiles.json
 
 #get segments of continuous measurements:
-python3 getSegments.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitFiles.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegments.json
+python3 getSegments.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitFiles.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegments.json
 
 #get samples (pairs of continuous related images):
-python3 getSamples.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegments.json  D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamples.json
-
-#get time periods:
-python3 getTimePeriod.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamples.json  D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentTimePeriod.json
+python3 getSamples.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegments.json  D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegmentSamples.json
 
 #get first 60 (ordered by magnitude) Fast Fourier Transform (FFT) parameters:
-python3 getFFT.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesFFT.json
+python3 getFFT.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegmentSamples.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegmentSamplesFFT.json
+
+#get time periods:
+python3 getTimePeriod.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegmentSamplesFFT.json  D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegmentTimePeriod.json
 
 
 #get both period and phase from  every ff available:
-python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesFFT.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesPeriodPhase.json
+python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegmentSamplesPeriodPhase.json
 
 #get first of the periods (as it is the bigger one):
-python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesFirstPeriod.json
+python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegmentSamplesFirstPeriod.json
 
 #show periods in the samples:
-python3 showPeriods.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesFirstPeriod.json
+python3 showPeriods.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegmentSamplesFirstPeriod.json
 
 #get the definitive period in every sample, null otherwise:
-python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesDefinitivePeriod.json 160
+python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegmentSamplesDefinitivePeriod.json 160
 
 #get Phase shift for each sample:
-python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesDefinitivePeriod.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesPhaseShift.json 
+python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegmentSamplesDefinitivePeriod.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegmentSamplesPhaseShift.json 
 
 #show phase shift Histogram:
-python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesPhaseShift.json 
+python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\50-40limitSegmentSamplesPhaseShift.json 
 
 
 friday19092025-40hzSegmentSamplesPhaseShift.json
-wednesday24092025-60-50limitSegmentSamplesPhaseShift
+wednesday24092025-50-40limitSegmentSamplesPhaseShift
 wednesday24092025-40hzSegmentSamplesPhaseShift
 
