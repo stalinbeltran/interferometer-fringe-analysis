@@ -32,7 +32,10 @@ for segment in segments:
     for sample in samples:
         fileMobile = sample["fileMobileMirror"]
         fileFixed = sample["fileFixedMirror"]
-        if fileMobile["fftParams"] is None or fileFixed["fftParams"] is None: continue      #ignore this sample, as there are not fftParams
+        if fileMobile["fftParams"] is None or fileFixed["fftParams"] is None:
+            del fileFixed["fftParams"]
+            del fileMobile["fftParams"]
+            continue      #ignore this sample, as there are not fftParams
         if "periods" not in fileMobile:
             fileMobile["periods"] = getPeriods(fileMobile["fftParams"])
             processed+=1
@@ -40,7 +43,10 @@ for segment in segments:
         if "periods" not in fileFixed:
             fileFixed["periods"] = getPeriods(fileFixed["fftParams"])
             processed+=1
+        del fileFixed["fftParams"]
+        del fileMobile["fftParams"]
         #if processed > 10: break
+        
 print("processed: ", processed)
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)

@@ -36,7 +36,7 @@ def getFilePhase(input_file):
             deltaPhase = deltaPhase/(2*np.pi)
             phases.append(deltaPhase)
             processed+=1
-            if processed >= 6000:
+            if processed >= 500:
                 processed = 0
                 phasesArray.append(phases)
                 phases = []
@@ -44,14 +44,14 @@ def getFilePhase(input_file):
             # except Exception as e:
                 # print(e)
 
-        phasesArray.append(phases)
+    phasesArray.append(phases)
     #histogram.showHistogram(segmentPhases, "Phases", show = False)
     #histogram.showHistogram(phases, "Phases")
     return phasesArray
 
 if input_file:
     phases = getFilePhase(input_file)
-    histogram.showHistogram(phases, label = "Phases", histtype='step')
+    histogram.showHistogram(phases, label = "12345678", histtype='bar', stacked= True)
 else:
     phases = []
     filenames = []

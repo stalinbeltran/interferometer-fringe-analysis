@@ -38,6 +38,8 @@ for segment in segments:
         if abs(fileFixed["period"]["period"] - lookedPeriod) > 1 :
             fileFixed["period"] = getDefinitivePeriod(fileFixed["periods"], lookedPeriod)
             processed+=1
+        del fileMobile["periods"]
+        del fileFixed["periods"]
     # if processed > 0: break
 print("processed: ", processed)
 with open(output_file, 'w', encoding='utf-8') as f:

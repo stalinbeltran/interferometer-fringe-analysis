@@ -10,6 +10,16 @@ import phaseProcessing
 
 input_file = (sys.argv[1])
 
+def countPeriods(value):
+    global previousPeriods, periodsCounter
+    if value not in previousPeriods:
+        previousPeriods.append(value)
+        periodsCounter[value] = 1
+    else:
+        periodsCounter[value] += 1
+
+
+
 with open(input_file, 'r', encoding='utf-8') as f:
     segmentsJSON = json.load(f)
 
@@ -18,6 +28,7 @@ processed = 0
 nulls = 0
 periods = []
 previousPeriods = []
+periodsCounter = {}
 for segment in segments:
     samples = segment["samples"]
     segmentPeriod = []
@@ -26,9 +37,9 @@ for segment in segments:
         fileFixed = sample["fileFixedMirror"]
         try:
             periods.append(fileMobile["period"]["period"])
-            if periods[-1] not in previousPeriods: previousPeriods.append(periods[-1])
+            countPeriods(periods[-1])
             periods.append(fileFixed["period"]["period"])
-            if periods[-1] not in previousPeriods: previousPeriods.append(periods[-1])
+            countPeriods(periods[-1])
         except:
             nulls +=1
             continue
@@ -38,8 +49,8 @@ for segment in segments:
         processed+=2
         #if processed > 5: break
     #histogram.showHistogram(segmentPeriod, "segment periods")
-print("previousPeriods: ", previousPeriods)
+print("periodsCounter: ", periodsCounter)
 print("nulls: ", nulls)
-histogram.showHistogram(periods, "periods")
+histogram.showHistogram(periods, label = ["1", "2"])
 
 
