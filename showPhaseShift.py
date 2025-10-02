@@ -7,6 +7,7 @@ import cv2
 import numpy as np
 import histogram
 import phaseProcessing
+import matplotlib.pyplot as plt
 
 input_file = (sys.argv[1])
 if len(sys.argv) > 2:
@@ -21,6 +22,7 @@ def getFilePhase(input_file):
     segments = segmentsJSON["segments"]
     phases = []
     phasesArray = []
+    allPhases = []
     for segment in segments:
         segmentPhases = []
         samples = segment["samples"]
@@ -36,9 +38,10 @@ def getFilePhase(input_file):
             deltaPhase = deltaPhase/(2*np.pi)
             phases.append(deltaPhase)
             processed+=1
-            if processed >= 500:
+            if processed >= 1000:
                 processed = 0
                 phasesArray.append(phases)
+                allPhases.extend(phases)
                 phases = []
             segmentPhases.append(deltaPhase)
             # except Exception as e:
@@ -47,10 +50,14 @@ def getFilePhase(input_file):
     phasesArray.append(phases)
     #histogram.showHistogram(segmentPhases, "Phases", show = False)
     #histogram.showHistogram(phases, "Phases")
-    return phasesArray
+    return phasesArray, allPhases
 
 if input_file:
-    phases = getFilePhase(input_file)
+    phases, allPhases = getFilePhase(input_file)
+    N = 600
+    phaseShiftEvolution = np.convolve(allPhases, np.ones(N)/N, mode='valid')
+    plt.plot(range(0, len(phaseShiftEvolution)), phaseShiftEvolution)
+    #plt.show()
     histogram.showHistogram(phases, label = "12345678", histtype='bar', stacked= True)
 else:
     phases = []
