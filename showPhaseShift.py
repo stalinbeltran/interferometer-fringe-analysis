@@ -46,9 +46,11 @@ def getFilePhase(input_file):
             segmentPhases.append(deltaPhase)
             # except Exception as e:
                 # print(e)
-
+        histogram.showHistogram(segmentPhases, label= "Phases", show = False)
+    plt.show()
+    if len(phases) > 0:
+        allPhases.extend(phases)
     phasesArray.append(phases)
-    #histogram.showHistogram(segmentPhases, "Phases", show = False)
     #histogram.showHistogram(phases, "Phases")
     return phasesArray, allPhases
 
