@@ -17,8 +17,10 @@ def getFilePhase(input_file):
     with open(input_file, 'r', encoding='utf-8') as f:
         segmentsJSON = json.load(f)
 
+    processed = 0
     segments = segmentsJSON["segments"]
     phases = []
+    phasesArray = []
     for segment in segments:
         segmentPhases = []
         samples = segment["samples"]
@@ -33,17 +35,23 @@ def getFilePhase(input_file):
             deltaPhase, amplitude = phaseProcessing.getProcessedPhase(deltaPhase*2*np.pi, amplitude)
             deltaPhase = deltaPhase/(2*np.pi)
             phases.append(deltaPhase)
+            processed+=1
+            if processed >= 6000:
+                processed = 0
+                phasesArray.append(phases)
+                phases = []
             segmentPhases.append(deltaPhase)
             # except Exception as e:
                 # print(e)
 
+        phasesArray.append(phases)
     #histogram.showHistogram(segmentPhases, "Phases", show = False)
     #histogram.showHistogram(phases, "Phases")
-    return phases
+    return phasesArray
 
 if input_file:
-    phases = [getFilePhase(input_file)]
-    histogram.showHistogram(phases, ["Phases",])
+    phases = getFilePhase(input_file)
+    histogram.showHistogram(phases, label = "Phases", histtype='step')
 else:
     phases = []
     filenames = []
