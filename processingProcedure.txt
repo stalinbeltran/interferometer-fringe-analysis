@@ -8,8 +8,11 @@ python3 getSegments.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\
 #get samples (pairs of continuous related images):
 python3 getSamples.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegments.json  D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamples.json
 
+#get time periods:
+python3 getTimePeriod.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamples.json  D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentTimePeriod.json
+
 #get first 60 (ordered by magnitude) Fast Fourier Transform (FFT) parameters:
-python3 getFFT.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamples.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesFFT.json
+python3 getFFT.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesFFT.json
 
 
 #get both period and phase from  every ff available:
@@ -22,7 +25,7 @@ python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\resul
 python3 showPeriods.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesFirstPeriod.json
 
 #get the definitive period in every sample, null otherwise:
-python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesDefinitivePeriod.json 128
+python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesDefinitivePeriod.json 160
 
 #get Phase shift for each sample:
 python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesDefinitivePeriod.json D:\Stalin\FotosFranjasProyecto\wednesday24092025\results\60-50limitSegmentSamplesPhaseShift.json 
