@@ -12,7 +12,7 @@ output_file = (sys.argv[2])
 with open(input_file, 'r', encoding='utf-8') as f:
     files = json.load(f)
 
-TMAX = 2*(1/(RMPMAX/60))
+TMAX = 2
 
 segments = []           #list of segments
 previousTimestamp = None
