@@ -62,8 +62,8 @@ if input_file:
     range1 = allTimestamps[:-N+1]
     print("len(range1): ", len(range1))
     #plt.plot(range1, phaseShiftEvolution, '.')
-    inicio = 150
-    final = 215
+    inicio = allTimestamps.index(1759500426.971824)
+    final = inicio + 20
     plt.plot(allTimestamps[inicio:final], allPhases[inicio:final], '.')
     # m, b = np.polyfit(allTimestamps, allPhases, 1)
     # print("m: ", m, "  -  b: ",b)
