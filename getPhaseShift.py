@@ -26,6 +26,8 @@ for segment in segments:
         try:
             deltaPhase = (fileMobile["period"]["phase"] - fileFixed["period"]["phase"])/360       #phase in degrees, converted to fractional(0.0-1.0)
             deltaPhasePixels = fileMobile["period"]["period"]*deltaPhase                                                 #useful to compare samples by pixels
+            if sample["timestamp"] == "1759500293.119290":
+                print("deltaPhase: ", deltaPhase)
             processed+=1
         except Exception as e:
             print(e)
