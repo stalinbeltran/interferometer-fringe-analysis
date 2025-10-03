@@ -9,5 +9,5 @@ def getProcessedPhase(phase, amplitude):
         phase -= np.pi
         amplitude *=-1                              #now amplitude is positive
     
-    if phase < 0: phase +=2*np.pi                   #avoid negative phase
+    #if phase < 0: phase +=2*np.pi                   #avoid negative phase
     return phase, amplitude

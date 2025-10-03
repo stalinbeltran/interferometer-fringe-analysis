@@ -26,6 +26,7 @@ for segment in segments:
         if previousSampleTimestamp:
             sample["timePeriod"] = timestamp - previousSampleTimestamp
             sample["hz"] = 1.0/sample["timePeriod"]
+            processed+=1
         previousSampleTimestamp = timestamp
         #if processed > 10: break
 print("processed: ", processed)

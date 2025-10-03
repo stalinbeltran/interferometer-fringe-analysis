@@ -22,8 +22,10 @@ def getFilePhase(input_file):
     segments = segmentsJSON["segments"]
     allPhases = []
     allHz = []
+    allTimestamps = []
     for segment in segments:
-        #segmentPhases = []
+        segmentPhases = []
+        segmentTimestamps = []
         samples = segment["samples"]
         periods = []
         for sample in samples:
@@ -38,22 +40,26 @@ def getFilePhase(input_file):
             deltaPhase = deltaPhase/(2*np.pi)
             allHz.append(hz)
             allPhases.append(deltaPhase)
+            allTimestamps.append(float(sample["timestamp"]))
             processed+=1
-            #segmentPhases.append(deltaPhase)
+            segmentPhases.append(deltaPhase)
+            segmentTimestamps.append(float(sample["timestamp"]))
+        m, b = np.polyfit(segmentTimestamps, segmentPhases, 1)
+        print("m: ", m, "    b: ",b)
 
         #histogram.showHistogram(segmentPhases, label= "Phases", show = False)
     #plt.show()
 
     #histogram.showHistogram(phases, "Phases")
-    return allPhases, allHz
+    return allPhases, allHz, allTimestamps
 
 if input_file:
-    allPhases, allHz = getFilePhase(input_file)
+    allPhases, allHz, allTimestamps = getFilePhase(input_file)
     #print(allPhases)
     N = len(allHz)
     phaseShiftEvolution = np.convolve(allPhases, np.ones(N)/N, mode='valid')
-    plt.plot(allHz, allPhases, '.')
-    m, b = np.polyfit(allHz, allPhases, 1)
+    plt.plot(allTimestamps, allPhases, '.')
+    m, b = np.polyfit(allTimestamps, allPhases, 1)
     print("m: ", m, "  -  b: ",b)
     plt.show()
     #histogram.showHistogram(phases, label = "12345678", histtype='bar', stacked= True)
