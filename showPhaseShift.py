@@ -44,9 +44,11 @@ def getFilePhase(input_file):
             processed+=1
             segmentPhases.append(deltaPhase)
             segmentTimestamps.append(float(sample["timestamp"]))
-        m, b = np.polyfit(segmentTimestamps, segmentPhases, 1)
-        print("m: ", m, "    b: ",b)
-
+            if processed>500:break
+        # m, b = np.polyfit(segmentTimestamps, segmentPhases, 1)
+        # print("m: ", m, "    b: ",b)
+        if processed>500:break
+    
         #histogram.showHistogram(segmentPhases, label= "Phases", show = False)
     #plt.show()
 
@@ -56,11 +58,15 @@ def getFilePhase(input_file):
 if input_file:
     allPhases, allHz, allTimestamps = getFilePhase(input_file)
     #print(allPhases)
-    N = len(allHz)
+    N = 100
+    print("N: ", N)
     phaseShiftEvolution = np.convolve(allPhases, np.ones(N)/N, mode='valid')
-    plt.plot(allTimestamps, allPhases, '.')
-    m, b = np.polyfit(allTimestamps, allPhases, 1)
-    print("m: ", m, "  -  b: ",b)
+    range1 = allTimestamps[:-N+1]
+    print("len(range1): ", len(range1))
+    #plt.plot(range1, phaseShiftEvolution, '.')
+    plt.plot(range(0, len(allPhases)), allPhases, '.')
+    # m, b = np.polyfit(allTimestamps, allPhases, 1)
+    # print("m: ", m, "  -  b: ",b)
     plt.show()
     #histogram.showHistogram(phases, label = "12345678", histtype='bar', stacked= True)
 else:
