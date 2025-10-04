@@ -33,8 +33,10 @@ python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-S
 #unwrap Phase shift for each sample:
 python3 unwrapPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesPhaseShift.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-PhaseShiftUnwraped.json 
 
+python3 removeFileInfo.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-PhaseShiftUnwraped.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-UnwrapedNoFileInfo.json 
 
 #show phase shift Histogram:
 python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-PhaseShiftUnwraped.json
+
 
 
