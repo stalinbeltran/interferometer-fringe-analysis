@@ -35,7 +35,6 @@ def getFilePhase(input_file):
             if "deltaPhase" not in sample or sample["deltaPhase"] is None: continue
             deltaPhase = sample["deltaPhase"]
             if deltaPhase is None: continue
-            amplitude = 1           #only sign is used in getProcessedPhase(), so a positive value is enough
             allHz.append(hz)
             allPhases.append(deltaPhase)
             allTimestamps.append(float(sample["timestamp"]))
@@ -44,8 +43,8 @@ def getFilePhase(input_file):
             segmentTimestamps.append(float(sample["timestamp"]))
             #if processed>500:break
         
-        plt.plot(segmentTimestamps, segmentPhases, '.')
-        plt.show()
+        #plt.plot(segmentTimestamps, segmentPhases, '.')
+        #plt.show()
         # m, b = np.polyfit(segmentTimestamps, segmentPhases, 1)
         # print("m: ", m, "    b: ",b)
         #if processed>500:break
@@ -58,7 +57,7 @@ def getFilePhase(input_file):
 
 if input_file:
     allPhases, allHz, allTimestamps = getFilePhase(input_file)
-    exit()
+    #exit()
     #print(allPhases)
     N = 100
     print("N: ", N)
@@ -66,9 +65,10 @@ if input_file:
     range1 = allTimestamps[:-N+1]
     print("len(range1): ", len(range1))
     #plt.plot(range1, phaseShiftEvolution, '.')
-    inicio = 14000 #allTimestamps.index(1759500426.971824)
+    inicio = 0 #allTimestamps.index(1759500426.971824)
     #final = allTimestamps.index(1759503780.421168)
-    final = inicio + 2000
+    #final = inicio + 200
+    final = len(allTimestamps)
     plt.plot(allTimestamps[inicio:final], allPhases[inicio:final], '.')
     # m, b = np.polyfit(allTimestamps, allPhases, 1)
     # print("m: ", m, "  -  b: ",b)
