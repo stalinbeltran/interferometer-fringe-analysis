@@ -6,7 +6,8 @@ import sys
 import json
 import cv2
 import numpy as np
-
+import phaseProcessing
+ 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 
@@ -17,6 +18,7 @@ def getPeriods(ftOrdered):
         period = 1/frequency
         ft = complex(ftItem["ft"]["real"], ftItem["ft"]["imag"])
         phase = np.angle(ft, True)
+        phase = phaseProcessing.getPositivePhaseDegrees(phase)
         periods.append({"period": period, "phase":phase })
     return periods
 

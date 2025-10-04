@@ -5,6 +5,7 @@ import sys
 import json
 import cv2
 import numpy as np
+import phaseProcessing
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
@@ -24,7 +25,8 @@ for segment in segments:
         fileFixed = sample["fileFixedMirror"]
         if "period" not in fileMobile or "period" not in fileFixed or fileMobile["period"] is None or fileFixed["period"] is None: continue
         try:
-            deltaPhase = (fileMobile["period"]["phase"] - fileFixed["period"]["phase"])/360       #phase in degrees, converted to fractional(0.0-1.0)
+            deltaPhase = (fileMobile["period"]["phase"] - fileFixed["period"]["phase"])       #phase in degrees, converted to fractional(0.0-1.0)            
+            deltaPhase = phaseProcessing.getPositivePhaseDegrees(deltaPhase)/360
             deltaPhasePixels = fileMobile["period"]["period"]*deltaPhase                                                 #useful to compare samples by pixels
             if sample["timestamp"] == "1759500293.119290":
                 print("deltaPhase: ", deltaPhase)

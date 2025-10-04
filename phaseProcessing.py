@@ -12,3 +12,7 @@ def getProcessedPhase(phase, amplitude):
     # if phase > np.pi: phase -=2*np.pi
     # if phase < -np.pi: phase +=2*np.pi
     return phase, amplitude
+    
+def getPositivePhaseDegrees(phase):
+    if phase < 0: return phase+360
+    return phase
