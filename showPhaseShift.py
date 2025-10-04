@@ -43,8 +43,8 @@ def getFilePhase(input_file):
             segmentTimestamps.append(float(sample["timestamp"]))
             #if processed>500:break
         
-        #plt.plot(segmentTimestamps, segmentPhases, '.')
-        #plt.show()
+        plt.plot(segmentTimestamps, segmentPhases, '.')
+        plt.show()
         # m, b = np.polyfit(segmentTimestamps, segmentPhases, 1)
         # print("m: ", m, "    b: ",b)
         #if processed>500:break
@@ -57,7 +57,7 @@ def getFilePhase(input_file):
 
 if input_file:
     allPhases, allHz, allTimestamps = getFilePhase(input_file)
-    #exit()
+    exit()
     #print(allPhases)
     N = 100
     print("N: ", N)
