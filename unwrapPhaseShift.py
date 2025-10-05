@@ -8,7 +8,7 @@ import numpy as np
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
-phaseMaxDifference = 0.35
+phaseMaxDifference = 0.5
 
 with open(input_file, 'r', encoding='utf-8') as f:
     segmentsJSON = json.load(f)
