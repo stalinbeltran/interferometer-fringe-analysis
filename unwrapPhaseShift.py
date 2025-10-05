@@ -8,14 +8,14 @@ import numpy as np
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
-phaseMaxDifference = 0.4
+phaseMaxDifference = 0.35
 
 with open(input_file, 'r', encoding='utf-8') as f:
     segmentsJSON = json.load(f)
 
 segments = segmentsJSON["segments"]
 inicio = 650
-final = inicio + 50
+final = inicio + 1
 processed = 0
 for segment in segments:
     samples = segment["samples"]
@@ -23,13 +23,14 @@ for segment in segments:
     for sample in samples:
         if "deltaPhase" not in sample: continue
         deltaPhase = sample["deltaPhase"]
-        if (processed > inicio and processed < final): print("deltaPhase: ", deltaPhase, "previousSamplePhase: ", previousSamplePhase)
+        #if (processed > inicio and processed < final): print("deltaPhase: ", deltaPhase, "previousSamplePhase: ", previousSamplePhase)
         if previousSamplePhase and abs(previousSamplePhase-deltaPhase) >= phaseMaxDifference:    #too much error
-            if deltaPhase > previousSamplePhase: deltaPhase-=1          #adjust one wavelength more or less
-            elif deltaPhase < previousSamplePhase: deltaPhase+=1
+            if deltaPhase < previousSamplePhase and deltaPhase < 0.5: deltaPhase+=1          #adjust one wavelength more or less
+            #elif deltaPhase > previousSamplePhase: deltaPhase+=1
             sample["deltaPhase"] = deltaPhase
-            if (processed > inicio and processed < final): print("corrected: ", deltaPhase)
+            #if (processed > inicio and processed < final): print("corrected: ", deltaPhase)
             processed+=1
+            #if processed >= final: break
         previousSamplePhase = deltaPhase
 
 print("processed: ", processed)

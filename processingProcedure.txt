@@ -15,8 +15,13 @@ python3 getFFT.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentS
 #get time periods:
 python3 getTimePeriod.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesFFT.json  D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentTimePeriod.json
 
+
+#remove points below 4hz speed (too slow data adquisition due to manual speed control
+python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-FastDataPoints.json 
+
+
 #get both period and phase from  every ff available:
-python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesPeriodPhase.json
+python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-FastDataPoints.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesPeriodPhase.json
 
 #get first of the periods (as it is the bigger one):
 python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesFirstPeriod.json
@@ -39,11 +44,8 @@ python3 removeFileInfo.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-
 #remove incomplete data points:
 python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-UnwrapedNoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-ValidDataPoints.json 
 
-#remove points below 4hz speed (too slow data adquisition due to manual speed control
-python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-FastDataPoints.json 
-
 #show phase shift Histogram:
-python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-FastDataPoints.json
+python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-ValidDataPoints.json
 
 
 

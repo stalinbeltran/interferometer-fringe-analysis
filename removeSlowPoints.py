@@ -18,7 +18,7 @@ for segment in segments:
     samples = segment["samples"]
     newSegmentSamples = []
     for sample in samples:
-        if sample["hz"] >= 4:
+        if "hz" in sample and sample["hz"] >= 4:
             newSegmentSamples.append(sample)
             processed+=1
             
