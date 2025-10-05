@@ -1,4 +1,4 @@
-#python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-UnwrapedNoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-ValidDataPoints.json 
+#python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-FastDataPoints.json 
 
 import os
 import sys
@@ -16,11 +16,13 @@ segments = segmentsJSON["segments"]
 processed = 0
 for segment in segments:
     samples = segment["samples"]
+    newSegmentSamples = []
     for sample in samples:
-        if "timePeriod" not in sample or "hz" not in sample or "deltaPhase" not in sample or "deltaPhasePixels" not in sample :
-            samples.remove(sample)
+        if sample["hz"] >= 4:
+            newSegmentSamples.append(sample)
             processed+=1
-            continue
+            
+    segment["samples"] = newSegmentSamples
 
 print("processed: ", processed)
 with open(output_file, 'w', encoding='utf-8') as f:

@@ -39,8 +39,11 @@ python3 removeFileInfo.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-
 #remove incomplete data points:
 python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-UnwrapedNoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-ValidDataPoints.json 
 
+#remove points below 4hz speed (too slow data adquisition due to manual speed control
+python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-FastDataPoints.json 
+
 #show phase shift Histogram:
-python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-ValidDataPoints.json
+python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-FastDataPoints.json
 
 
 
