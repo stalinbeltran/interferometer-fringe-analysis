@@ -16,12 +16,12 @@ segments = segmentsJSON["segments"]
 processed = 0
 for segment in segments:
     samples = segment["samples"]
+    newSegmentSamples = []
     for sample in samples:
-        if "timePeriod" not in sample or "hz" not in sample or "deltaPhase" not in sample or "deltaPhasePixels" not in sample :
-            samples.remove(sample)
+        if "timePeriod"  in sample and "hz"  in sample and "deltaPhase"  in sample and "deltaPhasePixels"  in sample :
+            newSegmentSamples.append(sample)
             processed+=1
-            continue
-
+    segment["samples"] = newSegmentSamples
 print("processed: ", processed)
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
