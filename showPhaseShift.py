@@ -44,15 +44,16 @@ def getFilePhase(input_file):
             segmentPhases.append(deltaPhase)
             segmentTimestamps.append(float(sample["timestamp"]))
             if processed % 500 == 0:
-                plt.plot(segmentHz, segmentPhases, '.')
-                plt.show()
-                plt.plot(segmentTimestamps, segmentPhases, '.')
-                plt.show()
+                m, b = np.polyfit(segmentHz, segmentPhases, 1)
+                print("m: ", m, "    b: ",b)
+                if True:
+                    plt.plot(segmentHz, segmentPhases, '.')
+                    plt.show()
+                    plt.plot(segmentTimestamps, segmentPhases, '.')
+                    plt.show()
                 segmentHz = []
                 segmentPhases = []
                 segmentTimestamps = []
-        # m, b = np.polyfit(segmentTimestamps, segmentPhases, 1)
-        # print("m: ", m, "    b: ",b)
         #if processed>500:break
     
         #histogram.showHistogram(segmentPhases, label= "Phases", show = False)
