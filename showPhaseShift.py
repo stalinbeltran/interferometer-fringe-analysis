@@ -44,13 +44,13 @@ def getFilePhase(input_file):
             segmentPhases.append(deltaPhase)
             segmentTimestamps.append(float(sample["timestamp"]))
             if processed % 500 == 0:
+                plt.plot(segmentTimestamps, segmentPhases, '.')
+                plt.show()
                 plt.plot(segmentHz, segmentPhases, '.')
                 plt.show()
                 segmentHz = []
                 segmentPhases = []
-        
-        plt.plot(segmentHz, segmentPhases, '.')
-        plt.show()
+                segmentTimestamps = []
         # m, b = np.polyfit(segmentTimestamps, segmentPhases, 1)
         # print("m: ", m, "    b: ",b)
         #if processed>500:break
