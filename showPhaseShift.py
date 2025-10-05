@@ -25,6 +25,7 @@ def getFilePhase(input_file):
     allTimestamps = []
     for segment in segments:
         segmentPhases = []
+        segmentHz = []
         segmentTimestamps = []
         samples = segment["samples"]
         periods = []
@@ -39,11 +40,16 @@ def getFilePhase(input_file):
             allPhases.append(deltaPhase)
             allTimestamps.append(float(sample["timestamp"]))
             processed+=1
+            segmentHz.append(hz)
             segmentPhases.append(deltaPhase)
             segmentTimestamps.append(float(sample["timestamp"]))
-            #if processed>500:break
+            if processed % 500 == 0:
+                plt.plot(segmentHz, segmentPhases, '.')
+                plt.show()
+                segmentHz = []
+                segmentPhases = []
         
-        plt.plot(segmentTimestamps, segmentPhases, '.')
+        plt.plot(segmentHz, segmentPhases, '.')
         plt.show()
         # m, b = np.polyfit(segmentTimestamps, segmentPhases, 1)
         # print("m: ", m, "    b: ",b)
