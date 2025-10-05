@@ -25,7 +25,8 @@ for segment in segments:
         deltaPhase = sample["deltaPhase"]
         #if (processed > inicio and processed < final): print("deltaPhase: ", deltaPhase, "previousSamplePhase: ", previousSamplePhase)
         if previousSamplePhase and abs(previousSamplePhase-deltaPhase) >= phaseMaxDifference:    #too much error
-            if deltaPhase < previousSamplePhase and deltaPhase < 0.5: deltaPhase+=1          #adjust one wavelength more or less
+            if deltaPhase < previousSamplePhase and deltaPhase < 0.4: deltaPhase+=1          #adjust one wavelength more or less
+            elif deltaPhase > previousSamplePhase and deltaPhase > 1: deltaPhase-=1          #adjust one wavelength more or less
             #elif deltaPhase > previousSamplePhase: deltaPhase+=1
             sample["deltaPhase"] = deltaPhase
             #if (processed > inicio and processed < final): print("corrected: ", deltaPhase)
