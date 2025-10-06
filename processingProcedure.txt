@@ -1,53 +1,53 @@
 
 #get the file list of all fringes images:
-python3 getFileList.py D:\Stalin\FotosFranjasProyecto\friday03102025_02 D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-Files.json
+python3 getFileList.py D:\Stalin\FotosFranjasProyecto\friday03102025 D:\Stalin\FotosFranjasProyecto\results\friday03102025-Files.json
 
 #get segments of continuous measurements:
-python3 getSegments.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-Files.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-Segments.json
+python3 getSegments.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-Files.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-Segments.json
 
 #get samples (pairs of continuous related images):
-python3 getSamples.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-Segments.json  D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SegmentSamples.json
+python3 getSamples.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-Segments.json  D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamples.json
 
 #get first 60 (ordered by magnitude) Fast Fourier Transform (FFT) parameters:
-python3 getFFT.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SegmentSamples.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SegmentSamplesFFT.json
+python3 getFFT.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamples.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesFFT.json
 
 
 #get time periods:
-python3 getTimePeriod.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SegmentSamplesFFT.json  D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SegmentTimePeriod.json
+python3 getTimePeriod.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesFFT.json  D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentTimePeriod.json
 
 
 #remove points below 4hz speed (too slow data adquisition due to manual speed control
-python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-FastDataPoints.json 
+python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-FastDataPoints.json 
 
 
 #get both period and phase from  every ff available:
-python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-FastDataPoints.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SegmentSamplesPeriodPhase.json
+python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-FastDataPoints.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesPeriodPhase.json
 
 #get first of the periods (as it is the bigger one):
-python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SegmentSamplesFirstPeriod.json
+python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesFirstPeriod.json
 
 #show periods in the samples:
-python3 showPeriods.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SegmentSamplesFirstPeriod.json
+python3 showPeriods.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesFirstPeriod.json
 
-#get the definitive period in every sample, null otherwise:
-python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SegmentSamplesDefinitivePeriod.json 107
+#get the definitive period in every sample, null otherwise: 80, 107
+python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesDefinitivePeriod.json 80
 
 
 
 #get Phase shift for each sample:
-python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SegmentSamplesDefinitivePeriod.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SegmentSamplesPhaseShift.json 
+python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesDefinitivePeriod.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesPhaseShift.json 
 
 #remove file info:
-python3 removeFileInfo.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SegmentSamplesPhaseShift.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-NoFileInfo.json 
+python3 removeFileInfo.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-SegmentSamplesPhaseShift.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-NoFileInfo.json 
 
 #unwrap Phase shift for each sample:
-python3 unwrapPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-PhaseShiftUnwraped.json 
+python3 unwrapPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-PhaseShiftUnwraped.json 
 
 #remove incomplete data points:
-python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-PhaseShiftUnwraped.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-ValidDataPoints.json 
+python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-PhaseShiftUnwraped.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-ValidDataPoints.json 
 
 #show phase shift Histogram:
-python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-ValidDataPoints.json
+python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-ValidDataPoints.json
 
 
 
