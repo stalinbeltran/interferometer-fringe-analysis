@@ -5,11 +5,21 @@ import sys
 import json
 import cv2
 import numpy as np
+from collections import deque
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 phaseMaxDifference = 0.25
 distanceImprovementFactor = 0.8
+N_lastPoints = 4
+
+def lastPointsAverage(lastPoints):
+    average = sum(lastPoints) / len(lastPoints)
+    #print("average:", average)
+    return average
+
+
+
 
 with open(input_file, 'r', encoding='utf-8') as f:
     segmentsJSON = json.load(f)
@@ -24,6 +34,7 @@ maxShowed = 4
 for segment in segments:
     samples = segment["samples"]
     previousSamplePhase = None
+    lastPoints = deque(maxlen=N_lastPoints)
     for sample in samples:
         if "deltaPhase" not in sample: continue
         deltaPhase = sample["deltaPhase"]
@@ -32,7 +43,7 @@ for segment in segments:
             previousSamplePhase = deltaPhase
             continue
         distance = abs(previousSamplePhase-deltaPhase)
-        if timestamp == "1759504022.258253":
+        if timestamp == "1759504798.269329":
             show = False
         if distance >= phaseMaxDifference:    #too much error
             increasedPhaseDistance = abs(previousSamplePhase-(deltaPhase + 1))
@@ -52,7 +63,8 @@ for segment in segments:
             showed+=1
         if showed >= maxShowed: exit()
             #if processed >= final: break
-        previousSamplePhase = deltaPhase
+        lastPoints.append(deltaPhase)
+        previousSamplePhase = lastPointsAverage(lastPoints)
 
 
 print("processed: ", processed)
