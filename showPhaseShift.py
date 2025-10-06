@@ -29,6 +29,7 @@ def getFilePhase(input_file):
         segmentTimestamps = []
         samples = segment["samples"]
         periods = []
+        firstSegmentTimestamp = None
         for sample in samples:
             deltaPhase = None
             if "hz" not in sample: continue
@@ -36,6 +37,7 @@ def getFilePhase(input_file):
             if "deltaPhase" not in sample or sample["deltaPhase"] is None: continue
             deltaPhase = sample["deltaPhase"]
             if deltaPhase is None: continue
+            if not firstSegmentTimestamp: firstSegmentTimestamp = sample["timestamp"]
             allHz.append(hz)
             allPhases.append(deltaPhase)
             allTimestamps.append(float(sample["timestamp"]))
@@ -44,16 +46,19 @@ def getFilePhase(input_file):
             segmentPhases.append(deltaPhase)
             segmentTimestamps.append(float(sample["timestamp"]))
             if processed % 500 == 0:
+                print("First timestamp: ", firstSegmentTimestamp)
                 m, b = np.polyfit(segmentHz, segmentPhases, 1)
                 print("m: ", m, "    b: ",b)
                 if True:
                     plt.plot(segmentHz, segmentPhases, '.')
                     plt.show()
+                if True:
                     plt.plot(segmentTimestamps, segmentPhases, '.')
                     plt.show()
                 segmentHz = []
                 segmentPhases = []
                 segmentTimestamps = []
+                firstSegmentTimestamp = None
         #if processed>500:break
     
         #histogram.showHistogram(segmentPhases, label= "Phases", show = False)
