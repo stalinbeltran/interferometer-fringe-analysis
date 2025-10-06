@@ -68,8 +68,13 @@ for segment in segments:
         hzTotal = hzTotalSegment[hzRounded]
         distance = abs(hzTotal["deltaPhaseAverage"]-deltaPhase)
         if distance >= maxPhaseDistance:    #too much error
-            if abs(hzTotal["deltaPhaseAverage"]-deltaPhase + 1) < maxPhaseDistance: deltaPhase+=1          #if we can make it closer to average, we do
-            elif abs(hzTotal["deltaPhaseAverage"]-deltaPhase - 1) < maxPhaseDistance: deltaPhase-=1
+            # if distance > 1.0:
+                # print(sample["timestamp"], ": ", distance)
+                # break
+            increasedPhase = abs(hzTotal["deltaPhaseAverage"]-(deltaPhase + 1))
+            decreasedPhase = abs(hzTotal["deltaPhaseAverage"]-(deltaPhase - 1))
+            if increasedPhase < distance: deltaPhase+=1          #if we can make it closer to average, we do
+            elif decreasedPhase < distance: deltaPhase-=1
             sample["deltaPhase"] = deltaPhase            
             processed+=1
 
