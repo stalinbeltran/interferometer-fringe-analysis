@@ -10,8 +10,8 @@ from collections import deque
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 phaseMaxDifference = 0.25
-distanceImprovementFactor = 0.8
-N_lastPoints = 4
+distanceImprovementFactor = 0.9
+N_lastPoints = 8
 
 def lastPointsAverage(lastPoints):
     average = sum(lastPoints) / len(lastPoints)
