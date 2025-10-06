@@ -9,7 +9,7 @@ import numpy as np
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 phaseMaxDifference = 0.25
-phaseImprovementFactor = 0.4
+distanceImprovementFactor = 0.8
 
 with open(input_file, 'r', encoding='utf-8') as f:
     segmentsJSON = json.load(f)
@@ -32,24 +32,33 @@ for segment in segments:
             previousSamplePhase = deltaPhase
             continue
         distance = abs(previousSamplePhase-deltaPhase)
-        if timestamp == "1759504001.888692": show = True
-        if show:
-            print("-----timestamp:", timestamp)
-            print("deltaPhase:", deltaPhase)
-            print("distance:", distance)
+        if timestamp == "1759504022.258253":
+            show = False
         if distance >= phaseMaxDifference:    #too much error
-            increasedPhase = abs(previousSamplePhase-(deltaPhase + 1))
-            decreasedPhase = abs(previousSamplePhase-(deltaPhase - 1))            
-            if increasedPhase < distance: deltaPhase+=1          #if we can make it closer to average, we do
-            elif decreasedPhase < distance: deltaPhase-=1
+            increasedPhaseDistance = abs(previousSamplePhase-(deltaPhase + 1))
+            decreasedPhaseDistance = abs(previousSamplePhase-(deltaPhase - 1))
+            if show:
+                print("-----timestamp:", timestamp)
+                print("deltaPhase:", deltaPhase)
+                print("distance:", distance)
+                print("increasedPhaseDistance:", increasedPhaseDistance)
+                print("decreasedPhaseDistance:", decreasedPhaseDistance) 
+            if increasedPhaseDistance < distance*distanceImprovementFactor: deltaPhase+=1          #if we can make it closer to average, we do
+            elif decreasedPhaseDistance < distance*distanceImprovementFactor: deltaPhase-=1
             sample["deltaPhase"] = deltaPhase
             processed+=1
         if show:
-            print("deltaPhase:", deltaPhase)
+            print("final deltaPhase:", deltaPhase)
             showed+=1
         if showed >= maxShowed: exit()
             #if processed >= final: break
         previousSamplePhase = deltaPhase
+
+
+print("processed: ", processed)
+with open(output_file, 'w', encoding='utf-8') as f:
+    json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
+
 
 
 exit()
@@ -123,8 +132,8 @@ for segment in segments:
         if distance >= maxPhaseDistance:    #too much error
             increasedPhaseDistance = abs(segmentAverage-(deltaPhase + 1))
             decreasedPhaseDistance = abs(segmentAverage-(deltaPhase - 1))
-            if decreasedPhaseDistance < distance*phaseImprovementFactor: deltaPhase+=1          #if we can make it closer to average, we do
-            elif decreasedPhaseDistance < distance*phaseImprovementFactor: deltaPhase-=1
+            if decreasedPhaseDistance < distance*distanceImprovementFactor: deltaPhase+=1          #if we can make it closer to average, we do
+            elif decreasedPhaseDistance < distance*distanceImprovementFactor: deltaPhase-=1
             sample["deltaPhase"] = deltaPhase            
             processed+=1
             #if processed>10: break
