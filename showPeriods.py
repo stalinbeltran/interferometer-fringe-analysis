@@ -27,11 +27,11 @@ segments = segmentsJSON["segments"]
 processed = 0
 nulls = 0
 periods = []
-previousPeriods = []
-periodsCounter = {}
 for segment in segments:
     samples = segment["samples"]
     segmentPeriod = []
+    previousPeriods = []
+    periodsCounter = {}
     for sample in samples:
         fileMobile = sample["fileMobileMirror"]
         fileFixed = sample["fileFixedMirror"]
@@ -49,7 +49,9 @@ for segment in segments:
         processed+=2
         #if processed > 5: break
     #histogram.showHistogram(segmentPeriod, "segment periods")
-print("periodsCounter: ", periodsCounter)
+    print("------segment timestamp: ", segment["timestamp"])
+    print("periodsCounter: ", periodsCounter)
+    
 print("nulls: ", nulls)
 histogram.showHistogram(periods, label = ["1", "2"])
 
