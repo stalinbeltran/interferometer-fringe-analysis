@@ -67,7 +67,8 @@ for segment in segments:
     print("previousPeriodsCounters: ", previousPeriodsCounters)
     segment["periodsCounter"] = {"periodsCounter": previousPeriodsCounters}
     segment["lookedPeriod"] = getLookedPeriod(previousPeriodsCounters)
-    
+
+print("processed: ", processed)
     
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
