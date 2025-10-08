@@ -32,10 +32,10 @@ python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025
 python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesFirstPeriod.json
 
 #show periods in the samples:
-python3 showPeriods.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesFirstPeriod.json
+python3 showPeriods.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPeriodLooked.json
 
 #get the definitive period in every sample, null otherwise: 80, 107
-python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesDefinitivePeriod.json 80
+python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPeriodLooked.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesDefinitivePeriod.json 80
 
 
 
