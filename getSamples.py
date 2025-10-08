@@ -18,6 +18,7 @@ TMAX_SAMPLE = None
 segmentsNew = []
 previousTimestamp = None
 processed = 0
+noTimestampCounter = 0
 for segment in segments:
     files = segment["files"]
     if len(files) < 3:
@@ -45,7 +46,8 @@ for segment in segments:
                 TMAX_SAMPLE = DISTANCE_FACTOR*previousPeriod
             continue            #wait for the next file
             
-        if float(timestamp) - float(previousTimestamp) <= TMAX_SAMPLE:        #this is a new sample
+        timestampDiff =  float(timestamp) - float(previousTimestamp)
+        if timestampDiff <= TMAX_SAMPLE:        #this is a new sample
             sample = {"timestamp": previousTimestamp, "fileMobileMirror": previousFile, "fileFixedMirror": file}
             samples.append(sample)
             previousSampleTimestamp = previousTimestamp #saved to calculate Period with the next file
@@ -53,9 +55,14 @@ for segment in segments:
             previousTimestamp = None
             processed+=1
         else:
+            noTimestampCounter+=1
+            if noTimestampCounter < 10:
+                print("TMAX_SAMPLE: ", TMAX_SAMPLE)
+                print("timestampDiff: ", timestampDiff)
             previousTimestamp = timestamp               #this is now the previous timestamp
             previousFile = file                         #this is the previous file
 
+print("processed: ", processed)
 segmentsJSON = {"segments": segmentsNew}
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
