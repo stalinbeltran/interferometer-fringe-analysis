@@ -21,12 +21,12 @@ python3 getFFT.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Segment
 python3 getTimePeriod.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesFFT.json  D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentTimePeriod.json
 
 
-#remove points below 4hz speed (too slow data adquisition due to manual speed control (this process is not used right now, as low speeds can be useful))
-#python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-FastDataPoints.json 
+#remove points below 4hz speed (too slow data adquisition due to manual speed control (obscures data in phase wrapping))
+python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-FastDataPoints.json 
 
 
 #get both period and phase from  every ff available:
-python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPeriodPhase.json
+python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-FastDataPoints.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPeriodPhase.json
 
 #get first of the periods (as it is the bigger one):
 python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesFirstPeriod.json
