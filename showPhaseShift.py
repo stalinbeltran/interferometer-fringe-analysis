@@ -23,7 +23,10 @@ def getFilePhase(input_file):
     allPhases = []
     allHz = []
     allTimestamps = []
+    segmentCounter = 0
     for segment in segments:
+        segmentCounter+=1
+        if segmentCounter < 1: continue
         segmentPhases = []
         segmentHz = []
         segmentTimestamps = []
@@ -37,7 +40,9 @@ def getFilePhase(input_file):
             if "deltaPhase" not in sample or sample["deltaPhase"] is None: continue
             deltaPhase = sample["deltaPhase"]
             if deltaPhase is None: continue
-            if not firstSegmentTimestamp: firstSegmentTimestamp = sample["timestamp"]
+            if not firstSegmentTimestamp:
+                firstSegmentTimestamp = sample["timestamp"]
+                print("First timestamp: ", firstSegmentTimestamp)
             allHz.append(hz)
             allPhases.append(deltaPhase)
             allTimestamps.append(float(sample["timestamp"]))
@@ -45,15 +50,19 @@ def getFilePhase(input_file):
             segmentHz.append(hz)
             segmentPhases.append(deltaPhase)
             segmentTimestamps.append(float(sample["timestamp"]))
-            if processed % 500 == 0:
-                print("First timestamp: ", firstSegmentTimestamp)
+            if processed % 100 == 0:
                 m, b = np.polyfit(segmentHz, segmentPhases, 1)
                 print("m: ", m, "    b: ",b)
-                if True:
+                if False:
                     plt.plot(segmentHz, segmentPhases, '.')
                     plt.show()
-                if True:
+                if False:
                     plt.plot(segmentTimestamps, segmentPhases, '.')
+                    plt.show()
+                if True:
+                    segmentHzModified = [x / 3 - 2 for x in segmentHz]
+                    plt.plot(segmentTimestamps, segmentPhases, '-')
+                    plt.plot(segmentTimestamps, segmentHzModified, '.')
                     plt.show()
                 segmentHz = []
                 segmentPhases = []
@@ -86,13 +95,5 @@ if input_file:
     # print("m: ", m, "  -  b: ",b)
     plt.show()
     #histogram.showHistogram(phases, label = "12345678", histtype='bar', stacked= True)
-else:
-    phases = []
-    filenames = []
-    for filename in os.listdir(inputFolder):
-        absolutePath = os.path.join(inputFolder, filename)
-        phases.append(getFilePhase(absolutePath))
-        filenames.append(filename)
-    histogram.showHistogram(phases, label = filenames, histtype='step')
 
 

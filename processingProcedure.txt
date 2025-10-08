@@ -51,6 +51,9 @@ python3 unwrapPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\tuesday071020
 #remove incomplete data points:
 python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PhaseShiftUnwraped.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-ValidDataPoints.json 
 
+#segments with regression:
+python3 samplesRegression.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SamplesRegression.json 100
+
 #show phase shift Histogram:
 python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-ValidDataPoints.json
 
