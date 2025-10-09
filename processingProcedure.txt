@@ -54,6 +54,10 @@ python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\tuesday0710
 #segments with regression:
 python3 samplesRegression.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SamplesRegression.json 100
 
+
+python3 showSamplesRegression.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SamplesRegression.json
+
+
 #temperatureCompensation (so we can fuse vertically all samples):
 python3 temperatureCompensation.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SamplesRegression.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-temperatureCompensation.json
 
