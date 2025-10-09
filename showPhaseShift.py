@@ -50,14 +50,15 @@ def getFilePhase(input_file):
             segmentHz.append(hz)
             segmentPhases.append(deltaPhase)
             segmentTimestamps.append(float(sample["timestamp"]))
-            if processed % 100 == 0:
-                m, b = np.polyfit(segmentHz, segmentPhases, 1)
-                print("m: ", m, "    b: ",b)
+            if processed % 200 == 0:
+                if False:
+                    m, b = np.polyfit(segmentHz, segmentPhases, 1)
+                    print("m: ", m, "    b: ",b)
                 if False:
                     plt.plot(segmentHz, segmentPhases, '.')
                     plt.show()
                 if False:
-                    plt.plot(segmentTimestamps, segmentPhases, '.')
+                    plt.plot(segmentTimestamps, segmentPhases, '-')
                     plt.show()
                 if True:
                     segmentHzModified = [x / 3 - 2 for x in segmentHz]

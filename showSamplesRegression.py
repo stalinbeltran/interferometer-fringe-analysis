@@ -1,4 +1,5 @@
 #python3 showSamplesRegression.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SamplesRegression.json
+#python3 showSamplesRegression.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-SamplesRegression.json
 
 import os
 import sys
