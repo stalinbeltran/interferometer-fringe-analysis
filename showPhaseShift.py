@@ -82,7 +82,7 @@ def getFilePhase(input_file):
                 convolutionFixedPhase = np.convolve(segmentFixedPhase, kernel, mode='valid')
                 convolutionMobilePhase = np.convolve(segmentMobilePhase, kernel, mode='same')
                 size = len(convolutionFixedPhase)
-                if True:
+                if False:
                     for i in range(2, 60):
                         N = i
                         kernel = np.ones(N) / N
