@@ -57,11 +57,13 @@ def getFilePhase(input_file):
             segmentHz.append(hz)
             segmentPhases.append(deltaPhase)
             segmentTimestamps.append(float(sample["timestamp"]))
-            if processed % 200 == 0:
+            if processed % 3000 == 0:
                 
+                segmentHzModified = [x / 2 - 2.5 for x in segmentHz]
                 if True:
-                    plt.plot(segmentTimestamps, segmentFixedPhase, '.', label='Fixed Mirror')
-                    plt.plot(segmentTimestamps, segmentMobilePhase, '.', label='Mobile Mirror')
+                    plt.plot(segmentTimestamps, segmentFixedPhase, '-', label='Fixed Mirror')
+                    plt.plot(segmentTimestamps, segmentMobilePhase, '-', label='Mobile Mirror')
+                    plt.plot(segmentTimestamps, segmentHzModified, '.')
                     plt.legend()
                     plt.show()
                 if False:
@@ -74,7 +76,6 @@ def getFilePhase(input_file):
                     plt.plot(segmentTimestamps, segmentPhases, '-')
                     plt.show()
                 if False:
-                    segmentHzModified = [x / 3 - 2 for x in segmentHz]
                     plt.plot(segmentTimestamps, segmentPhases, '.')
                     plt.plot(segmentTimestamps, segmentHzModified, '.')
                     plt.show()
