@@ -26,7 +26,7 @@ def unwrapPhaseShift(segmentsJSON, phaseKey):
     processed = 0
     show = False
     showed = 0
-    maxShowed = 20
+    maxShowed = 4
     for segment in segments:
         samples = segment["samples"]
         previousSamplePhase = None
@@ -35,7 +35,7 @@ def unwrapPhaseShift(segmentsJSON, phaseKey):
             if phaseKey not in sample: continue
             phase = sample[phaseKey]
             timestamp = sample["timestamp"]
-            if timestamp == "1760016259.756601": #"1760016262.002568":
+            if phaseKey == "mobilePhase" and timestamp == "1760016262.842869": #"1760016262.002568":
                 show = True
             if not previousSamplePhase:
                 lastPoints.append(phase)
@@ -46,17 +46,20 @@ def unwrapPhaseShift(segmentsJSON, phaseKey):
                 print("previousSamplePhase: ", previousSamplePhase)
             distance = abs(previousSamplePhase-phase)
             if distance >= phaseMaxDifference:    #too much error
-                increasedPhaseDistance = abs(previousSamplePhase-(phase + 1))
+                increment = round(distance)
+                increasedPhaseDistance = abs(previousSamplePhase-(phase + increment))
                 decreasedPhaseDistance = abs(previousSamplePhase-(phase - 1))
                 if show:
-                    print("-----timestamp:", timestamp)
+                    print("-----   timestamp:", timestamp)
                     print("phase:", phase)
                     print("distance:", distance)
                     print("increasedPhaseDistance:", increasedPhaseDistance)
                     print("decreasedPhaseDistance:", decreasedPhaseDistance) 
-                if increasedPhaseDistance < distance*distanceImprovementFactor: phase+=1          #if we can make it closer to average, we do
+                if increasedPhaseDistance < distance*distanceImprovementFactor: phase+=increment          #if we can make it closer to average, we do
                 elif decreasedPhaseDistance < distance*distanceImprovementFactor: phase-=1
                 sample[phaseKey] = phase
+                if show:
+                    print("new phase:", phase)
                 processed+=1
             if show:
                 showed+=1
