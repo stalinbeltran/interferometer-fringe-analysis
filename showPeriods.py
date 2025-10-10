@@ -18,7 +18,7 @@ def countPeriods(value, previousPeriodsCounters):
             periodFound = period
             periodFound["count"] +=1
             return
-    periodFound = {"period": value, "count": 1}
+    periodFound = {"period": value, "count": 1}         #if not already exists, add a new counter
     previousPeriodsCounters.append(periodFound)
         
     
@@ -26,7 +26,8 @@ def countPeriods(value, previousPeriodsCounters):
 
 def getLookedPeriod(previousPeriodsCounters):
     maximumPeriod = globals.WIDTH/4                 #do not take photos with less than 4 fringes
-    previousPeriodsCountersSorted = sorted(previousPeriodsCounters, key=lambda x: x['count'])
+    previousPeriodsCountersSorted = sorted(previousPeriodsCounters, key=lambda x: x['count'], reverse = True)
+    print("previousPeriodsCountersSorted: ", previousPeriodsCountersSorted)
     for period in previousPeriodsCountersSorted:
         if period["period"] > maximumPeriod: continue
         return period["period"]

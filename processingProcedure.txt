@@ -1,38 +1,38 @@
 
 #get the file list of all fringes images:
-python3 getFileList.py D:\Stalin\FotosFranjasProyecto\smallSamplePeriscope D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-Files.json
+python3 getFileList.py D:\Stalin\FotosFranjasProyecto\thursday09102025_slowacceleration_direct D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Files.json
 
 #get segments of continuous measurements:
-python3 getSegments.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-Files.json D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-Segments.json
+python3 getSegments.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Files.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Segments.json
 
 #check if file is openable (some get corrupted somehow):
-python3 checkFile.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-Segments.json D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentsChecked.json
+python3 checkFile.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Segments.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentsChecked.json
 
 
 
 #get samples (pairs of continuous related images):
-python3 getSamples.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentsChecked.json  D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentSamples.json
+python3 getSamples.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentsChecked.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamples.json
 
 #get first 60 (ordered by magnitude) Fast Fourier Transform (FFT) parameters:
-python3 getFFT.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentSamples.json D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentSamplesFFT.json
+python3 getFFT.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamples.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesFFT.json
 
 
 #get time periods:
-python3 getTimePeriod.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentSamplesFFT.json  D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentTimePeriod.json
+python3 getTimePeriod.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesFFT.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentTimePeriod.json
 
 
 #remove points below 4hz speed (too slow data adquisition due to manual speed control (obscures data in phase wrapping))
-python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-FastDataPoints.json 
+python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-FastDataPoints.json 
 
 
 #get both period and phase from  every ff available:
-python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-FastDataPoints.json D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentSamplesPeriodPhase.json
+python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-FastDataPoints.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesPeriodPhase.json
 
 #get first of the periods (as it is the bigger one):
-python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentSamplesFirstPeriod.json
+python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesFirstPeriod.json
 
 #show periods in the samples:
-python3 showPeriods.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentSamplesPeriodLooked.json
+python3 showPeriods.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesPeriodLooked.json
 
 
 
@@ -40,36 +40,36 @@ python3 showPeriods.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePerisco
 
 
 #get the definitive period in every sample, null otherwise: 80, 107
-python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentSamplesPeriodLooked.json D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentSamplesDefinitivePeriod.json
+python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesPeriodLooked.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesDefinitivePeriod.json
 
 #get Phase shift for each sample:
-python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentSamplesDefinitivePeriod.json D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentSamplesPhaseShift.json 
+python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesDefinitivePeriod.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesPhaseShift.json 
 
 #remove file info:
-python3 removeFileInfo.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SegmentSamplesPhaseShift.json D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-NoFileInfo.json 
+python3 removeFileInfo.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesPhaseShift.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-NoFileInfo.json 
 
 #unwrap Phase shift for each sample:
-python3 unwrapPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-PhaseShiftUnwraped.json 
+python3 unwrapPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseShiftUnwraped.json 
 
 #remove incomplete data points:
-python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-PhaseShiftUnwraped.json D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-ValidDataPoints.json 
+python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseShiftUnwraped.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-ValidDataPoints.json 
 
 #show phase shift Histogram:
-python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-ValidDataPoints.json
+python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-ValidDataPoints.json
 
 
 
 
 
 #segments with regression:
-python3 samplesRegression.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SamplesRegression.json 100
+python3 samplesRegression.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SamplesRegression.json 100
 
 
-python3 showSamplesRegression.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SamplesRegression.json
+python3 showSamplesRegression.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SamplesRegression.json
 
 
 #temperatureCompensation (so we can fuse vertically all samples):
-python3 temperatureCompensation.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SamplesRegression.json D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-temperatureCompensation.json
+python3 temperatureCompensation.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SamplesRegression.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-temperatureCompensation.json
 
 
 
