@@ -30,6 +30,9 @@ def getFilePhase(input_file):
         segmentPhases = []
         segmentHz = []
         segmentTimestamps = []
+        segmentFixedPhase = []
+        segmentMobilePhase = []
+        
         samples = segment["samples"]
         periods = []
         firstSegmentTimestamp = None
@@ -43,7 +46,11 @@ def getFilePhase(input_file):
             if not firstSegmentTimestamp:
                 firstSegmentTimestamp = sample["timestamp"]
                 print("First timestamp: ", firstSegmentTimestamp)
-            allHz.append(hz)
+                
+            mobilePhase = sample["mobilePhase"]
+            fixedPhase = sample["fixedPhase"]
+            segmentMobilePhase.append(mobilePhase)
+            segmentFixedPhase.append(fixedPhase)
             allPhases.append(deltaPhase)
             allTimestamps.append(float(sample["timestamp"]))
             processed+=1
@@ -51,6 +58,12 @@ def getFilePhase(input_file):
             segmentPhases.append(deltaPhase)
             segmentTimestamps.append(float(sample["timestamp"]))
             if processed % 200 == 0:
+                
+                if True:
+                    plt.plot(segmentTimestamps, segmentFixedPhase, '.', label='Fixed Mirror')
+                    plt.plot(segmentTimestamps, segmentMobilePhase, '.', label='Mobile Mirror')
+                    plt.legend()
+                    plt.show()
                 if False:
                     m, b = np.polyfit(segmentHz, segmentPhases, 1)
                     print("m: ", m, "    b: ",b)
@@ -60,14 +73,16 @@ def getFilePhase(input_file):
                 if False:
                     plt.plot(segmentTimestamps, segmentPhases, '-')
                     plt.show()
-                if True:
+                if False:
                     segmentHzModified = [x / 3 - 2 for x in segmentHz]
-                    plt.plot(segmentTimestamps, segmentPhases, '-')
+                    plt.plot(segmentTimestamps, segmentPhases, '.')
                     plt.plot(segmentTimestamps, segmentHzModified, '.')
                     plt.show()
                 segmentHz = []
                 segmentPhases = []
                 segmentTimestamps = []
+                segmentFixedPhase = []
+                segmentMobilePhase = []
                 firstSegmentTimestamp = None
         #if processed>500:break
     
