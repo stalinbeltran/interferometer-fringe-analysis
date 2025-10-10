@@ -21,21 +21,27 @@ for segment in segments:
     for sample in samples:
         deltaPhase = None
         deltaPhasePixels = None
+        mobilePhase = None
+        fixedPhase = None
         fileMobile = sample["fileMobileMirror"]
         fileFixed = sample["fileFixedMirror"]
         if "period" not in fileMobile or "period" not in fileFixed or fileMobile["period"] is None or fileFixed["period"] is None: continue
         try:
-            deltaPhase = (fileMobile["period"]["phase"] - fileFixed["period"]["phase"])       #phase in degrees, converted to fractional(0.0-1.0)            
+            mobilePhase = fileMobile["period"]["phase"]
+            fixedPhase = fileFixed["period"]["phase"]
+            deltaPhase = (mobilePhase - fixedPhase)       #phase in degrees, converted to fractional(0.0-1.0)            
             deltaPhase = phaseProcessing.getPositivePhaseDegrees(deltaPhase)/360
             deltaPhasePixels = fileMobile["period"]["period"]*deltaPhase                                                 #useful to compare samples by pixels
-            if sample["timestamp"] == "1759500293.119290":
-                print("deltaPhase: ", deltaPhase)
+            mobilePhase = mobilePhase/360
+            fixedPhase = fixedPhase/360
             processed+=1
         except Exception as e:
             print(e)
 
         sample["deltaPhase"] = deltaPhase
         sample["deltaPhasePixels"] = deltaPhasePixels
+        sample["mobilePhase"] = mobilePhase
+        sample["fixedPhase"] = fixedPhase
 
 print("processed: ", processed)
 with open(output_file, 'w', encoding='utf-8') as f:
