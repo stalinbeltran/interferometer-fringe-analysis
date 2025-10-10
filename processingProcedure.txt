@@ -22,7 +22,7 @@ python3 getTimePeriod.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025
 
 
 #remove points below 4hz speed (too slow data adquisition due to manual speed control (obscures data in phase wrapping))
-python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-FastDataPoints.json 
+#python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-FastDataPoints.json 
 
 
 #get both period and phase from  every ff available:
