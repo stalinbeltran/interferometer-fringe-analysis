@@ -15,16 +15,18 @@ if len(sys.argv) > 2:
     input_file = None
 
 
-def showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePhase):
-    N = 20
+def showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePhase, segmentHz):
+    N = 10
     kernel = np.ones(N) / N
     convolutionFixed = np.convolve(segmentFixedPhase, kernel, mode='valid')
     convolutionMobile = np.convolve(segmentMobilePhase, kernel, mode='valid')
     convLen = len(convolutionFixed)
+    segmentHzModified = [x / 2 - 2.5 for x in segmentHz]
     plt.plot(segmentTimestamps, segmentFixedPhase, '-', label='Fixed')
     plt.plot(segmentTimestamps, segmentMobilePhase, '-', label='Mobile')
     plt.plot(segmentTimestamps[:convLen], convolutionFixed, '.', label='Convolution Fixed')
     plt.plot(segmentTimestamps[:convLen], convolutionMobile, '.', label='Convolution Mobile')
+    plt.plot(segmentTimestamps, segmentHzModified, '.', label='Speed (Hz)')
     plt.legend()
     plt.show()
 
@@ -73,7 +75,7 @@ def getFilePhase(input_file):
             segmentPhases.append(deltaPhase)
             segmentTimestamps.append(float(sample["timestamp"]))
             
-            if processed % 300 == 0:
+            if processed % 6000 == 0:
                 segmentHzModified = [x / 2 - 2.5 for x in segmentHz]
                 N = 8
                 kernel = np.ones(N) / N
@@ -94,7 +96,7 @@ def getFilePhase(input_file):
                         print("N: ", N, "       average: ", average)
                             
                 if True:
-                    showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePhase)
+                    showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePhase, segmentHz)
                 if False:
                     N = 20
                     kernel = np.ones(N) / N
