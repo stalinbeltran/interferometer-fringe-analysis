@@ -9,7 +9,7 @@ from collections import deque
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
-phaseMaxDifference = 0.25
+phaseMaxDifference = 0.20
 distanceImprovementFactor = 0.9
 N_lastPoints = 8
 
@@ -26,7 +26,7 @@ def unwrapPhaseShift(segmentsJSON, phaseKey):
     processed = 0
     show = False
     showed = 0
-    maxShowed = 4
+    maxShowed = 20
     for segment in segments:
         samples = segment["samples"]
         previousSamplePhase = None
@@ -35,9 +35,15 @@ def unwrapPhaseShift(segmentsJSON, phaseKey):
             if phaseKey not in sample: continue
             phase = sample[phaseKey]
             timestamp = sample["timestamp"]
+            if timestamp == "1760016259.756601": #"1760016262.002568":
+                show = True
             if not previousSamplePhase:
-                previousSamplePhase = phase
+                lastPoints.append(phase)
+                previousSamplePhase = lastPointsAverage(lastPoints)
                 continue
+            
+            if show:
+                print("previousSamplePhase: ", previousSamplePhase)
             distance = abs(previousSamplePhase-phase)
             if distance >= phaseMaxDifference:    #too much error
                 increasedPhaseDistance = abs(previousSamplePhase-(phase + 1))
@@ -54,7 +60,8 @@ def unwrapPhaseShift(segmentsJSON, phaseKey):
                 processed+=1
             if show:
                 showed+=1
-            if showed >= maxShowed: exit()
+            if show and showed >= maxShowed:
+                show = False
             lastPoints.append(phase)
             previousSamplePhase = lastPointsAverage(lastPoints)
     
@@ -64,6 +71,8 @@ def unwrapPhaseShift(segmentsJSON, phaseKey):
 with open(input_file, 'r', encoding='utf-8') as f:
     segmentsJSON = json.load(f)
 unwrapPhaseShift(segmentsJSON, "deltaPhase")
+unwrapPhaseShift(segmentsJSON, "mobilePhase")
+unwrapPhaseShift(segmentsJSON, "fixedPhase")
 
 
 with open(output_file, 'w', encoding='utf-8') as f:
