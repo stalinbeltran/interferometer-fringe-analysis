@@ -14,6 +14,21 @@ if len(sys.argv) > 2:
     inputFolder = input_file
     input_file = None
 
+
+def showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePhase):
+    N = 20
+    kernel = np.ones(N) / N
+    convolutionFixed = np.convolve(segmentFixedPhase, kernel, mode='valid')
+    convolutionMobile = np.convolve(segmentMobilePhase, kernel, mode='valid')
+    convLen = len(convolutionFixed)
+    plt.plot(segmentTimestamps, segmentFixedPhase, '-', label='Fixed')
+    plt.plot(segmentTimestamps, segmentMobilePhase, '-', label='Mobile')
+    plt.plot(segmentTimestamps[:convLen], convolutionFixed, '.', label='Convolution Fixed')
+    plt.plot(segmentTimestamps[:convLen], convolutionMobile, '.', label='Convolution Mobile')
+    plt.legend()
+    plt.show()
+
+
 def getFilePhase(input_file):
     with open(input_file, 'r', encoding='utf-8') as f:
         segmentsJSON = json.load(f)
@@ -57,8 +72,8 @@ def getFilePhase(input_file):
             segmentHz.append(hz)
             segmentPhases.append(deltaPhase)
             segmentTimestamps.append(float(sample["timestamp"]))
+            
             if processed % 300 == 0:
-                
                 segmentHzModified = [x / 2 - 2.5 for x in segmentHz]
                 N = 8
                 kernel = np.ones(N) / N
@@ -77,6 +92,14 @@ def getFilePhase(input_file):
                         size = len(convoDifference)
                         average = sum(convoDifference)/size
                         print("N: ", N, "       average: ", average)
+                            
+                if True:
+                    showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePhase)
+                if False:
+                    N = 20
+                    kernel = np.ones(N) / N
+                    convolutionFixedPhase = np.convolve(segmentFixedPhase, kernel, mode='valid')
+                    convolutionMobilePhase = np.convolve(segmentMobilePhase, kernel, mode='valid')
                     #plt.plot(segmentTimestamps, segmentFixedPhase, '-', label='Fixed Mirror')
                     #plt.plot(segmentTimestamps, segmentMobilePhase, '-', label='Mobile Mirror')
                     plt.plot(segmentTimestamps, segmentHzModified, '.', label='Hz')
