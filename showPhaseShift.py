@@ -57,13 +57,29 @@ def getFilePhase(input_file):
             segmentHz.append(hz)
             segmentPhases.append(deltaPhase)
             segmentTimestamps.append(float(sample["timestamp"]))
-            if processed % 3000 == 0:
+            if processed % 300 == 0:
                 
                 segmentHzModified = [x / 2 - 2.5 for x in segmentHz]
+                N = 8
+                kernel = np.ones(N) / N
+                convolutionFixedPhase = np.convolve(segmentFixedPhase, kernel, mode='valid')
+                convolutionMobilePhase = np.convolve(segmentMobilePhase, kernel, mode='same')
+                size = len(convolutionFixedPhase)
                 if True:
-                    plt.plot(segmentTimestamps, segmentFixedPhase, '-', label='Fixed Mirror')
-                    plt.plot(segmentTimestamps, segmentMobilePhase, '-', label='Mobile Mirror')
-                    plt.plot(segmentTimestamps, segmentHzModified, '.')
+                    for i in range(2, 60):
+                        N = i
+                        kernel = np.ones(N) / N
+                        convolutionFixedPhase = np.convolve(segmentFixedPhase, kernel, mode='valid')
+                        convolutionMobilePhase = np.convolve(segmentMobilePhase, kernel, mode='valid')
+                        convoDifference = []
+                        for index in range(0, len(convolutionFixedPhase)):
+                            convoDifference.append(convolutionFixedPhase[index] - convolutionMobilePhase[index])
+                        size = len(convoDifference)
+                        average = sum(convoDifference)/size
+                        print("N: ", N, "       average: ", average)
+                    #plt.plot(segmentTimestamps, segmentFixedPhase, '-', label='Fixed Mirror')
+                    #plt.plot(segmentTimestamps, segmentMobilePhase, '-', label='Mobile Mirror')
+                    plt.plot(segmentTimestamps, segmentHzModified, '.', label='Hz')
                     plt.legend()
                     plt.show()
                 if False:
@@ -92,6 +108,13 @@ def getFilePhase(input_file):
 
     #histogram.showHistogram(phases, "Phases")
     return allPhases, allHz, allTimestamps
+
+
+N = 40
+kernel = np.ones(N) / N
+#print(kernel)
+#exit()
+
 
 if input_file:
     allPhases, allHz, allTimestamps = getFilePhase(input_file)
