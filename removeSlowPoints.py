@@ -18,7 +18,7 @@ for segment in segments:
     samples = segment["samples"]
     newSegmentSamples = []
     for sample in samples:
-        if "hz" in sample and sample["hz"] >= 4 and sample["hz"] < 6:
+        if "hz" in sample and sample["hz"] >= 4: #remove only slowers, if any           # and sample["hz"] < 6:
             newSegmentSamples.append(sample)
             processed+=1
             
