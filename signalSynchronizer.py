@@ -10,9 +10,11 @@ from collections import deque
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
-phaseMaxDifference = 1.2                #max allowed diff between average and a point
-distanceImprovementFactor = 0.9
-N_lastPoints = 12
+phaseMaxDifference = float(sys.argv[3])             #0.7
+N_lastPoints = int(sys.argv[4])                   #50
+#phaseMaxDifference = 0.7                #max allowed diff between average and a point
+distanceImprovementFactor = 0.5
+#N_lastPoints = 300
 distanceToBorder = 0.2
 
 
@@ -36,6 +38,7 @@ def sync(segmentsJSON, phaseKeyReference, phaseKey):
             if phaseKey not in sample: continue
             referencePhase = sample[phaseKeyReference]
             phase = sample[phaseKey]
+            newphase = phase
             referencePhaseAverage = globals.lastPointsAverage(lastPointsReference)
             distance = abs(referencePhaseAverage-phase)                               #actual distance
             if distance < phaseMaxDifference:        #assuming the signal difference allowed be lower
