@@ -11,7 +11,7 @@ input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 phaseMaxDifference = 0.20
 distanceImprovementFactor = 0.9
-N_lastPoints = 8
+N_lastPoints = 160 
 
 def lastPointsAverage(lastPoints):
     average = sum(lastPoints) / len(lastPoints)
@@ -26,7 +26,7 @@ def unwrapPhaseShift(segmentsJSON, phaseKey):
     processed = 0
     show = False
     showed = 0
-    maxShowed = 4
+    maxShowed = 40
     for segment in segments:
         samples = segment["samples"]
         previousSamplePhase = None
@@ -58,6 +58,8 @@ def unwrapPhaseShift(segmentsJSON, phaseKey):
                 if increasedPhaseDistance < distance*distanceImprovementFactor: phase+=increment          #if we can make it closer to average, we do
                 elif decreasedPhaseDistance < distance*distanceImprovementFactor: phase-=1
                 sample[phaseKey] = phase
+                if phase > 2 and showed < maxShowed and phaseKey == "mobilePhase":
+                    show = True
                 if show:
                     print("new phase:", phase)
                 processed+=1

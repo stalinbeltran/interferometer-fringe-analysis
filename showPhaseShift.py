@@ -14,14 +14,18 @@ sampleSize = int(sys.argv[2])
 
 
 def showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePhase, segmentHz, title):
-    N = 40
+    N = 80
     kernel = np.ones(N) / N
     convolutionFixed = np.convolve(segmentFixedPhase, kernel, mode='valid')
     convolutionMobile = np.convolve(segmentMobilePhase, kernel, mode='valid')
     size = len(convolutionFixed)
     diffConv = []
     for i in range(0, size):
-        diffConv.append(convolutionMobile[i] - convolutionFixed[i])
+        diffConv.append((convolutionMobile[i] - convolutionFixed[i])*3)
+    avg = sum(diffConv)/size
+    
+    for i in range(0, size):
+        diffConv[i] = (diffConv[i]-1*avg)
         
     convLen = len(convolutionFixed)
     segmentHzModified = [x / 2 - 2.5 for x in segmentHz]
