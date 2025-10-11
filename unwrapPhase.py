@@ -12,14 +12,16 @@ output_file = (sys.argv[2])
 phaseMaxDifference = 0.4                #max allowed diff between average and a point
 distanceImprovementFactor = 0.9
 N_lastPoints = 12
+distanceToBorder = 0.2
 
 def lastPointsAverage(lastPoints):
     average = sum(lastPoints) / len(lastPoints)
     return average
 
 def isPhaseBorder(phase):
+    global distanceToBorder
     periods = round(phase)
-    if abs(phase-periods) < 0.05:           #phase is in the border
+    if abs(phase-periods) < distanceToBorder:           #phase is in the border
         return True
     return False
     
@@ -32,19 +34,22 @@ def unwrapPhase(segmentsJSON, phaseKey):
     maxShowed = 4
     for segment in segments:
         samples = segment["samples"]
-        previousSamplePhase = samples[0][phaseKey]
         lastPoints = deque(maxlen=N_lastPoints)
+        if len(samples) == 0:
+            continue
+        previousSamplePhase = samples[0][phaseKey]
         lastPoints.append(previousSamplePhase)
+        
         for sample in samples:
             if phaseKey not in sample: continue
             phase = sample[phaseKey]
             newphase = phase
-            lastPoints.append(phase)
-            if not isPhaseBorder(phase):        #from here only phase borders
-                continue
-            
             previousSamplePhase = lastPointsAverage(lastPoints)
             distance = abs(previousSamplePhase-phase)                               #actual distance
+            if distance < phaseMaxDifference:        #from here, only phase borders
+                lastPoints.append(phase)
+                continue
+            
             increment = round(distance)                                             #only increment/decrement an integer number of times, to keep phase information
             increasedPhaseDistance = abs(previousSamplePhase-(phase + (increment)))
             decreasedPhaseDistance = abs(previousSamplePhase-(phase - (increment)))
@@ -52,10 +57,10 @@ def unwrapPhase(segmentsJSON, phaseKey):
             elif decreasedPhaseDistance < distance*distanceImprovementFactor: newphase = phase-increment
             sample[phaseKey] = newphase
             processed+=1
-            
+            lastPoints.append(newphase)
             
             timestamp = sample["timestamp"]
-            if phaseKey == "mobilePhase" and timestamp == "1760016262.842869": #"1760016262.002568":
+            if phaseKey == "mobilePhase" and timestamp == "1760020163.209353":
                 show = True
             if show and showed < maxShowed:
                 showed+=1

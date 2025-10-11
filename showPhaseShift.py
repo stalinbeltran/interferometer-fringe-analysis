@@ -82,8 +82,8 @@ def getFilePhase(input_file):
             fixedPhase = sample["fixedPhase"]
             segmentMobilePhase.append(mobilePhase)
             segmentFixedPhase.append(fixedPhase)
-            segmentMobilePhase_soft.append(sample["mobilePhase_soft"])
-            segmentFixedPhase_soft.append(sample["fixedPhase_soft"])
+            # segmentMobilePhase_soft.append(sample["mobilePhase_soft"])
+            # segmentFixedPhase_soft.append(sample["fixedPhase_soft"])
             allPhases.append(deltaPhase)
             allTimestamps.append(float(sample["timestamp"]))
             processed+=1
