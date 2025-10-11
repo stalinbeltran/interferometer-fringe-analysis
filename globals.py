@@ -130,3 +130,8 @@ def filter(signal, cutoff = 25):
     for p in reconstructed_signalComplex:
         reconstructed_signal.append(p.real)
     return reconstructed_signal
+    
+
+def lastPointsAverage(lastPoints):
+    average = sum(lastPoints) / len(lastPoints)
+    return average
