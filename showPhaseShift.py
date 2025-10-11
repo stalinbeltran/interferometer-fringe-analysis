@@ -31,8 +31,8 @@ def showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePha
     segmentHzModified = [x / 2 - 2.5 for x in segmentHz]
     plt.plot(segmentTimestamps, segmentFixedPhase, '-', label='Fixed')
     plt.plot(segmentTimestamps, segmentMobilePhase, '-', label='Mobile')
-    plt.plot(segmentTimestamps, segmentFixedPhase_soft, '-', label='Fixed')
-    plt.plot(segmentTimestamps, segmentMobilePhase_soft, '-', label='Mobile')
+    # plt.plot(segmentTimestamps, segmentFixedPhase_soft, '-', label='Fixed')
+    # plt.plot(segmentTimestamps, segmentMobilePhase_soft, '-', label='Mobile')
     # plt.plot(segmentTimestamps[:convLen], convolutionFixed, '.', label='Convolution Fixed')
     # plt.plot(segmentTimestamps[:convLen], convolutionMobile, '.', label='Convolution Mobile')
     # plt.plot(segmentTimestamps[:convLen], diffConv, '.', label='Convolution Difference')

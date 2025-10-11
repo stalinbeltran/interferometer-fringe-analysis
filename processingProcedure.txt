@@ -52,7 +52,10 @@ python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slow
 
 
 #unwrap Phase shift for each sample:
-python3 unwrapPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseShiftUnwraped.json 
+python3 unwrapPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwraped.json 
+
+#unwrap Phase shift for each sample:
+python3 unwrapPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseShiftUnwraped.json 
 
 #remove incomplete data points:
 python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseShiftUnwraped.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-ValidDataPoints.json 

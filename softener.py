@@ -10,8 +10,9 @@ from collections import deque
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
-phaseMaxDifference = 0.9
-minimumDataSize = 100           #minumum data points for apply softening
+phaseMaxDifference = 0.7
+minimumDataSize = 1000           #minumum data points for apply softening
+cutoff = 10
 
 def isContinuous(value, lastValue):
     global phaseMaxDifference
@@ -20,11 +21,19 @@ def isContinuous(value, lastValue):
 
 
 def softenSamples(samples, phaseKey):
+    global cutoff
     signal = []
+    sample = samples[0]
+    if phaseKey in sample:
+        lastValue = sample[phaseKey]
     for sample in samples:                  #get values
         if phaseKey in sample:
-            signal.append(sample[phaseKey])
-    filteredSignal = globals.filter(signal, cutoff = 5)    #filer noise
+            value = sample[phaseKey]            
+            valueIsContinuous = isContinuous(value, lastValue)
+            if not valueIsContinuous:
+                value = 0                                       #send all full 360 degrees noise to zero by default
+            signal.append(value)
+    filteredSignal = globals.filter(signal, cutoff = cutoff)    #filer noise
     size = len(filteredSignal)
     for i in range(0, size):
         sample = samples[i]
