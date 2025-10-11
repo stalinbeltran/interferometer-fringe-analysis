@@ -75,7 +75,7 @@ def getFilePhase(input_file):
             segmentPhases.append(deltaPhase)
             segmentTimestamps.append(float(sample["timestamp"]))
             
-            if processed % 5000 == 0:
+            if processed % 4000 == 0:
                 segmentHzModified = [x / 2 - 2.5 for x in segmentHz]
                 N = 8
                 kernel = np.ones(N) / N
