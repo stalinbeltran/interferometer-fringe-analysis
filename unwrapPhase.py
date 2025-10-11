@@ -5,6 +5,7 @@ import sys
 import json
 import cv2
 import numpy as np
+import globals
 from collections import deque
 
 input_file = (sys.argv[1])

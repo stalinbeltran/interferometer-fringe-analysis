@@ -1,20 +1,21 @@
-#python3 signalSynchoronizer.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-PhaseShiftUnwraped.json D:\Stalin\FotosFranjasProyecto\results\friday03102025-Sync.json 
+#python3 signalSynchronizer.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwraped.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Sync.json  
 
 import os
 import sys
 import json
 import cv2
 import numpy as np
+import globals
 from collections import deque
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
-phaseMaxDifference = 0.4                #max allowed diff between average and a point
+phaseMaxDifference = 1.2                #max allowed diff between average and a point
 distanceImprovementFactor = 0.9
 N_lastPoints = 12
 distanceToBorder = 0.2
 
-    
+
 def sync(segmentsJSON, phaseKeyReference, phaseKey):
     global phaseMaxDifference, distanceImprovementFactor, N_lastPoints
     segments = segmentsJSON["segments"]
@@ -37,7 +38,7 @@ def sync(segmentsJSON, phaseKeyReference, phaseKey):
             phase = sample[phaseKey]
             referencePhaseAverage = globals.lastPointsAverage(lastPointsReference)
             distance = abs(referencePhaseAverage-phase)                               #actual distance
-            if distance < 2:        #assuming the signal difference allowed be lower
+            if distance < phaseMaxDifference:        #assuming the signal difference allowed be lower
                 lastPointsReference.append(referencePhase)
                 continue
             
@@ -70,7 +71,7 @@ def sync(segmentsJSON, phaseKeyReference, phaseKey):
 with open(input_file, 'r', encoding='utf-8') as f:
     segmentsJSON = json.load(f)
 #sync(segmentsJSON, "deltaPhase")
-sync(segmentsJSON, "mobilePhase", "fixedPhase")
+sync(segmentsJSON, "fixedPhase", "mobilePhase")
 
 
 with open(output_file, 'w', encoding='utf-8') as f:
