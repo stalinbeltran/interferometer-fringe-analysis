@@ -120,3 +120,10 @@ def isBlackImage(img):
     if mean > BLACK_IMAGE_LEVEL:
         return False
     return True
+
+
+def filter(signal, cutoff = 25):
+    fourier_transform = np.fft.fft(signal)
+    fourier_transform[cutoff:-cutoff] = 0       #low pass filter
+    reconstructed_signal = np.fft.ifft(fourier_transform) #Inverse Fourier Transform
+    return reconstructed_signal
