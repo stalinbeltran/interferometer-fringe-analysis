@@ -14,7 +14,11 @@ def filter(signal, cutoff = 25):
 x = np.linspace(0, 2 * np.pi, 100)
 signal = np.sin(6*x) + 0.5 * np.cos(2 * x) + np.sin(60*x)
 
-reconstructed_signal = filter(signal)
+reconstructed_signalComplex = filter(signal)
+print(reconstructed_signalComplex[0])
+reconstructed_signal = []
+for p in reconstructed_signalComplex:
+    reconstructed_signal.append(p.real)
 
 # 5. Visualize the results
 plt.figure(figsize=(10, 6))

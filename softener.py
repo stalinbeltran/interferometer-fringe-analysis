@@ -22,11 +22,14 @@ def isContinuous(value, lastValue):
 def softenSamples(samples, phaseKey):
     signal = []
     for sample in samples:                  #get values
-        signal.append(sample[phaseKey])
-    filteredSignal = filter(signal, cutoff = 25)    #filer noise
+        if phaseKey in sample:
+            signal.append(sample[phaseKey])
+    filteredSignal = globals.filter(signal, cutoff = 25)    #filer noise
     size = len(filteredSignal)
     for i in range(0, size):
-        samples[i][phaseKey] = filteredSignal[i]    #replace older values
+        sample = samples[i]
+        if phaseKey in sample:
+            sample[phaseKey] = filteredSignal[i]    #replace older values
         
 
 
@@ -38,13 +41,19 @@ def softenSignal(segmentsJSON, phaseKey):
     for segment in segments:
         samples = segment["samples"]
         previousSamplePhase = None
+        if len(samples)==0: continue
         sample = samples[0]
         lastValue = sample[phaseKey]
         data = []
         acceptIrregular = True
         for sample in samples:
             data.append(sample)                                     #always accept the present sample, even if it is the last one
-            value = sample[phaseKey]
+            if phaseKey in sample:
+                value = sample[phaseKey]
+            else:
+                print(sample)
+                continue
+                
             valueIsContinuous = isContinuous(value, lastValue)
             lastValue = value
             

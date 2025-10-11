@@ -125,5 +125,8 @@ def isBlackImage(img):
 def filter(signal, cutoff = 25):
     fourier_transform = np.fft.fft(signal)
     fourier_transform[cutoff:-cutoff] = 0       #low pass filter
-    reconstructed_signal = np.fft.ifft(fourier_transform) #Inverse Fourier Transform
+    reconstructed_signalComplex = np.fft.ifft(fourier_transform) #Inverse Fourier Transform
+    reconstructed_signal = []
+    for p in reconstructed_signalComplex:
+        reconstructed_signal.append(p.real)
     return reconstructed_signal
