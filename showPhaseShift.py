@@ -10,28 +10,34 @@ import phaseProcessing
 import matplotlib.pyplot as plt
 
 input_file = (sys.argv[1])
-if len(sys.argv) > 2:
-    inputFolder = input_file
-    input_file = None
+sampleSize = int(sys.argv[2])
 
 
-def showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePhase, segmentHz):
-    N = 10
+def showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePhase, segmentHz, title):
+    N = 40
     kernel = np.ones(N) / N
     convolutionFixed = np.convolve(segmentFixedPhase, kernel, mode='valid')
     convolutionMobile = np.convolve(segmentMobilePhase, kernel, mode='valid')
+    size = len(convolutionFixed)
+    diffConv = []
+    for i in range(0, size):
+        diffConv.append(convolutionMobile[i] - convolutionFixed[i])
+        
     convLen = len(convolutionFixed)
     segmentHzModified = [x / 2 - 2.5 for x in segmentHz]
     plt.plot(segmentTimestamps, segmentFixedPhase, '-', label='Fixed')
     plt.plot(segmentTimestamps, segmentMobilePhase, '-', label='Mobile')
     plt.plot(segmentTimestamps[:convLen], convolutionFixed, '.', label='Convolution Fixed')
     plt.plot(segmentTimestamps[:convLen], convolutionMobile, '.', label='Convolution Mobile')
+    plt.plot(segmentTimestamps[:convLen], diffConv, '.', label='Convolution Difference')
     plt.plot(segmentTimestamps, segmentHzModified, '.', label='Speed (Hz)')
+    plt.title(title)
     plt.legend()
     plt.show()
 
 
 def getFilePhase(input_file):
+    global sampleSize
     with open(input_file, 'r', encoding='utf-8') as f:
         segmentsJSON = json.load(f)
 
@@ -75,13 +81,8 @@ def getFilePhase(input_file):
             segmentPhases.append(deltaPhase)
             segmentTimestamps.append(float(sample["timestamp"]))
             
-            if processed % 4000 == 0:
+            if processed % sampleSize == 0:
                 segmentHzModified = [x / 2 - 2.5 for x in segmentHz]
-                N = 8
-                kernel = np.ones(N) / N
-                convolutionFixedPhase = np.convolve(segmentFixedPhase, kernel, mode='valid')
-                convolutionMobilePhase = np.convolve(segmentMobilePhase, kernel, mode='same')
-                size = len(convolutionFixedPhase)
                 if False:
                     for i in range(2, 60):
                         N = i
@@ -96,17 +97,7 @@ def getFilePhase(input_file):
                         print("N: ", N, "       average: ", average)
                             
                 if True:
-                    showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePhase, segmentHz)
-                if False:
-                    N = 20
-                    kernel = np.ones(N) / N
-                    convolutionFixedPhase = np.convolve(segmentFixedPhase, kernel, mode='valid')
-                    convolutionMobilePhase = np.convolve(segmentMobilePhase, kernel, mode='valid')
-                    #plt.plot(segmentTimestamps, segmentFixedPhase, '-', label='Fixed Mirror')
-                    #plt.plot(segmentTimestamps, segmentMobilePhase, '-', label='Mobile Mirror')
-                    plt.plot(segmentTimestamps, segmentHzModified, '.', label='Hz')
-                    plt.legend()
-                    plt.show()
+                    showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePhase, segmentHz, title = input_file)
                 if False:
                     m, b = np.polyfit(segmentHz, segmentPhases, 1)
                     print("m: ", m, "    b: ",b)
