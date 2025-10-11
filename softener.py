@@ -24,12 +24,12 @@ def softenSamples(samples, phaseKey):
     for sample in samples:                  #get values
         if phaseKey in sample:
             signal.append(sample[phaseKey])
-    filteredSignal = globals.filter(signal, cutoff = 25)    #filer noise
+    filteredSignal = globals.filter(signal, cutoff = 5)    #filer noise
     size = len(filteredSignal)
     for i in range(0, size):
         sample = samples[i]
         if phaseKey in sample:
-            sample[phaseKey] = filteredSignal[i]    #replace older values
+            sample[phaseKey+"_soft"] = filteredSignal[i]    #replace older values
         
 
 

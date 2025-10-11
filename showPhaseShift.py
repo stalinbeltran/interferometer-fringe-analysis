@@ -13,7 +13,7 @@ input_file = (sys.argv[1])
 sampleSize = int(sys.argv[2])
 
 
-def showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePhase, segmentHz, title):
+def showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePhase, segmentMobilePhase_soft, segmentFixedPhase_soft, segmentHz, title):
     N = 80
     kernel = np.ones(N) / N
     convolutionFixed = np.convolve(segmentFixedPhase, kernel, mode='valid')
@@ -31,10 +31,12 @@ def showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePha
     segmentHzModified = [x / 2 - 2.5 for x in segmentHz]
     plt.plot(segmentTimestamps, segmentFixedPhase, '-', label='Fixed')
     plt.plot(segmentTimestamps, segmentMobilePhase, '-', label='Mobile')
-    plt.plot(segmentTimestamps[:convLen], convolutionFixed, '.', label='Convolution Fixed')
-    plt.plot(segmentTimestamps[:convLen], convolutionMobile, '.', label='Convolution Mobile')
-    plt.plot(segmentTimestamps[:convLen], diffConv, '.', label='Convolution Difference')
-    plt.plot(segmentTimestamps, segmentHzModified, '.', label='Speed (Hz)')
+    plt.plot(segmentTimestamps, segmentFixedPhase_soft, '-', label='Fixed')
+    plt.plot(segmentTimestamps, segmentMobilePhase_soft, '-', label='Mobile')
+    # plt.plot(segmentTimestamps[:convLen], convolutionFixed, '.', label='Convolution Fixed')
+    # plt.plot(segmentTimestamps[:convLen], convolutionMobile, '.', label='Convolution Mobile')
+    # plt.plot(segmentTimestamps[:convLen], diffConv, '.', label='Convolution Difference')
+    # plt.plot(segmentTimestamps, segmentHzModified, '.', label='Speed (Hz)')
     plt.title(title)
     plt.legend()
     plt.show()
@@ -59,6 +61,8 @@ def getFilePhase(input_file):
         segmentTimestamps = []
         segmentFixedPhase = []
         segmentMobilePhase = []
+        segmentFixedPhase_soft = []
+        segmentMobilePhase_soft = []
         
         samples = segment["samples"]
         periods = []
@@ -78,6 +82,8 @@ def getFilePhase(input_file):
             fixedPhase = sample["fixedPhase"]
             segmentMobilePhase.append(mobilePhase)
             segmentFixedPhase.append(fixedPhase)
+            segmentMobilePhase_soft.append(sample["mobilePhase_soft"])
+            segmentFixedPhase_soft.append(sample["fixedPhase_soft"])
             allPhases.append(deltaPhase)
             allTimestamps.append(float(sample["timestamp"]))
             processed+=1
@@ -101,7 +107,7 @@ def getFilePhase(input_file):
                         print("N: ", N, "       average: ", average)
                             
                 if True:
-                    showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePhase, segmentHz, title = input_file)
+                    showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePhase, segmentMobilePhase_soft, segmentFixedPhase_soft,  segmentHz, title = input_file)
                 if False:
                     m, b = np.polyfit(segmentHz, segmentPhases, 1)
                     print("m: ", m, "    b: ",b)
@@ -120,6 +126,8 @@ def getFilePhase(input_file):
                 segmentTimestamps = []
                 segmentFixedPhase = []
                 segmentMobilePhase = []
+                segmentFixedPhase_soft = []
+                segmentMobilePhase_soft = []
                 firstSegmentTimestamp = None
         #if processed>500:break
     
