@@ -12,15 +12,9 @@ input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 phaseMaxDifference = 0.4                #max allowed diff between average and a point
 distanceImprovementFactor = 0.9
-N_lastPoints = 12
+N_lastPoints = 24
 distanceToBorder = 0.2
 
-def isPhaseBorder(phase):
-    global distanceToBorder
-    periods = round(phase)
-    if abs(phase-periods) < distanceToBorder:           #phase is in the border
-        return True
-    return False
     
 def unwrapPhase(segmentsJSON, phaseKey):
     global phaseMaxDifference, distanceImprovementFactor, N_lastPoints
