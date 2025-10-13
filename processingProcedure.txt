@@ -63,21 +63,6 @@ python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\thursday0910202
 -------------------------
 -------------------------
 
-#sync phase from 2 signals, so they dont diverge:
-#python3 signalSynchronizer.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwrapped.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Sync.json 0.7 40
-
-
-#segments with regression:
-python3 samplesRegression.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SamplesRegression.json 100
-
-
-python3 showSamplesRegression.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SamplesRegression.json
-
-
-#temperatureCompensation (so we can fuse vertically all samples):
-python3 temperatureCompensation.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SamplesRegression.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-temperatureCompensation.json
-
-
 #soften signals (lots of phase noise):
 python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json
 
