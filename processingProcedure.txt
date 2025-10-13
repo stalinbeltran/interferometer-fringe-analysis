@@ -47,22 +47,16 @@ python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025
 #remove file info:
 python3 removeFileInfo.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesPhaseShift.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-NoFileInfo.json 
 
-#soften signals (lots of phase noise):
-python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json
-
 
 #unwrap Phase shift for each sample:
 python3 unwrapPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwraped.json 
 
 #sync phase from 2 signals, so they dont diverge:
-python3 signalSynchronizer.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwraped.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Sync.json  
+python3 signalSynchronizer.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwraped.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Sync.json 0.7 40
 
-
-#unwrap Phase shift for each sample:
-python3 unwrapPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseShiftUnwraped.json 
 
 #remove incomplete data points:
-python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseShiftUnwraped.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-ValidDataPoints.json 
+python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Sync.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-ValidDataPoints.json 
 
 #show phase shift Histogram:
 python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-ValidDataPoints.json 3200
@@ -81,5 +75,8 @@ python3 showSamplesRegression.py D:\Stalin\FotosFranjasProyecto\results\thursday
 #temperatureCompensation (so we can fuse vertically all samples):
 python3 temperatureCompensation.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SamplesRegression.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-temperatureCompensation.json
 
+
+#soften signals (lots of phase noise):
+python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json
 
 

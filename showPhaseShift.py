@@ -129,6 +129,10 @@ def getFilePhase(input_file):
                 segmentFixedPhase_soft = []
                 segmentMobilePhase_soft = []
                 firstSegmentTimestamp = None
+        if processed % sampleSize > 0 and len(segmentTimestamps) > 0:
+            if True:
+                print("segment remaining")
+                showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePhase, segmentMobilePhase_soft, segmentFixedPhase_soft,  segmentHz, title = input_file)
         #if processed>500:break
     
         #histogram.showHistogram(segmentPhases, label= "Phases", show = False)
