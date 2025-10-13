@@ -15,7 +15,7 @@ distanceImprovementFactor = 0.9
 N_lastPoints = 24
 distanceToBorder = 0.2
 
-    
+
 def unwrapPhase(segmentsJSON, phaseKey):
     global phaseMaxDifference, distanceImprovementFactor, N_lastPoints
     segments = segmentsJSON["segments"]
