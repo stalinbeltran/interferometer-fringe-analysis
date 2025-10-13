@@ -26,8 +26,8 @@ def sync(segmentsJSON, phaseKeyReference, phaseKey):
         samples = segment["samples"]
         if len(samples) == 0:
             continue
-        lastPointsReference = deque(maxlen=N_lastPoints)
-        lastPointsReference.append(samples[0][phaseKeyReference])
+        aroundPointsReference = deque(maxlen=N_lastPoints)
+        aroundPointsReference.append(samples[0][phaseKeyReference])
         sampleIndex = -1
         
         for sample in samples:
@@ -46,9 +46,9 @@ def sync(segmentsJSON, phaseKeyReference, phaseKey):
                 beginning = 0
             end = beginning + N_lastPoints
             data = [ x[phaseKeyReference] for x in samples[beginning:end] ]
-            lastPointsReference = deque(maxlen=N_lastPoints)
-            lastPointsReference.extend(data)
-            referencePhaseAverage = globals.lastPointsAverage(lastPointsReference)
+            aroundPointsReference = deque(maxlen=N_lastPoints)
+            aroundPointsReference.extend(data)
+            referencePhaseAverage = globals.lastPointsAverage(aroundPointsReference)
             distance = abs(referencePhaseAverage-phase)                               #actual distance
             if distance < phaseMaxDifference:        #assuming the signal difference allowed be lower
                 if show and showed < maxShowed:
@@ -68,7 +68,7 @@ def sync(segmentsJSON, phaseKeyReference, phaseKey):
             elif decreasedPhaseDistance < distance*distanceImprovementFactor: newphase = phase-increment
             sample[phaseKey] = newphase
             processed+=1
-            lastPointsReference.append(newphase)
+            aroundPointsReference.append(newphase)
             
             if show and showed < maxShowed:
                 showed+=1

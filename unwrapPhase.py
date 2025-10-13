@@ -25,11 +25,11 @@ def unwrapPhase(segmentsJSON, phaseKey):
     maxShowed = 4
     for segment in segments:
         samples = segment["samples"]
-        lastPoints = deque(maxlen=N_lastPoints)
+        aroundPoints = deque(maxlen=N_lastPoints)
         if len(samples) == 0:
             continue
         previousSamplePhase = samples[0][phaseKey]
-        lastPoints.append(previousSamplePhase)
+        aroundPoints.append(previousSamplePhase)
         sampleIndex = -1
         
         for sample in samples:
@@ -44,13 +44,13 @@ def unwrapPhase(segmentsJSON, phaseKey):
                 beginning = 0
             end = beginning + N_lastPoints
             data = [ x[phaseKey] for x in samples[beginning:end] ]
-            lastPoints = deque(maxlen=N_lastPoints)
-            lastPoints.extend(data)
-            previousSamplePhase = globals.lastPointsAverage(lastPoints)
+            aroundPoints = deque(maxlen=N_lastPoints)
+            aroundPoints.extend(data)
+            previousSamplePhase = globals.lastPointsAverage(aroundPoints)
             
             distance = abs(previousSamplePhase-phase)                               #actual distance
             if distance < phaseMaxDifference:        #from here, only phase borders
-                lastPoints.append(phase)
+                aroundPoints.append(phase)
                 continue
             
             increment = round(distance)                                             #only increment/decrement an integer number of times, to keep phase information
@@ -60,7 +60,7 @@ def unwrapPhase(segmentsJSON, phaseKey):
             elif decreasedPhaseDistance < distance*distanceImprovementFactor: newphase = phase-increment
             sample[phaseKey] = newphase
             processed+=1
-            lastPoints.append(newphase)
+            aroundPoints.append(newphase)
             
             timestamp = sample["timestamp"]
             if phaseKey == "mobilePhase" and timestamp == "1760020163.209353":
