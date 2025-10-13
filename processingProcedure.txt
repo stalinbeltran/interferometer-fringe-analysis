@@ -55,15 +55,16 @@ python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday091
 #unwrap Phase shift for each sample:
 python3 unwrapPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwrapped.json 
 
-#sync phase from 2 signals, so they dont diverge:
-#python3 signalSynchronizer.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwrapped.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Sync.json 0.7 40
-
-
 #show phase shift Histogram:
 python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwrapped.json 6000
 
 
 
+-------------------------
+-------------------------
+
+#sync phase from 2 signals, so they dont diverge:
+#python3 signalSynchronizer.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwrapped.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Sync.json 0.7 40
 
 
 #segments with regression:
