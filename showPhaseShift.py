@@ -36,7 +36,7 @@ def showSignalConvolution(segmentTimestamps, segmentFixedPhase, segmentMobilePha
     # plt.plot(segmentTimestamps[:convLen], convolutionFixed, '.', label='Convolution Fixed')
     # plt.plot(segmentTimestamps[:convLen], convolutionMobile, '.', label='Convolution Mobile')
     # plt.plot(segmentTimestamps[:convLen], diffConv, '.', label='Convolution Difference')
-    # plt.plot(segmentTimestamps, segmentHzModified, '.', label='Speed (Hz)')
+    plt.plot(segmentTimestamps, segmentHzModified, '.', label='Speed (Hz)')
     plt.title(title)
     plt.legend()
     plt.show()

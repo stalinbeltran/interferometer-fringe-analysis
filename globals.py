@@ -132,6 +132,16 @@ def filter(signal, cutoff = 25):
     return reconstructed_signal
     
 
-def lastPointsAverage(lastPoints):
+def pointsAverage(lastPoints):
     average = sum(lastPoints) / len(lastPoints)
     return average
+    
+    
+def getAroundPoints(sampleIndex, N_lastPoints, samples, phaseKey):
+    if sampleIndex > N_lastPoints:
+        beginning = sampleIndex-N_lastPoints
+    else:
+        beginning = 0
+    end = beginning + N_lastPoints
+    aroundPoints = [ x[phaseKey] for x in samples[beginning:end] ]
+    return aroundPoints

@@ -34,19 +34,10 @@ def unwrapPhase(segmentsJSON, phaseKey):
         
         for sample in samples:
             sampleIndex+=1
-            if phaseKey not in sample: continue
             phase = sample[phaseKey]
             newphase = phase
-            
-            if sampleIndex > N_lastPoints:
-                beginning = sampleIndex-N_lastPoints
-            else:
-                beginning = 0
-            end = beginning + N_lastPoints
-            data = [ x[phaseKey] for x in samples[beginning:end] ]
-            aroundPoints = deque(maxlen=N_lastPoints)
-            aroundPoints.extend(data)
-            previousSamplePhase = globals.lastPointsAverage(aroundPoints)
+            aroundPoints = globals.getAroundPoints(sampleIndex, N_lastPoints, samples, phaseKey)
+            previousSamplePhase = globals.pointsAverage(aroundPoints)
             
             distance = abs(previousSamplePhase-phase)                               #actual distance
             if distance < phaseMaxDifference:        #from here, only phase borders
