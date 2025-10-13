@@ -13,7 +13,6 @@ output_file = (sys.argv[2])
 phaseMaxDifference = float(sys.argv[3])             #0.7    #max allowed diff between average and a point
 N_lastPoints = int(sys.argv[4])                     #40
 distanceImprovementFactor = 0.5
-distanceToBorder = 0.2
 
 
 def sync(segmentsJSON, phaseKeyReference, phaseKey):
@@ -22,25 +21,44 @@ def sync(segmentsJSON, phaseKeyReference, phaseKey):
     processed = 0
     show = False
     showed = 0
-    maxShowed = 4
+    maxShowed = 10
     for segment in segments:
         samples = segment["samples"]
         if len(samples) == 0:
             continue
         lastPointsReference = deque(maxlen=N_lastPoints)
-        previousSamplePhase = samples[0][phaseKeyReference]
-        lastPointsReference.append(previousSamplePhase)
+        lastPointsReference.append(samples[0][phaseKeyReference])
+        sampleIndex = -1
         
         for sample in samples:
+            sampleIndex+=1
+            timestamp = sample["timestamp"]
+            if phaseKey == "mobilePhase" and timestamp == "1760023379.738320":
+                print("found timestamp")
+                show = True
             if phaseKeyReference not in sample: continue
             if phaseKey not in sample: continue
-            referencePhase = sample[phaseKeyReference]
             phase = sample[phaseKey]
             newphase = phase
+            if sampleIndex > N_lastPoints:
+                beginning = sampleIndex-N_lastPoints
+            else:
+                beginning = 0
+            end = beginning + N_lastPoints
+            data = [ x[phaseKeyReference] for x in samples[beginning:end] ]
+            lastPointsReference = deque(maxlen=N_lastPoints)
+            lastPointsReference.extend(data)
             referencePhaseAverage = globals.lastPointsAverage(lastPointsReference)
             distance = abs(referencePhaseAverage-phase)                               #actual distance
             if distance < phaseMaxDifference:        #assuming the signal difference allowed be lower
-                lastPointsReference.append(referencePhase)
+                if show and showed < maxShowed:
+                    showed+=1
+                    print("-----   distance < phaseMaxDifference")
+                    print("-----   timestamp:", timestamp)
+                    print("referencePhaseAverage: ", referencePhaseAverage)
+                    print("phase:", phase)
+                    print("new phase:", newphase)
+                    print("distance:", distance)
                 continue
             
             increment = round(distance)                                             #only increment/decrement an integer number of times, to keep phase information
@@ -52,15 +70,12 @@ def sync(segmentsJSON, phaseKeyReference, phaseKey):
             processed+=1
             lastPointsReference.append(newphase)
             
-            timestamp = sample["timestamp"]
-            if phaseKey == "mobilePhase" and timestamp == "1760020163.209353":
-                show = True
             if show and showed < maxShowed:
                 showed+=1
-                print("previousSamplePhase: ", previousSamplePhase)
-                print("new phase:", newphase)
                 print("-----   timestamp:", timestamp)
+                print("referencePhaseAverage: ", referencePhaseAverage)
                 print("phase:", phase)
+                print("new phase:", newphase)
                 print("distance:", distance)
                 print("increasedPhaseDistance:", increasedPhaseDistance)
                 print("decreasedPhaseDistance:", decreasedPhaseDistance) 
