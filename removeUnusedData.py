@@ -15,6 +15,8 @@ with open(input_file, 'r', encoding='utf-8') as f:
 segments = segmentsJSON["segments"]
 processed = 0
 for segment in segments:
+    del segment["periodsCounter"]
+    del segment["lookedPeriod"]
     samples = segment["samples"]
     for sample in samples:
         del sample["timePeriod"]

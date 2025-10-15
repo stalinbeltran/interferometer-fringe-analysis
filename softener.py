@@ -13,22 +13,24 @@ input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 N_points = int(sys.argv[3])
 
-
-def softenSignal(segmentsJSON, phaseKey):
-    global N_points
+def getData(samples, key):
+    data = [ sample[key] for sample in samples]
+    return data
     
+
+def softenSignal(segmentsJSON, key):
+    global N_points
+
+    kernel = np.ones(N_points) / N_points           #averaging kernel
     segments = segmentsJSON["segments"]
     processed = 0
     for segment in segments:
         samples = segment["samples"]
-        sampleIndex=-1
-        for sample in samples:
-            sampleIndex+=1
-            phase = sample[phaseKey]
-            aroundPoints = globals.getAroundPoints(sampleIndex, N_points, samples, phaseKey)
-            newphase = globals.pointsAverage(aroundPoints)
-            sample[phaseKey+"_soft"] = newphase
-            processed+=1
+        data = getData(samples, key)
+        if len(data)==0: continue
+        convolution = np.convolve(data, kernel, mode='same')
+        segment[key] = convolution.tolist()
+        processed+=1
 
     print("processed: ", processed)
 
