@@ -67,9 +67,9 @@ python3 getPlainData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_
 #soften signals (lots of phase noise):
 python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json 40
 
-python3 showData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json 6000
+python3 showData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json timestamp mobilePhase
 
-
+python3 showHistogram.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json 6000
 
 
 -------------------------
