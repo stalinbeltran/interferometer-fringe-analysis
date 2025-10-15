@@ -13,10 +13,6 @@ input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 N_points = int(sys.argv[3])
 
-def getData(samples, key):
-    data = [ sample[key] for sample in samples]
-    return data
-    
 
 def softenSignal(segmentsJSON, key):
     global N_points
@@ -25,8 +21,7 @@ def softenSignal(segmentsJSON, key):
     segments = segmentsJSON["segments"]
     processed = 0
     for segment in segments:
-        samples = segment["samples"]
-        data = getData(samples, key)
+        data = segment[key]
         if len(data)==0: continue
         convolution = np.convolve(data, kernel, mode='same')
         segment[key] = convolution.tolist()
