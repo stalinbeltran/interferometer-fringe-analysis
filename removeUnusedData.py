@@ -14,15 +14,19 @@ with open(input_file, 'r', encoding='utf-8') as f:
 
 segments = segmentsJSON["segments"]
 processed = 0
+newSegments = []
 for segment in segments:
     del segment["periodsCounter"]
     del segment["lookedPeriod"]
     samples = segment["samples"]
+    if len(samples) == 0: continue
+    newSegments.append(segment)
     for sample in samples:
         del sample["timePeriod"]
         del sample["deltaPhase"]
         del sample["deltaPhasePixels"]
         processed+=1
+segmentsJSON["segments"] = newSegments
 
 
 print("processed: ", processed)

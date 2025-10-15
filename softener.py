@@ -14,6 +14,11 @@ output_file = (sys.argv[2])
 N_points = int(sys.argv[3])
 
 
+parts = output_file.split('.')
+output_file = parts[0] + "-N(" + str(N_points) + ")" + "." + parts[1]      #one file extension always
+
+print("output_file renamed: ", output_file)
+
 def softenSignal(segmentsJSON, key):
     global N_points
 
