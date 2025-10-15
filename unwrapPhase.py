@@ -53,7 +53,7 @@ def unwrapPhase(segmentsJSON, phaseKey):
             aroundPoints.append(newphase)
             
             timestamp = sample["timestamp"]
-            if phaseKey == "mobilePhase" and timestamp == "1760020163.209353":
+            if phaseKey == "mobilePhase" and timestamp == "xxxxx1760020163.209353":
                 show = True
             if show and showed < maxShowed:
                 showed+=1

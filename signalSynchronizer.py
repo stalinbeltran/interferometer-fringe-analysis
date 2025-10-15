@@ -26,8 +26,6 @@ def sync(segmentsJSON, phaseKeyReference, phaseKey):
         samples = segment["samples"]
         if len(samples) == 0:
             continue
-        aroundPointsReference = deque(maxlen=N_lastPoints)
-        aroundPointsReference.append(samples[0][phaseKeyReference])
         sampleIndex = -1
         
         for sample in samples:
@@ -36,19 +34,11 @@ def sync(segmentsJSON, phaseKeyReference, phaseKey):
             if phaseKey == "mobilePhase" and timestamp == "1760023379.738320":
                 print("found timestamp")
                 show = True
-            if phaseKeyReference not in sample: continue
-            if phaseKey not in sample: continue
             phase = sample[phaseKey]
             newphase = phase
-            if sampleIndex > N_lastPoints:
-                beginning = sampleIndex-N_lastPoints
-            else:
-                beginning = 0
-            end = beginning + N_lastPoints
-            data = [ x[phaseKeyReference] for x in samples[beginning:end] ]
-            aroundPointsReference = deque(maxlen=N_lastPoints)
-            aroundPointsReference.extend(data)
-            referencePhaseAverage = globals.lastPointsAverage(aroundPointsReference)
+
+            aroundPointsReference = globals.getAroundPoints(sampleIndex, N_lastPoints, samples, phaseKeyReference)
+            referencePhaseAverage = globals.pointsAverage(aroundPointsReference)
             distance = abs(referencePhaseAverage-phase)                               #actual distance
             if distance < phaseMaxDifference:        #assuming the signal difference allowed be lower
                 if show and showed < maxShowed:
@@ -64,12 +54,13 @@ def sync(segmentsJSON, phaseKeyReference, phaseKey):
             increment = round(distance)                                             #only increment/decrement an integer number of times, to keep phase information
             increasedPhaseDistance = abs(referencePhaseAverage-(phase + (increment)))
             decreasedPhaseDistance = abs(referencePhaseAverage-(phase - (increment)))
-            if increasedPhaseDistance < distance*distanceImprovementFactor: newphase = phase+increment          #if we can make it closer to average, we do
-            elif decreasedPhaseDistance < distance*distanceImprovementFactor: newphase = phase-increment
+            if increasedPhaseDistance < distance*distanceImprovementFactor:
+                newphase = phase+increment          #if we can make it closer to average, we do
+                processed+=1
+            elif decreasedPhaseDistance < distance*distanceImprovementFactor:
+                newphase = phase-increment
+                processed+=1
             sample[phaseKey] = newphase
-            processed+=1
-            aroundPointsReference.append(newphase)
-            
             if show and showed < maxShowed:
                 showed+=1
                 print("-----   timestamp:", timestamp)
@@ -86,8 +77,8 @@ def sync(segmentsJSON, phaseKeyReference, phaseKey):
 
 with open(input_file, 'r', encoding='utf-8') as f:
     segmentsJSON = json.load(f)
-#sync(segmentsJSON, "deltaPhase")
-sync(segmentsJSON, "fixedPhase", "mobilePhase")
+
+sync(segmentsJSON, "mobilePhase", "fixedPhase")
 
 
 with open(output_file, 'w', encoding='utf-8') as f:
