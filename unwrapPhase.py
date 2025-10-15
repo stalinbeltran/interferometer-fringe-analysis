@@ -72,7 +72,6 @@ def unwrapPhase(segmentsJSON, phaseKey):
 
 with open(input_file, 'r', encoding='utf-8') as f:
     segmentsJSON = json.load(f)
-unwrapPhase(segmentsJSON, "deltaPhase")
 unwrapPhase(segmentsJSON, "mobilePhase")
 unwrapPhase(segmentsJSON, "fixedPhase")
 
