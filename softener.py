@@ -1,4 +1,5 @@
-#python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json
+#python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwrapped.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json 40
+
 
 import os
 import sys
@@ -10,85 +11,35 @@ from collections import deque
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
-phaseMaxDifference = 0.7
-minimumDataSize = 1000           #minumum data points for apply softening
-cutoff = 10
-
-def isContinuous(value, lastValue):
-    global phaseMaxDifference
-    if abs(value-lastValue) > phaseMaxDifference: return False
-    return True
-
-
-def softenSamples(samples, phaseKey):
-    global cutoff
-    signal = []
-    sample = samples[0]
-    if phaseKey in sample:
-        lastValue = sample[phaseKey]
-    for sample in samples:                  #get values
-        if phaseKey in sample:
-            value = sample[phaseKey]            
-            valueIsContinuous = isContinuous(value, lastValue)
-            if not valueIsContinuous:
-                value = 0                                       #send all full 360 degrees noise to zero by default
-            signal.append(value)
-    filteredSignal = globals.filter(signal, cutoff = cutoff)    #filer noise
-    size = len(filteredSignal)
-    for i in range(0, size):
-        sample = samples[i]
-        if phaseKey in sample:
-            sample[phaseKey+"_soft"] = filteredSignal[i]    #replace older values
-        
+N_points = int(sys.argv[3])
 
 
 def softenSignal(segmentsJSON, phaseKey):
-    global minimumDataSize
+    global N_points
     
     segments = segmentsJSON["segments"]
     processed = 0
     for segment in segments:
         samples = segment["samples"]
-        previousSamplePhase = None
-        if len(samples)==0: continue
-        sample = samples[0]
-        lastValue = sample[phaseKey]
-        data = []
-        acceptIrregular = True
+        sampleIndex=-1
         for sample in samples:
-            data.append(sample)                                     #always accept the present sample, even if it is the last one
-            if phaseKey in sample:
-                value = sample[phaseKey]
-            else:
-                print(sample)
-                continue
-                
-            valueIsContinuous = isContinuous(value, lastValue)
-            lastValue = value
-            
-            if acceptIrregular and valueIsContinuous and len(data) > minimumDataSize:           #acceptIrregularities until first not irregular value is found
-                acceptIrregular = False
-            if not acceptIrregular and not valueIsContinuous:       #found first discontinuity after some nice continuity
-                softenSamples(data, phaseKey)                       #apply softening
-                                                                    #and restart data collection
-                data = []
-                acceptIrregular = True
-            
-            
-            
+            sampleIndex+=1
+            phase = sample[phaseKey]
+            aroundPoints = globals.getAroundPoints(sampleIndex, N_points, samples, phaseKey)
+            newphase = globals.pointsAverage(aroundPoints)
+            sample[phaseKey+"_soft"] = newphase
+            processed+=1
 
-
-    
     print("processed: ", processed)
-   
+
 
 
 with open(input_file, 'r', encoding='utf-8') as f:
     segmentsJSON = json.load(f)
 
-softenSignal(segmentsJSON, "deltaPhase")
 softenSignal(segmentsJSON, "mobilePhase")
 softenSignal(segmentsJSON, "fixedPhase")
+softenSignal(segmentsJSON, "hz")
 
 
 with open(output_file, 'w', encoding='utf-8') as f:
