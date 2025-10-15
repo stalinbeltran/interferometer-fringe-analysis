@@ -61,8 +61,6 @@ python3 unwrapPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_s
 
 python3 signalSynchronizer.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwrapped.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Sync.json 0.7 40
 
-python3 reducePhaseNoise.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwrapped.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-reducedPhaseNoise.json 
-
 
 python3 getPlainData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Sync.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json
 
