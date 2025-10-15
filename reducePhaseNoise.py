@@ -12,7 +12,7 @@ input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 phaseMaxDifference = 0.5                #max allowed diff between average and a point
 distanceImprovementFactor = 1
-N_lastPoints = 120
+N_lastPoints = 6
 
 
 def reducePhaseNoise(segmentsJSON, phaseKey):

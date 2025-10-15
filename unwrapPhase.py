@@ -10,10 +10,9 @@ from collections import deque
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
-phaseMaxDifference = 0.4                #max allowed diff between average and a point
+phaseMaxDifference = 0.2                #max allowed diff between average and a point
 distanceImprovementFactor = 0.9
-N_lastPoints = 24
-distanceToBorder = 0.2
+N_lastPoints = 16
 
 
 def unwrapPhase(segmentsJSON, phaseKey):
