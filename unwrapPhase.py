@@ -28,8 +28,8 @@ def unwrapPhase(segmentsJSON, phaseKey):
         aroundPoints = deque(maxlen=N_lastPoints)
         if len(samples) == 0:
             continue
-        previousSamplePhase = samples[0][phaseKey]
-        aroundPoints.append(previousSamplePhase)
+        averageSamplePhase = samples[0][phaseKey]
+        aroundPoints.append(averageSamplePhase)
         sampleIndex = -1
         
         for sample in samples:
@@ -37,16 +37,16 @@ def unwrapPhase(segmentsJSON, phaseKey):
             phase = sample[phaseKey]
             newphase = phase
             aroundPoints = globals.getAroundPoints(sampleIndex, N_lastPoints, samples, phaseKey)
-            previousSamplePhase = globals.pointsAverage(aroundPoints)
+            averageSamplePhase = globals.pointsAverage(aroundPoints)
             
-            distance = abs(previousSamplePhase-phase)
+            distance = abs(averageSamplePhase-phase)
             if distance < phaseMaxDifference:
                 aroundPoints.append(phase)
                 continue
             
             increment = round(distance)                                             #only increment/decrement an integer number of times, to keep phase information
-            increasedPhaseDistance = abs(previousSamplePhase-(phase + (increment)))
-            decreasedPhaseDistance = abs(previousSamplePhase-(phase - (increment)))
+            increasedPhaseDistance = abs(averageSamplePhase-(phase + (increment)))
+            decreasedPhaseDistance = abs(averageSamplePhase-(phase - (increment)))
             if increasedPhaseDistance < distance*distanceImprovementFactor: newphase = phase+increment          #if we can make it closer to average, we do
             elif decreasedPhaseDistance < distance*distanceImprovementFactor: newphase = phase-increment
             sample[phaseKey] = newphase
@@ -58,7 +58,7 @@ def unwrapPhase(segmentsJSON, phaseKey):
                 show = True
             if show and showed < maxShowed:
                 showed+=1
-                print("previousSamplePhase: ", previousSamplePhase)
+                print("averageSamplePhase: ", averageSamplePhase)
                 print("new phase:", newphase)
                 print("-----   timestamp:", timestamp)
                 print("phase:", phase)
