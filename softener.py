@@ -1,4 +1,4 @@
-#python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwrapped.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json 40
+#python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json 3:10:2
 
 
 import os
@@ -11,22 +11,18 @@ from collections import deque
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
+parameters = (sys.argv[3])
 
-begin = 3
-end = 20
-step = 3
+parts = parameters.split(':')
+begin = int(parts[0])
+end = int(parts[1])
+step = int(parts[2])
 
-def getData(fixedPhase, mobilePhase, hz):
-    return {
-        "fixedPhase" : fixedPhase,
-        "mobilePhase" : mobilePhase,
-        "hz" : hz
-    }
     
 def getSoftenedData(N, fixedPhase, mobilePhase, hz):
     return {
         "N" : N,
-        "data" : getData(fixedPhase, mobilePhase, hz)
+        "data" : globals.getData(fixedPhase, mobilePhase, hz)
     }
     
 
@@ -39,7 +35,7 @@ hz = dataJSON["hz"]
 
 
 originalData = {
-    "data": getData(fixedPhase, mobilePhase, hz)
+    "data": globals.getData(fixedPhase, mobilePhase, hz)
 }
 
 softened = []

@@ -160,3 +160,11 @@ def softenSignal(data, N_points):
     kernel = np.ones(N_points) / N_points           #averaging kernel
     convolution = np.convolve(data, kernel, mode='same')
     return convolution.tolist()
+    
+
+def getData(fixedPhase, mobilePhase, hz):
+    return {
+        "fixedPhase" : fixedPhase,
+        "mobilePhase" : mobilePhase,
+        "hz" : hz
+    }
