@@ -67,7 +67,7 @@ python3 getPlainData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_
 #soften signals (lots of phase noise):
 python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json 40
 
-python3 diff.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften-N(40).json mobilePhase D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-mobilePhaseN40-Diff.json
+python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Noise.json
 
 
 python3 showData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json timestamp mobilePhase
@@ -82,3 +82,5 @@ python3 showHistogram.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025
 #show phase shift Histogram:
 python3 showPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json 6000
 
+
+python3 diff.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften-N(40).json mobilePhase D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-mobilePhaseN40-Diff.json

@@ -1,4 +1,4 @@
-#python3 getErrors.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Errors.json
+#python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Noise.json
 
 
 import os
@@ -13,24 +13,24 @@ import matplotlib.pyplot as plt
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 
-def getError(key, originalData, softData):
+def getNoise(key, originalData, softData):
     size = len(originalData)
-    errors = []
+    noises = []
     for i in range(size):
         original = originalData[i]
         soft = softData[i]
         dif = original-soft
-        errors.append(dif)
-    return errors
+        noises.append(dif)
+    return noises
     
-def getErrorByKey(N, originalData, softData):
-    errorData = {}
+def getNoiseByKey(N, originalData, softData):
+    noiseData = {}
     for key in ["fixedPhase", "mobilePhase", "hz"]:
-        error = getError(key, originalData[key], softData["data"][key])
-        errorData[key] = error
+        noise = getNoise(key, originalData[key], softData["data"][key])
+        noiseData[key] = noise
     return {
         "N" : N,
-        "data" : errorData
+        "data" : noiseData
     }
     
 '''
@@ -48,13 +48,13 @@ with open(input_file, 'r', encoding='utf-8') as f:
 
 originalData = dataJSON["original"]["data"]
 softenedArray = dataJSON["softened"]
-errors = []
+noises = []
 for softData in softenedArray:
-    error = getErrorByKey(softData["N"], originalData, softData)
-    errors.append(error)
+    noise = getNoiseByKey(softData["N"], originalData, softData)
+    noises.append(noise)
     
 outputJSON = {
-	"errors": errors
+	"noises": noises
 }
 
 with open(output_file, 'w', encoding='utf-8') as f:
@@ -62,10 +62,10 @@ with open(output_file, 'w', encoding='utf-8') as f:
 
 
 '''
-set de errores original-suavizada N (imprimir datos, y elegir los menores errores obtenidos):
+set de noisees original-suavizada N (imprimir datos, y elegir los menores noisees obtenidos):
 
 {
-	"errors":[
+	"noises":[
 		{
 			"N": 4,
 			"mean": 0.2,
