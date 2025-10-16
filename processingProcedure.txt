@@ -72,7 +72,7 @@ python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slow
 
 python3 showData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json timestamp mobilePhase
 
-python3 showHistogram.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json 6000
+python3 showHistogram.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Noise.json hz
 
 
 -------------------------

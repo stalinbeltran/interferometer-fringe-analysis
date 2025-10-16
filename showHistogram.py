@@ -20,13 +20,38 @@ def showFileData(input_file, key):
     global sampleSize
     path, filename = globals.getFileName(input_file)
     with open(input_file, 'r', encoding='utf-8') as f:
-        segmentsJSON = json.load(f)
+        dataJSON = json.load(f)
 
-    processed = 0
     title = input_file
-    segments = segmentsJSON["segments"]
-    for segment in segments:
-        histogram.showHistogram(segment[key], title, label = [filename])
+    noises = dataJSON["noises"]
+    for noise in noises:
+        label = "noise N = " + str(noise["N"])
+        histogram.showHistogram(noise["data"][key], title, label = [label])
 
 
 showFileData(input_file, key)
+
+'''
+
+set de errores original-suavizada N (imprimir datos, y elegir los menores errores obtenidos):
+
+{
+	"errors":[
+		{
+			"N": 4,
+			"mean": 0.2,
+			"std": 3.2,
+			"data":{
+				
+				 "fixedPhase": [1, 2, 3, 4...],
+				 "mobilePhase": [1, 2, 3, 4...],
+				 "hz": [1, 2, 3, 4...]
+				
+			}
+		},
+	
+	]
+}
+
+
+'''
