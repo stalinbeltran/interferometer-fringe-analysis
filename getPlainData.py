@@ -18,15 +18,13 @@ def getData(samples, key):
     
 
 def getPlainData(segmentsJSON, key):
+    totalData = []
     segments = segmentsJSON["segments"]
-    processed = 0
     for segment in segments:
         samples = segment["samples"]
         data = getData(samples, key)
-        segment[key] = data
-        processed+=1
-
-    print("processed: ", processed)
+        totalData.extend(data)
+    return totalData
 
 def deleteSamples(segmentsJSON):
     segments = segmentsJSON["segments"]
@@ -51,12 +49,18 @@ with open(input_file, 'r', encoding='utf-8') as f:
     segmentsJSON = json.load(f)
 
 getTimestampsValues(segmentsJSON)
-getPlainData(segmentsJSON, "timestamp")
-getPlainData(segmentsJSON, "mobilePhase")
-getPlainData(segmentsJSON, "fixedPhase")
-getPlainData(segmentsJSON, "hz")
-deleteSamples(segmentsJSON)
+timestamp = getPlainData(segmentsJSON, "timestamp")
+mobilePhase = getPlainData(segmentsJSON, "mobilePhase")
+fixedPhase = getPlainData(segmentsJSON, "fixedPhase")
+hz = getPlainData(segmentsJSON, "hz")
+
+jsonData = {
+    "timestamp" : timestamp,
+    "fixedPhase" : fixedPhase,
+    "mobilePhase" : mobilePhase,
+    "hz" : hz
+}
 
 with open(output_file, 'w', encoding='utf-8') as f:
-    json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
+    json.dump(jsonData, f, ensure_ascii=False, indent=4)
 

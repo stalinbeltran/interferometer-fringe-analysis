@@ -122,7 +122,7 @@ def isBlackImage(img):
     return True
 
 
-def filter(signal, cutoff = 25):
+def filterFFT(signal, cutoff = 25):
     fourier_transform = np.fft.fft(signal)
     fourier_transform[cutoff:-cutoff] = 0       #low pass filter
     reconstructed_signalComplex = np.fft.ifft(fourier_transform) #Inverse Fourier Transform
@@ -155,3 +155,8 @@ def getFileName(filepath):
     filename = parts[-1]
     return path, filename
     
+
+def softenSignal(data, N_points):
+    kernel = np.ones(N_points) / N_points           #averaging kernel
+    convolution = np.convolve(data, kernel, mode='same')
+    return convolution.tolist()
