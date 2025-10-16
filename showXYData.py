@@ -1,4 +1,4 @@
-#python3 showData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json timestamp mobilePhase
+#python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json timestamp mobilePhase
 
 
 import os
