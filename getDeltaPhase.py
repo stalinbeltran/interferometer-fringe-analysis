@@ -1,4 +1,4 @@
-#python3 diff.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften-N(40).json mobilePhase D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-mobilePhaseN40-Diff.json
+#python3 diff.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json  
 
 
 import os
