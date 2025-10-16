@@ -1,4 +1,4 @@
-#python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json hz mobilePhase
+#python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-DeltaPhase.json hz deltaPhase
 
 
 import os

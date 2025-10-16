@@ -1,4 +1,4 @@
-#python3 diff.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json  
+#python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-DeltaPhase.json 
 
 
 import os
@@ -10,38 +10,27 @@ import histogram
 import phaseProcessing
 import matplotlib.pyplot as plt
 
-input_file1 = (sys.argv[1])
-output_file = (sys.argv[4])
+input_file = (sys.argv[1])
+output_file = (sys.argv[2])
 
 
+def getDeltaPhase(softData):
+    dataMobile = softData["mobilePhase"]
+    dataFixed = softData["fixedPhase"]
+    deltaPhase = [dataMobile[i] - dataFixed[i] for i in range(len(dataMobile))]
+    return deltaPhase
 
-data1 = getData(input_file1, key)
-data2 = getData(input_file2, key)
-size = len(data1)
-size2 = len(data2)
-if size != size2:
-    print()
-    exit("different segments length")
-    
-segments = []
-for i in range(0, size):
-    segment1 = data1[i]
-    segment2 = data2[i]
-    listSize = len(segment1)
-    listSize2 = len(segment2)
-    if listSize != listSize2:
-        exit("different data length")
-        exit()
-    dataOut = []
-    for j in range(0, listSize):
-        d1 = segment1[j]
-        d2 = segment2[j]
-        dataOut.append(abs(d1 - d2))
-    
-    segments.append({key:dataOut})
+  
+
+with open(input_file, 'r', encoding='utf-8') as f:
+    dataJSON = json.load(f)
+
+softenedArray = dataJSON["softened"]
+for softData in softenedArray:
+    deltaPhase = getDeltaPhase(softData["data"])
+    softData["data"]["deltaPhase"] = deltaPhase
 
 
-segmentsJSON = { "segments": segments}
 
 with open(output_file, 'w', encoding='utf-8') as f:
-    json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
+    json.dump(dataJSON, f, ensure_ascii=False, indent=4)
