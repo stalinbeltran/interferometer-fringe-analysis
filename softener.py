@@ -56,43 +56,6 @@ with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(outputJSON, f, ensure_ascii=False, indent=4)
 
 
-'''
-sets data original y suavizada:
-
-{
-	"original":
-		{
-			"data":{
-					{"fixedPhase": [1, 2, 3, 4...],
-					 "mobilePhase": [1, 2, 3, 4...],
-					 "hz": [1, 2, 3, 4...]
-					}
-			}
-		},
-	"softened":[
-		{
-			"N": 4,
-			"data":{
-					"fixedPhase": [1, 2, 3, 4...],
-					 "mobilePhase": [1, 2, 3, 4...],
-					 "hz": [1, 2, 3, 4...]
-					
-			}
-		},
-		
-		{
-			"N": 8,
-			"data":{
-					{"fixedPhase": [],
-					 "mobilePhase": [],
-					 "hz": []
-					}
-			}
-		}
-	]
-
-}
-'''
 
 
 
