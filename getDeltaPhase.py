@@ -11,22 +11,9 @@ import phaseProcessing
 import matplotlib.pyplot as plt
 
 input_file1 = (sys.argv[1])
-input_file2 = (sys.argv[2])
-key = (sys.argv[3])
 output_file = (sys.argv[4])
 
-#showHistogram(data, title='-', bins=30, show = True, label = None, histtype='bar', stacked = False)
 
-def getData(input_file, key):
-    global sampleSize
-    with open(input_file, 'r', encoding='utf-8') as f:
-        segmentsJSON = json.load(f)
-
-    data = []
-    segments = segmentsJSON["segments"]
-    for segment in segments:
-        data.append(segment[key])
-    return data
 
 data1 = getData(input_file1, key)
 data2 = getData(input_file2, key)
