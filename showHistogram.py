@@ -7,18 +7,18 @@ import json
 import cv2
 import numpy as np
 import histogram
+import globals
 import phaseProcessing
 import matplotlib.pyplot as plt
 
 input_file = (sys.argv[1])
 key = (sys.argv[2])
 
-#sampleSize = int(sys.argv[4])
-
 #showHistogram(data, title='-', bins=30, show = True, label = None, histtype='bar', stacked = False)
 
 def showFileData(input_file, key):
     global sampleSize
+    path, filename = globals.getFileName(input_file)
     with open(input_file, 'r', encoding='utf-8') as f:
         segmentsJSON = json.load(f)
 
@@ -26,7 +26,7 @@ def showFileData(input_file, key):
     title = input_file
     segments = segmentsJSON["segments"]
     for segment in segments:
-        histogram.showHistogram(segment[key], title, label = ["123"])
+        histogram.showHistogram(segment[key], title, label = [filename])
 
 
 showFileData(input_file, key)

@@ -145,3 +145,13 @@ def getAroundPoints(sampleIndex, N_lastPoints, samples, phaseKey):
     end = beginning + N_lastPoints
     aroundPoints = [ x[phaseKey] for x in samples[beginning:end] ]
     return aroundPoints
+    
+def getFileName(filepath):
+    parts = filepath.split("\\")
+    size = len(parts)
+    path = ""
+    for i in range(0, size-1):
+        path += parts[i]
+    filename = parts[-1]
+    return path, filename
+    
