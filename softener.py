@@ -11,39 +11,92 @@ from collections import deque
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
-N_points = int(sys.argv[3])
 
+begin = 3
+end = 20
+step = 3
 
-parts = output_file.split('.')
-output_file = parts[0] + "-N(" + str(N_points) + ")" + "." + parts[1]      #one file extension always
-
-print("output_file renamed: ", output_file)
-
-def softenSignal(segmentsJSON, key):
-    global N_points
-
-    kernel = np.ones(N_points) / N_points           #averaging kernel
-    segments = segmentsJSON["segments"]
-    processed = 0
-    for segment in segments:
-        data = segment[key]
-        if len(data)==0: continue
-        convolution = np.convolve(data, kernel, mode='same')
-        segment[key] = convolution.tolist()
-        processed+=1
-
-    print("processed: ", processed)
-
-
+def getData(fixedPhase, mobilePhase, hz):
+    return {
+        "fixedPhase" : fixedPhase,
+        "mobilePhase" : mobilePhase,
+        "hz" : hz
+    }
+    
+def getSoftenedData(N, fixedPhase, mobilePhase, hz):
+    return {
+        "N" : N,
+        "data" : getData(fixedPhase, mobilePhase, hz)
+    }
+    
 
 with open(input_file, 'r', encoding='utf-8') as f:
-    segmentsJSON = json.load(f)
+    dataJSON = json.load(f)
 
-softenSignal(segmentsJSON, "mobilePhase")
-softenSignal(segmentsJSON, "fixedPhase")
-softenSignal(segmentsJSON, "hz")
+fixedPhase = dataJSON["fixedPhase"]
+mobilePhase = dataJSON["mobilePhase"]
+hz = dataJSON["hz"]
 
+
+originalData = {
+    "data": getData(fixedPhase, mobilePhase, hz)
+}
+
+softened = []
+for N in range(begin, end, step):
+    fixedPhase = globals.softenSignal(originalData["data"]["fixedPhase"], N)
+    mobilePhase = globals.softenSignal(originalData["data"]["mobilePhase"], N)
+    hz = globals.softenSignal(originalData["data"]["hz"], N)
+    softened.append(getSoftenedData(N, fixedPhase, mobilePhase, hz))
+
+
+
+outputJSON = {
+    "original" : originalData,
+    "softened" : softened
+}
 
 with open(output_file, 'w', encoding='utf-8') as f:
-    json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
+    json.dump(outputJSON, f, ensure_ascii=False, indent=4)
+
+
+'''
+sets data original y suavizada:
+
+{
+	"original":
+		{
+			"data":{
+					{"fixedPhase": [1, 2, 3, 4...],
+					 "mobilePhase": [1, 2, 3, 4...],
+					 "hz": [1, 2, 3, 4...]
+					}
+			}
+		},
+	"softened":[
+		{
+			"N": 4,
+			"data":{
+					"fixedPhase": [1, 2, 3, 4...],
+					 "mobilePhase": [1, 2, 3, 4...],
+					 "hz": [1, 2, 3, 4...]
+					
+			}
+		},
+		
+		{
+			"N": 8,
+			"data":{
+					{"fixedPhase": [],
+					 "mobilePhase": [],
+					 "hz": []
+					}
+			}
+		}
+	]
+
+}
+'''
+
+
 
