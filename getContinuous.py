@@ -11,45 +11,46 @@ from collections import deque
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
-parameters = (sys.argv[3])
+#parameters = (sys.argv[3])
 
-parts = parameters.split(':')
-begin = int(parts[0])
-end = int(parts[1])
-step = int(parts[2])
 
+MAXIMUM_DISTANCE = 0.05
     
-def getSoftenedData(N, fixedPhase, mobilePhase, hz, timestamp):
-    return {
-        "N" : N,
-        "data" : globals.getData(fixedPhase, mobilePhase, hz, timestamp)
-    }
+
+def saveSection(results, section, isContinuous):
+    if len(section) == 0:            #we have nothing to save
+        return
+    result = {"isContinuous" : isContinuous, "section" : section}
+    results.append(result)
+
     
 
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
-timestamp = dataJSON[0]["data"]["timestamp"]
-fixedPhase = dataJSON[0]["data"]["fixedPhase"]
-mobilePhase = dataJSON[0]["data"]["mobilePhase"]
-hz = dataJSON[0]["data"]["hz"]
+
+data = dataJSON[1]["data"]
+results = []
+for key in data:
+    points = data[key]
+    previousPoint = points[0]
+    section = []
+    isContinuous = True
+    for i in range(len(points)):
+        point = points[i]
+        distance = abs(previousPoint-point)
+        thisIsContinuous = False
+        if distance < MAXIMUM_DISTANCE:
+            thisIsContinuous = True
+        if thisIsContinuous != isContinuous:
+            saveSection(results, section, isContinuous)
+            section = []
+            isContinuous = thisIsContinuous
+        section.append(point)
+        previousPoint = point
 
 
-originalData = {
-    "data": globals.getData(fixedPhase, mobilePhase, hz, timestamp)
-}
-
-softened = []
-softened.append(getSoftenedData(0, fixedPhase, mobilePhase, hz, timestamp))
-for N in range(begin, end, step):
-    fixedPhase = globals.softenSignal(originalData["data"]["fixedPhase"], N)
-    mobilePhase = globals.softenSignal(originalData["data"]["mobilePhase"], N)
-    hz = globals.softenSignal(originalData["data"]["hz"], N)
-    softened.append(getSoftenedData(N, fixedPhase, mobilePhase, hz, timestamp))
-
-
-
-outputJSON = softened
+outputJSON = results
 
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(outputJSON, f, ensure_ascii=False, indent=4)
