@@ -15,8 +15,8 @@ output_file = (sys.argv[2])
 
 
 MAXIMUM_DISTANCE = 0.03
-MINIMUM_SECTION_LENGTH = 10
-CONTINUOUS_FACTOR = 0.9
+MINIMUM_SECTION_LENGTH = 6
+CONTINUOUS_FACTOR = 0.8
     
 
 def saveSection(results, section, isContinuous):
@@ -46,16 +46,17 @@ for key in data:
         thisIsContinuous = False
         if distance < MAXIMUM_DISTANCE:
             continuousCounter +=1
-        actualSectionSize = len(section)
-        if actualSectionSize > MINIMUM_SECTION_LENGTH:
-            isContinuous = actualSectionSize - continuousCounter > CONTINUOUS_FACTOR*actualSectionSize                
-            if isContinuous != previousIsContinuous:
+        else:
+            actualSectionSize = len(section)
+            if actualSectionSize > MINIMUM_SECTION_LENGTH:
+                notContiguous = actualSectionSize - continuousCounter
+                isContinuous = continuousCounter * CONTINUOUS_FACTOR > notContiguous
                 saveSection(resultsKey, section, isContinuous)
                 section = []
                 previousIsContinuous = isContinuous
+                continuousCounter = 0
         section.append(point)
         previousPoint = point
-        continuousCounter = 0
     actualSectionSize = len(section)
     isContinuous = actualSectionSize - continuousCounter > CONTINUOUS_FACTOR*actualSectionSize 
     saveSection(resultsKey, section, isContinuous)
