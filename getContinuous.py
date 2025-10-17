@@ -14,7 +14,9 @@ output_file = (sys.argv[2])
 #parameters = (sys.argv[3])
 
 
-MAXIMUM_DISTANCE = 0.01
+MAXIMUM_DISTANCE = 0.03
+MINIMUM_SECTION_LENGTH = 10
+CONTINUOUS_FACTOR = 0.9
     
 
 def saveSection(results, section, isContinuous):
@@ -35,20 +37,27 @@ for key in data:
     points = data[key]
     previousPoint = points[0]
     section = []
-    isContinuous = True
+    continuousCounter = 0
     resultsKey = []
+    previousIsContinuous = False
     for i in range(len(points)):
         point = points[i]
         distance = abs(previousPoint-point)
         thisIsContinuous = False
         if distance < MAXIMUM_DISTANCE:
-            thisIsContinuous = True
-        if thisIsContinuous != isContinuous:
-            saveSection(resultsKey, section, isContinuous)
-            section = []
-            isContinuous = thisIsContinuous
+            continuousCounter +=1
+        actualSectionSize = len(section)
+        if actualSectionSize > MINIMUM_SECTION_LENGTH:
+            isContinuous = actualSectionSize - continuousCounter > CONTINUOUS_FACTOR*actualSectionSize                
+            if isContinuous != previousIsContinuous:
+                saveSection(resultsKey, section, isContinuous)
+                section = []
+                previousIsContinuous = isContinuous
         section.append(point)
         previousPoint = point
+        continuousCounter = 0
+    actualSectionSize = len(section)
+    isContinuous = actualSectionSize - continuousCounter > CONTINUOUS_FACTOR*actualSectionSize 
     saveSection(resultsKey, section, isContinuous)
     results[key] = resultsKey
     
