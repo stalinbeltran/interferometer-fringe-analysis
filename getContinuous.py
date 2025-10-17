@@ -14,7 +14,7 @@ output_file = (sys.argv[2])
 #parameters = (sys.argv[3])
 
 
-MAXIMUM_DISTANCE = 0.05
+MAXIMUM_DISTANCE = 0.01
     
 
 def saveSection(results, section, isContinuous):
@@ -29,13 +29,14 @@ with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
 
-data = dataJSON[1]["data"]
-results = []
+data = dataJSON[1]["data"]          #take the softened data
+results = {}
 for key in data:
     points = data[key]
     previousPoint = points[0]
     section = []
     isContinuous = True
+    resultsKey = []
     for i in range(len(points)):
         point = points[i]
         distance = abs(previousPoint-point)
@@ -43,11 +44,14 @@ for key in data:
         if distance < MAXIMUM_DISTANCE:
             thisIsContinuous = True
         if thisIsContinuous != isContinuous:
-            saveSection(results, section, isContinuous)
+            saveSection(resultsKey, section, isContinuous)
             section = []
             isContinuous = thisIsContinuous
         section.append(point)
         previousPoint = point
+    saveSection(resultsKey, section, isContinuous)
+    results[key] = resultsKey
+    
 
 
 outputJSON = results
