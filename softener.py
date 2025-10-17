@@ -29,10 +29,10 @@ def getSoftenedData(N, fixedPhase, mobilePhase, hz, timestamp):
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
-timestamp = dataJSON["timestamp"]
-fixedPhase = dataJSON["fixedPhase"]
-mobilePhase = dataJSON["mobilePhase"]
-hz = dataJSON["hz"]
+timestamp = dataJSON[0]["data"]["timestamp"]
+fixedPhase = dataJSON[0]["data"]["fixedPhase"]
+mobilePhase = dataJSON[0]["data"]["mobilePhase"]
+hz = dataJSON[0]["data"]["hz"]
 
 
 originalData = {

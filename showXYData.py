@@ -18,6 +18,10 @@ ykey = ykey.split(':')
 showedSize = None
 if len(sys.argv)>4:
     showedSize = int(sys.argv[4])
+    
+Nconstant = None
+if len(sys.argv)>5:
+    Nconstant = int(sys.argv[5])
 
 
 with open(input_file, 'r', encoding='utf-8') as f:
@@ -31,6 +35,7 @@ for softData in softenedArray:
     N = 0
     if "N" in softData:
         N = softData["N"]
+    if Nconstant and Nconstant != N: continue
     size = len(softData["data"][xkey])
     if not showedSize:
         showedSize = size
