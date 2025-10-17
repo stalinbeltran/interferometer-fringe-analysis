@@ -146,6 +146,16 @@ def getAroundPoints(sampleIndex, N_lastPoints, samples, phaseKey):
     aroundPoints = [ x[phaseKey] for x in samples[beginning:end] ]
     return aroundPoints
     
+def getAroundPoints2(sampleIndex, N_lastPoints, samples):
+    if sampleIndex > N_lastPoints:
+        beginning = sampleIndex-N_lastPoints
+    else:
+        beginning = 0
+    end = beginning + N_lastPoints
+    aroundPoints = [ x for x in samples[beginning:end] ]
+    return aroundPoints
+    
+    
 def getFileName(filepath):
     parts = filepath.split("\\")
     size = len(parts)
