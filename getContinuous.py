@@ -8,6 +8,7 @@ import cv2
 import numpy as np
 import globals
 from collections import deque
+import matplotlib.pyplot as plt
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
@@ -15,7 +16,7 @@ output_file = (sys.argv[2])
 
 
 MAXIMUM_DISTANCE = 0.03
-MINIMUM_SECTION_LENGTH = 6
+MINIMUM_SECTION_LENGTH = 3
 CONTINUOUS_FACTOR = 0.8
     
 
@@ -62,7 +63,22 @@ for key in data:
     saveSection(resultsKey, section, isContinuous)
     results[key] = resultsKey
     
-
+for key in results:
+    begin = 0
+    c = 0
+    for section in results[key]:
+        isContinuous = section["isContinuous"]
+        section = section["section"]
+        if not isContinuous or len(section) < 50: continue
+        end = begin + len(section)
+        xdata = range(begin, end)
+        ydata = section
+        plt.plot(xdata, ydata, '.', label=key )
+        begin = end
+        c+=1
+        if c % 8 == 0:
+            plt.legend()
+            plt.show()
 
 outputJSON = results
 
