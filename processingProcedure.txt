@@ -76,7 +76,7 @@ python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025
 
 python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Noise.json
 
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseSoften.json timestamp fixedPhase 
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseUnwrapped.json timestamp fixedPhase 
 
 python3 showData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json timestamp mobilePhase
 
