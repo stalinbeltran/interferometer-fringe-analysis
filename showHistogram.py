@@ -1,4 +1,4 @@
-#python3 showNoiseHistogram.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json mobilePhase
+#python3 showHistogram.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json mobilePhase
 
 
 import os
@@ -23,10 +23,9 @@ def showFileData(input_file, key):
         dataJSON = json.load(f)
 
     title = input_file
-    noises = dataJSON
-    for noise in noises:
-        label = "noise N = " + str(noise["N"])
-        histogram.showHistogram(noise["data"][key], title, label = [label])
+    for data in dataJSON:
+        label = "N = " + str(data["N"])
+        histogram.showHistogram(data["data"][key], title, label = [label])
 
 
 showFileData(input_file, key)
