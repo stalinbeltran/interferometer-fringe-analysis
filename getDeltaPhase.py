@@ -25,7 +25,7 @@ def getDeltaPhase(softData):
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
-softenedArray = dataJSON["softened"]
+softenedArray = dataJSON
 for softData in softenedArray:
     deltaPhase = getDeltaPhase(softData["data"])
     softData["data"]["deltaPhase"] = deltaPhase

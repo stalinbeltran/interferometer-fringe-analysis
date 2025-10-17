@@ -25,7 +25,7 @@ def getNoise(key, originalData, softData):
     
 def getNoiseByKey(N, originalData, softData):
     noiseData = {}
-    for key in ["fixedPhase", "mobilePhase", "hz"]:
+    for key in ["fixedPhase", "mobilePhase", "hz", "deltaPhase"]:
         noise = getNoise(key, originalData[key], softData["data"][key])
         noiseData[key] = noise
     return {
@@ -33,53 +33,21 @@ def getNoiseByKey(N, originalData, softData):
         "data" : noiseData
     }
     
-'''
-			"data":{
-					{"fixedPhase": [1, 2, 3, 4...],
-					 "mobilePhase": [1, 2, 3, 4...],
-					 "hz": [1, 2, 3, 4...]
-					}
-			}
-'''
-            
-            
+
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
-originalData = dataJSON["original"]["data"]
-softenedArray = dataJSON["softened"]
+originalData = dataJSON[0]["data"]          #first element is the original (unmodified) data
+softenedArray = dataJSON
 noises = []
 for softData in softenedArray:
-    noise = getNoiseByKey(softData["N"], originalData, softData)
+    N = softData["N"]
+    if N == 0: continue                     #no noise for the original data
+    noise = getNoiseByKey(N, originalData, softData)
     noises.append(noise)
     
-outputJSON = {
-	"noises": noises
-}
+outputJSON = noises
+
 
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(outputJSON, f, ensure_ascii=False, indent=4)
-
-
-'''
-set de noisees original-suavizada N (imprimir datos, y elegir los menores noisees obtenidos):
-
-{
-	"noises":[
-		{
-			"N": 4,
-			"mean": 0.2,
-			"std": 3.2,
-			"data":{
-				
-				 "fixedPhase": [1, 2, 3, 4...],
-				 "mobilePhase": [1, 2, 3, 4...],
-				 "hz": [1, 2, 3, 4...]
-				
-			}
-		},
-	
-	]
-}
-
-'''

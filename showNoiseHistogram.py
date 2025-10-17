@@ -23,7 +23,7 @@ def showFileData(input_file, key):
         dataJSON = json.load(f)
 
     title = input_file
-    noises = dataJSON["noises"]
+    noises = dataJSON
     for noise in noises:
         label = "noise N = " + str(noise["N"])
         histogram.showHistogram(noise["data"][key], title, label = [label])

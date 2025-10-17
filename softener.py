@@ -19,38 +19,37 @@ end = int(parts[1])
 step = int(parts[2])
 
     
-def getSoftenedData(N, fixedPhase, mobilePhase, hz):
+def getSoftenedData(N, fixedPhase, mobilePhase, hz, timestamp):
     return {
         "N" : N,
-        "data" : globals.getData(fixedPhase, mobilePhase, hz)
+        "data" : globals.getData(fixedPhase, mobilePhase, hz, timestamp)
     }
     
 
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
+timestamp = dataJSON["timestamp"]
 fixedPhase = dataJSON["fixedPhase"]
 mobilePhase = dataJSON["mobilePhase"]
 hz = dataJSON["hz"]
 
 
 originalData = {
-    "data": globals.getData(fixedPhase, mobilePhase, hz)
+    "data": globals.getData(fixedPhase, mobilePhase, hz, timestamp)
 }
 
 softened = []
+softened.append(getSoftenedData(0, fixedPhase, mobilePhase, hz, timestamp))
 for N in range(begin, end, step):
     fixedPhase = globals.softenSignal(originalData["data"]["fixedPhase"], N)
     mobilePhase = globals.softenSignal(originalData["data"]["mobilePhase"], N)
     hz = globals.softenSignal(originalData["data"]["hz"], N)
-    softened.append(getSoftenedData(N, fixedPhase, mobilePhase, hz))
+    softened.append(getSoftenedData(N, fixedPhase, mobilePhase, hz, timestamp))
 
 
 
-outputJSON = {
-    "original" : originalData,
-    "softened" : softened
-}
+outputJSON = softened
 
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(outputJSON, f, ensure_ascii=False, indent=4)

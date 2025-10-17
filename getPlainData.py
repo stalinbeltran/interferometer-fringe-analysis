@@ -54,12 +54,11 @@ mobilePhase = getPlainData(segmentsJSON, "mobilePhase")
 fixedPhase = getPlainData(segmentsJSON, "fixedPhase")
 hz = getPlainData(segmentsJSON, "hz")
 
-jsonData = {
-    "timestamp" : timestamp,
-    "fixedPhase" : fixedPhase,
-    "mobilePhase" : mobilePhase,
-    "hz" : hz
-}
+jsonData = [
+    {
+        "data": globals.getData(fixedPhase, mobilePhase, hz, timestamp)
+    }
+]
 
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(jsonData, f, ensure_ascii=False, indent=4)
