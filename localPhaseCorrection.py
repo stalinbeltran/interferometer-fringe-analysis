@@ -10,9 +10,17 @@ from collections import deque
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
-phaseMaxDifference = 0.2                #max allowed diff between average and a point
-distanceImprovementFactor = 0.9
-N_lastPoints = 16
+ykey = (sys.argv[3])
+ykey = ykey.split(':')
+phaseMaxDifference = float(sys.argv[4])
+distanceImprovementFactor = float(sys.argv[5])
+N_lastPoints = int(sys.argv[6])
+iterations = int(sys.argv[7])
+
+
+# phaseMaxDifference = 0.2                #max allowed diff between average and a point
+# distanceImprovementFactor = 0.9
+# N_lastPoints = 16
 
 
 def correctLocalPhase(data):
@@ -45,10 +53,10 @@ def correctLocalPhase(data):
 with open(input_file, 'r', encoding='utf-8') as f:
     data = json.load(f)
     
-for i in range(5):    
-    correctLocalPhase(data[0]["data"]["mobilePhase"])
-    correctLocalPhase(data[0]["data"]["fixedPhase"])
-    print()
+for i in range(iterations):
+    for key in ykey:
+        correctLocalPhase(data[0]["data"][key])
+        print()
 
 
 with open(output_file, 'w', encoding='utf-8') as f:
