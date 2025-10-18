@@ -63,7 +63,15 @@ for key in data:
     isContinuous = actualSectionSize - continuousCounter > CONTINUOUS_FACTOR*actualSectionSize 
     saveSection(resultsKey, section, isContinuous)
     results[key] = resultsKey
-    
+
+
+outputJSON = results
+
+with open(output_file, 'w', encoding='utf-8') as f:
+    json.dump(outputJSON, f, ensure_ascii=False, indent=4)
+
+
+
 for key in results:
     begin = 0
     c = 0
@@ -81,12 +89,6 @@ for key in results:
         if c % 8 == 0:
             plt.legend()
             plt.show()
-
-outputJSON = results
-
-with open(output_file, 'w', encoding='utf-8') as f:
-    json.dump(outputJSON, f, ensure_ascii=False, indent=4)
-
 
 
 

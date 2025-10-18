@@ -12,7 +12,7 @@ input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 phaseMaxDifference = float(sys.argv[3])             #0.7    #max allowed diff between average and a point
 N_lastPoints = int(sys.argv[4])                     #40
-distanceImprovementFactor = 0.9
+distanceImprovementFactor = 0.99
 
 
 def sync(dataJSON, phaseKeyReference, phaseKey):

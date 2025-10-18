@@ -51,9 +51,11 @@ python3 removeFileInfo.py D:\Stalin\FotosFranjasProyecto\results\thursday0910202
 #remove incomplete data points:
 python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-ValidDataPoints.json 
 
+#remove slow points, as they are somehow wrong (speed can not change too fast from one sample to the next):
+python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-FastDataPoints.json 
 
 #remove incomplete data points:
-python3 removeUnusedData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Cleaned.json 
+python3 removeUnusedData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-FastDataPoints.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Cleaned.json 
 
 
 python3 getPlainData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Cleaned.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json
@@ -71,14 +73,19 @@ python3 getContinuousPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\t
 #unwrap Phase shift for each sample:
 python3 unwrapPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-LocalPhaseCorrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseCorrection.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseUnwrapped.json  
 
-python3 signalSynchronizer.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseUnwrapped.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Sync.json 0.7 40
+python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseUnwrapped.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json 
 
-python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Sync.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json 
+#python3 signalSynchronizer.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseUnwrapped.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Sync.json 0.7 40
+
+python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Sync.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SyncPhaseSoften.json 20:21:1
+
+python3 getContinuous.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Sync.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SyncContinuous.json
+
 
 
 python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Noise.json
 
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseUnwrapped.json timestamp fixedPhase 
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseUnwrapped.json timestamp fixedPhase:mobilePhase 
 
 python3 showData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json timestamp mobilePhase
 

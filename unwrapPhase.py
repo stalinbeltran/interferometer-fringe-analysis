@@ -34,7 +34,6 @@ for key in results:
         phaseIncrement = result["localPhaseCorrection"]
         previousPhase += phaseIncrement
         end = begin + len(section) - 1
-        print("key: ", key, "  begin: ", begin, "  end: ", end)
         for i in range(begin, end):
             if i >= len(data): print(i)
             data[i] += previousPhase
