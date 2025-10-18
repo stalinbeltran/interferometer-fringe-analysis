@@ -24,15 +24,19 @@ results = phaseCorrectionJSON
 original = dataJSON[0]["data"]
 
 for key in results:
+    if key == "hz": continue
     previousPhase = 0
     data = original[key]
+    print("len(data)", len(data))
     begin = 0
     for result in results[key]:
         section = result["section"]
         phaseIncrement = result["localPhaseCorrection"]
         previousPhase += phaseIncrement
-        end = begin + len(section)
+        end = begin + len(section) - 1
+        print("key: ", key, "  begin: ", begin, "  end: ", end)
         for i in range(begin, end):
+            if i >= len(data): print(i)
             data[i] += previousPhase
         begin = end
 

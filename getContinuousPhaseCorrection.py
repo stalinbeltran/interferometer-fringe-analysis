@@ -15,12 +15,6 @@ output_file = (sys.argv[2])
 #parameters = (sys.argv[3])
 
 
-MAXIMUM_DISTANCE = 0.03
-MINIMUM_SECTION_LENGTH = 3
-CONTINUOUS_FACTOR = 0.8
-    
-
-
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
@@ -28,6 +22,7 @@ n = 10
 results = dataJSON
 for key in results:
     previousSection = None
+    if key == "hz": continue
     for result in results[key]:
         isContinuous = result["isContinuous"]
         section = result["section"]

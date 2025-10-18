@@ -35,6 +35,7 @@ with open(input_file, 'r', encoding='utf-8') as f:
 data = dataJSON[1]["data"]          #take the softened data
 results = {}
 for key in data:
+    if key == "hz": continue
     points = data[key]
     previousPoint = points[0]
     section = []
@@ -66,6 +67,7 @@ for key in data:
 for key in results:
     begin = 0
     c = 0
+    if key == "hz": continue
     for section in results[key]:
         isContinuous = section["isContinuous"]
         section = section["section"]
