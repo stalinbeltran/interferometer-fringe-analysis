@@ -63,7 +63,6 @@ def sync(dataJSON, phaseKeyReference, phaseKey):
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
-#sync(dataJSON, "fixedPhase", "mobilePhase")
 sync(dataJSON, ykey[0], ykey[1])
 
 
