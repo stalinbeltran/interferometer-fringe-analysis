@@ -64,12 +64,16 @@ python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday0
 
 python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-LocalPhaseCorrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json 
 
-python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhaseCorrected.json deltaPhase 10
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhaseCorrected.json deltaPhase  0.1 0.9 64 10
+
+
+python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhaseCorrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhaseSoften.json 20:21:1
+
+python3 signalSynchronizer.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-LocalPhaseCorrected.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Sync.json fixedPhase:mobilePhase 0.7 40
 
 
 
 
-#python3 signalSynchronizer.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseUnwrapped.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Sync.json 0.7 40
 
 python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Sync.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SyncPhaseSoften.json 20:21:1
 

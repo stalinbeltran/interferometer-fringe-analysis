@@ -19,10 +19,10 @@ end = int(parts[1])
 step = int(parts[2])
 
     
-def getSoftenedData(N, fixedPhase, mobilePhase, hz, timestamp):
+def getSoftenedData(N, fixedPhase, mobilePhase, hz, timestamp, deltaPhase):
     return {
         "N" : N,
-        "data" : globals.getData(fixedPhase, mobilePhase, hz, timestamp)
+        "data" : globals.getData(fixedPhase, mobilePhase, hz, timestamp, deltaPhase)
     }
     
 
@@ -32,20 +32,22 @@ with open(input_file, 'r', encoding='utf-8') as f:
 timestamp = dataJSON[0]["data"]["timestamp"]
 fixedPhase = dataJSON[0]["data"]["fixedPhase"]
 mobilePhase = dataJSON[0]["data"]["mobilePhase"]
+deltaPhase = dataJSON[0]["data"]["deltaPhase"]
 hz = dataJSON[0]["data"]["hz"]
 
 
 originalData = {
-    "data": globals.getData(fixedPhase, mobilePhase, hz, timestamp)
+    "data": globals.getData(fixedPhase, mobilePhase, hz, timestamp, deltaPhase)
 }
 
 softened = []
-softened.append(getSoftenedData(0, fixedPhase, mobilePhase, hz, timestamp))
+softened.append(getSoftenedData(0, fixedPhase, mobilePhase, hz, timestamp, deltaPhase))
 for N in range(begin, end, step):
     fixedPhase = globals.softenSignal(originalData["data"]["fixedPhase"], N)
     mobilePhase = globals.softenSignal(originalData["data"]["mobilePhase"], N)
+    deltaPhase = globals.softenSignal(originalData["data"]["deltaPhase"], N)
     hz = globals.softenSignal(originalData["data"]["hz"], N)
-    softened.append(getSoftenedData(N, fixedPhase, mobilePhase, hz, timestamp))
+    softened.append(getSoftenedData(N, fixedPhase, mobilePhase, hz, timestamp, deltaPhase))
 
 
 

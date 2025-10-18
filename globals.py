@@ -172,10 +172,11 @@ def softenSignal(data, N_points):
     return convolution.tolist()
     
 
-def getData(fixedPhase, mobilePhase, hz, timestamp):
+def getData(fixedPhase, mobilePhase, hz, timestamp, deltaPhase):
     return {
         "fixedPhase" : fixedPhase,
         "mobilePhase" : mobilePhase,
+        "deltaPhase" : deltaPhase,
         "hz" : hz,
         "timestamp" : timestamp
     }
