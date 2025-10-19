@@ -87,8 +87,6 @@ python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slow
 
 python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseUnwrapped.json timestamp fixedPhase:mobilePhase 
 
-python3 showData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json timestamp mobilePhase
-
 python3 showNoiseHistogram.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Noise.json hz
 
 

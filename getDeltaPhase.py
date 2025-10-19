@@ -27,6 +27,7 @@ with open(input_file, 'r', encoding='utf-8') as f:
 
 softenedArray = dataJSON
 for softData in softenedArray:
+    print(softData["N"])
     deltaPhase = getDeltaPhase(softData["data"])
     softData["data"]["deltaPhase"] = deltaPhase
 
