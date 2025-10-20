@@ -41,7 +41,9 @@ originalData = dataJSON[0]["data"]          #first element is the original (unmo
 softenedArray = dataJSON
 noises = []
 for softData in softenedArray:
-    N = softData["N"]
+    N = 0
+    if "N" in softData:
+        N = softData["N"]
     if N == 0: continue                     #no noise for the original data
     noise = getNoiseByKey(N, originalData, softData)
     noises.append(noise)
