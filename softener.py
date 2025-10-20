@@ -33,7 +33,7 @@ timestamp = dataJSON[0]["data"]["timestamp"]
 fixedPhase = dataJSON[0]["data"]["fixedPhase"]
 mobilePhase = dataJSON[0]["data"]["mobilePhase"]
 deltaPhase = None
-if deltaPhase in dataJSON[0]["data"]:
+if "deltaPhase" in dataJSON[0]["data"]:
     deltaPhase = dataJSON[0]["data"]["deltaPhase"]
 hz = dataJSON[0]["data"]["hz"]
 
@@ -48,7 +48,7 @@ for N in range(begin, end, step):
     fixedPhase = globals.softenSignal(originalData["data"]["fixedPhase"], N)
     mobilePhase = globals.softenSignal(originalData["data"]["mobilePhase"], N)
     deltaPhase = None
-    if deltaPhase in originalData["data"]:
+    if "deltaPhase" in originalData["data"]:
         deltaPhase = globals.softenSignal(originalData["data"]["deltaPhase"], N)
     hz = globals.softenSignal(originalData["data"]["hz"], N)
     softened.append(getSoftenedData(N, fixedPhase, mobilePhase, hz, timestamp, deltaPhase))

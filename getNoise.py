@@ -26,7 +26,7 @@ def getNoise(key, originalData, softData):
 def getNoiseByKey(N, originalData, softData):
     noiseData = {}
     for key in ["fixedPhase", "mobilePhase", "hz", "deltaPhase"]:
-        noise = getNoise(key, originalData[key], softData["data"][key])
+        noise = getNoise(key, originalData[key], softData[key])
         noiseData[key] = noise
     return {
         "N" : N,
@@ -37,7 +37,7 @@ def getNoiseByKey(N, originalData, softData):
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
-originalData = dataJSON[0]["data"]          #first element is the original (unmodified) data
+originalData = dataJSON[0]          #first element is the original (unmodified) data
 softenedArray = dataJSON
 noises = []
 for softData in softenedArray:
@@ -45,7 +45,7 @@ for softData in softenedArray:
     if "N" in softData:
         N = softData["N"]
     if N == 0: continue                     #no noise for the original data
-    noise = getNoiseByKey(N, originalData, softData)
+    noise = getNoiseByKey(N, originalData["data"], softData["data"])
     noises.append(noise)
     
 outputJSON = noises

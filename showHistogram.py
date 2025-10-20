@@ -13,10 +13,15 @@ import matplotlib.pyplot as plt
 
 input_file = (sys.argv[1])
 key = (sys.argv[2])
+histogramRange = (0,0)
+if len(sys.argv)>3:
+    histogramRange = (sys.argv[3])
+    histogramRange = histogramRange.split(':')
+
 
 #showHistogram(data, title='-', bins=30, show = True, label = None, histtype='bar', stacked = False)
 
-def showFileData(input_file, key):
+def showFileData(input_file, key, histogramRange):
     global sampleSize
     path, filename = globals.getFileName(input_file)
     with open(input_file, 'r', encoding='utf-8') as f:
@@ -24,11 +29,11 @@ def showFileData(input_file, key):
 
     title = input_file
     for data in dataJSON:
-        label = "N = " + str(data["N"])
-        histogram.showHistogram(data["data"][key], title, label = [label])
+        label = key + " N = " + str(data["N"])
+        histogram.showHistogram(data["data"][key], title, label = [label], histogramRange = histogramRange)
 
 
-showFileData(input_file, key)
+showFileData(input_file, key, histogramRange)
 
 '''
 
