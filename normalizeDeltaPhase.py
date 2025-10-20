@@ -25,26 +25,27 @@ data = dataJSON[0]["data"]["deltaPhase"]          #first element is the original
 size = len(hz)
 hzModified = np.zeros(size)
 for i in range(size):
-    hzModified[i] = -hz[i]/1.5 + 3
+    hzModified[i] = -hz[i]/1.5 + 2.75
 
-# processed = 0
-# pointIndex = -1
-# for phase in data:
-    # pointIndex +=1
-    # distance = abs(standardValue-phase)                               #actual distance
+processed = 0
+pointIndex = -1
+for phase in data:
+    pointIndex +=1
+    referenceValue = hzModified[pointIndex]
+    distance = abs(referenceValue-phase)                               #actual distance
     # if distance < phaseMaxDifference:        #assuming the signal difference allowed be lower
         # continue
-    # newphase = phase
-    # increment = round(distance)                                             #only increment/decrement an integer number of times, to keep phase information
-    # increasedPhaseDistance = abs(standardValue-(phase + (increment)))
-    # decreasedPhaseDistance = abs(standardValue-(phase - (increment)))
-    # if increasedPhaseDistance < distance:
-        # newphase = phase+increment          #if we can make it closer to average, we do
-        # processed+=1
-    # elif decreasedPhaseDistance < distance:
-        # newphase = phase-increment
-        # processed+=1
-    # data[pointIndex] = newphase
+    newphase = phase
+    increment = round(distance)                                             #only increment/decrement an integer number of times, to keep phase information
+    increasedPhaseDistance = abs(referenceValue-(phase + (increment)))
+    decreasedPhaseDistance = abs(referenceValue-(phase - (increment)))
+    if increasedPhaseDistance < distance:
+        newphase = phase+increment          #if we can make it closer to average, we do
+        processed+=1
+    elif decreasedPhaseDistance < distance:
+        newphase = phase-increment
+        processed+=1
+    data[pointIndex] = newphase
 
 
 dataJSON[0]["data"]["hzModified"] = hzModified.tolist()
@@ -52,4 +53,4 @@ dataJSON[0]["data"]["hzModified"] = hzModified.tolist()
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(dataJSON, f, ensure_ascii=False, indent=4)
 
-#print("processed: ", processed)
+print("processed: ", processed)
