@@ -34,6 +34,7 @@ for segment in segments:
             fileFixed["period"] = getFirstPeriod(fileFixed["periods"])
             processed+=1
         #if processed > 10: break
-print("processed: ", processed)
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
+
+print("processed: ", processed)

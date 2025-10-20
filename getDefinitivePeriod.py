@@ -56,7 +56,8 @@ for segment in segments:
         del fileMobile["periods"]
         del fileFixed["periods"]
     # if processed > 0: break
-print("processed: ", processed)
-print("nulls: ", nulls)
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
+
+print("processed: ", processed)
+print("nulls: ", nulls)
