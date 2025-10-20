@@ -79,7 +79,7 @@ python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday0
 
 python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-DeltaPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Noise.json
 
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwrapped.json timestamp fixedPhase:mobilePhase 
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-LocalPhaseCorrected.json hz deltaPhase
 
 python3 showNoiseHistogram.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Noise.json hz
 

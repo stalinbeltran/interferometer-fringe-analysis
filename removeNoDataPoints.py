@@ -22,7 +22,8 @@ for segment in segments:
             newSegmentSamples.append(sample)
             processed+=1
     segment["samples"] = newSegmentSamples
-print("processed: ", processed)
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
 
+
+print("processed: ", processed)

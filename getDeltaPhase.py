@@ -36,3 +36,6 @@ for softData in softenedArray:
 
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(dataJSON, f, ensure_ascii=False, indent=4)
+
+
+print("ended")

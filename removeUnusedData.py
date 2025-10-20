@@ -29,7 +29,8 @@ for segment in segments:
 segmentsJSON["segments"] = newSegments
 
 
-print("processed: ", processed)
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
 
+print("processed: ", processed)
+print("ended")
