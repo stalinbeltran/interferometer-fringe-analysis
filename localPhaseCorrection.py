@@ -26,11 +26,10 @@ iterations = int(sys.argv[7])
 def correctLocalPhase(data):
     global phaseMaxDifference, distanceImprovementFactor, N_lastPoints
     processed = 0
-    index = -1
     points = data
-    for point in points:
-        index+=1
-        phase = point
+    size = len(points)
+    for index in range(size):
+        phase = points[index]
         newphase = phase
         aroundPoints = globals.getAroundPoints2(index, N_lastPoints, data)
         averageSamplePhase = globals.pointsAverage(aroundPoints)

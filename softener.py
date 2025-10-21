@@ -48,7 +48,7 @@ for N in range(begin, end, step):
     fixedPhase = globals.softenSignal(originalData["data"]["fixedPhase"], N)
     mobilePhase = globals.softenSignal(originalData["data"]["mobilePhase"], N)
     deltaPhase = None
-    if "deltaPhase" in originalData["data"]:
+    if "deltaPhase" in originalData["data"] and originalData["data"]["deltaPhase"] is not None:
         deltaPhase = globals.softenSignal(originalData["data"]["deltaPhase"], N)
     hz = globals.softenSignal(originalData["data"]["hz"], N)
     softened.append(getSoftenedData(N, fixedPhase, mobilePhase, hz, timestamp, deltaPhase))

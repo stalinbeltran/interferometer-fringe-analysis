@@ -23,6 +23,10 @@ Nconstant = None
 if len(sys.argv)>5:
     Nconstant = int(sys.argv[5])
 
+marker = '.'
+if len(sys.argv)>6:
+    marker = (sys.argv[6])
+
 
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
@@ -45,7 +49,7 @@ for softData in softenedArray:
         xdata = data[xkey][begin:end]
         for key in ykey:
             ydata = data[key][begin:end]
-            plt.plot(xdata, ydata, '.', label=key + ' vs ' + xkey + " (" + str(begin) + "->" + str(end) + ", N:" + str(N) + ")")
+            plt.plot(xdata, ydata, marker, label=key + ' vs ' + xkey + " (" + str(begin) + "->" + str(end) + ", N:" + str(N) + ")")
         plt.title(title)
         plt.legend()
         plt.show()
