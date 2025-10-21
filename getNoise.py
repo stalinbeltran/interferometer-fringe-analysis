@@ -26,6 +26,8 @@ def getNoise(key, originalData, softData):
 def getNoiseByKey(N, originalData, softData):
     noiseData = {}
     for key in ["fixedPhase", "mobilePhase", "hz", "deltaPhase"]:
+        if key not in originalData or originalData[key] is None:
+            continue
         noise = getNoise(key, originalData[key], softData[key])
         noiseData[key] = noise
     return {
