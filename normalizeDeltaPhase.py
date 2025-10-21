@@ -15,7 +15,7 @@ output_file = (sys.argv[2])
 # standardValue = float(sys.argv[3])
 # offsetValue = int(sys.argv[4])
 phaseMaxDifference = 0.1
-samples = 3000
+samples = 1800
 
 def processData(hz, data, divider, offset):
     global samples
@@ -49,8 +49,8 @@ def processData(hz, data, divider, offset):
     ydata = data[:size]
     ydata2 = hzModified[:size]
     
+    #plt.plot(xdata, ydata2, '.', label='ds')
     plt.plot(xdata, ydata, '.', label='ds')
-    plt.plot(xdata, ydata2, '.', label='ds')
     plt.show()
 
 
@@ -62,11 +62,16 @@ hz = dataJSON[0]["data"]["hz"]
 data = dataJSON[0]["data"]["deltaPhase"]          #first element is the original (unmodified) data
 
 
+# for i in range(0, 1):
+    # for j in range(0, 10):
 
-for i in range(0, 5):
-    for j in range(0, 10):
-        divider = 3 + i/25
-        offset = 1.7 + j/5
+# for j in range(0, 1):
+    # for i in range(0, -10, -1):
+    
+for j in range(0, 1):
+    for i in range(0, -10, -1):
+        divider = 0.74 + i/25
+        offset = 2.0 + j/10
         processData(hz, data, divider, offset)
         print()
 
