@@ -14,20 +14,20 @@ ykey = (sys.argv[3])
 ykey = ykey.split(':')
 
 
-def correctLocalPhase(data):
+def unwrap(data):
     normalizedData = [x*2*np.pi for x in data]
     unwrappedData = np.unwrap(normalizedData)
-
-    print("processed")
-    return unwrappedData
+    normalizedData = [x/(2*np.pi) for x in unwrappedData]
+    normalizedData = normalizedData
+    return normalizedData
 
 
 with open(input_file, 'r', encoding='utf-8') as f:
     data = json.load(f)
     
 for key in ykey:
-    unwrappedData = correctLocalPhase(data[0]["data"][key])
-    data[0]["data"][key] = unwrappedData.tolist()
+    unwrappedData = unwrap(data[0]["data"][key])
+    data[0]["data"][key] = unwrappedData
     print()
 
 
