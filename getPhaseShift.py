@@ -29,8 +29,8 @@ for segment in segments:
         try:
             mobilePhase = fileMobile["period"]["phase"]
             fixedPhase = fileFixed["period"]["phase"]
-            deltaPhase = (mobilePhase - fixedPhase)       #phase in degrees, converted to fractional(0.0-1.0)            
-            deltaPhase = phaseProcessing.getPositivePhaseDegrees(deltaPhase)/360
+            deltaPhase = (mobilePhase - fixedPhase)       #phase in degrees            
+            deltaPhase = phaseProcessing.getPositivePhaseDegrees(deltaPhase)/360        #converted to fractional(0.0-1.0)
             deltaPhasePixels = fileMobile["period"]["period"]*deltaPhase                                                 #useful to compare samples by pixels
             mobilePhase = mobilePhase/360
             fixedPhase = fixedPhase/360

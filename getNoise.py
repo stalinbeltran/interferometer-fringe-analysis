@@ -9,9 +9,12 @@ import numpy as np
 import histogram
 import phaseProcessing
 import matplotlib.pyplot as plt
+import copy
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
+keys = (sys.argv[3])
+keys = keys.split(':')
 
 def getNoise(key, originalData, softData):
     size = len(originalData)
@@ -23,9 +26,9 @@ def getNoise(key, originalData, softData):
         noises.append(dif)
     return noises
     
-def getNoiseByKey(N, originalData, softData):
-    noiseData = {}
-    for key in ["fixedPhase", "mobilePhase", "hz", "deltaPhase"]:
+def getNoiseByKey(N, originalData, softData, keys):
+    noiseData = copy.deepcopy(originalData)
+    for key in keys:        #["fixedPhase", "mobilePhase", "hz", "deltaPhase"]:
         if key not in originalData or originalData[key] is None:
             continue
         noise = getNoise(key, originalData[key], softData[key])
@@ -47,7 +50,7 @@ for softData in softenedArray:
     if "N" in softData:
         N = softData["N"]
     if N == 0: continue                     #no noise for the original data
-    noise = getNoiseByKey(N, originalData["data"], softData["data"])
+    noise = getNoiseByKey(N, originalData["data"], softData["data"], keys)
     noises.append(noise)
     
 outputJSON = noises
