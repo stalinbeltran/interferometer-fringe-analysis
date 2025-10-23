@@ -23,7 +23,7 @@ CONTINUOUS_FACTOR = 0.8
 def saveSection(results, section, isContinuous):
     if sectionLen(section) == 0:            #we have nothing to save
         return
-    result = {"isContinuous" : isContinuous, "section" : section}
+    result = {"isContinuous" : isContinuous, "data" : section}
     results.append(result)
 
 def saveValue(section, index, original, softened):
@@ -40,8 +40,8 @@ def newSection():
         }
     return section
 
-def sectionLen(section):
-    return len(section["softened"]["deltaPhase"])
+def sectionLen(data):
+    return len(data["softened"]["deltaPhase"])
 
 
 with open(input_file, 'r', encoding='utf-8') as f:
@@ -93,10 +93,10 @@ begin = 0
 c = 0
 for section in results:
     isContinuous = section["isContinuous"]
-    section = section["section"]
-    end = begin + sectionLen(section)
+    data = section["data"]
+    end = begin + sectionLen(data)
     xdata = range(begin, end)
-    ydata = section["softened"]["deltaPhase"]
+    ydata = data["softened"]["deltaPhase"]
     marker = '.'
     if isContinuous: marker = '-'
     plt.plot(xdata, ydata, marker)

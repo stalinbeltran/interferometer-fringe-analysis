@@ -60,6 +60,10 @@ python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slow
 
 python3 getContinuous.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Continuous.json
 
+python3 getRegression.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-ContinuousRegression.json
+
+
+
 python3 getContinuousPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseCorrection.json 
 
 #unwrap Phase shift for each sample:
