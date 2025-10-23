@@ -21,25 +21,40 @@ CONTINUOUS_FACTOR = 0.8
     
 
 def saveSection(results, section, isContinuous):
-    if len(section) == 0:            #we have nothing to save
+    if sectionLen(section) == 0:            #we have nothing to save
         return
     result = {"isContinuous" : isContinuous, "section" : section}
     results.append(result)
 
-    
+def saveValue(section, index, original, softened):
+    section["softened"]["deltaPhase"].append(softened["deltaPhase"][index])
+    section["softened"]["hz"].append(softened["hz"][index])
+    section["original"]["deltaPhase"].append(original["deltaPhase"][index])
+    section["original"]["hz"].append(original["hz"][index])
+
+
+def newSection():
+    section = {
+        "softened": {"deltaPhase":[], "hz":[]},
+        "original": {"deltaPhase":[], "hz":[]}
+        }
+    return section
+
+def sectionLen(section):
+    return len(section["softened"]["deltaPhase"])
+
 
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
-
-data = dataJSON[1]["data"]          #take the softened data
-hz = data["hz"]
-deltaPhase = data["deltaPhase"]
-print(len(deltaPhase))
-
+original = dataJSON[0]["data"]      #take the original data
+softened = dataJSON[1]["data"]          #take the softened data
+hz = softened["hz"]
+deltaPhase = softened["deltaPhase"]
 
 previousPoint = deltaPhase[0]
-section = {"deltaPhase":[], "hz":[]}
+section = newSection()
+
 continuousCounter = 0
 results = []
 previousIsContinuous = False
@@ -50,18 +65,18 @@ for i in range(len(deltaPhase)):
     if distance < MAXIMUM_DISTANCE:             #distance between contiguous poinnts signal continuity
         continuousCounter +=1
     else:
-        actualSectionSize = len(section["deltaPhase"])
+        actualSectionSize = sectionLen(section)
         if actualSectionSize > MINIMUM_SECTION_LENGTH:
             notContiguous = actualSectionSize - continuousCounter
             isContinuous = continuousCounter * CONTINUOUS_FACTOR > notContiguous
             saveSection(results, section, isContinuous)
-            section = {"deltaPhase":[], "hz":[]}
+            section = newSection()
             previousIsContinuous = isContinuous
             continuousCounter = 0
-    section["deltaPhase"].append(deltaPhase[i])
-    section["hz"].append(hz[i])
+
+    saveValue(section, i, original, softened):
     previousPoint = point
-actualSectionSize = len(section["deltaPhase"])
+actualSectionSize = sectionLen(section)
 isContinuous = actualSectionSize - continuousCounter > CONTINUOUS_FACTOR*actualSectionSize 
 saveSection(results, section, isContinuous)
 
@@ -80,7 +95,7 @@ c = 0
 for section in results:
     isContinuous = section["isContinuous"]
     section = section["section"]
-    end = begin + len(section["deltaPhase"])
+    end = begin + sectionLen(section)
     xdata = range(begin, end)
     ydata = section["deltaPhase"]
     marker = '.'
