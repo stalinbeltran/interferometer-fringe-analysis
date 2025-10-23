@@ -37,17 +37,23 @@ def getDirectionRange(data, direction, begin):
     for i in range(begin, size):
         actualValue = data[i]
         end = i
-        if direction == UP and lastValue > actualValue: break
-        if direction == DOWN and lastValue < actualValue: break
-        lastValue = actualValue
+        if direction == UP:
+            if actualValue > lastValue:
+                lastValue = actualValue
+            if lastValue - actualValue > MINIMUM_DISTANCE : break
+        if direction == DOWN:
+            if actualValue < lastValue:
+                    lastValue = actualValue
+            if actualValue - lastValue > MINIMUM_DISTANCE : break
     return (begin, end)
             
             
             
             
-def getNewSection(section, sectionRange):
+def getNewSection(section, sectionRange, direction):
     newSection = {
         "isContinuous": section["isContinuous"],
+        "direction": direction,
         "size": len(section["data"]["original"]["hz"][sectionRange[0]:sectionRange[1]]),
         "data": {
             "original": {
@@ -78,9 +84,11 @@ for section in dataJSON:
     data = section["data"]["softened"]["hz"]
     while begin + 1 < size:
         direction = getDirection(data, begin)                       #find actual direction (UP or DOWN)
-        if direction is None: continue
+        if direction is None:
+            begin += 1
+            continue
         sectionRange = getDirectionRange(data, direction, begin)    #get the range where this direction is valid
-        newSection = getNewSection(section, sectionRange)              #create new section with this data range
+        newSection = getNewSection(section, sectionRange, direction)              #create new section with this data range
         newSections.append(newSection)
         end = sectionRange[1]
         begin = end
