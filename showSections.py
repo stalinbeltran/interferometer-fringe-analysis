@@ -15,6 +15,8 @@ input_file = (sys.argv[1])
 dataType = (sys.argv[2])
 maximumSize = globals.getPromptOptionalParameter(3, int)
 minumumSize = globals.getPromptOptionalParameter(4, int)
+keyx = globals.getPromptOptionalParameter(5, globals.split, [":"])
+marker = globals.getPromptOptionalParameter(6)
 
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
@@ -33,9 +35,14 @@ for section in dataJSON:
     totalSize += sectionSize
     end = begin + sectionSize
     xdata = range(begin, end)
+    if keyx:            
+        xdata = data[dataType][keyx[0]]
     ydata = data[dataType]["deltaPhase"]
-    marker = '.'
-    if isContinuous: marker = '-'
+    if not marker:
+        marker = '.'
+        if isContinuous:
+            marker = '-'
+        
     plt.plot(xdata, ydata, marker)
     begin = end
     c+=1
