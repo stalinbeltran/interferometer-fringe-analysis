@@ -64,8 +64,10 @@ python3 getSectionData.py D:\Stalin\FotosFranjasProyecto\results\thursday0910202
 
 python3 getHzSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-ContinuousData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-HzSections.json
 
+python3 getLinearRegression.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-HzSections.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Regression.json
 
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-HzSections.json softened
+
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Regression.json original 0 150 hz
 
 
 
