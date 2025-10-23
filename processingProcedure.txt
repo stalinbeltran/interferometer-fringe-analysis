@@ -66,15 +66,14 @@ python3 getHzSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025
 
 python3 getLinearRegression.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-HzSections.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Regression.json
 
+python3 normalizeSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Regression.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsNormalized.json
+
 
 python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Regression.json original 0 150 hz
 
 
 
 python3 getContinuousPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseCorrection.json 
-
-#unwrap Phase shift for each sample:
-python3 unwrapPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-DeltaPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseCorrection.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwrapped.json  
 
 
 
