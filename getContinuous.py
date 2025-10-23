@@ -79,15 +79,15 @@ for key in results:
     for section in results[key]:
         isContinuous = section["isContinuous"]
         section = section["section"]
-        if not isContinuous or len(section) < 50: continue
+        if not isContinuous or len(section) < 10:
+            continue
         end = begin + len(section)
         xdata = range(begin, end)
         ydata = section
-        plt.plot(xdata, ydata, '.', label=key )
+        plt.plot(xdata, ydata, '-', label=key )
         begin = end
         c+=1
-        if c % 8 == 0:
-            plt.legend()
+        if c % 20 == 0:
             plt.show()
 
 
