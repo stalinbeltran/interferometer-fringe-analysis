@@ -36,13 +36,6 @@ def sectionUpdate(section, score, coef, intercept):
     return newSection
 
 
-def newSection(section):
-
-    return section
-
-
-
-
 
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
