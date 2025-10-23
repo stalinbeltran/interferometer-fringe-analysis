@@ -14,21 +14,24 @@ from sklearn.linear_model import LinearRegression
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 
+MINIMUM_SIZE = 20
 
 def sectionLen(section):
-    return len(section["softened"]["deltaPhase"])
+    return len(section["data"]["softened"]["deltaPhase"])
 
 def sectionUpdate(section, score, coef, intercept):
+    size = sectionLen(section)
     newSection = {
         "isContinuous": section["isContinuous"],
+        "size": size,
         "regression": {
             "score": score,
             "coef": coef,
             "intercept": intercept
         },
         "data": {
+            "original": section["data"]["original"],
             "softened": section["data"]["softened"],
-            "original": section["data"]["original"]
         }
     }
     return newSection
@@ -52,7 +55,9 @@ for section in dataJSON:
     isContinuous = section["isContinuous"]
     if not isContinuous: continue               #ignore discontinuities
     data = section["data"]
-    size = sectionLen(data)
+    size = sectionLen(section)
+    
+    if size < MINIMUM_SIZE: continue               #ignore too short ones
     xdata = data["original"]["hz"]
     ydata = data["original"]["deltaPhase"]
     xdataNP = np.array(xdata)
@@ -65,7 +70,7 @@ for section in dataJSON:
     intercept = reg.intercept_
     newSection = sectionUpdate(section, score, coef[0][0], intercept[0])
     newSections.append(newSection)
-    break
+    
 
 
 
