@@ -58,9 +58,20 @@ python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025
 
 python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-DeltaPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json 6:7:6
 
+python3 getContinuous.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Continuous.json
+
+python3 getContinuousPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseCorrection.json 
+
+#unwrap Phase shift for each sample:
+python3 unwrapPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-DeltaPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseCorrection.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwrapped.json  
+
+
+
+
+
 python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Noise.json fixedPhase:mobilePhase
 
-python3 getContinuous.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Continuous.json
+
 
 
 
@@ -98,10 +109,6 @@ python3 diff.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacce
 
 -----------------------------
 
-python3 getContinuousPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseCorrection.json 
-
-#unwrap Phase shift for each sample:
-python3 unwrapPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-LocalPhaseCorrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseCorrection.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseUnwrapped.json  
 
 
 #check if file is openable (some get corrupted somehow):
