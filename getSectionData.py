@@ -1,4 +1,4 @@
-#python3 getRegression.py
+#python3 getSectionData.py
 
 
 import os
@@ -14,7 +14,6 @@ from sklearn.linear_model import LinearRegression
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 
-MINIMUM_SIZE = 20
 
 def sectionLen(section):
     return len(section["data"]["softened"]["deltaPhase"])
@@ -57,7 +56,6 @@ for section in dataJSON:
     data = section["data"]
     size = sectionLen(section)
     
-    if size < MINIMUM_SIZE: continue               #ignore too short ones
     xdata = data["original"]["hz"]
     ydata = data["original"]["deltaPhase"]
     xdataNP = np.array(xdata)
