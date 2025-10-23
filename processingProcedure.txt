@@ -91,34 +91,3 @@ python3 showHistogram.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025
 python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Noise.json hz mobilePhase
 
 
-
-
-
-
-python3 normalizeDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-DeltaPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Normalized.json 0.25 1
-
-
-
-
-
-python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json 3:40:3
-
-
-
-
-
-
--------------------------
--------------------------
-
-python3 diff.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften-N(40).json mobilePhase D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-mobilePhaseN40-Diff.json
-
-
------------------------------
-
-
-
-#check if file is openable (some get corrupted somehow):
-python3 checkFile.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Segments.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentsChecked.json
-
-
