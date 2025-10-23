@@ -180,3 +180,12 @@ def getData(fixedPhase, mobilePhase, hz, timestamp, deltaPhase):
         "hz" : hz,
         "timestamp" : timestamp
     }
+    
+def getPromptOptionalParameter(n, func = None):
+    if len(sys.argv) <= n: return None
+    param = (sys.argv[n])
+    if func:
+        param = func(param)
+    return param
+    
+    

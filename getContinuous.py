@@ -12,18 +12,18 @@ import matplotlib.pyplot as plt
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
-#parameters = (sys.argv[3])
 
 
 MAXIMUM_DISTANCE = 0.09
-MINIMUM_SECTION_LENGTH = 3
+MINIMUM_SECTION_LENGTH = 6
 CONTINUOUS_FACTOR = 0.8
     
 
 def saveSection(results, section, isContinuous):
-    if sectionLen(section) == 0:            #we have nothing to save
+    size = sectionLen(section)
+    if size == 0:            #we have nothing to save
         return
-    result = {"isContinuous" : isContinuous, "data" : section}
+    result = {"isContinuous" : isContinuous, "size": size, "data" : section}
     results.append(result)
 
 def saveValue(section, index, original, softened):
