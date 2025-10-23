@@ -80,31 +80,11 @@ isContinuous = actualSectionSize - continuousCounter > CONTINUOUS_FACTOR*actualS
 saveSection(results, section, isContinuous)
 
 
-
-
 outputJSON = results
 
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(outputJSON, f, ensure_ascii=False, indent=4)
 
 
-
-begin = 0
-c = 0
-for section in results:
-    isContinuous = section["isContinuous"]
-    data = section["data"]
-    end = begin + sectionLen(data)
-    xdata = range(begin, end)
-    ydata = data["softened"]["deltaPhase"]
-    marker = '.'
-    if isContinuous: marker = '-'
-    plt.plot(xdata, ydata, marker)
-    begin = end
-    c+=1
-    if c % 50 == 0:
-        plt.show()
-
-plt.show()
 
 
