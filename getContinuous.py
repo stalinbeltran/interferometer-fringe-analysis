@@ -15,7 +15,7 @@ output_file = (sys.argv[2])
 #parameters = (sys.argv[3])
 
 
-MAXIMUM_DISTANCE = 0.03
+MAXIMUM_DISTANCE = 0.09
 MINIMUM_SECTION_LENGTH = 3
 CONTINUOUS_FACTOR = 0.8
     
@@ -33,36 +33,39 @@ with open(input_file, 'r', encoding='utf-8') as f:
 
 
 data = dataJSON[1]["data"]          #take the softened data
-results = {}
-for key in data:
-    if key == "hz": continue
-    points = data[key]
-    previousPoint = points[0]
-    section = []
-    continuousCounter = 0
-    resultsKey = []
-    previousIsContinuous = False
-    for i in range(len(points)):
-        point = points[i]
-        distance = abs(previousPoint-point)
-        thisIsContinuous = False
-        if distance < MAXIMUM_DISTANCE:
-            continuousCounter +=1
-        else:
-            actualSectionSize = len(section)
-            if actualSectionSize > MINIMUM_SECTION_LENGTH:
-                notContiguous = actualSectionSize - continuousCounter
-                isContinuous = continuousCounter * CONTINUOUS_FACTOR > notContiguous
-                saveSection(resultsKey, section, isContinuous)
-                section = []
-                previousIsContinuous = isContinuous
-                continuousCounter = 0
-        section.append(point)
-        previousPoint = point
-    actualSectionSize = len(section)
-    isContinuous = actualSectionSize - continuousCounter > CONTINUOUS_FACTOR*actualSectionSize 
-    saveSection(resultsKey, section, isContinuous)
-    results[key] = resultsKey
+hz = data["hz"]
+deltaPhase = data["deltaPhase"]
+print(len(deltaPhase))
+
+
+previousPoint = deltaPhase[0]
+section = {"deltaPhase":[], "hz":[]}
+continuousCounter = 0
+results = []
+previousIsContinuous = False
+for i in range(len(deltaPhase)):
+    point = deltaPhase[i]
+    distance = abs(previousPoint-point)
+    thisIsContinuous = False
+    if distance < MAXIMUM_DISTANCE:             #distance between contiguous poinnts signal continuity
+        continuousCounter +=1
+    else:
+        actualSectionSize = len(section["deltaPhase"])
+        if actualSectionSize > MINIMUM_SECTION_LENGTH:
+            notContiguous = actualSectionSize - continuousCounter
+            isContinuous = continuousCounter * CONTINUOUS_FACTOR > notContiguous
+            saveSection(results, section, isContinuous)
+            section = {"deltaPhase":[], "hz":[]}
+            previousIsContinuous = isContinuous
+            continuousCounter = 0
+    section["deltaPhase"].append(deltaPhase[i])
+    section["hz"].append(hz[i])
+    previousPoint = point
+actualSectionSize = len(section["deltaPhase"])
+isContinuous = actualSectionSize - continuousCounter > CONTINUOUS_FACTOR*actualSectionSize 
+saveSection(results, section, isContinuous)
+
+
 
 
 outputJSON = results
@@ -72,24 +75,22 @@ with open(output_file, 'w', encoding='utf-8') as f:
 
 
 
-for key in results:
-    begin = 0
-    c = 0
-    if key == "hz": continue
-    for section in results[key]:
-        isContinuous = section["isContinuous"]
-        section = section["section"]
-        if not isContinuous or len(section) < 10:
-            continue
-        end = begin + len(section)
-        xdata = range(begin, end)
-        ydata = section
-        plt.plot(xdata, ydata, '-', label=key )
-        begin = end
-        c+=1
-        if c % 20 == 0:
-            plt.show()
+begin = 0
+c = 0
+for section in results:
+    isContinuous = section["isContinuous"]
+    section = section["section"]
+    end = begin + len(section["deltaPhase"])
+    xdata = range(begin, end)
+    ydata = section["deltaPhase"]
+    marker = '.'
+    if isContinuous: marker = '-'
+    plt.plot(xdata, ydata, marker)
+    begin = end
+    c+=1
+    if c % 50 == 0:
+        plt.show()
 
-
+plt.show()
 
 
