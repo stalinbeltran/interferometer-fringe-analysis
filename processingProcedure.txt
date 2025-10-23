@@ -27,7 +27,7 @@ python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday0910202
 python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesFirstPeriod.json
 
 #show periods in the samples:
-python3 showPeriods.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesPeriodLooked.json
+python3 getLookedPeriod.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesPeriodLooked.json
 
 
 
