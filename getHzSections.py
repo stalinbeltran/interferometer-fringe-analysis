@@ -16,12 +16,18 @@ output_file = (sys.argv[2])
 
 UP = 1
 DOWN = 0
+MINIMUM_DISTANCE = 0.05
 
 def getDirection(data, begin):
-    lastValue = data[begin]
-    actualValue = data[begin + 1]
-    direction = DOWN                                   #down
-    if lastValue < actualValue: direction = UP         #up
+    size = len(data)
+    firstValue = data[begin]
+    direction = None
+    for i in range(begin + 1, size):
+        actualValue = data[i]
+        if abs(actualValue - firstValue) < MINIMUM_DISTANCE: continue
+        direction = DOWN
+        if firstValue < actualValue: direction = UP         #up
+        break
     return direction
     
     
@@ -30,7 +36,7 @@ def getDirectionRange(data, direction, begin):
     lastValue = data[begin]
     for i in range(begin, size):
         actualValue = data[i]
-            end = i
+        end = i
         if direction == UP and lastValue > actualValue: break
         if direction == DOWN and lastValue < actualValue: break
         lastValue = actualValue
@@ -39,19 +45,17 @@ def getDirectionRange(data, direction, begin):
             
             
             
-def newSection(section, sectionRange):
+def getNewSection(section, sectionRange):
     newSection = {
         "isContinuous": section["isContinuous"],
-        "size": section["size"],
+        "size": len(section["data"]["original"]["hz"][sectionRange[0]:sectionRange[1]]),
         "data": {
             "original": {
-                "hz": section["data"]["original"]["hz"][sectionRange[0]:sectionRange[1]]
+                "hz": section["data"]["original"]["hz"][sectionRange[0]:sectionRange[1]],
                 "deltaPhase": section["data"]["original"]["deltaPhase"][sectionRange[0]:sectionRange[1]]
-            }
-                
-                
+            }, 
             "softened": {
-                "hz": section["data"]["softened"]["hz"][sectionRange[0]:sectionRange[1]]
+                "hz": section["data"]["softened"]["hz"][sectionRange[0]:sectionRange[1]],
                 "deltaPhase": section["data"]["softened"]["deltaPhase"][sectionRange[0]:sectionRange[1]]
             }
         }
@@ -72,10 +76,11 @@ for section in dataJSON:
     begin = 0
     size = section["size"]
     data = section["data"]["softened"]["hz"]
-    while begin < size:
+    while begin + 1 < size:
         direction = getDirection(data, begin)                       #find actual direction (UP or DOWN)
+        if direction is None: continue
         sectionRange = getDirectionRange(data, direction, begin)    #get the range where this direction is valid
-        newSection = newSection(section, sectionRange)              #create new section with this data range
+        newSection = getNewSection(section, sectionRange)              #create new section with this data range
         newSections.append(newSection)
         end = sectionRange[1]
         begin = end
