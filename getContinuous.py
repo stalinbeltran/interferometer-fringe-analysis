@@ -61,7 +61,6 @@ previousIsContinuous = False
 for i in range(len(deltaPhase)):
     point = deltaPhase[i]
     distance = abs(previousPoint-point)
-    thisIsContinuous = False
     if distance < MAXIMUM_DISTANCE:             #distance between contiguous poinnts signal continuity
         continuousCounter +=1
     else:
@@ -74,7 +73,7 @@ for i in range(len(deltaPhase)):
             previousIsContinuous = isContinuous
             continuousCounter = 0
 
-    saveValue(section, i, original, softened):
+    saveValue(section, i, original, softened)
     previousPoint = point
 actualSectionSize = sectionLen(section)
 isContinuous = actualSectionSize - continuousCounter > CONTINUOUS_FACTOR*actualSectionSize 
@@ -97,7 +96,7 @@ for section in results:
     section = section["section"]
     end = begin + sectionLen(section)
     xdata = range(begin, end)
-    ydata = section["deltaPhase"]
+    ydata = section["softened"]["deltaPhase"]
     marker = '.'
     if isContinuous: marker = '-'
     plt.plot(xdata, ydata, marker)
