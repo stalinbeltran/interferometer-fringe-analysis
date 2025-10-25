@@ -7,15 +7,18 @@ import json
 import cv2
 import numpy as np
 import phaseProcessing
+import globals
  
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 
 def getPeriods(ftOrdered):
     periods = []
+    maxPeriod = globals.getMaximumPeriod()
     for ftItem in ftOrdered:
         frequency = ftItem["frequency"]
         period = 1/frequency
+        if period >= maxPeriod: continue    #ignore too big periods
         ft = complex(ftItem["ft"]["real"], ftItem["ft"]["imag"])
         phase = np.angle(ft, True)
         phase = phaseProcessing.getPositivePhaseDegrees(phase)

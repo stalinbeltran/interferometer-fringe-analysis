@@ -193,3 +193,12 @@ def getPromptOptionalParameter(n, func = None, funcParams = None):
     
 def split(s, params):
     return s.split(params[0])
+
+
+def getMaximumPeriod():
+    global WIDTH
+    maximumPeriod = WIDTH/4                 #do not take photos with less than 4 fringes
+    return maximumPeriod
+    
+    
+    
