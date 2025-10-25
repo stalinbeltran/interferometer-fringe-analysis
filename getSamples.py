@@ -20,6 +20,7 @@ previousTimestamp = None
 processed = 0
 noTimestampCounter = 0
 timestamps = []
+deltatime = []
 c = 0
 for segment in segments:
     files = segment["files"]
@@ -52,6 +53,7 @@ for segment in segments:
             continue            #wait for the next file
             
         timestampDiff =  float(timestamp) - float(previousTimestamp)
+        deltatime.append(timestampDiff)
         if timestampDiff <= TMAX_SAMPLE:        #this is a new sample
             sample = {"timestamp": previousTimestamp, "fileMobileMirror": previousFile, "fileFixedMirror": file}
             samples.append(sample)
@@ -76,7 +78,8 @@ newData = [
         {
             "N" : 0,
             "data" : {
-                "timestamp" : timestamps
+                "timestamp" : timestamps,
+                "deltatime" : deltatime
             }
         }
     ]
