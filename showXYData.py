@@ -9,6 +9,7 @@ import numpy as np
 import histogram
 import phaseProcessing
 import matplotlib.pyplot as plt
+import globals
 
 input_file = (sys.argv[1])
 xkey = (sys.argv[2])
@@ -27,6 +28,7 @@ marker = '.'
 if len(sys.argv)>6:
     marker = (sys.argv[6])
 
+ylim = globals.getPromptOptionalParameter(7, [{"func":globals.split, "funcParams":[":"]}, {"func":float}])
 
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
@@ -52,5 +54,7 @@ for softData in softenedArray:
             plt.plot(xdata, ydata, marker, label=key + ' vs ' + xkey + " (" + str(begin) + "->" + str(end) + ", N:" + str(N) + ")")
         plt.title(title)
         plt.legend()
+        if ylim:
+            plt.ylim(ylim[0], ylim[1]) 
         plt.show()
         
