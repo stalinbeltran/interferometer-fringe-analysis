@@ -30,8 +30,7 @@ for section in dataJSON:
     sectionSize = section["size"]
     if maximumSize and maximumSize > 0 and sectionSize > maximumSize: continue
     if minumumSize and minumumSize > 0 and sectionSize < minumumSize: continue
-    
-    
+
     totalSize += sectionSize
     end = begin + sectionSize
     xdata = range(begin, end)

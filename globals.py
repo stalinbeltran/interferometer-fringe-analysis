@@ -180,9 +180,9 @@ def getData(fixedPhase, mobilePhase, hz, timestamp, deltaPhase):
         "hz" : hz,
         "timestamp" : timestamp
     }
-    
-    
-def applyFunction(array, func, funcParams):
+
+
+def applyFunctionToArray(array, func, funcParams):
     if funcParams:
         size = len(array)
         for i in range(size):
@@ -191,7 +191,7 @@ def applyFunction(array, func, funcParams):
         size = len(array)
         for i in range(size):
             array[i] = func(array[i])
-    
+
 def getPromptOptionalParameter(n, funcs = None):
     if len(sys.argv) <= n: return None
     params = (sys.argv[n])
@@ -200,7 +200,6 @@ def getPromptOptionalParameter(n, funcs = None):
     if not isinstance(funcs, list):
         params = funcs(params)
         return
-    
     #deal with array of functions
     for f in funcs:
         func = f["func"]
@@ -214,8 +213,7 @@ def getPromptOptionalParameter(n, funcs = None):
                 else:
                     params = func(params)
                 continue
-            applyFunction(array, func, funcParams)
-
+            applyFunctionToArray(params, func, funcParams)
     return params
     
 def split(s, params):
