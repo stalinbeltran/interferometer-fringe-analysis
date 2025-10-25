@@ -13,21 +13,11 @@ import globals
 
 input_file = (sys.argv[1])
 xkey = (sys.argv[2])
-ykey = (sys.argv[3])
-ykey = ykey.split(':')
-
-showedSize = None
-if len(sys.argv)>4:
-    showedSize = int(sys.argv[4])
-    
-Nconstant = None
-if len(sys.argv)>5:
-    Nconstant = int(sys.argv[5])
-
-marker = '.'
-if len(sys.argv)>6:
-    marker = (sys.argv[6])
-
+ykey = globals.getPromptOptionalParameter(3, [{"func":globals.split, "funcParams":[":"]}])
+showedSize = globals.getPromptOptionalParameter(4, [{"func":int}])
+print("showedSize: ", showedSize)
+Nconstant = globals.getPromptOptionalParameter(5, [{"func":int}])
+marker = globals.getPromptOptionalParameter(6)
 ylim = globals.getPromptOptionalParameter(7, [{"func":globals.split, "funcParams":[":"]}, {"func":float}])
 
 with open(input_file, 'r', encoding='utf-8') as f:
@@ -35,7 +25,8 @@ with open(input_file, 'r', encoding='utf-8') as f:
 
 title = input_file
 softenedArray = dataJSON
-    
+if not marker:
+    marker = '.'
 for softData in softenedArray:
     begin = 0
     N = 0
