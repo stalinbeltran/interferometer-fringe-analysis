@@ -181,16 +181,18 @@ def getData(fixedPhase, mobilePhase, hz, timestamp, deltaPhase):
         "timestamp" : timestamp
     }
 
+def applyFunction(params, func, funcParams):
+    if funcParams:
+        params = func(params, funcParams)
+    else:
+        params = func(params)
+    return params
 
 def applyFunctionToArray(array, func, funcParams):
-    if funcParams:
-        size = len(array)
-        for i in range(size):
-            array[i] = func(array[i], funcParams)
-    else:
-        size = len(array)
-        for i in range(size):
-            array[i] = func(array[i])
+    size = len(array)
+    for i in range(size):
+        array[i] = applyFunction(array[i], func, funcParams)
+    return array
 
 def getPromptOptionalParameter(n, funcs = None):
     if len(sys.argv) <= n: return None
@@ -198,7 +200,7 @@ def getPromptOptionalParameter(n, funcs = None):
     if params is None or funcs is None:
         return params
     if not isinstance(funcs, list):
-        params = funcs(params)
+        params = applyFunction(params, funcs, None)
         return
     #deal with array of functions
     for f in funcs:
@@ -206,14 +208,10 @@ def getPromptOptionalParameter(n, funcs = None):
         funcParams = None
         if "funcParams" in f:
             funcParams = f["funcParams"]
-        if func:
-            if not isinstance(params, list):
-                if funcParams:
-                    params = func(params, funcParams)
-                else:
-                    params = func(params)
-                continue
-            applyFunctionToArray(params, func, funcParams)
+        if not isinstance(params, list):
+            params = applyFunction(params, func, funcParams)
+            continue
+        params = applyFunctionToArray(params, func, funcParams)
     return params
     
 def split(s, params):
