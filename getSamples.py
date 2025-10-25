@@ -19,6 +19,8 @@ segmentsNew = []
 previousTimestamp = None
 processed = 0
 noTimestampCounter = 0
+timestamps = []
+c = 0
 for segment in segments:
     files = segment["files"]
     if len(files) < 3:
@@ -35,8 +37,11 @@ for segment in segments:
     samples = []
     segmentNew["timestamp"] = segment["timestamp"]            #this segment will have the timestamp of its first file
     segmentNew["samples"] = samples
+    
     for file in files:
+        c +=1
         timestamp = file["timestamp"]
+        timestamps.append(float(timestamp))
         if previousTimestamp is None:                   #this is the first file         
             previousTimestamp = timestamp               #previousTimestamp initial value 
             previousFile = file
@@ -66,4 +71,16 @@ print("processed: ", processed)
 segmentsJSON = {"segments": segmentsNew}
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
+
+newData = [
+        {
+            "N" : 0,
+            "data" : {
+                "timestamp" : timestamps
+            }
+        }
+    ]
+    
+with open("D:\\Stalin\\FotosFranjasProyecto\\results\\timestamps.json", 'w', encoding='utf-8') as f:
+    json.dump(newData, f, ensure_ascii=False, indent=4)
 
