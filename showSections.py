@@ -15,7 +15,7 @@ input_file = (sys.argv[1])
 dataType = (sys.argv[2])
 maximumSize = globals.getPromptOptionalParameter(3, int)
 minumumSize = globals.getPromptOptionalParameter(4, int)
-keyx = globals.getPromptOptionalParameter(5, globals.split, [":"])
+keyx = globals.getPromptOptionalParameter(5, [{"func": globals.split, "funcParams": [":"]}])
 marker = globals.getPromptOptionalParameter(6)
 
 with open(input_file, 'r', encoding='utf-8') as f:

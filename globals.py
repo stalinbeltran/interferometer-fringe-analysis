@@ -181,9 +181,27 @@ def getData(fixedPhase, mobilePhase, hz, timestamp, deltaPhase):
         "timestamp" : timestamp
     }
     
-def getPromptOptionalParameter(n, funcs = [{"func":None, "funcParams":None}]):
+    
+def applyFunction(array, func, funcParams):
+    if funcParams:
+        size = len(array)
+        for i in range(size):
+            array[i] = func(array[i], funcParams)
+    else:
+        size = len(array)
+        for i in range(size):
+            array[i] = func(array[i])
+    
+def getPromptOptionalParameter(n, funcs = None):
     if len(sys.argv) <= n: return None
     params = (sys.argv[n])
+    if params is None or funcs is None:
+        return params
+    if not isinstance(funcs, list):
+        params = funcs(params)
+        return
+    
+    #deal with array of functions
     for f in funcs:
         func = f["func"]
         funcParams = None
@@ -196,16 +214,8 @@ def getPromptOptionalParameter(n, funcs = [{"func":None, "funcParams":None}]):
                 else:
                     params = func(params)
                 continue
-            if funcParams:
-                size = len(params)
-                for i in range(size):
-                    params[i] = func(params[i], funcParams)
-            else:
-                size = len(params)
-                for i in range(size):
-                    params[i] = func(params[i])
-            
-            
+            applyFunction(array, func, funcParams)
+
     return params
     
 def split(s, params):
