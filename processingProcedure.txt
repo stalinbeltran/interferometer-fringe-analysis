@@ -91,6 +91,8 @@ python3 showHistogram.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-N
 
 python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-DeltaPhase.json hz mobilePhase
 
+python3 getDeltaTime.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-Segments.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-DeltaTime.json
+python3 showHistogram.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-DeltaTime.json deltatime 0.14:0.2
 
 ----------------
 python3 getSectionData.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-Continuous.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-ContinuousData.json
