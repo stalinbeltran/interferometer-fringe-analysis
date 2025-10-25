@@ -3,94 +3,94 @@ p-eriscope
 d-irect
 t-hursday09102025_slowacceleration_direct
 f-riday24102025PBSasPeriscope
-
+f-riday24102025
 
 
 #get the file list of all fringes images:
-python3 getFileList.py D:\Stalin\FotosFranjasProyecto\friday24102025PBSasPeriscope D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-Files.json
+python3 getFileList.py D:\Stalin\FotosFranjasProyecto\friday24102025 D:\Stalin\FotosFranjasProyecto\results\friday24102025-Files.json
 
 #get segments of continuous measurements:
-python3 getSegments.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-Files.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-Segments.json
+python3 getSegments.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-Files.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-Segments.json
 
 
 #get samples (pairs of continuous related images):
-python3 getSamples.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-Segments.json  D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SegmentSamples.json
+python3 getSamples.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-Segments.json  D:\Stalin\FotosFranjasProyecto\results\friday24102025-SegmentSamples.json
 
 #get first 60 (ordered by magnitude) Fast Fourier Transform (FFT) parameters:
-python3 getFFT.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SegmentSamples.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SegmentSamplesFFT.json
+python3 getFFT.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-SegmentSamples.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-SegmentSamplesFFT.json
 
 
 
 #get time periods:
-python3 getTimePeriod.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SegmentSamplesFFT.json  D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SegmentTimePeriod.json
+python3 getTimePeriod.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-SegmentSamplesFFT.json  D:\Stalin\FotosFranjasProyecto\results\friday24102025-SegmentTimePeriod.json
 
 #get both period and phase from  every ff available:
-python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SegmentSamplesPeriodPhase.json
+python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-SegmentSamplesPeriodPhase.json
 
 #get first of the periods (as it is the bigger one):
-python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SegmentSamplesFirstPeriod.json
+python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-SegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-SegmentSamplesFirstPeriod.json
 
 #show periods in the samples:
-python3 getLookedPeriod.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SegmentSamplesPeriodLooked.json
+python3 getLookedPeriod.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-SegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-SegmentSamplesPeriodLooked.json
 
 
 
 #get the definitive period in every sample, null otherwise: 80, 107
-python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SegmentSamplesPeriodLooked.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SegmentSamplesDefinitivePeriod.json
+python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-SegmentSamplesPeriodLooked.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-SegmentSamplesDefinitivePeriod.json
 
 #get Phase shift for each sample:
-python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SegmentSamplesDefinitivePeriod.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SegmentSamplesPhaseShift.json 
+python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-SegmentSamplesDefinitivePeriod.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-SegmentSamplesPhaseShift.json 
 
 #remove file info:
-python3 removeFileInfo.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SegmentSamplesPhaseShift.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-NoFileInfo.json 
+python3 removeFileInfo.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-SegmentSamplesPhaseShift.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-NoFileInfo.json 
 
 
 #remove incomplete data points:
-python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-ValidDataPoints.json 
+python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-ValidDataPoints.json 
 
 #remove slow points, as they are somehow wrong (speed can not change too fast from one sample to the next):
-python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-FastDataPoints.json 
+python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-FastDataPoints.json 
 
 #remove incomplete data points:
-python3 removeUnusedData.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-FastDataPoints.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-Cleaned.json 
+python3 removeUnusedData.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-FastDataPoints.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-Cleaned.json 
 
-python3 getPlainData.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-Cleaned.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-PlainData.json
+python3 getPlainData.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-Cleaned.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-PlainData.json
 
-python3 unwrap.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-PlainData.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-unwrapped.json fixedPhase:mobilePhase
+python3 unwrap.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-PlainData.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-unwrapped.json fixedPhase:mobilePhase
 
-python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-unwrapped.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-DeltaPhase.json 
+python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-unwrapped.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-DeltaPhase.json 
 
-python3 softener.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-DeltaPhase.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-PhaseSoften.json 6:7:3
+python3 softener.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-DeltaPhase.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-PhaseSoften.json 6:7:3
 
-python3 getContinuous.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-Continuous.json
+python3 getContinuous.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-Continuous.json
 
-python3 getHzSections.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-Continuous.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-HzSections.json
+python3 getHzSections.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-Continuous.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-HzSections.json
 
-python3 normalizeSections.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-HzSections.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SectionsNormalized.json
+python3 normalizeSections.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-HzSections.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-SectionsNormalized.json
 
-python3 getLinearRegression.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-SectionsNormalized.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-Regression.json
-
-
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-HzSections.json original 0 150 hz
+python3 getLinearRegression.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-SectionsNormalized.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-Regression.json
 
 
-
-python3 getContinuousPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-Continuous.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-PhaseCorrection.json 
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-HzSections.json original 0 150 hz
 
 
 
-
-
-python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-Noise.json fixedPhase:mobilePhase
+python3 getContinuousPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-Continuous.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-PhaseCorrection.json 
 
 
 
 
 
-python3 showHistogram.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-Noise.json mobilePhase
+python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-Noise.json fixedPhase:mobilePhase
 
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-Noise.json hz mobilePhase
+
+
+
+
+python3 showHistogram.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-Noise.json mobilePhase
+
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-DeltaPhase.json hz mobilePhase
 
 
 ----------------
-python3 getSectionData.py D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-Continuous.json D:\Stalin\FotosFranjasProyecto\results\friday24102025PBSasPeriscope-ContinuousData.json
+python3 getSectionData.py D:\Stalin\FotosFranjasProyecto\results\friday24102025-Continuous.json D:\Stalin\FotosFranjasProyecto\results\friday24102025-ContinuousData.json
