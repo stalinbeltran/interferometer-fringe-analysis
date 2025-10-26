@@ -13,8 +13,8 @@ from sklearn.linear_model import LinearRegression
 
 input_file = (sys.argv[1])
 dataType = (sys.argv[2])
-maximumSize = globals.getPromptOptionalParameter(3, int)
-minumumSize = globals.getPromptOptionalParameter(4, int)
+minumumSize = globals.getPromptOptionalParameter(3, int)
+maximumSize = globals.getPromptOptionalParameter(4, int)
 keyx = globals.getPromptOptionalParameter(5, [{"func": globals.split, "funcParams": [":"]}])
 marker = globals.getPromptOptionalParameter(6)
 
@@ -31,12 +31,13 @@ for section in dataJSON:
     if maximumSize and maximumSize > 0 and sectionSize > maximumSize: continue
     if minumumSize and minumumSize > 0 and sectionSize < minumumSize: continue
 
-    totalSize += sectionSize
-    end = begin + sectionSize
+    ydata = data[dataType]["deltaPhase"]
+    dataSize = len(ydata)
+    totalSize += dataSize
+    end = begin + dataSize
     xdata = range(begin, end)
     if keyx:            
         xdata = data[dataType][keyx[0]]
-    ydata = data[dataType]["deltaPhase"]
     if not marker:
         marker = '.'
         if isContinuous:
