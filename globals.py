@@ -168,7 +168,7 @@ def getFileName(filepath):
 
 def softenSignal(data, N_points):
     kernel = np.ones(N_points) / N_points           #averaging kernel
-    convolution = np.convolve(data, kernel, mode='same')
+    convolution = np.convolve(data, kernel, mode='valid')
     return convolution.tolist()
     
 

@@ -45,7 +45,7 @@ for section in dataJSON:
     plt.plot(xdata, ydata, marker)
     begin = end
     c+=1
-    if totalSize > 3000:
+    if totalSize > 100000:
         plt.show()
         totalSize = 0
 
