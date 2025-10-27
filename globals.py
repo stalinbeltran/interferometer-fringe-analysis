@@ -201,7 +201,7 @@ def getPromptOptionalParameter(n, funcs = None):
         return params
     if not isinstance(funcs, list):
         params = applyFunction(params, funcs, None)
-        return
+        return params
     #deal with array of functions
     for f in funcs:
         func = f["func"]

@@ -5,20 +5,25 @@ import sys
 import json
 import cv2
 import numpy as np
+import globals
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
+minimumMaximumHzRange = globals.getPromptOptionalParameter(3, [{"func": globals.split, "funcParams": [":"]}, {"func": float}])
+print("minimumMaximumHzRange: ", minimumMaximumHzRange)
 
 with open(input_file, 'r', encoding='utf-8') as f:
     segmentsJSON = json.load(f)
 
 segments = segmentsJSON["segments"]
 processed = 0
+minimum = minimumMaximumHzRange[0]
+maximum = minimumMaximumHzRange[1]
 for segment in segments:
     samples = segment["samples"]
     newSegmentSamples = []
     for sample in samples:
-        if "hz" in sample and sample["hz"] >= 4: #remove only slowers, if any           # and sample["hz"] < 6:
+        if "hz" in sample and sample["hz"] >= minimum and sample["hz"] <= maximum: #remove only slowers and fasters, if any
             newSegmentSamples.append(sample)
             processed+=1
             

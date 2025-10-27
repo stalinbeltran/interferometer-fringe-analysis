@@ -3,7 +3,7 @@ p-eriscope
 d-irect
 t-hursday09102025_slowacceleration_periscope
 
-f-riday24102025PBSasPeriscope
+f-riday24102025PBSasperiscope
 f-riday24102025
 
 
@@ -50,7 +50,7 @@ python3 removeFileInfo.py D:\Stalin\FotosFranjasProyecto\results\thursday0910202
 python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-ValidDataPoints.json 
 
 #remove slow points, as they are somehow wrong (speed can not change too fast from one sample to the next):
-python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-FastDataPoints.json 
+python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-FastDataPoints.json 4.5:7.5
 
 #remove incomplete data points:
 python3 removeUnusedData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-FastDataPoints.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Cleaned.json 
@@ -63,16 +63,13 @@ python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025
 
 python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseSoften.json 6:7:3
 
-
 python3 getContinuousSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Continuous.json
-
-#python3 get SectionData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-ContinuousData.json
 
 python3 getContinuousPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseCorrection.json 
 
 python3 normalizeSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseCorrection.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SectionsNormalized.json
 
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SectionsNormalized.json softened
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SectionsNormalized.json  original 0:0 . hz
 
 
 python3 getHzSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-HzSections.json
@@ -107,3 +104,8 @@ python3 showHistogram.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025
 
 
 ----------------
+
+#python3 get SectionData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-ContinuousData.json
+
+
+
