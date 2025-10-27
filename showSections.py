@@ -15,7 +15,8 @@ input_file = (sys.argv[1])
 dataType = (sys.argv[2])
 sectionSizeRange = globals.getPromptOptionalParameter(3, [{"func": globals.split, "funcParams": [":"]}, {"func": int}])
 marker = globals.getPromptOptionalParameter(4)
-keyx = globals.getPromptOptionalParameter(5, [{"func": globals.split, "funcParams": [":"]}])
+positionRange = globals.getPromptOptionalParameter(5, [{"func": globals.split, "funcParams": [":"]}, {"func": int}])
+keyx = globals.getPromptOptionalParameter(6, [{"func": globals.split, "funcParams": [":"]}])
 
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
@@ -45,6 +46,8 @@ for section in dataJSON:
     dataSize = len(ydata)
     totalSize += dataSize
     end = begin + dataSize
+    if end < positionRange[0]: continue
+    if begin > positionRange[1]: continue
     xdata = range(begin, end)
     if keyx:            
         xdata = data[dataType][keyx[0]]
@@ -56,7 +59,7 @@ for section in dataJSON:
     plt.plot(xdata, ydata, marker)
     begin = end
     c+=1
-    if totalSize > 100000:
+    if totalSize > positionRange[1]:
         plt.show()
         totalSize = 0
 
