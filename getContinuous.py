@@ -17,6 +17,7 @@ output_file = (sys.argv[2])
 MAXIMUM_DISTANCE = 0.1
 MINIMUM_SECTION_LENGTH = 2
 CONTINUOUS_FACTOR = 0.8
+MINIMUM_CONTINUOUS_LENGTH = 50
     
 
 def saveSection(results, section, isContinuous):
@@ -44,8 +45,10 @@ def sectionLen(data):
     return len(data["softened"]["deltaPhase"])
 
 def sectionIsContinuous(section, continuousCounter):
-    global CONTINUOUS_FACTOR
+    global CONTINUOUS_FACTOR, MINIMUM_CONTINUOUS_LENGTH
     size = sectionLen(section)
+    if size < MINIMUM_CONTINUOUS_LENGTH:
+        return False
     notContiguous = size - continuousCounter
     isContinuous = continuousCounter * CONTINUOUS_FACTOR > notContiguous
     return isContinuous
