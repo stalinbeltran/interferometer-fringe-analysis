@@ -32,7 +32,7 @@ for section in sections:
         previousDataAvg = sum(previousData)/len(previousData)
         dataAvg = sum(data)/len(data)
         diff = previousDataAvg-dataAvg
-        increment = int(diff)
+        increment = diff
         absolutePhaseCorrection += increment
         section["localPhaseCorrection"] = increment
         section["absolutePhaseCorrection"] = absolutePhaseCorrection
