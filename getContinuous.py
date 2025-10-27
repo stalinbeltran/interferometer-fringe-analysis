@@ -43,13 +43,19 @@ def newSection():
 def sectionLen(data):
     return len(data["softened"]["deltaPhase"])
 
+def sectionIsContinuous(section, continuousCounter):
+    global CONTINUOUS_FACTOR
+    size = sectionLen(section)
+    notContiguous = size - continuousCounter
+    isContinuous = continuousCounter * CONTINUOUS_FACTOR > notContiguous
+    return isContinuous
+
 
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
 original = dataJSON[0]["data"]      #take the original data
 softened = dataJSON[1]["data"]          #take the softened data
-hz = softened["hz"]
 deltaPhase = softened["deltaPhase"]
 
 previousPoint = deltaPhase[0]
@@ -66,8 +72,7 @@ for i in range(len(deltaPhase)):
     else:
         actualSectionSize = sectionLen(section)
         if actualSectionSize >= MINIMUM_SECTION_LENGTH:
-            notContiguous = actualSectionSize - continuousCounter
-            isContinuous = continuousCounter * CONTINUOUS_FACTOR > notContiguous
+            isContinuous = sectionIsContinuous(section, continuousCounter)
             saveSection(results, section, isContinuous)
             section = newSection()
             previousIsContinuous = isContinuous
@@ -75,8 +80,8 @@ for i in range(len(deltaPhase)):
 
     saveValue(section, i, original, softened)
     previousPoint = point
-actualSectionSize = sectionLen(section)
-isContinuous = actualSectionSize - continuousCounter > CONTINUOUS_FACTOR*actualSectionSize 
+
+isContinuous = sectionIsContinuous(section, continuousCounter)
 saveSection(results, section, isContinuous)
 
 
