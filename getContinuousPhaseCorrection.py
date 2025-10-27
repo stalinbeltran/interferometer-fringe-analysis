@@ -21,6 +21,7 @@ with open(input_file, 'r', encoding='utf-8') as f:
 
 sections = dataJSON
 previousData = None
+absolutePhaseCorrection = 0
 for section in sections:
     isContinuous = section["isContinuous"]
     if not isContinuous: continue
@@ -32,7 +33,9 @@ for section in sections:
         dataAvg = sum(data)/len(data)
         diff = previousDataAvg-dataAvg
         increment = int(diff)
+        absolutePhaseCorrection += increment
         section["localPhaseCorrection"] = increment
+        section["absolutePhaseCorrection"] = absolutePhaseCorrection
         # print("previousDataAvg: ", str(previousDataAvg))
         # print("dataAvg: ", str(dataAvg))
         # exit(0)

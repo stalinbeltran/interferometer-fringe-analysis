@@ -17,7 +17,7 @@ output_file = (sys.argv[2])
 MAXIMUM_DISTANCE = 0.1
 MINIMUM_SECTION_LENGTH = 2
 CONTINUOUS_FACTOR = 0.8
-MINIMUM_CONTINUOUS_LENGTH = 50
+MINIMUM_CONTINUOUS_LENGTH = 200
     
 
 def saveSection(results, section, isContinuous):
