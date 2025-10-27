@@ -19,27 +19,23 @@ with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
 n = 10
-results = dataJSON
-for key in results:
-    previousSection = None
-    if key == "hz": continue
-    for result in results[key]:
-        isContinuous = result["isContinuous"]
-        section = result["section"]
-        result["localPhaseCorrection"] = 0
-        if not isContinuous or len(section) < 50: continue
-        if previousSection:
-            previousSectionAvg = sum(previousSection[-n:])/n
-            sectionAvg = sum(section[:n])/n
-            diff = previousSectionAvg-sectionAvg
-            if abs(diff) > 0.5:
-                if diff > 0: increment = 1
-                else: increment = -1
-                result["localPhaseCorrection"] = increment
-                # print("previousSectionAvg: ", str(previousSectionAvg))
-                # print("sectionAvg: ", str(sectionAvg))
-                # exit(0)
-        previousSection = section
+sections = dataJSON
+previousData = None
+for section in sections:
+    isContinuous = section["isContinuous"]
+    data = section["data"]["softened"]["deltaPhase"]
+    section["localPhaseCorrection"] = 0
+    if not isContinuous or len(data) < 10: continue
+    if previousData:
+        previousDataAvg = sum(previousData[-n:])/n
+        dataAvg = sum(data[:n])/n
+        diff = previousDataAvg-dataAvg
+        increment = int(diff)
+        section["localPhaseCorrection"] = increment
+        # print("previousDataAvg: ", str(previousDataAvg))
+        # print("dataAvg: ", str(dataAvg))
+        # exit(0)
+    previousData = data
 
 
 

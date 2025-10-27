@@ -65,26 +65,28 @@ python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slow
 
 python3 getContinuous.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Continuous.json
 
+python3 getContinuousPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseCorrection.json 
+
+
+
+python3 normalizeSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseCorrection.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsNormalized.json
+
+
+
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsNormalized.json softened
+
+
 python3 getHzSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-HzSections.json
 
 python3 sectionSoftener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-HzSections.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-HzSectionsSoftened.json
 
 
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-HzSectionsSoftened.json softened_20 150 0 hz
 
 
 
-python3 normalizeSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-HzSections.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsNormalized.json
+
 
 python3 getLinearRegression.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsNormalized.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Regression.json
-
-
-
-
-python3 getContinuousPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseCorrection.json 
-
-
-
 
 
 python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Noise.json fixedPhase:mobilePhase
@@ -95,7 +97,7 @@ python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slow
 
 python3 showHistogram.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Noise.json mobilePhase
 
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-HzSections.json hz deltaPhase
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-unwrapped.json timestamp mobilePhase:fixedPhase
 
 python3 getDeltaTime.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Segments.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-DeltaTime.json
 
