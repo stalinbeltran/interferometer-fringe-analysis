@@ -18,20 +18,18 @@ output_file = (sys.argv[2])
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
-n = 10
+
 sections = dataJSON
 previousData = None
 for section in sections:
-    size = section["size"]
     isContinuous = section["isContinuous"]
-    if size < 51: isContinuous = False      #discard too short sections
-    section["isContinuous"] = isContinuous
+    if not isContinuous: continue
+    size = section["size"]
     data = section["data"]["softened"]["deltaPhase"]
     section["localPhaseCorrection"] = 0
-    if not isContinuous: continue
     if previousData:
-        previousDataAvg = sum(previousData[-n:])/n
-        dataAvg = sum(data[:n])/n
+        previousDataAvg = sum(previousData)/len(previousData)
+        dataAvg = sum(data)/len(data)
         diff = previousDataAvg-dataAvg
         increment = int(diff)
         section["localPhaseCorrection"] = increment
