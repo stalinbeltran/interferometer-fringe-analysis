@@ -64,7 +64,7 @@ python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025
 python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseSoften.json 6:7:3
 
 
-python3 getContinuous.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Continuous.json
+python3 getContinuousSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Continuous.json
 
 #python3 get SectionData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-ContinuousData.json
 

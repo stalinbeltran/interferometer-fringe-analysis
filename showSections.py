@@ -25,6 +25,8 @@ c = 0
 totalSize = 0
 maximumSize = 0
 minumumSize = 0
+title = input_file
+plt.title(title)
 if sectionSizeRange:
     print("sectionSizeRange: ", sectionSizeRange)
     minumumSize = sectionSizeRange[0]
