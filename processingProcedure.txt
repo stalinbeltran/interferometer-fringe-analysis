@@ -68,13 +68,9 @@ python3 getContinuous.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025
 
 python3 getSectionData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-ContinuousData.json
 
-python3 getContinuousPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseCorrection.json 
-
-
+python3 getContinuousPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-ContinuousData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseCorrection.json 
 
 python3 normalizeSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseCorrection.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsNormalized.json
-
-
 
 python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsNormalized.json softened
 

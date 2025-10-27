@@ -15,11 +15,8 @@ input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 
 
-def sectionLen(section):
-    return len(section["data"]["softened"]["deltaPhase"])
-
 def sectionUpdate(section, score, coef, intercept):
-    size = sectionLen(section)
+    size = len(section["data"]["original"])
     newSection = {
         "isContinuous": section["isContinuous"],
         "size": size,
@@ -47,10 +44,9 @@ for section in dataJSON:
     isContinuous = section["isContinuous"]
     if not isContinuous: continue               #ignore discontinuities
     data = section["data"]
-    size = sectionLen(section)
     
-    xdata = data["original"]["hz"]
     ydata = data["original"]["deltaPhase"]
+    xdata = range(len(ydata))                   #regression over the sequence, to find ramps
     xdataNP = np.array(xdata)
     ydataNP = np.array(ydata)
     xdataNP = xdataNP.reshape(-1, 1)

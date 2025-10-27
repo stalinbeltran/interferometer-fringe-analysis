@@ -22,7 +22,10 @@ n = 10
 sections = dataJSON
 previousData = None
 for section in sections:
-    isContinuous = section["isContinuous"]
+    coef = section["regression"]["coef"]
+    isContinuous = True
+    if abs(coef) > 1: isContinuous = False
+    section["isContinuous"] = isContinuous
     data = section["data"]["softened"]["deltaPhase"]
     section["localPhaseCorrection"] = 0
     if not isContinuous or len(data) < 10: continue
