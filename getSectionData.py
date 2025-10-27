@@ -16,7 +16,7 @@ output_file = (sys.argv[2])
 
 
 def sectionUpdate(section, score, coef, intercept):
-    size = len(section["data"]["original"])
+    size = section["size"]
     newSection = {
         "isContinuous": section["isContinuous"],
         "size": size,

@@ -13,10 +13,9 @@ from sklearn.linear_model import LinearRegression
 
 input_file = (sys.argv[1])
 dataType = (sys.argv[2])
-minumumSize = globals.getPromptOptionalParameter(3, int)
-maximumSize = globals.getPromptOptionalParameter(4, int)
-keyx = globals.getPromptOptionalParameter(5, [{"func": globals.split, "funcParams": [":"]}])
+sectionSizeRange = globals.getPromptOptionalParameter(3, [{"func": globals.split, "funcParams": [":"]}, {"func": int}])
 marker = globals.getPromptOptionalParameter(6)
+keyx = globals.getPromptOptionalParameter(5, [{"func": globals.split, "funcParams": [":"]}])
 
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
@@ -24,12 +23,18 @@ with open(input_file, 'r', encoding='utf-8') as f:
 begin = 0
 c = 0
 totalSize = 0
+maximumSize = 0
+minumumSize = 0
+if sectionSizeRange:
+    print("sectionSizeRange: ", sectionSizeRange)
+    minumumSize = sectionSizeRange[0]
+    maximumSize = sectionSizeRange[1]
 for section in dataJSON:
     isContinuous = section["isContinuous"]
     data = section["data"]
     sectionSize = section["size"]
-    if maximumSize and maximumSize > 0 and sectionSize > maximumSize: continue
-    if minumumSize and minumumSize > 0 and sectionSize < minumumSize: continue
+    if maximumSize > 0 and sectionSize > maximumSize: continue
+    if minumumSize > 0 and sectionSize < minumumSize: continue
 
     ydata = data[dataType]["deltaPhase"]
     dataSize = len(ydata)
