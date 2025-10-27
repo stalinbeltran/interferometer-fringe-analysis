@@ -14,7 +14,7 @@ input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 
 
-MAXIMUM_DISTANCE = 0.09
+MAXIMUM_DISTANCE = 0.1
 MINIMUM_SECTION_LENGTH = 2
 CONTINUOUS_FACTOR = 0.8
     
