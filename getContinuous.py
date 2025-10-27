@@ -15,7 +15,7 @@ output_file = (sys.argv[2])
 
 
 MAXIMUM_DISTANCE = 0.09
-MINIMUM_SECTION_LENGTH = 3
+MINIMUM_SECTION_LENGTH = 2
 CONTINUOUS_FACTOR = 0.8
     
 
@@ -65,7 +65,7 @@ for i in range(len(deltaPhase)):
         continuousCounter +=1
     else:
         actualSectionSize = sectionLen(section)
-        if actualSectionSize > MINIMUM_SECTION_LENGTH:
+        if actualSectionSize >= MINIMUM_SECTION_LENGTH:
             notContiguous = actualSectionSize - continuousCounter
             isContinuous = continuousCounter * CONTINUOUS_FACTOR > notContiguous
             saveSection(results, section, isContinuous)

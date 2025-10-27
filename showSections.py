@@ -14,7 +14,7 @@ from sklearn.linear_model import LinearRegression
 input_file = (sys.argv[1])
 dataType = (sys.argv[2])
 sectionSizeRange = globals.getPromptOptionalParameter(3, [{"func": globals.split, "funcParams": [":"]}, {"func": int}])
-marker = globals.getPromptOptionalParameter(6)
+marker = globals.getPromptOptionalParameter(4)
 keyx = globals.getPromptOptionalParameter(5, [{"func": globals.split, "funcParams": [":"]}])
 
 with open(input_file, 'r', encoding='utf-8') as f:
@@ -32,7 +32,7 @@ if sectionSizeRange:
 for section in dataJSON:
     isContinuous = section["isContinuous"]
     if not isContinuous:
-        print(" coef: ", section["regression"]["coef"], " size: ", section["size"])
+        # print(" coef: ", section["regression"]["coef"], " size: ", section["size"])
         continue
     data = section["data"]
     sectionSize = section["size"]

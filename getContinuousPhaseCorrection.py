@@ -22,7 +22,6 @@ n = 10
 sections = dataJSON
 previousData = None
 for section in sections:
-    coef = section["regression"]["coef"]
     size = section["size"]
     isContinuous = section["isContinuous"]
     if size < 51: isContinuous = False      #discard too short sections
