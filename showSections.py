@@ -31,6 +31,9 @@ if sectionSizeRange:
     maximumSize = sectionSizeRange[1]
 for section in dataJSON:
     isContinuous = section["isContinuous"]
+    if not isContinuous:
+        print(" coef: ", section["regression"]["coef"], " size: ", section["size"])
+        continue
     data = section["data"]
     sectionSize = section["size"]
     if maximumSize > 0 and sectionSize > maximumSize: continue

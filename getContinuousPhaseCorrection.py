@@ -23,12 +23,13 @@ sections = dataJSON
 previousData = None
 for section in sections:
     coef = section["regression"]["coef"]
-    isContinuous = True
-    if abs(coef) > 1: isContinuous = False
+    size = section["size"]
+    isContinuous = section["isContinuous"]
+    if size < 51: isContinuous = False      #discard too short sections
     section["isContinuous"] = isContinuous
     data = section["data"]["softened"]["deltaPhase"]
     section["localPhaseCorrection"] = 0
-    if not isContinuous or len(data) < 10: continue
+    if not isContinuous: continue
     if previousData:
         previousDataAvg = sum(previousData[-n:])/n
         dataAvg = sum(data[:n])/n

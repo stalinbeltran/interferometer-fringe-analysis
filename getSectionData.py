@@ -42,7 +42,7 @@ c = 0
 newSections = []
 for section in dataJSON:
     isContinuous = section["isContinuous"]
-    if not isContinuous: continue               #ignore discontinuities
+    #if not isContinuous: continue               #ignore discontinuities
     data = section["data"]
     
     ydata = data["original"]["deltaPhase"]
