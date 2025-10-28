@@ -18,16 +18,19 @@ marker = globals.getPromptOptionalParameter(4)
 positionRange = globals.getPromptOptionalParameter(5, [{"func": globals.split, "funcParams": [":"]}, {"func": int}])
 keyx = globals.getPromptOptionalParameter(6, [{"func": globals.split, "funcParams": [":"]}])
 
+if not marker:
+    marker = '.'
+            
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
 begin = 0
-c = 0
 totalSize = 0
 maximumSize = 0
 minumumSize = 0
 title = input_file
 plt.title(title)
+plt.xlim(4.5, 7.5) 
 if sectionSizeRange:
     print("sectionSizeRange: ", sectionSizeRange)
     minumumSize = sectionSizeRange[0]
@@ -46,21 +49,17 @@ for section in dataJSON:
     dataSize = len(ydata)
     totalSize += dataSize
     end = begin + dataSize
-    if end < positionRange[0]: continue
-    if begin > positionRange[1]: continue
+    if positionRange:
+        if positionRange[0]>0 and end < positionRange[0]: continue
+        if positionRange[1]>0 and begin > positionRange[1]: continue
     xdata = range(begin, end)
     if keyx:            
         xdata = data[dataType][keyx[0]]
-    if not marker:
-        marker = '.'
-        if isContinuous:
-            marker = '-'
+
         
     plt.plot(xdata, ydata, marker)
     begin = end
-    c+=1
-    if totalSize > positionRange[1]:
-        plt.show()
-        totalSize = 0
-
-plt.show()
+    # if positionRange and totalSize > positionRange[1] and positionRange[1] and begin <= positionRange[1]  > 0:
+        # plt.show()
+if totalSize > 0: 
+    plt.show()

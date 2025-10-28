@@ -12,7 +12,8 @@ from sklearn.linear_model import LinearRegression
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
-N = 20
+N = globals.getPromptOptionalParameter(3, int)
+
 
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)

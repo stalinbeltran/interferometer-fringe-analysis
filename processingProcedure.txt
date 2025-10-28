@@ -57,7 +57,7 @@ python3 removeUnusedData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102
 
 python3 getPlainData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Cleaned.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json
 
-python3 unwrap.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped.json fixedPhase:mobilePhase
+python3 unwrap.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped.json fixedPhase
 
 python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json 
 
@@ -69,12 +69,14 @@ python3 getContinuousPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\t
 
 python3 normalizeSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseCorrection.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SectionsNormalized.json
 
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SectionsNormalized.json  original 0:0 . hz
+python3 getHzSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SectionsNormalized.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-HzSections.json
+
+python3 sectionSoftener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-HzSections.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-HzSectionsSoftened.json 20
+
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-HzSections.json  original 0:0 . 0:0 hz
 
 
-python3 getHzSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-HzSections.json
 
-python3 sectionSoftener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-HzSections.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-HzSectionsSoftened.json
 
 
 
