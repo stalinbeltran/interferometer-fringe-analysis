@@ -63,6 +63,16 @@ python3 syncUnwrap.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_sl
 
 
 
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected.json fixedPhase mobilePhase 0.2 0.9 64 1
+
+input_file = (sys.argv[1])
+output_file = (sys.argv[2])
+ykey = (sys.argv[3])
+ykey = ykey.split(':')
+phaseMaxDifference = float(sys.argv[4])
+distanceImprovementFactor = float(sys.argv[5])
+N_lastPoints = int(sys.argv[6])
+iterations = int(sys.argv[7])
 
 
 python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json 
