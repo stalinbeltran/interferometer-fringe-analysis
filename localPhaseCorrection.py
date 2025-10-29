@@ -45,11 +45,6 @@ def correctLocalPhaseByReference(data, referenceData):
             newphase = phase-increment
             processed+=1
         points[index] = newphase
-        
-        if abs(distance) > 1:
-            print("distance: ", distance)
-            print("newphase: ", newphase)
-        if abs(distance) > 1 and processed == 4 : break
 
     print("processed: ", processed)
     return processed
