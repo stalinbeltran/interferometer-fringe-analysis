@@ -66,6 +66,13 @@ python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_sl
 Unwrapping recipe:
 File: D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json
 
+python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json
+
+
+
+
+
+
 python3 unwrap.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped.json fixedPhase
 
 #correct fixedPhase
@@ -99,8 +106,15 @@ python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_sl
 #This results in worse data distribution, so custom range correction is needed:
 python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected.json deltaPhase deltaPhase 1 64 2 1760031000:1760034700
 
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected2.json deltaPhase deltaPhase 1 64 2 1760036770:1760037040
 
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected3.json deltaPhase deltaPhase 1 1000 2 1760036480:1760036770
 
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected3.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected4.json deltaPhase deltaPhase 1 4000 2 1760036480:1760036770
+
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected4.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected5.json deltaPhase deltaPhase 1 10000 2 1760036480:1760037103
+
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected5.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected6.json deltaPhase deltaPhase 1 10000 2 1760034347:1760034624
 
 
 
