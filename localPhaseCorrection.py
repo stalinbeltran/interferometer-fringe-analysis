@@ -39,10 +39,6 @@ def correctLocalPhaseByReference(data, referenceData):
         aroundPoints = globals.getAroundPoints2(index, N_lastPoints, referenceData)
         averageSamplePhase = globals.pointsAverage(aroundPoints)
         distance = abs(averageSamplePhase-phase)
-        if c < 20:
-            print("averageSamplePhase: ", averageSamplePhase)
-            print("distance: ", distance)
-        c+=1
         increment = round(distance)                                            #only increment/decrement an integer number of times, to keep phase information
         if increment == 0: increment = 1
         increasedPhaseDistance = abs(averageSamplePhase-(phase + (increment)))
