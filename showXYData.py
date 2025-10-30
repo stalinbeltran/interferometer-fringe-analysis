@@ -31,13 +31,15 @@ for softData in softenedArray:
     N = 0
     if "N" in softData:
         N = softData["N"]
+    
+    data = softData["data"]
+    data["_NUMERICAL_"] = range(len(data[ykey[0]]))     #add a new data, a simple sequential value
     if Nconstant and Nconstant != N: continue
     size = len(softData["data"][xkey])
     if not showedSize:
         showedSize = size
     for begin in range(0, size, showedSize):
         end = begin + showedSize
-        data = softData["data"]
         xdata = data[xkey][begin:end]
         for key in ykey:
             ydata = data[key][begin:end]
