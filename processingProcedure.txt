@@ -59,14 +59,21 @@ python3 getPlainData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_
 
 python3 unwrap.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped.json fixedPhase
 
+
+
+
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected.json  timestamp fixedPhase:mobilePhase 12000
+
+----------------------------------------------------------------------------------------------------------------------------
+Unwrapping recipe:
+File: D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json
+
+python3 unwrap.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped.json fixedPhase
+
 #correct fixedPhase
-python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected.json fixedPhase fixedPhase 0.2 0.9 64 1
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected.json fixedPhase fixedPhase 0.2 0.9 16 1
 
-
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped.json timestamp fixedPhase:mobilePhase 6000
-
-
-
+----------------------------------------------------------------------------------------------------------------------------
 
 #unwrap synchronized to other key:
 python3 syncUnwrap.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped2.json fixedPhase mobilePhase
@@ -75,7 +82,14 @@ python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday0
 
 python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected3.json mobilePhase mobilePhase 0.2 1 16 1
 
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected3.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected35.json mobilePhase fixedPhase 0.2 1 16 1
+
 python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected3.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected4.json fixedPhase mobilePhase 0.2 1 16 1
+
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected4.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected5.json mobilePhase mobilePhase 0.2 1 16 1
+
+python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected5.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase5.json 
+
 
 
 
@@ -87,10 +101,6 @@ phaseMaxDifference = float(sys.argv[4])
 distanceImprovementFactor = float(sys.argv[5])
 N_lastPoints = int(sys.argv[6])
 iterations = int(sys.argv[7])
-
-
-python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json 
-
 
 
 
