@@ -92,11 +92,13 @@ python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_sl
 #here DeltaPhase3 deltaPhase is worse than DeltaPhase2, so the correction made things worse. Retry with different N does not help.
 #So, we use DeltaPhase2, and process from here to get a better signal:
 
-python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected.json deltaPhase deltaPhase 1111 1 16 2
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected.json deltaPhase deltaPhase 1 16 2
 
 python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected.json  timestamp deltaPhase
 
 #This results in worse data distribution, so custom range correction is needed:
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected.json deltaPhase deltaPhase 1 16 2 1760034404:1760034617
+
 
 
 

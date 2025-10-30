@@ -11,20 +11,28 @@ from collections import deque
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 referenceKey = (sys.argv[3])
-ykey = (sys.argv[4])
-ykey = ykey.split(':')
-phaseMaxDifference = float(sys.argv[5])
-distanceImprovementFactor = float(sys.argv[6])
-N_lastPoints = int(sys.argv[7])
-iterations = int(sys.argv[8])
+ykey = globals.getPromptOptionalParameter(4, [{"func":globals.split, "funcParams":[":"]}])
+distanceImprovementFactor = float(sys.argv[5])
+N_lastPoints = int(sys.argv[6])
+iterations = int(sys.argv[7])
+timestampRange = globals.getPromptOptionalParameter(8, [{"func":globals.split, "funcParams":[":"]}, {"func":float}])
+
+
 
 
 def correctLocalPhaseByReference(data, referenceData):
-    global phaseMaxDifference, distanceImprovementFactor, N_lastPoints
+    global distanceImprovementFactor, N_lastPoints, timestampData, timestampRange
     processed = 0
     points = data
     size = len(points)
+    if timestampRange:
+        timestampStart = timestampRange[0]
+        timestampEnd = timestampRange[0]
     for index in range(size):
+        if timestampRange:                              #custom range processing
+            thisTimestamp = timestampData[index]
+            if thisTimestamp < timestampStart: continue
+            if thisTimestamp > timestampEnd: continue
         phase = points[index]
         newphase = phase
         aroundPoints = globals.getAroundPoints2(index, N_lastPoints, referenceData)
@@ -49,6 +57,7 @@ with open(input_file, 'r', encoding='utf-8') as f:
     data = json.load(f)
 
 referenceData = data[0]["data"][referenceKey]
+timestampData = data[0]["data"]["timestamp"]
 for i in range(iterations):
     for key in ykey:
         correctLocalPhaseByReference(data[0]["data"][key], referenceData)
