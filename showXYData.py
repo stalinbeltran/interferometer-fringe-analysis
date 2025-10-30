@@ -38,9 +38,13 @@ for softData in softenedArray:
     size = len(softData["data"][xkey])
     if not showedSize:
         showedSize = size
+        
+
     for begin in range(0, size, showedSize):
         end = begin + showedSize
         xdata = data[xkey][begin:end]
+        hz = data["hz"][begin:end]
+        hz = [-1*(x - 6.87)/6 for x in hz]
         for key in ykey:
             ydata = data[key][begin:end]
             plt.plot(xdata, ydata, marker, label=key + ' vs ' + xkey + " (" + str(begin) + "->" + str(end) + ", N:" + str(N) + ")")
@@ -48,5 +52,7 @@ for softData in softenedArray:
         plt.legend()
         if ylim:
             plt.ylim(ylim[0], ylim[1]) 
+        
+        plt.plot(xdata, hz, '-', label=" hz modified")
         plt.show()
         
