@@ -33,7 +33,7 @@ for softData in softenedArray:
         N = softData["N"]
     
     data = softData["data"]
-    data["_NUMERICAL_"] = range(len(data[ykey[0]]))     #add a new data, a simple sequential value
+    data["SEQUENTIAL"] = range(len(data[ykey[0]]))     #add a new data, a simple sequential value
     if Nconstant and Nconstant != N: continue
     size = len(softData["data"][xkey])
     if not showedSize:
