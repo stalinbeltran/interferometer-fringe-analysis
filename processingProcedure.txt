@@ -57,8 +57,6 @@ python3 removeUnusedData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102
 
 python3 getPlainData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Cleaned.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json
 
-python3 unwrap.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped.json fixedPhase
-
 
 
 
@@ -73,14 +71,40 @@ python3 unwrap.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowac
 #correct fixedPhase
 python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected.json fixedPhase fixedPhase 0.2 0.99 16 1
 
-----------------------------------------------------------------------------------------------------------------------------
-
-#unwrap synchronized to other key:
+#unwrap mobilePhase synchronized to fixedPhase:
 python3 syncUnwrap.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped2.json fixedPhase mobilePhase
 
-python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected2.json fixedPhase mobilePhase 0.2 0.9 64 1
+#local phase correction of mobilePhase using fixedPhase as a reference:
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-unwrapped2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected2.json fixedPhase mobilePhase 0.2 0.99 16 1
 
-python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected3.json mobilePhase mobilePhase 0.2 1 16 1
+#Here the curves exhibit excellent coordination, except in some areas where mobilePhase is out of its own curve. We can see this by getting deltaPhase and plotting:
+python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2.json
+
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2.json  timestamp mobilePhase:deltaPhase 12000
+
+#correct mobilePhase relative to it self:
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected3.json mobilePhase mobilePhase 1111 1 16 2
+
+python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected3.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase3.json
+
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase3.json  timestamp mobilePhase:deltaPhase 12000
+
+#here DeltaPhase3 deltaPhase is worse than DeltaPhase2, so the correction made things worse. Retry with different N does not help.
+#So, we use DeltaPhase2, and process from here to get a better signal:
+
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected.json deltaPhase deltaPhase 1111 1 16 2
+
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected.json  timestamp deltaPhase
+
+#This results in worse data distribution, so custom range correction is needed:
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+
+
 
 python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected3.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected35.json mobilePhase fixedPhase 0.2 1 16 1
 
@@ -88,7 +112,6 @@ python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday0
 
 python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected4.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected5.json mobilePhase mobilePhase 0.2 1 16 1
 
-python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-localPhaseCorrected5.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase5.json 
 
 
 

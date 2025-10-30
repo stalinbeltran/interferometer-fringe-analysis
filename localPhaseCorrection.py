@@ -19,11 +19,6 @@ N_lastPoints = int(sys.argv[7])
 iterations = int(sys.argv[8])
 
 
-# phaseMaxDifference = 0.2                #max allowed diff between average and a point
-# distanceImprovementFactor = 0.9
-# N_lastPoints = 16
-
-
 def correctLocalPhaseByReference(data, referenceData):
     global phaseMaxDifference, distanceImprovementFactor, N_lastPoints
     processed = 0
