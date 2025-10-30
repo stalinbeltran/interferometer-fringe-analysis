@@ -30,6 +30,10 @@ class Publisher:
         self.pubsub = self.redisdb.pubsub()
         self.pubsub.subscribe(tag)
         
+    def unsubscribe(self, tag):
+        self.pubsub = self.redisdb.pubsub()
+        self.pubsub.unsubscribe(tag)
+
     def listen(self):
         return self.pubsub.listen()
         
