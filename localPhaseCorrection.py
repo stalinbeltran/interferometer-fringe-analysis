@@ -27,7 +27,7 @@ def correctLocalPhaseByReference(data, referenceData):
     size = len(points)
     if timestampRange:
         timestampStart = timestampRange[0]
-        timestampEnd = timestampRange[0]
+        timestampEnd = timestampRange[1]
     for index in range(size):
         if timestampRange:                              #custom range processing
             thisTimestamp = timestampData[index]
@@ -39,6 +39,7 @@ def correctLocalPhaseByReference(data, referenceData):
         averageSamplePhase = globals.pointsAverage(aroundPoints)
         distance = abs(averageSamplePhase-phase)
         increment = round(distance)                                            #only increment/decrement an integer number of times, to keep phase information
+        if increment == 0: continue
         increasedPhaseDistance = abs(averageSamplePhase-(phase + (increment)))
         decreasedPhaseDistance = abs(averageSamplePhase-(phase - (increment)))
         if increasedPhaseDistance < distance*distanceImprovementFactor:

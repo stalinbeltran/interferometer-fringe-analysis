@@ -97,7 +97,8 @@ python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday0
 python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected.json  timestamp deltaPhase
 
 #This results in worse data distribution, so custom range correction is needed:
-python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected.json deltaPhase deltaPhase 1 16 2 1760034404:1760034617
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2Corrected.json deltaPhase deltaPhase 1 64 2 1760031000:1760034700
+
 
 
 
