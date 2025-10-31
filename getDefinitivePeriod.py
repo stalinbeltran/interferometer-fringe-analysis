@@ -33,8 +33,10 @@ for segment in segments:
         fileFixed = sample["fileFixedMirror"]
         if "period" not in fileMobile or "period" not in fileFixed:
             print("period not in fileMobile or fileFixed. Timestamp: ", sample["timestamp"])
-            del fileMobile["periods"]
-            del fileFixed["periods"]
+            if "periods" in fileMobile:
+                del fileMobile["periods"]
+            if "periods" in fileFixed:
+                del fileFixed["periods"]
             continue
         if abs(fileMobile["period"]["period"] - lookedPeriod) > 1 :
             fileMobile["period"] = getDefinitivePeriod(fileMobile["periods"], lookedPeriod)
@@ -59,5 +61,5 @@ for segment in segments:
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(segmentsJSON, f, ensure_ascii=False, indent=4)
 
-print("processed: ", processed)
+print("processed (period fixed samples): ", processed)
 print("nulls: ", nulls)
