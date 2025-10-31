@@ -66,9 +66,8 @@ python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_sl
 Unwrapping recipe:
 File: D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json
 
-python3 getDeltaPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json
 
-python3 addReferenceHz.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json 5
+python3 addReferenceHz.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData2.json 5
 
 python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-DeltaPhase2.json deltaPhase deltaPhase 0.99 2000 1
 

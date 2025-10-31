@@ -23,7 +23,6 @@ for segment in segments:
     newSegments.append(segment)
     for sample in samples:
         del sample["timePeriod"]
-        del sample["deltaPhase"]
         del sample["deltaPhasePixels"]
         processed+=1
 segmentsJSON["segments"] = newSegments

@@ -53,7 +53,7 @@ timestamp = getPlainData(segmentsJSON, "timestamp")
 mobilePhase = getPlainData(segmentsJSON, "mobilePhase")
 fixedPhase = getPlainData(segmentsJSON, "fixedPhase")
 hz = getPlainData(segmentsJSON, "hz")
-deltaPhase = None
+deltaPhase = getPlainData(segmentsJSON, "deltaPhase")
 
 jsonData = [
     {
