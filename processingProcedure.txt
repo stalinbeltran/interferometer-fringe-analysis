@@ -78,6 +78,7 @@ python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slow
 python3 getContinuousSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData4.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Continuous.json
 
 
+python3 getHzSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Continuous.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-HzSections.json
 ----------------------------------------------------------------------------------------------------------------------------
 
 
