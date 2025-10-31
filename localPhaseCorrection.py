@@ -31,7 +31,7 @@ def correctLocalPhaseByReference(data, referenceData):
         timestampEnd = timestampRange[1]
     for index in range(size):
         if timestampRange:                              #custom range processing
-            thisTimestamp = timestampData[index]
+            thisTimestamp = index
             if thisTimestamp < timestampStart: continue
             if thisTimestamp > timestampEnd: continue
         phase = points[index]
