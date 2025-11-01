@@ -31,15 +31,12 @@ minumumSize = 0
 title = input_file
 plt.title(title)
 plt.xlim(4.5, 7.5) 
+sectionCounter = 0
 if sectionSizeRange:
     print("sectionSizeRange: ", sectionSizeRange)
     minumumSize = sectionSizeRange[0]
     maximumSize = sectionSizeRange[1]
 for section in dataJSON:
-    isContinuous = section["isContinuous"]
-    if not isContinuous:
-        # print(" coef: ", section["regression"]["coef"], " size: ", section["size"])
-        continue
     data = section["data"]
     sectionSize = section["size"]
     if maximumSize > 0 and sectionSize > maximumSize: continue
@@ -59,9 +56,9 @@ for section in dataJSON:
 
         
     plt.plot(xdata, ydata, marker)
-    plt.show()
+    sectionCounter +=1
     begin = end
-    # if positionRange and totalSize > positionRange[1] and positionRange[1] and begin <= positionRange[1]  > 0:
-        # plt.show()
+    if sectionCounter % 10 == 0:
+        plt.show()
 if totalSize > 0: 
     plt.show()
