@@ -69,10 +69,15 @@ File: D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData.json
 
 python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json deltaPhase deltaPhase 0.99 2000 1
 
+python3 softener.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData3.json 6:7:3
+
+
+
+
+
+
 python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData3.json deltaPhase deltaPhase 0.99 6000 2 19900:21700
 
-
-python3 softener.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData3.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData4.json 6:7:3
 
 
 
