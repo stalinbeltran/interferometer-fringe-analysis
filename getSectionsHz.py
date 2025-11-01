@@ -51,7 +51,7 @@ def getDirectionRange(data, direction, begin):
 
             
 def getNewSection(original, softened, sectionRange, direction):
-    size = len(original["hz"][sectionRange[0]:sectionRange[1]]),
+    size = len(original["hz"][sectionRange[0]:sectionRange[1]])
     newSection = {
         "direction": direction,
         "size": size,

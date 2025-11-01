@@ -71,7 +71,7 @@ python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\tuesday07
 
 python3 softener.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData3.json 6:7:3
 
-
+python3 getSectionsHz.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData3.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SectionsHz.json
 
 
 
