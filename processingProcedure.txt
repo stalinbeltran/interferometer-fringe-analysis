@@ -61,7 +61,7 @@ python3 getPlainData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-C
 
 
 
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-localPhaseCorrected.json  timestamp fixedPhase:mobilePhase 12000
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData.json  timestamp fixedPhase:mobilePhase 12000
 
 ----------------------------------------------------------------------------------------------------------------------------
 Unwrapping recipe:
