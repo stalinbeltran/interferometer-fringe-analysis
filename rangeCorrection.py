@@ -14,6 +14,8 @@ from sklearn.metrics import mean_squared_error
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 
+MAX_RANGE_VALUE = 1 #arbitrary value, to uniformize ranges of values
+
 
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
@@ -31,11 +33,15 @@ def getNewSection(section, ransac):
 newSections = []
 for section in dataJSON:
     data = section["data"]
-    xdata = np.array(data["original"]["hz"])
+    ransac = section["ransac"]
+    rangeValues = ransac["inliersRange"]
+    maxValue = rangeValues["max"]
+    offset = MAX_RANGE_VALUE - maxValue
     ydata = np.array(data["original"]["deltaPhase"])
-    X = xdata.reshape(-1, 1)
-    Y = ydata.reshape(-1, 1)
-
+    ydata = [y + offset for y in ydata]
+    data["rangeCorrected"] = ydata
+    break
+    
     # ransac = {
         # "coefficient": coefficient,
         # "intercept": intercept,
@@ -44,9 +50,8 @@ for section in dataJSON:
         # "inlierMask": inlierMask.tolist(),
         # "inliersRange": {"max": maxValue, "min": minValue}
     # }
-    s = getNewSection(section, ransac)
-    newSections.append(s)
+
 
 
 with open(output_file, 'w', encoding='utf-8') as f:
-    json.dump(newSections, f, ensure_ascii=False, indent=4)
+    json.dump(dataJSON, f, ensure_ascii=False, indent=4)
