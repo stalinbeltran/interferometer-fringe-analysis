@@ -43,8 +43,6 @@ for section in dataJSON:
     intercept = ransac.estimator_.intercept_
     intercept = intercept[0]
     coefficient = coefficients[0][0]
-    print(f"coefficient: {coefficient}")
-    print(f"Intercept: {intercept}")
 
     y_pred = ransac.predict(X)
 
@@ -59,15 +57,9 @@ for section in dataJSON:
     # 2. Median Absolute Deviation (robust)
     mad = 1.4826 * np.median(np.abs(residuals - np.median(residuals)))
 
-    print(f"RMSE (inliers): {rmse:.4f}")
-    print(f"Robust MAD dispersion: {mad:.4f}")
-    print(f"Inliers detected: {np.sum(inlierMask)}/{len(ydata)}")
-
     y_inliers = ydata[inlierMask]
     maxValue = max(y_inliers)
     minValue = min(y_inliers)
-    print("max: ", maxValue)
-    print("min: ", minValue)
     ransac = {
         "coefficient": coefficient,
         "intercept": intercept,
@@ -78,9 +70,7 @@ for section in dataJSON:
     }
     s = getNewSection(section, ransac)
     newSections.append(s)
-    break
 
-#exit()
 
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(newSections, f, ensure_ascii=False, indent=4)
