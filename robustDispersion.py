@@ -54,3 +54,7 @@ mad = 1.4826 * np.median(np.abs(residuals - np.median(residuals)))
 print(f"RMSE (inliers): {rmse:.4f}")
 print(f"Robust MAD dispersion: {mad:.4f}")
 print(f"Inliers detected: {np.sum(inlier_mask)}/{len(y)}")
+
+y_inliers = y[inlier_mask]
+print("max: ", max(y_inliers))
+print("min: ", min(y_inliers))
