@@ -75,6 +75,10 @@ python3 softener.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Plain
 
 python3 getSectionsHz.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData3.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SectionsHz.json
 
+python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SectionsHz.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Ransac.json 
+
+
+
 python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SectionsHz.json original 0:0 . 0:0 hz
 
 

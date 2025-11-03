@@ -1,4 +1,3 @@
-#showSections.py
 
 
 import os
@@ -9,7 +8,8 @@ import numpy as np
 import globals
 from collections import deque
 import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import RANSACRegressor, LinearRegression
+from sklearn.metrics import mean_squared_error
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
@@ -18,44 +18,69 @@ output_file = (sys.argv[2])
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
+def getNewSection(section, ransac):
+    newSection = {
+        "direction": section["direction"],
+        "size":  section["size"],
+        "ransac": ransac,
+        "data": section["data"]
+    }
+    return newSection
+    
 
+newSections = []
 for section in dataJSON:
     data = section["data"]
-    sectionSize = section["size"]
-    ydata = data[dataType]["deltaPhase"]
+    xdata = np.array(data["original"]["hz"])
+    ydata = np.array(data["original"]["deltaPhase"])
+    X = xdata.reshape(-1, 1)
+    Y = ydata.reshape(-1, 1)
 
     ransac = RANSACRegressor()
-    ransac.fit(X, y)
+    ransac.fit(X, Y)
 
     coefficients = ransac.estimator_.coef_
     intercept = ransac.estimator_.intercept_
-
-    print(f"Coefficients: {coefficients}")
+    intercept = intercept[0]
+    coefficient = coefficients[0][0]
+    print(f"coefficient: {coefficient}")
     print(f"Intercept: {intercept}")
 
     y_pred = ransac.predict(X)
 
     # Residuals (inliers only)
-    inlier_mask = ransac.inlier_mask_
-    print("inlier_mask: ", inlier_mask)
-    residuals = y[inlier_mask] - y_pred[inlier_mask]
+    inlierMask = ransac.inlier_mask_
+    residuals = ydata[inlierMask] - y_pred[inlierMask]
 
     # --- Dispersion measures ---
     # 1. Root Mean Square Error (classical)
-    rmse = np.sqrt(mean_squared_error(y[inlier_mask], y_pred[inlier_mask]))
+    rmse = np.sqrt(mean_squared_error(ydata[inlierMask], y_pred[inlierMask]))
 
     # 2. Median Absolute Deviation (robust)
     mad = 1.4826 * np.median(np.abs(residuals - np.median(residuals)))
 
     print(f"RMSE (inliers): {rmse:.4f}")
     print(f"Robust MAD dispersion: {mad:.4f}")
-    print(f"Inliers detected: {np.sum(inlier_mask)}/{len(y)}")
+    print(f"Inliers detected: {np.sum(inlierMask)}/{len(ydata)}")
 
-    y_inliers = y[inlier_mask]
-    print("max: ", max(y_inliers))
-    print("min: ", min(y_inliers))
+    y_inliers = ydata[inlierMask]
+    maxValue = max(y_inliers)
+    minValue = min(y_inliers)
+    print("max: ", maxValue)
+    print("min: ", minValue)
+    ransac = {
+        "coefficient": coefficient,
+        "intercept": intercept,
+        "rmse": rmse,
+        "mad": mad,
+        "inlierMask": inlierMask.tolist(),
+        "inliersRange": {"max": maxValue, "min": minValue}
+    }
+    s = getNewSection(section, ransac)
+    newSections.append(s)
+    break
 
-
+#exit()
 
 with open(output_file, 'w', encoding='utf-8') as f:
-    json.dump(newData, f, ensure_ascii=False, indent=4)
+    json.dump(newSections, f, ensure_ascii=False, indent=4)
