@@ -77,6 +77,15 @@ python3 getSectionsHz.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-
 
 python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SectionsHz.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Ransac.json 
 
+python3 rangeCorrection.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Ransac.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-RangeCorrected.json 
+
+
+
+
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-RangeCorrected.json rangeCorrected 0:0 . 0:0 hz
+
+
+
 
 In Linux:
 #jq installation:

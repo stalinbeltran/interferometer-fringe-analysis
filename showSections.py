@@ -44,7 +44,6 @@ for section in dataJSON:
 
     ydata = data[dataType]["deltaPhase"]
     dataSize = len(ydata)
-    print("dataSize: ", dataSize)
     totalSize += dataSize
     end = begin + dataSize
     if positionRange:
@@ -58,7 +57,7 @@ for section in dataJSON:
     plt.plot(xdata, ydata, marker)
     sectionCounter +=1
     begin = end
-    if sectionCounter % 10 == 0:
+    if sectionCounter % 100 == 0:
         plt.show()
 if totalSize > 0: 
     plt.show()

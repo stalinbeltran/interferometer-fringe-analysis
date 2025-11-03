@@ -38,9 +38,13 @@ for section in dataJSON:
     maxValue = rangeValues["max"]
     offset = MAX_RANGE_VALUE - maxValue
     ydata = np.array(data["original"]["deltaPhase"])
+    hz = np.array(data["original"]["hz"])
     ydata = [y + offset for y in ydata]
-    data["rangeCorrected"] = ydata
-    break
+    data["rangeCorrected"] = {
+        "deltaPhase": ydata,
+        "hz": hz.tolist(),
+    }
+
     
     # ransac = {
         # "coefficient": coefficient,
