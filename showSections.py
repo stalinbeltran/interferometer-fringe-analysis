@@ -57,7 +57,7 @@ for section in dataJSON:
     plt.plot(xdata, ydata, marker)
     sectionCounter +=1
     begin = end
-    if sectionCounter % 100 == 0:
-        plt.show()
+    # if sectionCounter % 100 == 0:
+        # plt.show()
 if totalSize > 0: 
     plt.show()
