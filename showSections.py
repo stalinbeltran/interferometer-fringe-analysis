@@ -30,7 +30,7 @@ maximumSize = 0
 minumumSize = 0
 title = input_file
 plt.title(title)
-plt.xlim(4.5, 7.5) 
+#plt.xlim(4.5, 7.5) 
 sectionCounter = 0
 if sectionSizeRange:
     print("sectionSizeRange: ", sectionSizeRange)
@@ -49,12 +49,15 @@ for section in dataJSON:
     if positionRange:
         if positionRange[0]>0 and end < positionRange[0]: continue
         if positionRange[1]>0 and begin > positionRange[1]: continue
-    xdata = range(begin, end)
+    xdata = [x for x in range(begin, end)]
     if keyx:            
         xdata = data[dataType][keyx[0]]
 
         
     plt.plot(xdata, ydata, marker)
+    #plt.show()
+    #print("xdata, ydata: ", xdata, ydata)
+    #break
     sectionCounter +=1
     begin = end
     # if sectionCounter % 100 == 0:

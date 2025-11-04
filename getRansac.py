@@ -13,7 +13,7 @@ from sklearn.metrics import mean_squared_error
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
-
+dataType = globals.getPromptOptionalParameter(3)
 
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
@@ -28,11 +28,13 @@ def getNewSection(section, ransac):
     return newSection
     
 
+if not dataType:
+    dataType = "original"
 newSections = []
 for section in dataJSON:
     data = section["data"]
-    xdata = np.array(data["original"]["hz"])
-    ydata = np.array(data["original"]["deltaPhase"])
+    xdata = np.array(data[dataType]["hz"])
+    ydata = np.array(data[dataType]["deltaPhase"])
     X = xdata.reshape(-1, 1)
     Y = ydata.reshape(-1, 1)
 

@@ -67,9 +67,10 @@ python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Pla
 Unwrapping recipe:
 File: D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData.json
 
-python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json deltaPhase deltaPhase 0.99 2000 1
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json deltaPhase deltaPhase 0.99 120 2
 
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json  timestamp deltaPhase 12000
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json  SEQUENTIAL deltaPhase
+
 
 python3 softener.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData3.json 6:7:3
 
@@ -79,10 +80,9 @@ python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Sect
 
 python3 rangeCorrection.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Ransac.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-RangeCorrected.json 
 
-
-
-
 python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-RangeCorrected.json rangeCorrected 0:0 . 0:0 hz
+
+python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-RangeCorrected.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-rangeCorrectedRansac2.json rangeCorrected
 
 
 
@@ -91,18 +91,12 @@ In Linux:
 #jq installation:
 sudo apt install jq
 
-cat /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-Ransac.json | jq '.[].ransac.coefficient'
-
-cat /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-Ransac.json | jq '[.[].ransac.coefficient]'
-
 cat /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-Ransac.json | jq '[.[].ransac.inliersRange]' > /mnt/d/Stalin/FotosFranjasProyecto/results/ranges.json
 
 cat /mnt/d/Stalin/FotosFranjasProyecto/results/ranges.json | jq --raw-output '.[] | [keys[] as $k | .[$k]] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/ranges.csv
 
-cat /mnt/d/Stalin/FotosFranjasProyecto/results/ranges.json | jq --raw-output '.[] | [keys[] as $k | .[$k]] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/ranges.csv
 
-
-cat /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-Ransac.json | jq --raw-output '.[].ransac | [.coefficient, .intercept, .rmse, .mad] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/ransac.csv
+cat /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-Ransac.json | jq --raw-output '.[].ransac | [.coefficient, .intercept, .rmse, .mad] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-Ransac.csv
 
 
 
@@ -117,9 +111,6 @@ python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-S
 
 
 
-
-
-python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData3.json deltaPhase deltaPhase 0.99 6000 2 19900:21700
 
 
 

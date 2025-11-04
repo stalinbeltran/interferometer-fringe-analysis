@@ -15,25 +15,24 @@ ykey = globals.getPromptOptionalParameter(4, [{"func":globals.split, "funcParams
 distanceImprovementFactor = float(sys.argv[5])
 N_lastPoints = int(sys.argv[6])
 iterations = int(sys.argv[7])
-timestampRange = globals.getPromptOptionalParameter(8, [{"func":globals.split, "funcParams":[":"]}, {"func":float}])
+positionRange = globals.getPromptOptionalParameter(8, [{"func":globals.split, "funcParams":[":"]}, {"func":float}])
 
 
 
 
 def correctLocalPhaseByReference(data, referenceData):
-    global distanceImprovementFactor, N_lastPoints, timestampData, timestampRange
+    global distanceImprovementFactor, N_lastPoints, timestampData, positionRange
     processed = 0
     points = data
     size = len(points)
     c = 0
-    if timestampRange:
-        timestampStart = timestampRange[0]
-        timestampEnd = timestampRange[1]
+    if positionRange:
+        positionStart = positionRange[0]
+        positionEnd = positionRange[1]
     for index in range(size):
-        if timestampRange:                              #custom range processing
-            thisTimestamp = index
-            if thisTimestamp < timestampStart: continue
-            if thisTimestamp > timestampEnd: continue
+        if positionRange:                              #custom range processing
+            if index < positionStart: continue
+            if index > positionEnd: continue
         phase = points[index]
         newphase = phase
         aroundPoints = globals.getAroundPoints2(index, N_lastPoints, referenceData)
