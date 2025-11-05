@@ -23,10 +23,9 @@ with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
 title = input_file
-softenedArray = dataJSON
 if not marker:
     marker = '.'
-for softData in softenedArray:
+for softData in dataJSON:
     begin = 0
     N = 0
     if "N" in softData:

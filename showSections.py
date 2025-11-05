@@ -16,7 +16,8 @@ dataType = (sys.argv[2])
 sectionSizeRange = globals.getPromptOptionalParameter(3, [{"func": globals.split, "funcParams": [":"]}, {"func": int}])
 marker = globals.getPromptOptionalParameter(4)
 positionRange = globals.getPromptOptionalParameter(5, [{"func": globals.split, "funcParams": [":"]}, {"func": int}])
-keyx = globals.getPromptOptionalParameter(6, [{"func": globals.split, "funcParams": [":"]}])
+keyx = globals.getPromptOptionalParameter(6)
+sectionsShowed = globals.getPromptOptionalParameter(7, int)
 
 if not marker:
     marker = '.'
@@ -49,9 +50,11 @@ for section in dataJSON:
     if positionRange:
         if positionRange[0]>0 and end < positionRange[0]: continue
         if positionRange[1]>0 and begin > positionRange[1]: continue
-    xdata = [x for x in range(begin, end)]
-    if keyx:            
-        xdata = data[dataType][keyx[0]]
+
+    if keyx is None or keyx == "SEQUENTIAL":
+        xdata = [x for x in range(begin, end)]
+    else:
+        xdata = data[dataType][keyx]
 
         
     plt.plot(xdata, ydata, marker)
@@ -60,7 +63,7 @@ for section in dataJSON:
     #break
     sectionCounter +=1
     begin = end
-    # if sectionCounter % 100 == 0:
-        # plt.show()
+    if sectionsShowed and sectionCounter % sectionsShowed == 0:
+        plt.show()
 if totalSize > 0: 
     plt.show()

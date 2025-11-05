@@ -69,12 +69,14 @@ File: D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData.json
 
 python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json deltaPhase deltaPhase 0.99 120 2
 
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json  SEQUENTIAL deltaPhase
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData3.json deltaPhase deltaPhase 0.99 16 2 29100:29200
+
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData3.json  SEQUENTIAL deltaPhase
 
 
-python3 softener.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData3.json 6:7:3
+python3 softener.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData3.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Softened.json 6:7:3
 
-python3 getSectionsHz.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData3.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SectionsHz.json
+python3 getSectionsHz.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Softened.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SectionsHz.json
 
 python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SectionsHz.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Ransac.json 
 
@@ -82,7 +84,7 @@ python3 rangeCorrection.py D:\Stalin\FotosFranjasProyecto\results\tuesday0710202
 
 python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-RangeCorrected.json rangeCorrected 0:0 . 0:0 hz
 
-python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-RangeCorrected.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-rangeCorrectedRansac2.json rangeCorrected
+python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-RangeCorrected.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-rangeCorrectedRansac.json rangeCorrected
 
 
 
@@ -97,6 +99,8 @@ cat /mnt/d/Stalin/FotosFranjasProyecto/results/ranges.json | jq --raw-output '.[
 
 
 cat /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-Ransac.json | jq --raw-output '.[].ransac | [.coefficient, .intercept, .rmse, .mad] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-Ransac.csv
+
+cat /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-rangeCorrectedRansac.json | jq --raw-output '.[].ransac | [.coefficient, .intercept, .rmse, .mad] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-rangeCorrectedRansac.csv
 
 
 
