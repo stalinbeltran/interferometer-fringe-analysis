@@ -92,7 +92,9 @@ python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_
 
 python3 MADoptimization.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-RangeCorrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-MADoptimized.json 2 0.01
 
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-MADoptimized.json original 0:0 . 0:0 hz
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-MADoptimized.json original 0:0 . 0:500
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-MADoptimized.json rangeCorrected 0:0 . 0:500
+
 python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-RangeCorrected.json rangeCorrected 0:100 . 0:0 hz
 python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-MADoptimized.json rangeCorrected 0:100 . 0:0 hz
 
