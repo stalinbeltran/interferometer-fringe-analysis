@@ -1,6 +1,5 @@
 
-p-eriscope
-d-irect
+t-hursday09102025_slowacceleration_direct
 t-hursday09102025_slowacceleration_periscope
 t-uesday07102025
 
@@ -9,82 +8,89 @@ f-riday24102025
 
 
 #get the file list of all fringes images:
-python3 getFileList.py D:\Stalin\FotosFranjasProyecto\tuesday07102025 D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Files.json
+python3 getFileList.py D:\Stalin\FotosFranjasProyecto\thursday09102025_slowacceleration_direct D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Files.json
 
 #get segments of continuous measurements:
-python3 getSegments.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Files.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Segments.json
+python3 getSegments.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Files.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Segments.json
 
 
 #get samples (pairs of continuous related images):
-python3 getSamples.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Segments.json  D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamples.json
+python3 getSamples.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Segments.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamples.json
 
 #get first 60 (ordered by magnitude) Fast Fourier Transform (FFT) parameters:
-python3 getFFT.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamples.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesFFT.json
+python3 getFFT.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamples.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesFFT.json
 
 
 
 #get time periods:
-python3 getTimePeriod.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesFFT.json  D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentTimePeriod.json
+python3 getTimePeriod.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesFFT.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentTimePeriod.json
 
 #get both period and phase from  every ff available:
-python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPeriodPhase.json
+python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesPeriodPhase.json
 
 #get first of the periods (as it is the bigger one):
-python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesFirstPeriod.json
+python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesFirstPeriod.json
 
 #show periods in the samples:
-python3 getLookedPeriod.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPeriodLooked.json
+python3 getLookedPeriod.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesPeriodLooked.json
 
 
 
 #get the definitive period in every sample, null otherwise: 80, 107
-python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPeriodLooked.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesDefinitivePeriod.json
+python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesPeriodLooked.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesDefinitivePeriod.json
 
 #get Phase shift for each sample:
-python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesDefinitivePeriod.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPhaseShift.json 
+python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesDefinitivePeriod.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesPhaseShift.json 
 
 #remove file info:
-python3 removeFileInfo.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPhaseShift.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-NoFileInfo.json 
+python3 removeFileInfo.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SegmentSamplesPhaseShift.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-NoFileInfo.json 
 
 
 #remove incomplete data points:
-python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-ValidDataPoints.json 
+python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-ValidDataPoints.json 
 
 #remove slow points, as they are somehow wrong (speed can not change too fast from one sample to the next):
-python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-FastDataPoints.json 4.5:7.5
+python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-FastDataPoints.json 4.5:7.5
 
 #remove incomplete data points:
-python3 removeUnusedData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-FastDataPoints.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Cleaned.json 
+python3 removeUnusedData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-FastDataPoints.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Cleaned.json 
 
-python3 getPlainData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Cleaned.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData.json
-
-
+python3 getPlainData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Cleaned.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json
 
 
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData.json  timestamp fixedPhase:mobilePhase 12000
+
+
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json  timestamp fixedPhase:mobilePhase 12000
 
 ----------------------------------------------------------------------------------------------------------------------------
 Unwrapping recipe:
-File: D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData.json
+File: D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json
 
-python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json deltaPhase deltaPhase 0.99 120 2
-
-python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData3.json deltaPhase deltaPhase 0.99 16 2 29100:29200
-
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData3.json  SEQUENTIAL deltaPhase
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData2.json deltaPhase deltaPhase 0.99 120 2 0:21000
 
 
-python3 softener.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData3.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Softened.json 6:7:3
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData2.json  SEQUENTIAL deltaPhase 21000
 
-python3 getSectionsHz.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Softened.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SectionsHz.json
 
-python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SectionsHz.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Ransac.json 
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData3.json deltaPhase deltaPhase 0.99 400 2 21000:90000
 
-python3 rangeCorrection.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Ransac.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-RangeCorrected.json 
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData3.json  SEQUENTIAL deltaPhase 21000
 
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-RangeCorrected.json rangeCorrected 0:0 . 0:0 hz
 
-python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-RangeCorrected.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-rangeCorrectedRansac.json rangeCorrected
+python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PlainData3.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Softened.json 6:7:3
+
+python3 getSectionsHz.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Softened.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsHz.json
+
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsHz.json original 0:0 . 0:0 hz
+
+
+python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsHz.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Ransac.json 
+
+python3 rangeCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Ransac.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-RangeCorrected.json 
+
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-RangeCorrected.json rangeCorrected 0:0 . 0:0 hz
+
+python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-RangeCorrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-rangeCorrectedRansac.json rangeCorrected
 
 
 
@@ -93,19 +99,19 @@ In Linux:
 #jq installation:
 sudo apt install jq
 
-cat /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-Ransac.json | jq '[.[].ransac.inliersRange]' > /mnt/d/Stalin/FotosFranjasProyecto/results/ranges.json
+cat /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration_direct-Ransac.json | jq '[.[].ransac.inliersRange]' > /mnt/d/Stalin/FotosFranjasProyecto/results/ranges.json
 
 cat /mnt/d/Stalin/FotosFranjasProyecto/results/ranges.json | jq --raw-output '.[] | [keys[] as $k | .[$k]] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/ranges.csv
 
 
-cat /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-Ransac.json | jq --raw-output '.[].ransac | [.coefficient, .intercept, .rmse, .mad] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-Ransac.csv
+cat /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration_direct-Ransac.json | jq --raw-output '.[].ransac | [.coefficient, .intercept, .rmse, .mad] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration_direct-Ransac.csv
 
-cat /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-rangeCorrectedRansac.json | jq --raw-output '.[].ransac | [.coefficient, .intercept, .rmse, .mad] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-rangeCorrectedRansac.csv
-
-
+cat /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration_direct-rangeCorrectedRansac.json | jq --raw-output '.[].ransac | [.coefficient, .intercept, .rmse, .mad] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration_direct-rangeCorrectedRansac.csv
 
 
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SectionsHz.json original 0:0 . 0:0 hz
+
+
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsHz.json original 0:0 . 0:0 hz
 
 
 
@@ -122,26 +128,26 @@ python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-S
 ----------------------------------------------------------------------------------------------------------------------------
 
 
-python3 getLinearRegression.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SectionsNormalized.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Regression.json
+python3 getLinearRegression.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsNormalized.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Regression.json
 
 
-python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Noise.json fixedPhase:mobilePhase
+python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Noise.json fixedPhase:mobilePhase
 
 
 
 
 
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-unwrapped.json timestamp mobilePhase:fixedPhase
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-unwrapped.json timestamp mobilePhase:fixedPhase
 
 
 -------------------------------------------
 measure delta time of a set:
 -------------------------------------------
 
-python3 getDeltaTime.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Segments.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-DeltaTime.json
+python3 getDeltaTime.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Segments.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-DeltaTime.json
 
 
-python3 showHistogram.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-DeltaTime.json deltatime 0:0.2
+python3 showHistogram.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-DeltaTime.json deltatime 0:0.2
 -------------------------------------------
 
 
