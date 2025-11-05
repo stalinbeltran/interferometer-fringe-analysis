@@ -78,20 +78,28 @@ for section in dataJSON:
     offset = 0
     direction = 1
     mad = getOffsetMAD(section, refSection, offset)
-    #print("mad: ", mad)
+    print("mad: ", mad)
     section["madToRefStart"] = mad
-    betterOffset = None
+    betterOffset = 0
+    firstIteration = True
     while True:
-        offset += deltaOffset*direction
+        offset = betterOffset + deltaOffset*direction
+        print("offset: ", offset)
         newMad = getOffsetMAD(section, refSection, offset)
+        print("newMad: ", newMad)
         if newMad < mad:
             mad = newMad
+            print("--------mad: ", mad)
             betterOffset = offset
+            print("--------betterOffset: ", betterOffset)
             continue
         if deltaOffset < ACCEPTANCE_LEVEL:      #too small deltaOffset
             break
         direction *= -1
-        deltaOffset /=2.0
+        if not firstIteration:
+            deltaOffset /=2.0
+        firstIteration = False
+        
     data = section["data"]
     hz = data[dataType]["hz"]
     ydata = getDisplacedData(data[dataType]["deltaPhase"], offset)
@@ -102,6 +110,7 @@ for section in dataJSON:
     section["betterOffset"] = betterOffset
     section["madToRefEnd"] = newMad
     section["madImprovement"] = section["madToRefEnd"] - section["madToRefStart"]
+    break
 
 
 with open(output_file, 'w', encoding='utf-8') as f:
