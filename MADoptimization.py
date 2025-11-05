@@ -79,7 +79,7 @@ for section in dataJSON:
     direction = 1
     mad = getOffsetMAD(section, refSection, offset)
     section["madToRefStart"] = mad
-    betterOffset = 0
+    betterOffset = 1
     firstIteration = True
     while True:
         offset = betterOffset + deltaOffset*direction
@@ -97,7 +97,7 @@ for section in dataJSON:
         
     data = section["data"]
     hz = data[dataType]["hz"]
-    ydata = getDisplacedData(data[dataType]["deltaPhase"], offset)
+    ydata = getDisplacedData(data[dataType]["deltaPhase"], betterOffset)
     data["rangeCorrected"] = {
         "deltaPhase": ydata,
         "hz": hz,
@@ -105,7 +105,7 @@ for section in dataJSON:
     section["betterOffset"] = betterOffset
     section["madToRefEnd"] = newMad
     section["madImprovement"] = section["madToRefEnd"] - section["madToRefStart"]
-    
+    break
 
 
 with open(output_file, 'w', encoding='utf-8') as f:
