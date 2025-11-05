@@ -90,7 +90,8 @@ python3 rangeCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday091020
 
 python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-RangeCorrected.json rangeCorrected 0:0 . 0:0 hz
 
-python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-RangeCorrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-rangeCorrectedRansac.json rangeCorrected
+python3 MADoptimization.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-RangeCorrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-MADoptimized.json 483
+
 
 
 
@@ -106,7 +107,7 @@ cat /mnt/d/Stalin/FotosFranjasProyecto/results/ranges.json | jq --raw-output '.[
 
 cat /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration_direct-Ransac.json | jq --raw-output '.[].ransac | [.coefficient, .intercept, .rmse, .mad] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration_direct-Ransac.csv
 
-cat /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration_direct-rangeCorrectedRansac.json | jq --raw-output '.[].ransac | [.coefficient, .intercept, .rmse, .mad] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration_direct-rangeCorrectedRansac.csv
+cat /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration_direct-RangeCorrected.json | jq --raw-output '.[].ransac | [.coefficient, .intercept, .rmse, .mad] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration_direct-RangeCorrected.csv
 
 
 

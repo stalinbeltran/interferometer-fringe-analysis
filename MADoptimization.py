@@ -39,8 +39,8 @@ def getOffsetMAD(section, refSection, offset):
     data = section["data"]
     xdata = np.array(data[dataType]["hz"])
     ydata = np.array(getDisplacedData(data[dataType]["deltaPhase"], offset))
-    xtotalData = np.concatenate(xdata, refXdata)
-    ytotalData = np.concatenate(ydata, refYdata)
+    xtotalData = np.concatenate((xdata, refXdata))
+    ytotalData = np.concatenate((ydata, refYdata))
     
     X = xtotalData.reshape(-1, 1)
     Y = ytotalData.reshape(-1, 1)
@@ -48,10 +48,12 @@ def getOffsetMAD(section, refSection, offset):
     ransac = RANSACRegressor()
     ransac.fit(X, Y)
     y_pred = ransac.predict(X)
+    # print("y_pred: ", y_pred)
+    # print("y_pred: ", y_pred)
 
     # Residuals (inliers only)
     inlierMask = ransac.inlier_mask_
-    residuals = ydata[inlierMask] - y_pred[inlierMask]
+    residuals = ytotalData[inlierMask] - y_pred[inlierMask]
 
     # 2. Median Absolute Deviation (robust)
     mad = 1.4826 * np.median(np.abs(residuals - np.median(residuals)))
@@ -65,6 +67,8 @@ with open(input_file, 'r', encoding='utf-8') as f:
 dataType = "original"
 newSections = []
 refSection = dataJSON[referenceSectionIndex]
+refSize = len(refSection["data"][dataType]["deltaPhase"])
+print("data length Reference: ", refSize)
 for section in dataJSON:
     if section == refSection:
         continue
@@ -89,6 +93,7 @@ for section in dataJSON:
         "deltaPhase": ydata,
         "hz": hz,
     }
+    break
 
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(dataJSON, f, ensure_ascii=False, indent=4)
