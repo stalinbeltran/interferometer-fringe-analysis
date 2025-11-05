@@ -80,13 +80,13 @@ for section in dataJSON:
     mad = getOffsetMAD(section, refSection, offset)
     #print("mad: ", mad)
     section["madToRefStart"] = mad
+    betterOffset = None
     while True:
         offset += deltaOffset*direction
         newMad = getOffsetMAD(section, refSection, offset)
-        if abs(mad - newMad) < ACCEPTANCE_LEVEL:
-            break                  #have reached the acceptance level
         if newMad < mad:
             mad = newMad
+            betterOffset = offset
             continue
         if deltaOffset < ACCEPTANCE_LEVEL:      #too small deltaOffset
             break
@@ -99,10 +99,10 @@ for section in dataJSON:
         "deltaPhase": ydata,
         "hz": hz,
     }
+    section["betterOffset"] = betterOffset
     section["madToRefEnd"] = newMad
     section["madImprovement"] = section["madToRefEnd"] - section["madToRefStart"]
-    if index > 5:
-        break
+
 
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(dataJSON, f, ensure_ascii=False, indent=4)

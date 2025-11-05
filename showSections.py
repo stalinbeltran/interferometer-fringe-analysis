@@ -48,8 +48,12 @@ for section in dataJSON:
     totalSize += dataSize
     end = begin + dataSize
     if positionRange:
-        if positionRange[0]>0 and end < positionRange[0]: continue
-        if positionRange[1]>0 and begin > positionRange[1]: continue
+        if positionRange[0]>0 and end < positionRange[0]:
+            begin = end
+            continue
+        if positionRange[1]>0 and begin > positionRange[1]:
+            begin = end
+            continue
 
     if keyx is None or keyx == "SEQUENTIAL":
         xdata = [x for x in range(begin, end)]
@@ -58,11 +62,8 @@ for section in dataJSON:
 
         
     plt.plot(xdata, ydata, marker)
-    #plt.show()
-    #print("xdata, ydata: ", xdata, ydata)
-    #break
-    sectionCounter +=1
     begin = end
+    sectionCounter +=1
     if sectionsShowed and sectionCounter % sectionsShowed == 0:
         plt.show()
 if totalSize > 0: 
