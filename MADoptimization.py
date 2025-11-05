@@ -83,7 +83,12 @@ for section in dataJSON:
         direction *= -1
         deltaOffset /=2.0
     data = section["data"]
+    hz = data[dataType]["hz"]
     ydata = getDisplacedData(data[dataType]["deltaPhase"], offset)
+    data["rangeCorrected"] = {
+        "deltaPhase": ydata,
+        "hz": hz,
+    }
 
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(dataJSON, f, ensure_ascii=False, indent=4)
