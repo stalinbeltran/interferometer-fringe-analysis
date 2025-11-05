@@ -14,8 +14,8 @@ from sklearn.metrics import mean_squared_error
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
 referenceSectionIndex = globals.getPromptOptionalParameter(3, int)
+ACCEPTANCE_LEVEL = globals.getPromptOptionalParameter(4, float)
 
-ACCEPTANCE_LEVEL = 0.01 #arbitrary value
 
 
 def getNewSection(section, ransac):
@@ -69,21 +69,27 @@ newSections = []
 refSection = dataJSON[referenceSectionIndex]
 refSize = len(refSection["data"][dataType]["deltaPhase"])
 print("data length Reference: ", refSize)
+index = -1
 for section in dataJSON:
-    if section == refSection:
+    index +=1
+    if index == referenceSectionIndex:
         continue
     deltaOffset = 1
     offset = 0
     direction = 1
     mad = getOffsetMAD(section, refSection, offset)
+    #print("mad: ", mad)
+    section["madToRefStart"] = mad
     while True:
         offset += deltaOffset*direction
         newMad = getOffsetMAD(section, refSection, offset)
-        if abs(newMad - mad) < ACCEPTANCE_LEVEL:
+        if abs(mad - newMad) < ACCEPTANCE_LEVEL:
             break                  #have reached the acceptance level
         if newMad < mad:
             mad = newMad
             continue
+        if deltaOffset < ACCEPTANCE_LEVEL:      #too small deltaOffset
+            break
         direction *= -1
         deltaOffset /=2.0
     data = section["data"]
@@ -93,7 +99,10 @@ for section in dataJSON:
         "deltaPhase": ydata,
         "hz": hz,
     }
-    break
+    section["madToRefEnd"] = newMad
+    section["madImprovement"] = section["madToRefEnd"] - section["madToRefStart"]
+    if index > 5:
+        break
 
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(dataJSON, f, ensure_ascii=False, indent=4)
