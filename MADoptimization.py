@@ -37,23 +37,23 @@ def getOffsetMAD(section, refSection, offset):
     refYdata = np.array(refData[dataType]["deltaPhase"])
     
     data = section["data"]
-    xdata = np.array(data[dataType]["hz"])
+    xdata = np.array(data[dataType]["hz"]).reshape(-1, 1)
     ydata = np.array(getDisplacedData(data[dataType]["deltaPhase"], offset))
-    xtotalData = np.concatenate((xdata, refXdata))
-    ytotalData = np.concatenate((ydata, refYdata))
+    # xtotalData = np.concatenate((xdata, refXdata))
+    # ytotalData = np.concatenate((ydata, refYdata))
     
-    X = xtotalData.reshape(-1, 1)
-    Y = ytotalData.reshape(-1, 1)
+    X = refXdata.reshape(-1, 1)
+    Y = refYdata.reshape(-1, 1)
 
     ransac = RANSACRegressor()
     ransac.fit(X, Y)
-    y_pred = ransac.predict(X)
+    y_pred = ransac.predict(xdata)
     # print("y_pred: ", y_pred)
     # print("y_pred: ", y_pred)
 
     # Residuals (inliers only)
-    inlierMask = ransac.inlier_mask_
-    residuals = ytotalData[inlierMask] - y_pred[inlierMask]
+    #inlierMask = ransac.inlier_mask_
+    residuals = ydata - y_pred
 
     # 2. Median Absolute Deviation (robust)
     mad = 1.4826 * np.median(np.abs(residuals - np.median(residuals)))
@@ -64,7 +64,7 @@ with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
 
-dataType = "original"
+dataType = "rangeCorrected"
 newSections = []
 refSection = dataJSON[referenceSectionIndex]
 refSize = len(refSection["data"][dataType]["deltaPhase"])
@@ -74,21 +74,28 @@ for section in dataJSON:
     index +=1
     if index == referenceSectionIndex:
         continue
-    deltaOffset = 1
-    offset = 0
+    deltaOffset = 0.5
     direction = 1
+    betterOffset = 0
+    firstIteration = True
+    offset = betterOffset + deltaOffset*direction
     mad = getOffsetMAD(section, refSection, offset)
     section["madToRefStart"] = mad
-    betterOffset = 1
-    firstIteration = True
+    
+    print("mad: ", mad)
     while True:
         offset = betterOffset + deltaOffset*direction
         newMad = getOffsetMAD(section, refSection, offset)
         if newMad < mad:
             mad = newMad
+            firstIteration = True
+            direction = 1
             betterOffset = offset
+            print("--------mad: ", mad)
+            print("--------betterOffset: ", betterOffset)
             continue
         if deltaOffset < ACCEPTANCE_LEVEL:      #too small deltaOffset
+            print("deltaOffset: ", deltaOffset)
             break
         direction *= -1
         if not firstIteration:
@@ -103,9 +110,9 @@ for section in dataJSON:
         "hz": hz,
     }
     section["betterOffset"] = betterOffset
-    section["madToRefEnd"] = newMad
+    section["madToRefEnd"] = mad
     section["madImprovement"] = section["madToRefEnd"] - section["madToRefStart"]
-    break
+    if index > 5: break
 
 
 with open(output_file, 'w', encoding='utf-8') as f:
