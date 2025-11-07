@@ -68,7 +68,6 @@ model = getRansacModel(refSection)
 for section in dataJSON:
     index +=1
     if index == referenceSectionIndex:
-        break
         continue
 
     offset = getOffset(section, model)
@@ -81,7 +80,7 @@ for section in dataJSON:
         "hz": hz,
     }
     section["offset"] = offset
-    if index > 1: break
+
 
 
 with open(output_file, 'w', encoding='utf-8') as f:
