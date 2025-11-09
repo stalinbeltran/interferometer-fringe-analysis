@@ -37,6 +37,8 @@ if sectionSizeRange:
     print("sectionSizeRange: ", sectionSizeRange)
     minumumSize = sectionSizeRange[0]
     maximumSize = sectionSizeRange[1]
+
+
 for section in dataJSON:
     data = section["data"]
     sectionSize = section["size"]

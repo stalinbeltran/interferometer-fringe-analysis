@@ -83,6 +83,13 @@ python3 getSectionsHz.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025
 
 python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsHz.json original 0:0 . 0:0 hz
 
+python3 MADoptimization.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsHz.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-MADoptimized.json 2
+
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-MADoptimized.json original 0:0 . 0:0 hz
+
+
+
+
 
 python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsHz.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Ransac.json 
 

@@ -57,7 +57,7 @@ with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
 
-dataType = "rangeCorrected"
+dataType = "original"
 newSections = []
 refSection = dataJSON[referenceSectionIndex]
 refSize = len(refSection["data"][dataType]["deltaPhase"])
@@ -67,8 +67,6 @@ index = -1
 model = getRansacModel(refSection)
 for section in dataJSON:
     index +=1
-    if index == referenceSectionIndex:
-        continue
 
     offset = getOffset(section, model)
     offset *=-1
