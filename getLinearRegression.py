@@ -39,9 +39,16 @@ score = reg.score(X, Y)
 coefficient = reg.coef_[0][0]
 intercept = reg.intercept_[0]
 
+
+y_pred = reg.predict(X)
+
+# 1. Root Mean Square Error (classical)
+rmse = np.sqrt(mean_squared_error(ydata, y_pred))
+
 linearRegression = {
     "coefficient": coefficient,
     "intercept": intercept,
+    "rmse": rmse,
     "score": score,
 }
 
