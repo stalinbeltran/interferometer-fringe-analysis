@@ -13,66 +13,63 @@ from sklearn.metrics import mean_squared_error
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
-dataType = globals.getPromptOptionalParameter(3)
+dataType = "original"
 
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
-def getNewSection(section, ransac):
-    newSection = {
-        "direction": section["direction"],
-        "size":  section["size"],
-        "ransac": ransac,
-        "data": section["data"]
-    }
-    return newSection
     
 
 if not dataType:
     dataType = "original"
-newSections = []
+    
+xdata = []
+ydata = []
 for section in dataJSON:
     data = section["data"]
-    xdata = np.array(data[dataType]["hz"])
-    ydata = np.array(data[dataType]["deltaPhase"])
-    X = xdata.reshape(-1, 1)
-    Y = ydata.reshape(-1, 1)
+    xdata.extend(np.array(data[dataType]["hz"]))
+    ydata.extend(np.array(data[dataType]["deltaPhase"]))
+    
 
-    ransac = RANSACRegressor()
-    ransac.fit(X, Y)
+xdata = np.array(xdata)
+ydata = np.array(ydata)
 
-    coefficients = ransac.estimator_.coef_
-    intercept = ransac.estimator_.intercept_
-    intercept = intercept[0]
-    coefficient = coefficients[0][0]
+X = xdata.reshape(-1, 1)
+Y = ydata.reshape(-1, 1)
+ransac = RANSACRegressor()
+ransac.fit(X, Y)
 
-    y_pred = ransac.predict(X)
+coefficients = ransac.estimator_.coef_
+intercept = ransac.estimator_.intercept_
+intercept = intercept[0]
+coefficient = coefficients[0][0]
 
-    # Residuals (inliers only)
-    inlierMask = ransac.inlier_mask_
-    residuals = ydata[inlierMask] - y_pred[inlierMask]
+y_pred = ransac.predict(X)
 
-    # --- Dispersion measures ---
-    # 1. Root Mean Square Error (classical)
-    rmse = np.sqrt(mean_squared_error(ydata[inlierMask], y_pred[inlierMask]))
+# Residuals (inliers only)
+inlierMask = ransac.inlier_mask_
+residuals = ydata[inlierMask] - y_pred[inlierMask]
 
-    # 2. Median Absolute Deviation (robust)
-    mad = 1.4826 * np.median(np.abs(residuals - np.median(residuals)))
+# --- Dispersion measures ---
+# 1. Root Mean Square Error (classical)
+rmse = np.sqrt(mean_squared_error(ydata[inlierMask], y_pred[inlierMask]))
 
-    y_inliers = ydata[inlierMask]
-    maxValue = max(y_inliers)
-    minValue = min(y_inliers)
-    ransac = {
-        "coefficient": coefficient,
-        "intercept": intercept,
-        "rmse": rmse,
-        "mad": mad,
-        "inlierMask": inlierMask.tolist(),
-        "inliersRange": {"max": maxValue, "min": minValue}
-    }
-    s = getNewSection(section, ransac)
-    newSections.append(s)
+# 2. Median Absolute Deviation (robust)
+mad = 1.4826 * np.median(np.abs(residuals - np.median(residuals)))
+
+y_inliers = ydata[inlierMask]
+maxValue = max(y_inliers)
+minValue = min(y_inliers)
+ransac = {
+    "coefficient": coefficient,
+    "intercept": intercept,
+    "rmse": rmse,
+    "mad": mad,
+    "inlierMask": inlierMask.tolist(),
+    "inliersRange": {"max": maxValue, "min": minValue}
+}
+
 
 
 with open(output_file, 'w', encoding='utf-8') as f:
-    json.dump(newSections, f, ensure_ascii=False, indent=4)
+    json.dump(ransac, f, ensure_ascii=False, indent=4)

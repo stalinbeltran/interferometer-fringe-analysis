@@ -83,27 +83,11 @@ python3 getSectionsHz.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025
 
 python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsHz.json original 0:0 . 0:0 hz
 
-python3 MADoptimization.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsHz.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-MADoptimized.json 2
+python3 offsetCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsHz.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-offsetCorrected.json 2
 
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-MADoptimized.json original 0:0 . 0:0 hz
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-offsetCorrected.json rangeCorrected 0:0 . 0:0 hz
 
-
-
-
-
-python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsHz.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Ransac.json 
-
-python3 rangeCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Ransac.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-RangeCorrected.json 
-
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-RangeCorrected.json rangeCorrected 0:0 . 0:0 hz
-
-python3 MADoptimization.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-RangeCorrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-MADoptimized.json 2
-
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-MADoptimized.json original 0:0 . 0:500
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-MADoptimized.json rangeCorrected 0:0 . 0:500
-
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-RangeCorrected.json rangeCorrected 0:100 . 0:0 hz
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-MADoptimized.json rangeCorrected 0:100 . 0:0 hz
+python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Ransac.json 
 
 
 
@@ -124,13 +108,6 @@ cat /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration
 
 
 
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-SectionsHz.json original 0:0 . 0:0 hz
-
-
-
-
-
-
 
 
 
@@ -147,21 +124,6 @@ python3 getLinearRegression.py D:\Stalin\FotosFranjasProyecto\results\thursday09
 python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Noise.json fixedPhase:mobilePhase
 
 
-
-
-
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-unwrapped.json timestamp mobilePhase:fixedPhase
-
-
--------------------------------------------
-measure delta time of a set:
--------------------------------------------
-
-python3 getDeltaTime.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Segments.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-DeltaTime.json
-
-
-python3 showHistogram.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-DeltaTime.json deltatime 0:0.2
--------------------------------------------
 
 
 
