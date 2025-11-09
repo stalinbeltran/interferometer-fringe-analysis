@@ -48,7 +48,14 @@ y_pred = ransac.predict(X)
 
 # Residuals (inliers only)
 inlierMask = ransac.inlier_mask_
-residuals = ydata[inlierMask] - y_pred[inlierMask]
+#residuals = ydata[inlierMask] - y_pred[inlierMask]
+residuals = []
+size = len(inlierMask)
+for i in range(size):
+    isInlier = inlierMask[i]
+    if not isInlier: continue
+    res = ydata[i] - y_pred[i]
+    residuals.append(res) 
 
 # --- Dispersion measures ---
 # 1. Root Mean Square Error (classical)

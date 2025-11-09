@@ -89,7 +89,7 @@ python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_
 
 python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-Ransac.json 
 
-
+python3 getLinearRegression.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-LinearRegression.json 
 
 
 In Linux:
