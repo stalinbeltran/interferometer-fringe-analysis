@@ -82,7 +82,7 @@ python3 getSectionsHz.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeris
 
 python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SectionsHz.json original 0:0 . 0:0 hz
 
-python3 offsetCorrection.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SectionsHz.json D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-offsetCorrected.json 4
+python3 offsetCorrection.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-SectionsHz.json D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-offsetCorrected.json 0
 
 python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\smallSamplePeriscope-offsetCorrected.json rangeCorrected 0:0 . 0:0 hz
 

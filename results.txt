@@ -142,3 +142,24 @@ linear regression:
 
 friday24102025PBSasperiscope (contiene una única velocidad, proceso normal no puede aplicarse)
 
+
+smallSamplePeriscope
+linear regression
+{
+    "coefficient": -0.10856349727525617,
+    "intercept": 0.8251960371368117,
+    "rmse": 0.1486507888110166,
+    "score": 0.18404180895111422
+}
+
+ransac
+{
+    "coefficient": -0.12819210496326436,
+    "intercept": 0.8917934788814366,
+    "rmse": 0.0609674913878433,
+    "mad": 0.07466080137584175,
+}
+
+
+
+
