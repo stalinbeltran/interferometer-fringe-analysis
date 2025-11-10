@@ -8,96 +8,96 @@ f-riday24102025
 
 
 #get the file list of all fringes images:
-python3 getFileList.py D:\Stalin\FotosFranjasProyecto\thursday09102025_slowacceleration_periscope D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Files.json
+python3 getFileList.py D:\Stalin\FotosFranjasProyecto\tuesday07102025 D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Files.json
 
 #get segments of continuous measurements:
-python3 getSegments.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Files.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Segments.json
+python3 getSegments.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Files.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Segments.json
 
 
 #get samples (pairs of continuous related images):
-python3 getSamples.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Segments.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentSamples.json
+python3 getSamples.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Segments.json  D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamples.json
 
 #get first 60 (ordered by magnitude) Fast Fourier Transform (FFT) parameters:
-python3 getFFT.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentSamples.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentSamplesFFT.json
+python3 getFFT.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamples.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesFFT.json
 
 
 
 #get time periods:
-python3 getTimePeriod.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentSamplesFFT.json  D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentTimePeriod.json
+python3 getTimePeriod.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesFFT.json  D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentTimePeriod.json
 
 #get both period and phase from  every ff available:
-python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentSamplesPeriodPhase.json
+python3 getPeriodPhase.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentTimePeriod.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPeriodPhase.json
 
 #get first of the periods (as it is the bigger one):
-python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentSamplesFirstPeriod.json
+python3 getFirstPeriod.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPeriodPhase.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesFirstPeriod.json
 
 #show periods in the samples:
-python3 getLookedPeriod.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentSamplesPeriodLooked.json
+python3 getLookedPeriod.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesFirstPeriod.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPeriodLooked.json
 
 
 
 #get the definitive period in every sample, null otherwise: 80, 107
-python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentSamplesPeriodLooked.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentSamplesDefinitivePeriod.json
+python3 getDefinitivePeriod.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPeriodLooked.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesDefinitivePeriod.json
 
 #get Phase shift for each sample:
-python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentSamplesDefinitivePeriod.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentSamplesPhaseShift.json 
+python3 getPhaseShift.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesDefinitivePeriod.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPhaseShift.json 
 
 #remove file info:
-python3 removeFileInfo.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SegmentSamplesPhaseShift.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-NoFileInfo.json 
+python3 removeFileInfo.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SegmentSamplesPhaseShift.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-NoFileInfo.json 
 
 
 #remove incomplete data points:
-python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-ValidDataPoints.json 
+python3 removeNoDataPoints.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-NoFileInfo.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-ValidDataPoints.json 
 
 #remove slow points, as they are somehow wrong (speed can not change too fast from one sample to the next):
-python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-FastDataPoints.json 4.5:7.5
+python3 removeSlowPoints.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-FastDataPoints.json 4.5:7.5
 
 #remove incomplete data points:
-python3 removeUnusedData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-FastDataPoints.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Cleaned.json 
+python3 removeUnusedData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-FastDataPoints.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Cleaned.json 
 
-python3 getPlainData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Cleaned.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json
-
-
+python3 getPlainData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Cleaned.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData.json
 
 
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json  timestamp fixedPhase:mobilePhase 12000
+
+
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData.json  timestamp fixedPhase:mobilePhase 12000
 
 ----------------------------------------------------------------------------------------------------------------------------
 Unwrapping recipe:
-File: D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json
+File: D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData.json
 
-python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData2.json deltaPhase deltaPhase 0.99 120 2 
+python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json deltaPhase deltaPhase 0.99 120 2 
 
 
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData2.json  SEQUENTIAL deltaPhase 21000
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json  SEQUENTIAL deltaPhase 21000
 
-python3 softener.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PlainData2.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Softened.json 6:7:3
+python3 softener.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PlainData2.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Softened.json 6:7:3
 
-python3 getSectionsHz.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Softened.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SectionsHz.json
+python3 getSectionsHz.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Softened.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SectionsHz.json
 
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SectionsHz.json original 0:0 . 0:0 hz
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SectionsHz.json original 0:0 . 0:0 hz
 
-python3 offsetCorrection.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SectionsHz.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-offsetCorrected.json 292
+python3 offsetCorrection.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-SectionsHz.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-offsetCorrected.json 292
 
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-offsetCorrected.json rangeCorrected 0:0 . 0:0 hz
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-offsetCorrected.json rangeCorrected 0:0 . 0:0 hz
 
-python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Ransac.json 
+python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Ransac.json 
 
-python3 getLinearRegression.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-LinearRegression.json 
+python3 getLinearRegression.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-LinearRegression.json 
 
 
 In Linux:
 #jq installation:
 sudo apt install jq
 
-cat /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration_periscope-Ransac.json | jq '[.[].ransac.inliersRange]' > /mnt/d/Stalin/FotosFranjasProyecto/results/ranges.json
+cat /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-Ransac.json | jq '[.[].ransac.inliersRange]' > /mnt/d/Stalin/FotosFranjasProyecto/results/ranges.json
 
 cat /mnt/d/Stalin/FotosFranjasProyecto/results/ranges.json | jq --raw-output '.[] | [keys[] as $k | .[$k]] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/ranges.csv
 
 
-cat /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration_periscope-Ransac.json | jq --raw-output '.[].ransac | [.coefficient, .intercept, .rmse, .mad] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration_periscope-Ransac.csv
+cat /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-Ransac.json | jq --raw-output '.[].ransac | [.coefficient, .intercept, .rmse, .mad] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-Ransac.csv
 
-cat /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration_periscope-RangeCorrected.json | jq --raw-output '.[].ransac | [.coefficient, .intercept, .rmse, .mad] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration_periscope-RangeCorrected.csv
+cat /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-RangeCorrected.json | jq --raw-output '.[].ransac | [.coefficient, .intercept, .rmse, .mad] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/tuesday07102025-RangeCorrected.csv
 
 
 
@@ -112,12 +112,72 @@ cat /mnt/d/Stalin/FotosFranjasProyecto/results/thursday09102025_slowacceleration
 ----------------------------------------------------------------------------------------------------------------------------
 
 
-python3 getLinearRegression.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-SectionsNormalized.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Regression.json
-
-
-python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_periscope-Noise.json fixedPhase:mobilePhase
+python3 getNoise.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-PhaseSoften.json D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-Noise.json fixedPhase:mobilePhase
 
 
 
+
+
+
+
+Direct
+thursday09102025
+
+ransac
+{
+    "coefficient": -0.1015335687175864,
+    "intercept": 1.7839182159359583,
+    "rmse": 0.06770561024454728,
+    "mad": 0.08167470225333257,
+	}
+linear regression
+{
+    "coefficient": -0.1433730860059002,
+    "intercept": 1.9937559857977218,
+    "rmse": 0.1964530870190069,
+    "score": 0.18628682564169807
+}
+
+
+tuesday07102025
+linear regression:
+{
+    "coefficient": -0.14830368224467572,
+    "intercept": 2.164927192204863,
+    "rmse": 1.4271365230345858,
+    "score": 0.004351380440540509
+}
+ransac:
+{
+    "coefficient": -0.14426378149365568,
+    "intercept": 0.9620969144975448,
+    "rmse": 0.21351196373670409,
+    "mad": 0.19645504377637993,
+}
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------
+
+Periscope 
+
+ransac:
+{
+    "coefficient": -0.09274590150337,
+    "intercept": 0.7378644887778226,
+    "rmse": 0.10638136025486106,
+    "mad": 0.11969987846945108,
+}
+
+linear regression:
+{
+    "coefficient": -0.05495341059163068,
+    "intercept": 0.1911361476052065,
+    "rmse": 0.5094424171797067,
+    "score": 0.004972389967977442
+}
 
 
