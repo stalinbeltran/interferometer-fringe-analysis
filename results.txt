@@ -1,0 +1,66 @@
+
+
+
+Direct
+thursday09102025
+
+ransac
+{
+    "coefficient": -0.1015335687175864,
+    "intercept": 1.7839182159359583,
+    "rmse": 0.06770561024454728,
+    "mad": 0.08167470225333257,
+	}
+linear regression
+{
+    "coefficient": -0.1433730860059002,
+    "intercept": 1.9937559857977218,
+    "rmse": 0.1964530870190069,
+    "score": 0.18628682564169807
+}
+
+
+tuesday07102025
+linear regression:
+{
+    "coefficient": -0.14830368224467572,
+    "intercept": 2.164927192204863,
+    "rmse": 1.4271365230345858,
+    "score": 0.004351380440540509
+}
+ransac:
+{
+    "coefficient": -0.14426378149365568,
+    "intercept": 0.9620969144975448,
+    "rmse": 0.21351196373670409,
+    "mad": 0.19645504377637993,
+}
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------
+
+Periscope 
+thursday09102025
+
+ransac:
+{
+    "coefficient": -0.09274590150337,
+    "intercept": 0.7378644887778226,
+    "rmse": 0.10638136025486106,
+    "mad": 0.11969987846945108,
+}
+
+linear regression:
+{
+    "coefficient": -0.05495341059163068,
+    "intercept": 0.1911361476052065,
+    "rmse": 0.5094424171797067,
+    "score": 0.004972389967977442
+}
+
+friday24102025PBSasperiscope (contiene una única velocidad, proceso normal no puede aplicarse)
+
