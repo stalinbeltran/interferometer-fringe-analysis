@@ -38,8 +38,9 @@ if sectionSizeRange:
     minumumSize = sectionSizeRange[0]
     maximumSize = sectionSizeRange[1]
 
-
+index = -1
 for section in dataJSON:
+    index += 1
     data = section["data"]
     sectionSize = section["size"]
     if maximumSize > 0 and sectionSize > maximumSize: continue
@@ -67,6 +68,8 @@ for section in dataJSON:
     begin = end
     sectionCounter +=1
     if sectionsShowed and sectionCounter % sectionsShowed == 0:
+        print("index: ", index)
         plt.show()
 if totalSize > 0: 
+    print("index: ", index)
     plt.show()
