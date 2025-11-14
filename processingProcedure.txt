@@ -87,10 +87,9 @@ python3 offsetCorrection.py D:\Stalin\FotosFranjasProyecto\results\wednesday2910
 
 python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\wednesday29102025-offsetCorrected.json rangeCorrected 0:0 . 0:0 hz
 
-python3 getRansac.py D:\Stalin\FotosFranjasProyecto\results\wednesday29102025-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\wednesday29102025-Ransac.json 
-
 python3 getLinearRegression.py D:\Stalin\FotosFranjasProyecto\results\wednesday29102025-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\wednesday29102025-LinearRegression.json 
 
+python3 joinFiles.py D:\Stalin\FotosFranjasProyecto\results\wednesday29102025-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\pruebaOutput.json
 
 In Linux:
 #jq installation:

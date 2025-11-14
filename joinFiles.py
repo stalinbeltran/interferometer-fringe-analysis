@@ -18,7 +18,7 @@ with open(input_file, 'r', encoding='utf-8') as f:
 with open(output_file, 'r', encoding='utf-8') as f:
     dataJSONoutput = json.load(f)
     
-dataJSONoutput.append(dataJSON)
+dataJSONoutput.extend(dataJSON)
 
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(dataJSONoutput, f, ensure_ascii=False, indent=4)
