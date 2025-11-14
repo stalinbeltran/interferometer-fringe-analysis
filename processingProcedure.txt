@@ -1,16 +1,18 @@
 
 t-hursday09102025_slowacceleration_direct
-t-hursday09102025_slowacceleration_periscope
 t-uesday07102025
 f-riday03102025
-f-riday03102025_02
-f-riday26092025
 s-mallSampleDirect
-s-mallSamplePeriscope
 w-ednesday29102025
 
+Errores:
+f-riday03102025_02 (data dañada, por alguna razón está al revés la pendiente)
+f-riday24102025 (111 muestras, muy pocas)
+f-riday26092025 (single speed)
+
 f-riday24102025PBSasperiscope
-f-riday24102025
+t-hursday09102025_slowacceleration_periscope
+s-mallSamplePeriscope
 
 
 #get the file list of all fringes images:

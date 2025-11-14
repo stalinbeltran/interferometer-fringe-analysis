@@ -80,22 +80,6 @@ linear regression:
     "score": 0.3679545841711549
 }
 
-friday03102025_02		(coefficient POSITIVO!!!!!)
-linear regression:
-{
-    "coefficient": 0.16921719959935877,
-    "intercept": -0.7685319676878597,
-    "rmse": 0.09803629425807958,
-    "score": 0.556191638963227
-}
-
-ransac:
-{
-    "coefficient": 0.14927248633623658,
-    "intercept": -0.6815736904982329,
-    "rmse": 0.05855639147258091,
-    "mad": 0.06899193367760789,
-}
 
 smallSampleDirect
 linear regression
@@ -200,3 +184,22 @@ ransac
 
 
 
+
+
+Errores:
+friday03102025_02		(coefficient POSITIVO!!!!!)
+linear regression:
+{
+    "coefficient": 0.16921719959935877,
+    "intercept": -0.7685319676878597,
+    "rmse": 0.09803629425807958,
+    "score": 0.556191638963227
+}
+
+ransac:
+{
+    "coefficient": 0.14927248633623658,
+    "intercept": -0.6815736904982329,
+    "rmse": 0.05855639147258091,
+    "mad": 0.06899193367760789,
+}
