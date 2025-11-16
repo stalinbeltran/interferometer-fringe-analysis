@@ -11,7 +11,12 @@ python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints-
 
 python3 getLinearRegression.py D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints-LinearRegression.json 
 
-
+{
+    "coefficient": -0.17065466819652578,
+    "intercept": 1.5108115190256344,
+    "rmse": 0.09795098110004966,
+    "score": 0.5631602286783499
+}
 
 --------------------------------------------------------------------
 Archivos DIRECT:
@@ -43,11 +48,12 @@ Summary:
 Direct
 
 linear regression:
- -0.1433730860059002,
- -0.14830368224467572,
- -0.16000234114075546,
- -0.1695289558535754,
--0.1980276812947774,
+
+-0.14038753075986407,
+-0.15501897448300198,
+-0.15672314266072165,
+-0.1691092941249572,
+-0.21944222356638002,
 
 ---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
@@ -58,22 +64,20 @@ linear regression:
 Direct
 thursday09102025_slowacceleration_direct
 
-linear regression
 {
-    "coefficient": -0.1433730860059002,
-    "intercept": 1.9937559857977218,
-    "rmse": 0.1964530870190069,
-    "score": 0.18628682564169807
+    "coefficient": -0.14038753075986407,
+    "intercept": 1.6655124293057884,
+    "rmse": 0.11504997197512892,
+    "score": 0.3902424263839678
 }
 
 
 tuesday07102025
-linear regression:
 {
-    "coefficient": -0.14830368224467572,
-    "intercept": 2.164927192204863,
-    "rmse": 1.4271365230345858,
-    "score": 0.004351380440540509
+    "coefficient": -0.15501897448300198,
+    "intercept": 0.8493158034871157,
+    "rmse": 0.07269169162508257,
+    "score": 0.6479558588014338
 }
 
 
@@ -84,30 +88,28 @@ friday03102025
 
 linear regression:
 {
-    "coefficient": -0.16000234114075546,
-    "intercept": 1.8133025113397743,
-    "rmse": 0.1417969050783762,
-    "score": 0.3679545841711549
+    "coefficient": -0.15672314266072165,
+    "intercept": 1.8213451914834797,
+    "rmse": 0.09414518035417593,
+    "score": 0.5588998804376338
 }
 
 
 smallSampleDirect
-linear regression
 {
-    "coefficient": -0.1695289558535754,
-    "intercept": 1.8750311903911587,
-    "rmse": 0.22422498448648948,
-    "score": 0.1955630139490384
+    "coefficient": -0.1691092941249572,
+    "intercept": 1.8083116454049468,
+    "rmse": 0.09480876916910849,
+    "score": 0.575019100269653
 }
 
 
 wednesday29102025:
-linear regression
 {
-    "coefficient": -0.1980276812947774,
-    "intercept": 1.666233156796182,
-    "rmse": 0.08216586055375921,
-    "score": 0.706372660970625
+    "coefficient": -0.21944222356638002,
+    "intercept": 1.8318030250420119,
+    "rmse": 0.07907189693438445,
+    "score": 0.7613255521551876
 }
 
 
