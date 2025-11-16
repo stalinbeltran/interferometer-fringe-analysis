@@ -1,5 +1,44 @@
 
 
+
+
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints.json rangeCorrected 0:0 . 0:0 
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints.json rangeCorrected 0:0 . 74000:75100 SEQUENTIAL 1
+
+python3 offsetCorrection.py D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints.json D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints-offsetCorrected.json 1599
+
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints-offsetCorrected.json rangeCorrected 0:0 . 0:0 
+
+python3 getLinearRegression.py D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints-LinearRegression.json 
+
+
+
+--------------------------------------------------------------------
+Archivos DIRECT:
+
+--------------------------------------------------------------------
+
+thursday09102025_slowacceleration_direct
+tuesday07102025
+friday03102025
+smallSampleDirect
+wednesday29102025
+
+UNIR todos estos archivos a DIRECT_allPoints.json (inicialmmente vacío)
+
+python3 joinFiles.py D:\Stalin\FotosFranjasProyecto\results\thursday09102025_slowacceleration_direct-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints.json
+
+python3 joinFiles.py D:\Stalin\FotosFranjasProyecto\results\tuesday07102025-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints.json
+
+python3 joinFiles.py D:\Stalin\FotosFranjasProyecto\results\friday03102025-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints.json
+
+python3 joinFiles.py D:\Stalin\FotosFranjasProyecto\results\smallSampleDirect-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints.json
+
+python3 joinFiles.py D:\Stalin\FotosFranjasProyecto\results\wednesday29102025-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints.json
+
+--------------------------------------------------------------------
+
+
 Summary:
 Direct
 
@@ -7,17 +46,8 @@ linear regression:
  -0.1433730860059002,
  -0.14830368224467572,
  -0.16000234114075546,
- 0.16921719959935877,
  -0.1695289558535754,
 -0.1980276812947774,
-
-ransac:
- -0.1015335687175864,
- -0.14426378149365568,
- -0.20384234197334533,
- 0.14927248633623658,
- -0.038415926480335365,
--0.15922175429468355
 
 ---------------------------------------------------------------------------
 ---------------------------------------------------------------------------
@@ -26,15 +56,8 @@ ransac:
 
 
 Direct
-thursday09102025
+thursday09102025_slowacceleration_direct
 
-ransac
-{
-    "coefficient": -0.1015335687175864,
-    "intercept": 1.7839182159359583,
-    "rmse": 0.06770561024454728,
-    "mad": 0.08167470225333257,
-	}
 linear regression
 {
     "coefficient": -0.1433730860059002,
@@ -52,25 +75,12 @@ linear regression:
     "rmse": 1.4271365230345858,
     "score": 0.004351380440540509
 }
-ransac:
-{
-    "coefficient": -0.14426378149365568,
-    "intercept": 0.9620969144975448,
-    "rmse": 0.21351196373670409,
-    "mad": 0.19645504377637993,
-}
+
 
 
 
 
 friday03102025
-ransac:
-{
-    "coefficient": -0.20384234197334533,
-    "intercept": 2.0055253719893495,
-    "rmse": 0.07298884067745237,
-    "mad": 0.09326294223786047,
-}
 
 linear regression:
 {
@@ -90,14 +100,6 @@ linear regression
     "score": 0.1955630139490384
 }
 
-ransac
-{
-    "coefficient": -0.038415926480335365,
-    "intercept": 1.2155532186860336,
-    "rmse": 0.11804800841737094,
-    "mad": 0.15592083585127825,
-}
-
 
 wednesday29102025:
 linear regression
@@ -106,14 +108,6 @@ linear regression
     "intercept": 1.666233156796182,
     "rmse": 0.08216586055375921,
     "score": 0.706372660970625
-}
-
-ransac
-{
-    "coefficient": -0.15922175429468355,
-    "intercept": 1.4220523850748248,
-    "rmse": 0.053855110309648346,
-    "mad": 0.05937673916038766,
 }
 
 
@@ -144,6 +138,7 @@ Periscope
 
 Periscope 
 thursday09102025
+thursday09102025_slowacceleration_periscope
 
 ransac:
 {
