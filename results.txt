@@ -196,6 +196,14 @@ linear regression:
     "score": 0.556191638963227
 }
 
+linear regression: (after software debugging)
+{
+    "coefficient": 0.16857686765758043,
+    "intercept": -0.7655304023479252,
+    "rmse": 0.09882557464666959,
+    "score": 0.5503321973919985
+}
+
 ransac:
 {
     "coefficient": 0.14927248633623658,

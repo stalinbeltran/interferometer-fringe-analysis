@@ -82,9 +82,9 @@ python3 softener.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-Pla
 
 python3 getSectionsHz.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-Softened.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SectionsHz.json
 
-python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SectionsHz.json original 0:0 . 0:0 hz
+python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SectionsHz.json original 0:0 . 0:0 SEQUENTIAL 10 
 
-python3 offsetCorrection.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SectionsHz.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-offsetCorrected.json 0
+python3 offsetCorrection.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-SectionsHz.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-offsetCorrected.json 3
 
 python3 showSections.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-offsetCorrected.json rangeCorrected 0:0 . 0:0 hz
 
