@@ -6,19 +6,16 @@ import numpy as np
 import globals
 from collections import deque
 import matplotlib.pyplot as plt
-from sklearn.linear_model import RANSACRegressor, LinearRegression
+from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
-dataType = "original"
+dataType = "rangeCorrected"
 
 with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
-
-if not dataType:
-    dataType = "original"
     
 xdata = []
 ydata = []
@@ -28,8 +25,11 @@ for section in dataJSON:
     ydata.extend(data[dataType]["deltaPhase"])
     
 
+print("puntos: ", len(xdata))
+
 xdata = np.array(xdata)
 ydata = np.array(ydata)
+
 
 X = xdata.reshape(-1, 1)
 Y = ydata.reshape(-1, 1)
