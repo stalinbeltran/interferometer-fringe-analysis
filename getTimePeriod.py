@@ -19,14 +19,19 @@ processed = 0
 for segment in segments:
     samples = segment["samples"]
     previousSampleTimestamp = None
+    previousTimePeriod = None
     for sample in samples:
         fileMobile = sample["fileMobileMirror"]
         fileFixed = sample["fileFixedMirror"]
         timestamp = float(sample["timestamp"])
         if previousSampleTimestamp:
-            sample["timePeriod"] = timestamp - previousSampleTimestamp
+            timePeriod = timestamp - previousSampleTimestamp
+            if previousTimePeriod and (timePeriod/previousTimePeriod) >= 1.8:              #there is a missing sample
+                timePeriod /=2.0
+            sample["timePeriod"] = timePeriod
             sample["hz"] = 1.0/sample["timePeriod"]
             processed+=1
+            previousTimePeriod = timePeriod
         previousSampleTimestamp = timestamp
         #if processed > 10: break
 with open(output_file, 'w', encoding='utf-8') as f:

@@ -65,11 +65,9 @@ python3 removeUnusedData.py D:\Stalin\FotosFranjasProyecto\results\friday0310202
 
 python3 getPlainData.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-Cleaned.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-PlainData.json
 
-python3 getPlainData.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-ValidDataPoints.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-PlainData.json
 
 
-
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-PlainData.json  timestamp fixedPhase:mobilePhase 12000
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-PlainData.json  hz deltaPhase 500
 
 ----------------------------------------------------------------------------------------------------------------------------
 Unwrapping recipe:
@@ -78,7 +76,7 @@ File: D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-PlainData.json
 python3 localPhaseCorrection.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-PlainData.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-PlainData2.json deltaPhase deltaPhase 0.99 120 2 
 
 
-python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-PlainData2.json  SEQUENTIAL deltaPhase 21000
+python3 showXYData.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-PlainData2.json  SEQUENTIAL deltaPhase:hz 500
 
 python3 softener.py D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-PlainData2.json D:\Stalin\FotosFranjasProyecto\results\friday03102025_02-Softened.json 6:7:3
 
