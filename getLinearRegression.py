@@ -17,18 +17,18 @@ with open(input_file, 'r', encoding='utf-8') as f:
     dataJSON = json.load(f)
 
     
-xdata = []
-ydata = []
+hz = []
+deltaPhase = []
 for section in dataJSON:
     data = section["data"]
-    xdata.extend(data[dataType]["hz"])
-    ydata.extend(data[dataType]["deltaPhase"])
+    hz.extend(data[dataType]["hz"])
+    deltaPhase.extend(data[dataType]["deltaPhase"])
     
 
-print("puntos: ", len(xdata))
+print("puntos: ", len(hz))
 
-xdata = np.array(xdata)
-ydata = np.array(ydata)
+xdata = np.array(hz)
+ydata = np.array(deltaPhase)
 
 
 X = xdata.reshape(-1, 1)
@@ -54,7 +54,13 @@ linearRegression = {
 
 print(linearRegression)
 
-outputJSON = linearRegression
+outputJSON = {
+    "linearRegression":linearRegression,
+    "data":{
+        "hz": hz,
+        "deltaPhase": deltaPhase
+    }
+}
 
 with open(output_file, 'w', encoding='utf-8') as f:
     json.dump(outputJSON, f, ensure_ascii=False, indent=4)
