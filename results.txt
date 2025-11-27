@@ -18,6 +18,12 @@ python3 getLinearRegression.py D:\Stalin\FotosFranjasProyecto\results\DIRECT_all
     "score": 0.5631602286783499
 }
 
+
+python3 getCSV.py D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints-offsetCorrected.json D:\Stalin\FotosFranjasProyecto\results\DIRECT_allPoints.csv 
+
+
+
+
 cat /mnt/d/Stalin/FotosFranjasProyecto/results/DIRECT_allPoints-offsetCorrected.json | jq --raw-output '.data | [.hz, .deltaPhase] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/DIRECT_allPoints-offsetCorrected.csv
 
  jq --raw-output '.[].ransac | [.coefficient, .intercept, .rmse, .mad] | @csv' > /mnt/d/Stalin/FotosFranjasProyecto/results/friday03102025_02-RangeCorrected.csv
@@ -36,6 +42,9 @@ cat /mnt/d/Stalin/FotosFranjasProyecto/results/dummy.json | jq  --raw-output '.d
 
 
 cat /mnt/d/Stalin/FotosFranjasProyecto/results/dummy.json | jq  '.data | to_entries | map(.key) as $keys | (map(.value) | transpose) as $values | $values | map( $keys, .)'
+
+cat /mnt/d/Stalin/FotosFranjasProyecto/results/dummy.json | jq  '.data | to_entries | (map(.value) | transpose) as $valu
+es | $values '
 
 
 
