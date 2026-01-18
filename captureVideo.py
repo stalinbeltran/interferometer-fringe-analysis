@@ -15,6 +15,7 @@ import sys
 
 
 NTESTS = 0
+ExposureTime = 40000 #40 #original fringes capture
 saveImagesOnly = int(sys.argv[1]) == 1
 
 exit1 = False
@@ -41,12 +42,12 @@ def visibleComparison(imageQueue):
         time.sleep(delayComparison)
 
 
-def capture(imageQueue):
+def capture(imageQueue, cameraNumber):
     global photoFixed, photoMobile, exit1, NTESTS
     pub = Publisher()
     pub.init()
 
-    picam2 = Picamera2()
+    picam2 = Picamera2(cameraNumber)
     WIDTH = globals.WIDTH
     HEIGHT = globals.HEIGHT
     RESIZED_WIDTH = globals.RESIZED_WIDTH
@@ -61,7 +62,7 @@ def capture(imageQueue):
     #print("picam2.sensor_modes:")
     #print(picam2.sensor_modes)
     picam2.start()
-    picam2.set_controls({'ExposureTime':40})
+    picam2.set_controls({'ExposureTime':ExposureTime})
 
     tiemposCaptura = np.zeros(NTESTS)
     tiemposProceso = np.zeros(NTESTS)
@@ -115,7 +116,7 @@ def capture(imageQueue):
         
 
 p1 = threading.Thread(target=visibleComparison, args = (imageQueue,))
-p2 = threading.Thread(target=capture, args = (imageQueue,))
+p2 = threading.Thread(target=capture, args = (imageQueue, 0))
 p1.daemon = True
 #p2.daemon = True
 p1.start()
