@@ -58,6 +58,7 @@ def capture(imageQueue, cameraNumber):
         buffer_count=12,
     )
     picam2.configure(config)
+    #Camera information:
     #print(picam2.camera_configuration())
     #print("picam2.sensor_modes:")
     #print(picam2.sensor_modes)
@@ -69,7 +70,11 @@ def capture(imageQueue, cameraNumber):
     pos = 0
     tfinal = time.time()
     
-    status = globals.MOBILE_MIRROR
+    cameraNumber
+    if cameraNumber == 0:
+        status = globals.MOBILE_MIRROR
+    else:
+        status = globals.FIRST_FIXED_MIRROR
     while not exit1:
         
         tinicial = time.time()
@@ -90,11 +95,6 @@ def capture(imageQueue, cameraNumber):
         
 
         if saveImagesOnly: continue         #prioritize image publishing
-        
-        if status == globals.MOBILE_MIRROR:
-            status = globals.FIRST_FIXED_MIRROR
-        else:
-            status = globals.MOBILE_MIRROR
 
         if status == globals.MOBILE_MIRROR:
             imageQueue.put('mobile mirror')
@@ -116,11 +116,13 @@ def capture(imageQueue, cameraNumber):
         
 
 p1 = threading.Thread(target=visibleComparison, args = (imageQueue,))
-p2 = threading.Thread(target=capture, args = (imageQueue, 0))
+p2 = threading.Thread(target=capture, args = (imageQueue, 0))       #capture camera 0
+p3 = threading.Thread(target=capture, args = (imageQueue, 1))       #capture camera 1
 p1.daemon = True
-#p2.daemon = True
+
 p1.start()
 p2.start()
+p3.start()
 
         
         
@@ -143,3 +145,4 @@ cv2.destroyAllWindows()
 
 p1.join()
 p2.join()
+p3.join()
