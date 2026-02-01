@@ -7,6 +7,7 @@ from publisher import Publisher
 import time
 import redis
 from picamera2 import Picamera2
+from libcamera import Transform
 from gpiozero import Button, DigitalInputDevice
 from signal import pause
 import threading
@@ -53,9 +54,14 @@ def capture(imageQueue, cameraNumber):
     RESIZED_WIDTH = globals.RESIZED_WIDTH
     RESIZED_HEIGHT = globals.RESIZED_HEIGHT
 
+    flip = True
+    if cameraNumber > 0:
+        flip = False
+        
     config = picam2.create_video_configuration(
         raw = picam2.sensor_modes[globals.CAMERA_SENSOR_MODE],
         buffer_count=12,
+        transform = Transform(hflip = flip),
     )
     picam2.configure(config)
     #Camera information:
