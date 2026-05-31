@@ -6,7 +6,7 @@ import json
 import cv2
 import numpy as np
 import globals
-from collections import deque
+from collections import deque 
 
 input_file = (sys.argv[1])
 output_file = (sys.argv[2])
